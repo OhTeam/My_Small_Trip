@@ -12,9 +12,13 @@
 		7A4786B62072269E007ECD72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B42072269E007ECD72 /* Main.storyboard */; };
 		7A4786B82072269F007ECD72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B72072269F007ECD72 /* Assets.xcassets */; };
 		7A4786BB2072269F007ECD72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B92072269F007ECD72 /* LaunchScreen.storyboard */; };
+		7D196B9B6A7F2C8767C4303D /* Pods_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645A9386816F728B7A6C59C4 /* Pods_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		161BE9DF31468C749D75D355 /* Pods-MySmallTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySmallTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MySmallTrip/Pods-MySmallTrip.debug.xcconfig"; sourceTree = "<group>"; };
+		2F83BF85C1FFBEDEC1251E2A /* Pods-MySmallTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MySmallTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-MySmallTrip/Pods-MySmallTrip.release.xcconfig"; sourceTree = "<group>"; };
+		645A9386816F728B7A6C59C4 /* Pods_MySmallTrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MySmallTrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4786AD2072269D007ECD72 /* MySmallTrip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MySmallTrip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4786B02072269D007ECD72 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7A4786B22072269D007ECD72 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D196B9B6A7F2C8767C4303D /* Pods_MySmallTrip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4FC3A56ACF5D05D9A445AE88 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				161BE9DF31468C749D75D355 /* Pods-MySmallTrip.debug.xcconfig */,
+				2F83BF85C1FFBEDEC1251E2A /* Pods-MySmallTrip.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		73598E328ED5A4FFD3DA87AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				645A9386816F728B7A6C59C4 /* Pods_MySmallTrip.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7A4786A42072269D007ECD72 = {
 			isa = PBXGroup;
 			children = (
 				7A4786AF2072269D007ECD72 /* MySmallTrip */,
 				7A4786AE2072269D007ECD72 /* Products */,
+				4FC3A56ACF5D05D9A445AE88 /* Pods */,
+				73598E328ED5A4FFD3DA87AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A4786BF2072269F007ECD72 /* Build configuration list for PBXNativeTarget "MySmallTrip" */;
 			buildPhases = (
+				AC629E1A78D735D158EB8217 /* [CP] Check Pods Manifest.lock */,
 				7A4786A92072269D007ECD72 /* Sources */,
 				7A4786AA2072269D007ECD72 /* Frameworks */,
 				7A4786AB2072269D007ECD72 /* Resources */,
+				19CA72921664630525B223B2 /* [CP] Embed Pods Frameworks */,
+				531EC2CFAB657F790C147309 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,66 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19CA72921664630525B223B2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MySmallTrip/Pods-MySmallTrip-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MySmallTrip/Pods-MySmallTrip-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		531EC2CFAB657F790C147309 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MySmallTrip/Pods-MySmallTrip-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC629E1A78D735D158EB8217 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MySmallTrip-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7A4786A92072269D007ECD72 /* Sources */ = {
@@ -278,14 +365,12 @@
 		};
 		7A4786C02072269F007ECD72 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 161BE9DF31468C749D75D355 /* Pods-MySmallTrip.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -295,14 +380,12 @@
 		};
 		7A4786C12072269F007ECD72 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F83BF85C1FFBEDEC1251E2A /* Pods-MySmallTrip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

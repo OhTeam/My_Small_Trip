@@ -1,0 +1,6 @@
+framework module Pods_MySmallTrip {
+  umbrella header "Pods-MySmallTrip-umbrella.h"
+
+  export *
+  module * { export * }
+}
