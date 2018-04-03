@@ -17,12 +17,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // TODO: YS
+        tmpOpenLogInVC()  // to see log in view controller
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    // MARK: - YS
+    // Open login view controller temporarily
+    func tmpOpenLogInVC() {
+        let tmpStoryboard = UIStoryboard(name: "LogIn", bundle: nil)
+        let tmpLogInVC = tmpStoryboard.instantiateInitialViewController() as! LogInViewController
+        self.present(tmpLogInVC, animated: true)
+    }
 }
 
