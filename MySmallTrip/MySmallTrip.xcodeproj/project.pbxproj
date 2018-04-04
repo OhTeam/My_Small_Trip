@@ -12,6 +12,8 @@
 		7A4786B62072269E007ECD72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B42072269E007ECD72 /* Main.storyboard */; };
 		7A4786B82072269F007ECD72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B72072269F007ECD72 /* Assets.xcassets */; };
 		7A4786BB2072269F007ECD72 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786B92072269F007ECD72 /* LaunchScreen.storyboard */; };
+		7A4786E920746ECF007ECD72 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786E820746ECF007ECD72 /* SignUp.storyboard */; };
+		7A4786EB207485AB007ECD72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4786EA207485AB007ECD72 /* SignUpViewController.swift */; };
 		7D196B9B6A7F2C8767C4303D /* Pods_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645A9386816F728B7A6C59C4 /* Pods_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,8 @@
 		7A4786B72072269F007ECD72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7A4786BA2072269F007ECD72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7A4786BC2072269F007ECD72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7A4786E820746ECF007ECD72 /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
+		7A4786EA207485AB007ECD72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,8 @@
 				7A4786B02072269D007ECD72 /* AppDelegate.swift */,
 				7A4786B22072269D007ECD72 /* ViewController.swift */,
 				7A4786B42072269E007ECD72 /* Main.storyboard */,
+				7A4786E820746ECF007ECD72 /* SignUp.storyboard */,
+				7A4786EA207485AB007ECD72 /* SignUpViewController.swift */,
 				7A4786B72072269F007ECD72 /* Assets.xcassets */,
 				7A4786B92072269F007ECD72 /* LaunchScreen.storyboard */,
 				7A4786BC2072269F007ECD72 /* Info.plist */,
@@ -151,6 +157,7 @@
 			files = (
 				7A4786BB2072269F007ECD72 /* LaunchScreen.storyboard in Resources */,
 				7A4786B82072269F007ECD72 /* Assets.xcassets in Resources */,
+				7A4786E920746ECF007ECD72 /* SignUp.storyboard in Resources */,
 				7A4786B62072269E007ECD72 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A4786EB207485AB007ECD72 /* SignUpViewController.swift in Sources */,
 				7A4786B32072269D007ECD72 /* ViewController.swift in Sources */,
 				7A4786B12072269D007ECD72 /* AppDelegate.swift in Sources */,
 			);
@@ -369,8 +377,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -384,8 +396,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
