@@ -17,71 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="Lu6-Ya-Jtf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGL-2t-Yen">
-                                <rect key="frame" x="16" y="551" width="344" height="17"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Forgot your password?">
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="AppleSDGothicNeo-Regular"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9dL-Be-hsP">
-                                <rect key="frame" x="24" y="495" width="327" height="32"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.36078431370000003" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="16"/>
-                                <state key="normal" title="LOG IN">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="roundedRect" placeholder="Password" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="8yi-df-8Ph">
-                                <rect key="frame" x="24" y="441" width="327" height="30"/>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" borderStyle="roundedRect" placeholder="Your Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fwb-UX-vX5">
-                                <rect key="frame" x="24" y="395" width="327" height="30"/>
-                                <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good to see you again" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="my3-KJ-coz">
-                                <rect key="frame" x="32" y="194" width="312" height="17"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOG IN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acy-EP-3F0">
-                                <rect key="frame" x="32" y="141.5" width="312" height="44"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="36"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="9dL-Be-hsP" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="24" id="39l-yT-mGx"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="Fwb-UX-vX5" secondAttribute="trailing" constant="24" id="3eQ-y5-m49"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="acy-EP-3F0" secondAttribute="trailing" constant="31" id="8eF-gS-W8T"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="9dL-Be-hsP" secondAttribute="trailing" constant="24" id="9rt-Wq-w0A"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="my3-KJ-coz" secondAttribute="trailing" constant="31" id="D6G-JW-LAa"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="OGL-2t-Yen" secondAttribute="trailing" constant="15" id="D9g-Ht-tOZ"/>
-                            <constraint firstItem="Fwb-UX-vX5" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="24" id="MMc-ca-jhe"/>
-                            <constraint firstItem="acy-EP-3F0" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="32" id="PRV-aW-6oV"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="bottom" secondItem="OGL-2t-Yen" secondAttribute="bottom" constant="99" id="Qai-Ht-31z"/>
-                            <constraint firstItem="Fwb-UX-vX5" firstAttribute="top" secondItem="my3-KJ-coz" secondAttribute="bottom" constant="184" id="Ta2-ea-mJG"/>
-                            <constraint firstItem="9dL-Be-hsP" firstAttribute="top" secondItem="8yi-df-8Ph" secondAttribute="bottom" constant="24" id="Xbq-wH-amJ"/>
-                            <constraint firstItem="my3-KJ-coz" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="32" id="YW0-7g-YPk"/>
-                            <constraint firstItem="8yi-df-8Ph" firstAttribute="top" secondItem="Fwb-UX-vX5" secondAttribute="bottom" constant="16" id="e5W-fz-ckF"/>
-                            <constraint firstItem="8yi-df-8Ph" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="24" id="jZr-RU-88e"/>
-                            <constraint firstItem="OGL-2t-Yen" firstAttribute="top" secondItem="9dL-Be-hsP" secondAttribute="bottom" constant="24" id="jhe-fG-mHf"/>
-                            <constraint firstItem="OGL-2t-Yen" firstAttribute="leading" secondItem="IsH-8x-7gR" secondAttribute="leading" constant="16" id="vsO-JE-7Kw"/>
-                            <constraint firstItem="IsH-8x-7gR" firstAttribute="trailing" secondItem="8yi-df-8Ph" secondAttribute="trailing" constant="24" id="xXT-WF-93e"/>
-                            <constraint firstItem="my3-KJ-coz" firstAttribute="top" secondItem="acy-EP-3F0" secondAttribute="bottom" constant="9" id="xkI-4Q-L6X"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="IsH-8x-7gR"/>
                     </view>
                 </viewController>

@@ -36,6 +36,9 @@ class ViewController: UIViewController {
         let tmpStoryboard = UIStoryboard(name: "LogIn", bundle: nil)
         let tmpLogInVC = tmpStoryboard.instantiateInitialViewController() as! LogInViewController
         self.present(tmpLogInVC, animated: true)
+        
+//        let tmpLogInVC = LogInViewController()
+//        self.present(tmpLogInVC, animated: false, completion: nil)        
     }
 }
 
