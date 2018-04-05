@@ -17,6 +17,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var createAccountButton: UIButton!
     //회원가입 에러처리: response JSON으로 받아서 Alert 처리(msg는 Dic Value값)
     //User Info 서버로 전달, profile 사진은 url로 전달
     //비밀번호는 최소 8문자 이상 영문 + 숫자
@@ -35,16 +36,14 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        yourNameTextField.delegate = self
-//        yourEmailTextField.delegate = self
-//        passwordConfirmTextField.delegate = self
-//        passwordTextField.delegate = self
-//        phoneNumberTextField.delegate = self
+        yourNameTextField.delegate = self
+        yourEmailTextField.delegate = self
+        passwordConfirmTextField.delegate = self
+        passwordTextField.delegate = self
+        phoneNumberTextField.delegate = self
         createUI()
-
-
-
     }
+    
     
     private func createUI() {
         yourNameTextField.placeholder = "Your Name"
@@ -52,8 +51,8 @@ class SignUpViewController: UIViewController {
         passwordTextField.placeholder = "Password"
         passwordConfirmTextField.placeholder = "Password Confirm"
         phoneNumberTextField.placeholder = "Phone Number"
-        
-        //버튼 라운드 주기 아직 안함
+        createAccountButton.layer.cornerRadius = 5
+
     }
     
 
@@ -67,9 +66,17 @@ class SignUpViewController: UIViewController {
 
 }
 
-//extension ViewController: UITextFieldDelegate {
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        if
-//    }
-//}
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ yourEmailTextField: UITextField) -> Bool {
+        if self.yourEmailTextField.isFirstResponder {
+            yourEmailTextField.becomeFirstResponder()
+        } else if self.yourEmailTextField.isFirstResponder {
+            yourEmailTextField.resignFirstResponder()
+        } else if self.yourNameTextField.isFirstResponder {
+            yourNameTextField.becomeFirstResponder()
+        } else if self.yourNameTextField.isFirstResponder {
+            yourNameTextField.resignFirstResponder()
+        }
+        return true
+    }
+}
