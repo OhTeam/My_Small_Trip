@@ -33,9 +33,14 @@ class ViewController: UIViewController {
     // MARK: - YS
     // Open login view controller temporarily
     func tmpOpenLogInVC() {
-        let tmpStoryboard = UIStoryboard(name: "LogIn", bundle: nil)
-        let tmpLogInVC = tmpStoryboard.instantiateInitialViewController() as! LogInViewController
-        self.present(tmpLogInVC, animated: true)
+        // login view test
+//        let loginStoryboard = UIStoryboard(name: "LogIn", bundle: nil)
+//        let logInVC = loginStoryboard.instantiateInitialViewController() as! LogInViewController
+//        self.present(logInVC, animated: true)
+        
+        // profile view test
+        let profileVC = ProfileViewController()
+        self.present(profileVC, animated: false)
         
 //        let tmpLogInVC = LogInViewController()
 //        self.present(tmpLogInVC, animated: false, completion: nil)        
