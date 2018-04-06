@@ -16,7 +16,7 @@
             <objects>
                 <viewController storyboardIdentifier="SignUp" id="fL7-KG-pe7" customClass="SignUpViewController" customModule="MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PAk-Ss-j7j">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="780"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FyL-xS-2go">
@@ -123,6 +123,16 @@
                                                     <action selector="createAccountButton:" destination="fL7-KG-pe7" eventType="touchUpInside" id="C4K-h8-qMO"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6G-YL-ueb">
+                                                <rect key="frame" x="130" y="203" width="115" height="115"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="115" id="N9L-SL-p4W"/>
+                                                    <constraint firstAttribute="height" constant="115" id="byW-oK-heg"/>
+                                                </constraints>
+                                                <connections>
+                                                    <action selector="profileImageButton:" destination="fL7-KG-pe7" eventType="touchUpInside" id="5fd-2q-dnz"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -136,14 +146,18 @@
                                             <constraint firstItem="FlV-j8-VVQ" firstAttribute="trailing" secondItem="gnf-AL-8r7" secondAttribute="trailing" id="LfR-64-a7V"/>
                                             <constraint firstItem="re5-qe-DJj" firstAttribute="top" secondItem="UvN-fo-EQK" secondAttribute="top" constant="80" id="NQs-ee-0Ua"/>
                                             <constraint firstAttribute="trailing" secondItem="fEF-j6-F9c" secondAttribute="trailing" constant="130" id="O5J-DV-Ze7"/>
+                                            <constraint firstItem="gnf-AL-8r7" firstAttribute="top" secondItem="A6G-YL-ueb" secondAttribute="bottom" constant="24" id="OzJ-Cf-xE4"/>
+                                            <constraint firstAttribute="trailing" secondItem="A6G-YL-ueb" secondAttribute="trailing" constant="130" id="PeI-OW-qrR"/>
                                             <constraint firstItem="3Gf-oR-jm2" firstAttribute="top" secondItem="FlV-j8-VVQ" secondAttribute="bottom" constant="16" id="QmJ-yF-kWQ"/>
                                             <constraint firstItem="FlV-j8-VVQ" firstAttribute="top" secondItem="gnf-AL-8r7" secondAttribute="bottom" constant="16" id="VZ0-VX-Am7"/>
                                             <constraint firstItem="ljl-X6-bMl" firstAttribute="top" secondItem="re5-qe-DJj" secondAttribute="bottom" constant="8" id="W1k-nT-Cn1"/>
                                             <constraint firstAttribute="trailing" secondItem="ljl-X6-bMl" secondAttribute="trailing" constant="31" id="Wjv-s0-dll"/>
                                             <constraint firstItem="ljl-X6-bMl" firstAttribute="leading" secondItem="UvN-fo-EQK" secondAttribute="leading" constant="32" id="XPC-ap-QNn"/>
                                             <constraint firstItem="bO3-ek-bAX" firstAttribute="top" secondItem="eOr-1W-a0O" secondAttribute="bottom" constant="40" id="YZ6-VS-MX4"/>
+                                            <constraint firstItem="A6G-YL-ueb" firstAttribute="top" secondItem="ljl-X6-bMl" secondAttribute="bottom" constant="43" id="ckH-w1-Kmu"/>
                                             <constraint firstAttribute="trailing" secondItem="gnf-AL-8r7" secondAttribute="trailing" constant="24" id="dB3-WW-qr9"/>
                                             <constraint firstItem="3Gf-oR-jm2" firstAttribute="leading" secondItem="gnf-AL-8r7" secondAttribute="leading" id="hvH-g3-5lx"/>
+                                            <constraint firstItem="A6G-YL-ueb" firstAttribute="leading" secondItem="UvN-fo-EQK" secondAttribute="leading" constant="130" id="koq-rF-7PA"/>
                                             <constraint firstItem="gnf-AL-8r7" firstAttribute="leading" secondItem="UvN-fo-EQK" secondAttribute="leading" constant="24" id="kvJ-kL-X1y"/>
                                             <constraint firstItem="eOr-1W-a0O" firstAttribute="top" secondItem="chc-mW-HO0" secondAttribute="bottom" constant="16" id="lZf-Rr-c5W"/>
                                             <constraint firstItem="3Gf-oR-jm2" firstAttribute="trailing" secondItem="gnf-AL-8r7" secondAttribute="trailing" id="p5t-jQ-aaE"/>
@@ -182,14 +196,16 @@
                         <outlet property="passwordConfirmTextField" destination="chc-mW-HO0" id="eGX-OC-2zo"/>
                         <outlet property="passwordTextField" destination="3Gf-oR-jm2" id="zbM-mf-2Pg"/>
                         <outlet property="phoneNumberTextField" destination="eOr-1W-a0O" id="hVl-6U-ykW"/>
+                        <outlet property="profileImage" destination="fEF-j6-F9c" id="Oab-9g-1cB"/>
                         <outlet property="singUpLabel" destination="re5-qe-DJj" id="q6I-NG-rYO"/>
+                        <outlet property="viewTouch" destination="UvN-fo-EQK" id="IDF-Oh-0z7"/>
                         <outlet property="yourEmailTextField" destination="gnf-AL-8r7" id="FKo-Fq-UGx"/>
                         <outlet property="yourNameTextField" destination="FlV-j8-VVQ" id="SoB-Dx-UJW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fwc-k8-UX1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-242.40000000000001" y="-105.69715142428787"/>
+            <point key="canvasLocation" x="-242.40000000000001" y="-106.14692653673164"/>
         </scene>
     </scenes>
     <resources>
