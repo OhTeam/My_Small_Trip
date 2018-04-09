@@ -64,7 +64,6 @@ class ProfileViewController: UIViewController {
         
         // Table View Layout
         tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
-        //
         tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
         tableView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         buttonView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
@@ -144,7 +143,7 @@ class ProfileViewController: UIViewController {
         profileView.addSubview(emailLabel)
         
         //MARK: Layout inside Porfile View
-        // Profile Label
+        // Profile Label // TODO: - subview를 둬서 상하 가운데로 맞추기 , name, email 도 맞게 조정 ~~~~~~~~~~~~
         profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 20).isActive = true
         profileImageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 16).isActive = true
 //        profileImageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 16).isActive = true
@@ -159,20 +158,15 @@ class ProfileViewController: UIViewController {
         
         // Name Label
         nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
-//        nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
-        
         emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         nameLabel.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
-        
-        var tmpConst = nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12)
-        var tmpConst2 = profileImageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 16)
-        
+        // insted of centerXAnchor as follows
 //        nameLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 118).isActive = true
 //        profileView.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 117).isActive = true
         
         // Email Label
         emailLabel.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
-        
+        // insted of centerXAnchor as follows
 //        emailLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 107).isActive = true
 //        profileView.trailingAnchor.constraint(equalTo: emailLabel.trailingAnchor, constant: 106).isActive = true
         
@@ -182,8 +176,24 @@ class ProfileViewController: UIViewController {
     // MARK: - Table View
     private func createTableView() -> UIView {
         let tableView = UIView()
-        tableView.backgroundColor = .green // temporary color to be recognized
+//        tableView.backgroundColor = .green // temporary color to be recognized
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Table View Creation
+        let table = UITableView()
+        table.delegate = self
+        table.dataSource = self
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "profileCell")
+        table.separatorStyle = .none
+        table.translatesAutoresizingMaskIntoConstraints = false
+        
+        tableView.addSubview(table)
+        
+        //MARK: Layout inside Table View
+        table.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+        table.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        table.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
+        table.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
         
         return tableView
     }
@@ -191,9 +201,83 @@ class ProfileViewController: UIViewController {
     // MARK: - Button View
     private func createButtonView() -> UIView {
         let buttonView = UIView()
-        buttonView.backgroundColor = .blue // temporary color to be recognized
+//        buttonView.backgroundColor = .blue // temporary color to be recognized
         buttonView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Button Creation
+        let signOutbutton = UIButton()
+        signOutbutton.setTitle("SIGN OUT", for: .normal)
+        signOutbutton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
+        signOutbutton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        signOutbutton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        signOutbutton.layer.cornerRadius = 10
+        signOutbutton.clipsToBounds = true
+        signOutbutton.translatesAutoresizingMaskIntoConstraints = false
+        
+        buttonView.addSubview(signOutbutton)
+        
+        //MARK: Layout inside Table View
+        signOutbutton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
+        signOutbutton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
+        buttonView.trailingAnchor.constraint(equalTo: signOutbutton.trailingAnchor, constant: 24).isActive = true
+        buttonView.bottomAnchor.constraint(equalTo: signOutbutton.bottomAnchor, constant: 79).isActive = true
+        
         
         return buttonView
     }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath)
+        // TODO: - change to switch ~~~~~~~~~~~~~~ or creation a function dealing with each cell
+        if indexPath.section == 0 && indexPath.row == 0 {
+            cell.textLabel?.text = "프로필 설정"
+        }
+        
+        if indexPath.section == 0 && indexPath.row == 1 {
+            cell.textLabel?.text = "나의 여행"
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            cell.textLabel?.text = "고객센터"
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 1 {
+            cell.textLabel?.text = "이용 약관"
+        }
+        
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 20
+        } else {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return " "
+        } else {
+            return ""
+        }
+
+    }
+    
 }
