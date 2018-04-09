@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("\(self.view.bounds.size)") // to check size of this view controller's view
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
         // MARK: - Views Creation and Additon to Super View
@@ -51,27 +52,27 @@ class ProfileViewController: UIViewController {
         let safeGuie = self.view.safeAreaLayoutGuide
         
         //Title View Layout
+        titleView.heightAnchor.constraint(equalToConstant: 56).isActive = true
+        titleView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         titleView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         titleView.topAnchor.constraint(equalTo: safeGuie.topAnchor).isActive = true
-        titleView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
-        titleView.heightAnchor.constraint(equalToConstant: 56).isActive = true
         
         // Profile View Layout
+        profileView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         profileView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         profileView.topAnchor.constraint(equalTo: titleView.bottomAnchor).isActive = true
-        profileView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: profileView.bottomAnchor).isActive = true
         
         // Table View Layout
-        tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
         tableView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
+        tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         buttonView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         
         //Button View Layout
-        buttonView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         buttonView.heightAnchor.constraint(equalToConstant: 147).isActive = true
         buttonView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
+        buttonView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         safeGuie.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor).isActive = true
     }
     
@@ -89,10 +90,18 @@ class ProfileViewController: UIViewController {
         titleView.addSubview(titleImageView)
 
         //MARK: Layout inside Title View
+        titleImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        titleImageView.widthAnchor.constraint(equalToConstant: 108).isActive = true
+        titleImageView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        titleImageView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        
+        // TODO: 지울 것
+        /*
         titleImageView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 18).isActive = true
         titleView.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 18).isActive = true
         titleImageView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 134).isActive = true
         titleView.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 133).isActive = true
+        */
         
         return titleView
     }
@@ -113,6 +122,18 @@ class ProfileViewController: UIViewController {
         
         profileView.addSubview(profileLabel)
         
+        // Profile Subview Creation
+        let profileSubview: UIView = UIView()
+        profileSubview.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileView.addSubview(profileSubview)
+        
+        // Moving Profile Subview Creation
+        let movingProfileSubview: UIView = UIView()
+        movingProfileSubview.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileSubview.addSubview(movingProfileSubview)
+        
         // Profile Image Creation
         let profileImageView: UIImageView = UIImageView()
         profileImageView.backgroundColor = .gray // temporary color
@@ -120,7 +141,7 @@ class ProfileViewController: UIViewController {
         profileImageView.clipsToBounds = true
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        profileView.addSubview(profileImageView)
+        movingProfileSubview.addSubview(profileImageView)
         
         // Name Label Creation
         let nameLabel: UILabel = UILabel()
@@ -130,7 +151,7 @@ class ProfileViewController: UIViewController {
         nameLabel.textAlignment = .center
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        profileView.addSubview(nameLabel)
+        movingProfileSubview.addSubview(nameLabel)
         
         // Email Label Creation
         let emailLabel: UILabel = UILabel()
@@ -140,35 +161,41 @@ class ProfileViewController: UIViewController {
         emailLabel.textAlignment = .center
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        profileView.addSubview(emailLabel)
+        movingProfileSubview.addSubview(emailLabel)
         
         //MARK: Layout inside Porfile View
-        // Profile Label // TODO: - subview를 둬서 상하 가운데로 맞추기 , name, email 도 맞게 조정 ~~~~~~~~~~~~
+        
+        // Profile Label
+        profileLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 20).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 16).isActive = true
-//        profileImageView.topAnchor.constraint(equalTo: profileLabel.bottomAnchor, constant: 16).isActive = true
-        
         profileLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 16).isActive = true
-        profileView.trailingAnchor.constraint(equalTo: profileLabel.trailingAnchor, constant: 15)
+        profileView.trailingAnchor.constraint(equalTo: profileLabel.trailingAnchor, constant: 15).isActive = true
         
-        // Profile Image View
-        profileImageView.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
+        // ㄴ> Profile Subview
+        profileSubview.topAnchor.constraint(equalTo: profileLabel.bottomAnchor).isActive = true
+        profileSubview.bottomAnchor.constraint(equalTo: profileView.bottomAnchor).isActive = true
+        profileSubview.leadingAnchor.constraint(equalTo: profileView.leadingAnchor).isActive = true
+        profileSubview.trailingAnchor.constraint(equalTo: profileView.trailingAnchor).isActive = true
+        
+        // ㄴㅡ> Moving Profile Subview
+        movingProfileSubview.heightAnchor.constraint(equalToConstant: 168).isActive = true
+        movingProfileSubview.centerYAnchor.constraint(equalTo: profileSubview.centerYAnchor).isActive = true
+        movingProfileSubview.leadingAnchor.constraint(equalTo: profileSubview.leadingAnchor).isActive = true
+        movingProfileSubview.trailingAnchor.constraint(equalTo: profileSubview.trailingAnchor).isActive = true
+        
+        // ㄴㅡㅡ> Profile Image View
         profileImageView.widthAnchor.constraint(equalToConstant: 115).isActive = true
         profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 1).isActive = true
+        profileImageView.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
+        profileImageView.topAnchor.constraint(equalTo: movingProfileSubview.topAnchor).isActive = true
         
-        // Name Label
+        // ㄴㅡㅡ> Name Label
+        nameLabel.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
         nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
         emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
-        nameLabel.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
-        // insted of centerXAnchor as follows
-//        nameLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 118).isActive = true
-//        profileView.trailingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 117).isActive = true
         
-        // Email Label
-        emailLabel.centerXAnchor.constraint(equalTo: profileView.centerXAnchor).isActive = true
-        // insted of centerXAnchor as follows
-//        emailLabel.leadingAnchor.constraint(equalTo: profileView.leadingAnchor, constant: 107).isActive = true
-//        profileView.trailingAnchor.constraint(equalTo: emailLabel.trailingAnchor, constant: 106).isActive = true
+        // ㄴㅡㅡ> Email Label
+        emailLabel.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
         
         return profileView
     }
@@ -217,11 +244,10 @@ class ProfileViewController: UIViewController {
         buttonView.addSubview(signOutbutton)
         
         //MARK: Layout inside Table View
+        signOutbutton.heightAnchor.constraint(equalToConstant: 48).isActive = true
         signOutbutton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
         signOutbutton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
         buttonView.trailingAnchor.constraint(equalTo: signOutbutton.trailingAnchor, constant: 24).isActive = true
-        buttonView.bottomAnchor.constraint(equalTo: signOutbutton.bottomAnchor, constant: 79).isActive = true
-        
         
         return buttonView
     }
