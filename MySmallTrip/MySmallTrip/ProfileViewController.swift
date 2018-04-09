@@ -263,6 +263,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return 44
     }
     
+    
+    // TODO: - 이부분 string 없이 어떻게 처리 할 수 있는지 확인 할 것!!
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 20
@@ -277,7 +279,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return ""
         }
-
-    }
-    
+    }    
 }
