@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         
         // TODO: YS
-        tmpOpenLogInVC()  // to see log in view controller
+        tmpOpenVCs()  // to see log in view controller
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,16 +32,9 @@ class ViewController: UIViewController {
     
     // MARK: - YS
     // Open login view controller temporarily
-    func tmpOpenLogInVC() {
-        // login view test
-//        let loginStoryboard = UIStoryboard(name: "LogIn", bundle: nil)
-//        let logInVC = loginStoryboard.instantiateInitialViewController() as! LogInViewController
-//        self.present(logInVC, animated: true)
+    func tmpOpenVCs() {
         
-        // profile view test
-//        let profileVC = ProfileViewController()
-//        self.present(profileVC, animated: false)
-        
+        // make buttons temporarily
         let showLoginView = UIButton()
         let showProfileView = UIButton()
         

@@ -10,15 +10,14 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var titleView: UIView?
-    var profileView: UIView?
-    var tableView: UIView?
-    var buttonView: UIView?
+    private var titleView: UIView?
+    private var profileView: UIView?
+    private var tableView: UIView?
+    private var buttonView: UIView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("\(self.view.bounds.size)") // to check size of this view controller's view
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
         // MARK: - Views Creation and Additon to Super View

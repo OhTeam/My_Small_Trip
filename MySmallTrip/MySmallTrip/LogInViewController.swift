@@ -10,14 +10,14 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
-    var titleLabel: UILabel?
-    var upperDesLabel: UILabel?
-    var emailTextField: UITextField?
-    var pwTextField: UITextField?
-    var logInButton: UIButton?
-    var lowerDesLabel: UILabel?
+    private var titleLabel: UILabel?
+    private var upperDesLabel: UILabel?
+    private var emailTextField: UITextField?
+    private var pwTextField: UITextField?
+    private var logInButton: UIButton?
+    private var lowerDesLabel: UILabel?
     
-    var safeGuide: UILayoutGuide?
+    private var safeGuide: UILayoutGuide?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,21 +139,21 @@ class LogInViewController: UIViewController {
         safeGuide = self.view.safeAreaLayoutGuide
         
         // Title Label
+        titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
         titleLabel.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 80).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 48)
         titleLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
         safeGuide!.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
         
         // Uppder Description Label
-        upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         upperDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
         safeGuide!.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
 
         // Email TextField
         emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        emailTextField.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 24).isActive = true
         pwTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16).isActive = true
+        emailTextField.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 24).isActive = true
         safeGuide?.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: 24).isActive = true
 
         // Password TextField
