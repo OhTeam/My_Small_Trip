@@ -95,14 +95,6 @@ class ProfileViewController: UIViewController {
         titleImageView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
         titleImageView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
         
-        // TODO: 지울 것
-        /*
-        titleImageView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 18).isActive = true
-        titleView.bottomAnchor.constraint(equalTo: titleImageView.bottomAnchor, constant: 18).isActive = true
-        titleImageView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 134).isActive = true
-        titleView.trailingAnchor.constraint(equalTo: titleImageView.trailingAnchor, constant: 133).isActive = true
-        */
-        
         return titleView
     }
     
