@@ -191,14 +191,16 @@
                     </view>
                     <size key="freeformSize" width="375" height="780"/>
                     <connections>
+                        <outlet property="contentView" destination="UvN-fo-EQK" id="lwb-SV-94C"/>
                         <outlet property="createAccountButton" destination="bO3-ek-bAX" id="Xib-Ff-1ID"/>
+                        <outlet property="createAccountConstraint" destination="v4Z-Ag-Snc" id="eKJ-Ra-TaS"/>
                         <outlet property="greetingLabel" destination="ljl-X6-bMl" id="so9-6y-j7e"/>
                         <outlet property="passwordConfirmTextField" destination="chc-mW-HO0" id="eGX-OC-2zo"/>
                         <outlet property="passwordTextField" destination="3Gf-oR-jm2" id="zbM-mf-2Pg"/>
                         <outlet property="phoneNumberTextField" destination="eOr-1W-a0O" id="hVl-6U-ykW"/>
                         <outlet property="profileImage" destination="fEF-j6-F9c" id="Oab-9g-1cB"/>
+                        <outlet property="scrollView" destination="FyL-xS-2go" id="naX-VR-oVU"/>
                         <outlet property="singUpLabel" destination="re5-qe-DJj" id="q6I-NG-rYO"/>
-                        <outlet property="viewTouch" destination="UvN-fo-EQK" id="IDF-Oh-0z7"/>
                         <outlet property="yourEmailTextField" destination="gnf-AL-8r7" id="FKo-Fq-UGx"/>
                         <outlet property="yourNameTextField" destination="FlV-j8-VVQ" id="SoB-Dx-UJW"/>
                     </connections>
