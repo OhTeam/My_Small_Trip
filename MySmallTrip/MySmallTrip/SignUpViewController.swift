@@ -102,24 +102,57 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createAccountButton(_ sender: Any) {
         let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
-        let parameter: Parameters = [
-            "email" : yourEmailTextField.text!,
-            "first_name" : yourNameTextField.text!,
-            "password" : passwordTextField.text!,
-            "password2" : passwordConfirmTextField.text!,
-            "phone_number" : phoneNumberTextField.text!,
-            "img_profile" : ""
-        ]
+//        let parameter: Parameters = [
+//            "email" : yourEmailTextField.text!,
+//            "first_name" : yourNameTextField.text!,
+//            "password" : passwordTextField.text!,
+//            "password2" : passwordConfirmTextField.text!,
+//            "phone_number" : phoneNumberTextField.text!,
+//            "img_profile" : ""
+//        ]
         
-        Alamofire
-        .request(urlString, method: .post, parameters: parameter)
-            .responseJSON { (response) in
-                print(response.response?.statusCode)
-                if let responseValue = response.result.value as! [String: Any]? {
-                    print(responseValue.keys)
-                    print(responseValue.values)
-                }
-        }
+        
+       Alamofire.upload(
+        multipartFormData: { multipartform in
+            let emailData = self.yourEmailTextField.text!.data(using: .utf8)!
+            multipartform.append(emailData, withName: "email")
+            
+            
+            if let image = self.profileImage.image {
+                UIImagePNGRepresentation(<#T##image: UIImage##UIImage#>)
+                UIImageJPEGRepresentation(<#T##image: UIImage##UIImage#>, <#T##compressionQuality: CGFloat##CGFloat#>)
+                multipartform.append(<#T##data: Data##Data#>, withName: "img_profile", mimeType: "image/png")
+            }
+       },
+        to: urlString,
+        method: .post,
+        encodingCompletion: { result in
+            switch result {
+            case .success(let request, _, _):
+                request.responseData(completionHandler: { (response) in
+                    switch response.result {
+                    case .success:
+                        print("success")
+                    case .failure(let error):
+                        print(error)
+                    }
+                })
+            case .failure(let error):
+                print(error)
+            }
+       })
+        
+        
+//        Alamofire
+//        .request(urlString, method: .post, parameters: parameter)
+//            .responseJSON { (response) in
+//                print(response.response?.statusCode)
+//                if let responseValue = response.result.value as! [String: Any]? {
+//                    print(responseValue.keys)
+//                    print(responseValue.values)
+//                }
+//        }
+        
     }
     
     //MARK: - UI 구현부
@@ -133,6 +166,41 @@ class SignUpViewController: UIViewController {
         
     }
     
+    @IBOutlet weak var createAccountConstraint: NSLayoutConstraint!
+    override func viewWillAppear(_ animated: Bool) {
+        yourNameTextField.becomeFirstResponder()
+        addKeyboardOberver()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func addKeyboardOberver() {
+        func parsingKeyboardInfo(userInfo: [AnyHashable: Any]) -> (frame: CGRect, duration: TimeInterval, option: UIViewAnimationOptions) {
+            let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey] as! CGRect
+            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+            let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! UInt
+            return (keyboardFrame, duration, UIViewAnimationOptions(rawValue: curve))
+            }
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillShow, object: nil, queue: .main) { [weak self] in
+            guard let userInfo = $0.userInfo, let strongSelf = self else { return }
+            let keyboard = parsingKeyboardInfo(userInfo: userInfo)
+            UIView.animate(withDuration: keyboard.duration, delay: 0, options: keyboard.option, animations: {
+                strongSelf.createAccountConstraint.constant = keyboard.frame.height + 30
+                strongSelf.view.layoutIfNeeded()
+            })
+        }
+        
+        NotificationCenter.default.addObserver(forName: .UIKeyboardWillHide, object: nil, queue: .main) { [weak self] in
+            guard let userInfo = $0.userInfo, let strongSelf = self else { return }
+            let keyboard = parsingKeyboardInfo(userInfo: userInfo)
+            UIView.animate(withDuration: keyboard.duration, delay: 0, options: keyboard.option, animations: {
+                strongSelf.createAccountConstraint.constant = 30
+                strongSelf.view.layoutIfNeeded()
+            })
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
