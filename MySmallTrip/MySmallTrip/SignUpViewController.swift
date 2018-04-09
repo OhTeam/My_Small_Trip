@@ -102,56 +102,56 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createAccountButton(_ sender: Any) {
         let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
-//        let parameter: Parameters = [
-//            "email" : yourEmailTextField.text!,
-//            "first_name" : yourNameTextField.text!,
-//            "password" : passwordTextField.text!,
-//            "password2" : passwordConfirmTextField.text!,
-//            "phone_number" : phoneNumberTextField.text!,
-//            "img_profile" : ""
-//        ]
+        let parameter: Parameters = [
+            "email" : yourEmailTextField.text!,
+            "first_name" : yourNameTextField.text!,
+            "password" : passwordTextField.text!,
+            "password2" : passwordConfirmTextField.text!,
+            "phone_number" : phoneNumberTextField.text!,
+            "img_profile" : ""
+        ]
         
         
-       Alamofire.upload(
-        multipartFormData: { multipartform in
-            let emailData = self.yourEmailTextField.text!.data(using: .utf8)!
-            multipartform.append(emailData, withName: "email")
-            
-            
-            if let image = self.profileImage.image {
-                UIImagePNGRepresentation(<#T##image: UIImage##UIImage#>)
-                UIImageJPEGRepresentation(<#T##image: UIImage##UIImage#>, <#T##compressionQuality: CGFloat##CGFloat#>)
-                multipartform.append(<#T##data: Data##Data#>, withName: "img_profile", mimeType: "image/png")
-            }
-       },
-        to: urlString,
-        method: .post,
-        encodingCompletion: { result in
-            switch result {
-            case .success(let request, _, _):
-                request.responseData(completionHandler: { (response) in
-                    switch response.result {
-                    case .success:
-                        print("success")
-                    case .failure(let error):
-                        print(error)
-                    }
-                })
-            case .failure(let error):
-                print(error)
-            }
-       })
+//       Alamofire.upload(
+//        multipartFormData: { multipartform in
+//            let emailData = self.yourEmailTextField.text!.data(using: .utf8)!
+//            multipartform.append(emailData, withName: "email")
+//
+//
+//            if let image = self.profileImage.image {
+//                UIImagePNGRepresentation(<#T##image: UIImage##UIImage#>)
+//                UIImageJPEGRepresentation(<#T##image: UIImage##UIImage#>, <#T##compressionQuality: CGFloat##CGFloat#>)
+//                multipartform.append(<#T##data: Data##Data#>, withName: "img_profile", mimeType: "image/png")
+//            }
+//       },
+//        to: urlString,
+//        method: .post,
+//        encodingCompletion: { result in
+//            switch result {
+//            case .success(let request, _, _):
+//                request.responseData(completionHandler: { (response) in
+//                    switch response.result {
+//                    case .success:
+//                        print("success")
+//                    case .failure(let error):
+//                        print(error)
+//                    }
+//                })
+//            case .failure(let error):
+//                print(error)
+//            }
+//       })
         
         
-//        Alamofire
-//        .request(urlString, method: .post, parameters: parameter)
-//            .responseJSON { (response) in
-//                print(response.response?.statusCode)
-//                if let responseValue = response.result.value as! [String: Any]? {
-//                    print(responseValue.keys)
-//                    print(responseValue.values)
-//                }
-//        }
+        Alamofire
+        .request(urlString, method: .post, parameters: parameter)
+            .responseJSON { (response) in
+                print(response.response?.statusCode)
+                if let responseValue = response.result.value as! [String: Any]? {
+                    print(responseValue.keys)
+                    print(responseValue.values)
+                }
+        }
         
     }
     
