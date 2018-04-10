@@ -15,6 +15,7 @@
 		6FBE2FBC207C7DBB00BEAD8F /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */; };
 		6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */; };
 		6FBE2FC0207C7DD800BEAD8F /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */; };
+		FE6B4913D11E00C78E6DF30F /* Pods_iOSTeamProject_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,9 @@
 		6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
+		C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; sourceTree = "<group>"; };
+		D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTeamProject_MySmallTrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB15E6F548A37DBC1A163DAB /* Pods-iOSTeamProject-MySmallTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6B4913D11E00C78E6DF30F /* Pods_iOSTeamProject_MySmallTrip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +51,8 @@
 			children = (
 				6FBE2FA8207C7D7C00BEAD8F /* iOSTeamProject-MySmallTrip */,
 				6FBE2FA7207C7D7C00BEAD8F /* Products */,
+				9096C821918095916E6923B0 /* Pods */,
+				AA7DC571219FF9D24DD89928 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +80,23 @@
 			path = "iOSTeamProject-MySmallTrip";
 			sourceTree = "<group>";
 		};
+		9096C821918095916E6923B0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */,
+				FB15E6F548A37DBC1A163DAB /* Pods-iOSTeamProject-MySmallTrip.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA7DC571219FF9D24DD89928 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -80,9 +104,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6FBE2FB8207C7D7D00BEAD8F /* Build configuration list for PBXNativeTarget "iOSTeamProject-MySmallTrip" */;
 			buildPhases = (
+				E6D28808433E3A5107FA37B1 /* [CP] Check Pods Manifest.lock */,
 				6FBE2FA2207C7D7C00BEAD8F /* Sources */,
 				6FBE2FA3207C7D7C00BEAD8F /* Frameworks */,
 				6FBE2FA4207C7D7C00BEAD8F /* Resources */,
+				7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,6 +167,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6D28808433E3A5107FA37B1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iOSTeamProject-MySmallTrip-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6FBE2FA2207C7D7C00BEAD8F /* Sources */ = {
@@ -290,15 +361,13 @@
 		};
 		6FBE2FB9207C7D7D00BEAD8F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -308,15 +377,13 @@
 		};
 		6FBE2FBA207C7D7D00BEAD8F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB15E6F548A37DBC1A163DAB /* Pods-iOSTeamProject-MySmallTrip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

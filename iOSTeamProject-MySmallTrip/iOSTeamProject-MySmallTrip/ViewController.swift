@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class ViewController: UIViewController {
 
