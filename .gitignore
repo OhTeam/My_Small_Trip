@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io/api/xcode,swift,cocoapods
 
+### Mac DS_Store files
+# DS_Store
+.DS_Store
+
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
 
