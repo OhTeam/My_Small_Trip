@@ -14,6 +14,10 @@
 		7A4786E920746ECF007ECD72 /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A4786E820746ECF007ECD72 /* SignUp.storyboard */; };
 		7A4786EB207485AB007ECD72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4786EA207485AB007ECD72 /* SignUpViewController.swift */; };
 		7D196B9B6A7F2C8767C4303D /* Pods_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645A9386816F728B7A6C59C4 /* Pods_MySmallTrip.framework */; };
+		CA3ADC4C20771A30002F0A54 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA3ADC4B20771A30002F0A54 /* ProfileViewController.swift */; };
+		CAD420DB20775F6500A786F2 /* LayoutTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAD420DA20775F6500A786F2 /* LayoutTest.storyboard */; };
+		CADEA7D62073506600C53CF0 /* LogIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CADEA7D52073506600C53CF0 /* LogIn.storyboard */; };
+		CAE63B6F2073C78900AD8EAB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAE63B6E2073C78900AD8EAB /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		7A4786BC2072269F007ECD72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7A4786E820746ECF007ECD72 /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		7A4786EA207485AB007ECD72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		CA3ADC4B20771A30002F0A54 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CAD420DA20775F6500A786F2 /* LayoutTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LayoutTest.storyboard; sourceTree = "<group>"; };
+		CADEA7D52073506600C53CF0 /* LogIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LogIn.storyboard; sourceTree = "<group>"; };
+		CAE63B6E2073C78900AD8EAB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +92,10 @@
 				7A4786B22072269D007ECD72 /* ViewController.swift */,
 				7A4786E820746ECF007ECD72 /* SignUp.storyboard */,
 				7A4786EA207485AB007ECD72 /* SignUpViewController.swift */,
+				CAE63B6E2073C78900AD8EAB /* LogInViewController.swift */,
+				CA3ADC4B20771A30002F0A54 /* ProfileViewController.swift */,
+				CADEA7D52073506600C53CF0 /* LogIn.storyboard */,
+				CAD420DA20775F6500A786F2 /* LayoutTest.storyboard */,
 				7A4786B72072269F007ECD72 /* Assets.xcassets */,
 				7A4786B92072269F007ECD72 /* LaunchScreen.storyboard */,
 				7A4786BC2072269F007ECD72 /* Info.plist */,
@@ -152,6 +164,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CAD420DB20775F6500A786F2 /* LayoutTest.storyboard in Resources */,
+				CADEA7D62073506600C53CF0 /* LogIn.storyboard in Resources */,
 				7A4786BB2072269F007ECD72 /* LaunchScreen.storyboard in Resources */,
 				7A4786B82072269F007ECD72 /* Assets.xcassets in Resources */,
 				7A4786E920746ECF007ECD72 /* SignUp.storyboard in Resources */,
@@ -228,6 +242,8 @@
 				7A4786EB207485AB007ECD72 /* SignUpViewController.swift in Sources */,
 				7A4786B32072269D007ECD72 /* ViewController.swift in Sources */,
 				7A4786B12072269D007ECD72 /* AppDelegate.swift in Sources */,
+				CA3ADC4C20771A30002F0A54 /* ProfileViewController.swift in Sources */,
+				CAE63B6F2073C78900AD8EAB /* LogInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +380,7 @@
 			baseConfigurationReference = 161BE9DF31468C749D75D355 /* Pods-MySmallTrip.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
@@ -373,6 +390,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -383,6 +401,7 @@
 			baseConfigurationReference = 2F83BF85C1FFBEDEC1251E2A /* Pods-MySmallTrip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = MySmallTrip/Info.plist;
@@ -392,6 +411,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ohteam.MySmallTrip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
