@@ -17,7 +17,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // MARK: YS code ->
+        tmpYS() // For temporarily execution
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: YS function temporary ->
+    func tmpYS() {
         // create temporary views
         let tmpView: UIView = UIView()
         let showLogIn: UIButton = UIButton()
@@ -67,13 +77,9 @@ class ViewController: UIViewController {
         showProfile.bottomAnchor.constraint(equalTo: tmpView.bottomAnchor).isActive = true
         showProfile.leadingAnchor.constraint(equalTo: tmpView.leadingAnchor).isActive = true
         showProfile.trailingAnchor.constraint(equalTo: tmpView.trailingAnchor).isActive = true
-        // MARK: <- YS code
     }
+    // MARK: <- YS functions temporary
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     // MARK: YS @objc funcs ->
     @objc func showLogIn(_ sender: UIButton) {
