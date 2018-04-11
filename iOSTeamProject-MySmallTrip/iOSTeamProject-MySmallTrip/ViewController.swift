@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        tmpYS() // For temporarily execution
+        addButtonsToOpenViews() // For temporarily execution
         
     }
     
@@ -26,8 +26,8 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: YS function temporary ->
-    func tmpYS() {
+    // MARK: - YS Buttons to open view controllers
+    func addButtonsToOpenViews() {
         // create temporary views
         let tmpView: UIView = UIView()
         let showLogIn: UIButton = UIButton()
@@ -78,10 +78,9 @@ class ViewController: UIViewController {
         showProfile.leadingAnchor.constraint(equalTo: tmpView.leadingAnchor).isActive = true
         showProfile.trailingAnchor.constraint(equalTo: tmpView.trailingAnchor).isActive = true
     }
-    // MARK: <- YS functions temporary
     
     
-    // MARK: YS @objc funcs ->
+    // MARK: - YS @objc funcs to open view controllers
     @objc func showLogIn(_ sender: UIButton) {
         let tmpStoryBoard = UIStoryboard(name: "Login", bundle: nil)
         let logInVC: LogInViewController = tmpStoryBoard.instantiateInitialViewController() as! LogInViewController
@@ -92,6 +91,5 @@ class ViewController: UIViewController {
         let profileVC: ProfileViewController = ProfileViewController()
         self.present(profileVC, animated: true)
     }
-    // MARK: <- YS @objc funcs
 }
 
