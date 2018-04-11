@@ -48,6 +48,8 @@ class SignUpViewController: UIViewController {
     //MARK: - Profile image 입력부
     @IBOutlet weak var profileImage: UIImageView!
     let imagePicker = UIImagePickerController()
+    var uiImage: UIImage!
+    
     @IBAction func profileImageButton(_ sender: UIButton) {
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -78,6 +80,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    
     //MARK: - CreateAccount 버튼 액션
     @IBOutlet weak var createAccountButton: UIButton!
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -86,37 +89,33 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createAccountButton(_ sender: Any) {
         let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
-        //        let urlString = "https://api.lhy.kr/posts/"
-        
         let parameter: Parameters = [
             "email" : yourEmailTextField.text!,
             "first_name" : yourNameTextField.text!,
             "password" : passwordTextField.text!,
             "password2" : passwordConfirmTextField.text!,
             "phone_number" : phoneNumberTextField.text!,
-            "img_profile" : profileImage.image!
+//            "img_profile" : profileImage.image!
         ]
         
         //MARK: - 대용량 파일 업로드
-//        Alamofire
+        Alamofire
+            .request(urlString, method: .post, parameters: parameter)
+            .responseJSON { (response) in
+                print(response.response?.statusCode)
+                if let responseValue = response.result.value as! [String:Any]? {
+                    print(responseValue.keys)
+                    print(responseValue.values)
+                }
+        }
         
         Alamofire.upload(
             multipartFormData: { multipartform in
-                let emailData = self.yourEmailTextField.text!.data(using: .utf8)!
-                multipartform.append(emailData, withName: "email")
-                let nameData = self.yourNameTextField.text!.data(using: .utf8)!
-                multipartform.append(nameData, withName: "first_name")
-                let passwordData = self.passwordTextField.text!.data(using: .utf8)!
-                multipartform.append(passwordData, withName: "password")
-                let passwardData2 = self.passwordConfirmTextField.text!.data(using: .utf8)!
-                multipartform.append(passwardData2, withName: "password2")
-                let phoneNumberData = self.phoneNumberTextField.text!.data(using: .utf8)!
-                multipartform.append(phoneNumberData, withName: "phone_number")
-                
-                if let image = self.profileImage.image {
-                    let imageData = UIImageJPEGRepresentation(image, 1)
-                    multipartform.append(imageData!, withName: "img_profile", mimeType: "image/jpg")
-                }
+//                if let image = self.profileImage.image {
+//                    let imageData = UIImageJPEGRepresentation(self.uiImage, 0.1)
+                let data = UIImageJPEGRepresentation(UIImage(named: "myImg")!, 0.1)
+                    multipartform.append(data!, withName: "img_profile", mimeType: "image/jpeg")
+//                }
         },
             to: urlString,
             method: .post,
@@ -135,18 +134,6 @@ class SignUpViewController: UIViewController {
                     print(error)
                 }
         })
-        
-        
-        //        Alamofire
-        //        .request(urlString, method: .post, parameters: parameter)
-        //            .responseJSON { (response) in
-        //                print(response.response?.statusCode)
-        //                if let responseValue = response.result.value as! [String: Any]? {
-        //                    print(responseValue.keys)
-        //                    print(responseValue.values)
-        //                }
-        //        }
-        
     }
     
     //MARK: - UI 구현부 및 키보드 willAppear & Disappear & touchDisappear
@@ -189,7 +176,7 @@ class SignUpViewController: UIViewController {
         guard let noti = notification.userInfo,
             let keyboardFrame = noti[UIKeyboardFrameBeginUserInfoKey] as? CGRect
             else { return }
-        self.scrollView.contentInset.bottom = keyboardFrame.height + 10
+        self.scrollView.contentInset.bottom = keyboardFrame.height
     }
     @objc func keyboardWillHide(notification: Notification) {
         self.scrollView.contentInset = UIEdgeInsets.zero
@@ -205,9 +192,9 @@ class SignUpViewController: UIViewController {
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if self.yourEmailTextField.isFirstResponder {
-            yourNameTextField.becomeFirstResponder()
-        } else if self.yourNameTextField.isFirstResponder {
+        if self.yourNameTextField.isFirstResponder {
+            yourEmailTextField.becomeFirstResponder()
+        } else if self.yourEmailTextField.isFirstResponder {
             passwordTextField.becomeFirstResponder()
         } else if self.passwordTextField.isFirstResponder {
             passwordConfirmTextField.becomeFirstResponder()
@@ -225,12 +212,13 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImage.image = image
+            uiImage = image
             print(info)
         }
         dismiss(animated: true, completion: nil)
     }
     func setupProfileImage() {
-        profileImage.layer.cornerRadius = profileImage.frame.size.width / 1.5
+        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
         profileImage.clipsToBounds = true
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
