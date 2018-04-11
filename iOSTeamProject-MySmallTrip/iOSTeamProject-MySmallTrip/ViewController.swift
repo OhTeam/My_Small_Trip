@@ -13,25 +13,19 @@ import FBSDKCoreKit
 
 class ViewController: UIViewController {
 
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        // Do any additional setup after loading the view, typically from a nib.
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        seRootVCOpen()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-
-//}
-
-    // 삭제할 부분
-    
-    var btn: UIButton!
-    override func viewDidLoad() {
-        
-        btn = UIButton()
+    // se
+    func seRootVCOpen() {
+        let btn = UIButton()
         btn.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
         btn.backgroundColor = UIColor.Custom.mainColor
         btn.setTitle("test", for: .normal)
