@@ -10,6 +10,8 @@ import UIKit
 
 class LogInViewController: UIViewController {
     
+    private var basicView: UIView?
+    private var dismissImgBtnView: UIView?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
     private var emailTextField: UITextField?
@@ -18,15 +20,17 @@ class LogInViewController: UIViewController {
     private var lowerDesLabel: UILabel?
     
     private var safeGuide: UILayoutGuide?
+    private var textFieldPositionConstraint: NSLayoutConstraint?
+    private let movingHeight: CGFloat = 64 // distance to be moved at keyboard-up
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
         
-        createItems()
-        addSubviews()
-        setLayout()
+        createItems() // create all components
+        addSubviews() // add all components onto root view
+        setLayout() // set auto layout
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,7 +39,9 @@ class LogInViewController: UIViewController {
     }
     
     private func addSubviews() {
-        guard let titleLabel = self.titleLabel,
+        guard let basicView = basicView,
+            let dismissImgBtnView = dismissImgBtnView,
+            let titleLabel = self.titleLabel,
             let upperDesLabel = self.upperDesLabel,
             let emailTextField = self.emailTextField,
             let pwTextField = self.pwTextField,
@@ -43,15 +49,19 @@ class LogInViewController: UIViewController {
             let lowerDesLabel = self.lowerDesLabel
             else { return }
         
-        self.view.addSubview(titleLabel)
-        self.view.addSubview(upperDesLabel)
-        self.view.addSubview(emailTextField)
-        self.view.addSubview(pwTextField)
-        self.view.addSubview(logInButton)
-        self.view.addSubview(lowerDesLabel)
+        self.view.addSubview(basicView)
+        self.view.addSubview(dismissImgBtnView)
+        basicView.addSubview(titleLabel)
+        basicView.addSubview(upperDesLabel)
+        basicView.addSubview(emailTextField)
+        basicView.addSubview(pwTextField)
+        basicView.addSubview(logInButton)
+        basicView.addSubview(lowerDesLabel)
     }
     
     private func createItems() {
+        setBasicView()
+        setDismissImgBtnView()
         setTitleLabel()
         setUpperDesLabel()
         setEmailTextField()
@@ -60,14 +70,47 @@ class LogInViewController: UIViewController {
         setLowerDesLabel()
     }
     
+    private func setBasicView() {
+        basicView = UIView()
+        basicView!.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setDismissImgBtnView() {
+        dismissImgBtnView = UIView()
+        dismissImgBtnView!.translatesAutoresizingMaskIntoConstraints = false
+        
+        let dismissImageView = UIImageView(image: UIImage(named: "logInDismiss"))
+        dismissImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let dismissButton = UIButton()
+        dismissButton.backgroundColor = .clear
+        // TODO: ***** addTarget으로 dissmiss 구현
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        dismissImgBtnView!.addSubview(dismissImageView)
+        dismissImgBtnView!.addSubview(dismissButton)
+        
+        // layout items on dismissImgBtnView
+        // dismissImageView
+        dismissImageView.topAnchor.constraint(equalTo: dismissImgBtnView!.topAnchor).isActive = true
+        dismissImageView.bottomAnchor.constraint(equalTo: dismissImgBtnView!.bottomAnchor).isActive = true
+        dismissImageView.leadingAnchor.constraint(equalTo: dismissImgBtnView!.leadingAnchor).isActive = true
+        dismissImageView.trailingAnchor.constraint(equalTo: dismissImgBtnView!.trailingAnchor).isActive = true
+        
+        // dismissButton
+        dismissButton.topAnchor.constraint(equalTo: dismissImgBtnView!.topAnchor).isActive = true
+        dismissButton.bottomAnchor.constraint(equalTo: dismissImgBtnView!.bottomAnchor).isActive = true
+        dismissButton.leadingAnchor.constraint(equalTo: dismissImgBtnView!.leadingAnchor).isActive = true
+        dismissButton.trailingAnchor.constraint(equalTo: dismissImgBtnView!.trailingAnchor).isActive = true
+        
+        
+    }
+    
     private func setTitleLabel() {
         titleLabel = UILabel()
         titleLabel!.text = "LOG IN"
         titleLabel!.textAlignment = .center
         titleLabel!.textColor = UIColor(displayP3Red: 51/255, green: 51/255, blue: 51/255, alpha: 1)
-        //        titleLabel!.backgroundColor = .red
-        //        titleLabel!.layer.borderColor = UIColor.black.cgColor
-        //        titleLabel!.layer.borderWidth = 1
         titleLabel!.font = UIFont.systemFont(ofSize: 48, weight: .bold)
         titleLabel!.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -83,6 +126,8 @@ class LogInViewController: UIViewController {
     
     private func setEmailTextField() {
         emailTextField = UITextField()
+        emailTextField!.delegate = self
+        emailTextField!.tag = 1
         emailTextField!.placeholder = "Your Email"
         emailTextField!.textAlignment = .left
         emailTextField!.textColor = .black // temporary color value
@@ -96,6 +141,8 @@ class LogInViewController: UIViewController {
     
     private func setPWTextField() {
         pwTextField = UITextField()
+        pwTextField!.delegate = self
+        pwTextField!.tag = 2
         pwTextField!.placeholder = "Password"
         pwTextField!.textAlignment = .left
         pwTextField!.textColor = .black // temporary color value
@@ -128,7 +175,9 @@ class LogInViewController: UIViewController {
     }
     
     private func setLayout() {
-        guard let titleLabel = self.titleLabel,
+        guard let basicView = basicView,
+            let dismissImgBtnView = dismissImgBtnView,
+            let titleLabel = self.titleLabel,
             let upperDesLabel = self.upperDesLabel,
             let emailTextField = self.emailTextField,
             let pwTextField = self.pwTextField,
@@ -138,40 +187,72 @@ class LogInViewController: UIViewController {
         
         safeGuide = self.view.safeAreaLayoutGuide
         
+        // Basic View
+        basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
+        basicView.widthAnchor.constraint(equalTo: safeGuide!.widthAnchor).isActive = true
+        textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
+        textFieldPositionConstraint!.isActive = true
+        basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+        
+        // Dismiss Image-Button View
+        dismissImgBtnView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        dismissImgBtnView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        dismissImgBtnView.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 16).isActive = true
+        dismissImgBtnView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 15).isActive = true
+        
         // Title Label
         titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 80).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: basicView.topAnchor, constant: 80).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
-        safeGuide!.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
         
         // Uppder Description Label
         upperDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
-        safeGuide!.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
+        upperDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 32).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
         
         // Email TextField
         emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
         pwTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16).isActive = true
-        emailTextField.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 24).isActive = true
-        safeGuide?.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: 24).isActive = true
+        emailTextField.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: 24).isActive = true
         
         // Password TextField
         pwTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
         logInButton.topAnchor.constraint(equalTo: pwTextField.bottomAnchor, constant: 24).isActive = true
-        pwTextField.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 24).isActive = true
-        safeGuide!.trailingAnchor.constraint(equalTo: pwTextField.trailingAnchor, constant: 24).isActive = true
+        pwTextField.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: pwTextField.trailingAnchor, constant: 24).isActive = true
         
         // Log In Button
         logInButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
         lowerDesLabel.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 24).isActive = true
-        logInButton.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 24).isActive = true
-        safeGuide!.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 24).isActive = true
+        logInButton.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 24).isActive = true
         
         // Lower Description Label
         lowerDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        safeGuide!.bottomAnchor.constraint(equalTo: lowerDesLabel.bottomAnchor, constant: 99).isActive = true
-        lowerDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 16).isActive = true
-        safeGuide!.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
+        basicView.bottomAnchor.constraint(equalTo: lowerDesLabel.bottomAnchor, constant: 99).isActive = true
+        lowerDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 16).isActive = true
+        basicView.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
+    }
+}
+
+extension LogInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let emailTextField = emailTextField,
+            let pwTextField = pwTextField,
+            let textFieldPositionConstraint = textFieldPositionConstraint else { return true }
+        if textField.tag == 1 {
+            emailTextField.resignFirstResponder()
+            // TODO: ***** 개선 필요 !!
+            textFieldPositionConstraint.constant -= self.movingHeight  // view = safeGuideCenterY - movingHeight
+            pwTextField.becomeFirstResponder()
+        } else {
+            textFieldPositionConstraint.constant = 0 // += self.movingHeight is possible to move over the safeGuide line
+            pwTextField.resignFirstResponder()
+        }
+        
+        return true
     }
 }
