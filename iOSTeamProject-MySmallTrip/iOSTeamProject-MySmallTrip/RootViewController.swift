@@ -28,6 +28,7 @@ class RootViewController: UIViewController {
         
         if let token = FBSDKAccessToken.current() {
             fetchProfile()
+            print(token)
         }
     }
 
@@ -44,7 +45,7 @@ class RootViewController: UIViewController {
     private func fetchProfile() {
         print("fetch")
         
-        let fbParams = ["fields":"email, name, picture.type(large)"]
+        let fbParams = ["fields":"email, name, picture.type(large), phone"]
         FBSDKGraphRequest(graphPath: "me", parameters: fbParams).start { (connection, result, error) in
         
             if error != nil {
@@ -52,12 +53,44 @@ class RootViewController: UIViewController {
                 return
             }
             
-            print(result)
+            guard let result = result as? NSDictionary,
+            let email = result["email"] as? String,
+            let name = result["name"] as? String,
+            let pic
+                else { return }
             
+            
+        }
+            
+//            let userParams = [
+//                "username":
+//                "email": email,
+//                "first_name":
+//                "phone_number":
+//                "img_profile":
+//                "is_facebook_user":
+//            ]
+//
 //            let postParams = [
-//                "username":"",
-//                "email":"",
+//                "token": FBSDKAccessToken.current(),
+//                "user": userParams
 //                ]
+            
+        
+            
+            
+//            {
+//                "token": "토큰값"
+//                "user": {
+//                    "pk": "사용자 id",
+//                    "username": "사용자 이메일",
+//                    "email": "사용자 이메일",
+//                    "first_name": "사용자 이름",
+//                    "phone_number": "사용자 핸드폰 번호",
+//                    "img_profile": "프로필 이미지",
+//                    "is_facebook_user": "페이스북 유저(True)"
+//                }
+//            }
 //
 //            let url = "http://myrealtrip.hongsj.kr/" + "/sign-up/"
 //            Alamofire
@@ -73,29 +106,8 @@ class RootViewController: UIViewController {
         }
     }
 
-}
 
-//{
-//    "pk": "사용자 id",
-//    "username": "사용자 이메일",
-//    "email": "사용자 이메일",
-//    "first_name": "사용자 이름",
-//    "phone_number": "사용자 핸드폰 번호",
-//    "img_profile": "프로필 이미지",
-//    "is_facebook_user": "페이스북 유저"
-//}
 
-//struct User: Codable {
-//    let pk: Int
-//    let userName: String
-//    let email: String
-//    let firstName: String
-//    let phoneNumber: String
-//    let profileImg: String
-//    let isFacebookUser: Bool
-//    
-//    
-//}
 
 
 
