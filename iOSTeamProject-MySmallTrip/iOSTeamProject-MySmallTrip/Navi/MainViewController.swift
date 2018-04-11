@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.backgroundColor = UIColor.Custom.greyColor
         
         self.navigationController?.navigationBar.frame.size = self.navigationController!.navigationBar.sizeThatFits(CGSize(width: (self.navigationController?.navigationBar.frame.size.width)!, height: 84))
     }

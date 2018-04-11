@@ -13,11 +13,19 @@ class MainNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.Custom.backgroundColor
+        self.view.backgroundColor = UIColor.Custom.greyColor
         
-        let logoContainer = UIView(frame: CGRect(x: 0, y: 0, width: 106, height: 33))
+        
+        // logo image layout update
+        let width: CGFloat = 106
+        let height: CGFloat = 33
+        
+        let x = self.navigationBar.center.x - (width / 2)
+        let y = self.navigationBar.center.y - (height / 2)
+        
+        let logoContainer = UIView(frame: CGRect(x: 0, y: 10, width: width, height: height))
 
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 106, height: 33))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         imageView.contentMode = .scaleAspectFit
         let image = UIImage(named: "logo(small)")
         imageView.image = image
@@ -27,32 +35,6 @@ class MainNavigationController: UINavigationController {
 
             self.childViewControllers[idx].navigationItem.titleView = logoContainer
         }
-        
-        
-        
-        self.navigationBar.frame.size = self.navigationBar.sizeThatFits(CGSize(width: self.navigationBar.frame.size.width, height: 84))
-        
-//        let height: CGFloat = 50
-//        self.navigationBar.frame = CGRect(x: 0, y: 0, width: self.navigationBar.frame.width, height: height + self.navigationBar.frame.height)
-        
-//        self.navigationBar.sizeThatFits(CGSize(width: UIScreen.main.bounds.width, height: 56))
-        
-//        self.navigationBar.sizeThatFits(CGSize(width: 0, height: 0))
-        
-        
-        
-//        let logo = UIImage(named: "logo(small)")
-//
-//        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 106, height: 33))
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.image = logo
-//
-//
-//        for idx in 0..<self.childViewControllers.count {
-//
-//            self.childViewControllers[idx].navigationItem.titleView = imageView
-//        }
-        
     }
 
 }
@@ -62,23 +44,13 @@ class MainNavigationController: UINavigationController {
 class CustomNavigationBar: UINavigationBar {
     
     //set NavigationBar's height
-    
-    
-    
-    // 내비 바 height 조절
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-        var customHeight: CGFloat = 84
-        return CGSize(width: UIScreen.main.bounds.width, height: customHeight)
-
-    }
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         self.barTintColor = UIColor.Custom.backgroundColor
 
-        var customHeight: CGFloat = 100
+        var customHeight: CGFloat = 56
+        
         
         frame = CGRect(x: frame.origin.x, y: 0, width: frame.size.width, height: customHeight)
 
@@ -98,8 +70,6 @@ class CustomNavigationBar: UINavigationBar {
             if stringFromClass.contains("BarContent") {
 
                 subview.frame = CGRect(x: subview.frame.origin.x, y: 20, width: subview.frame.width, height: customHeight - 20)
-
-
             }
         }
     }
