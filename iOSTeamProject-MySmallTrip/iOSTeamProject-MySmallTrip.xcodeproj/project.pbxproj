@@ -109,6 +109,7 @@
 				6FBE2FA3207C7D7C00BEAD8F /* Frameworks */,
 				6FBE2FA4207C7D7C00BEAD8F /* Resources */,
 				7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */,
+				A46CC5174C6EF28DF7351646 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -191,6 +192,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A46CC5174C6EF28DF7351646 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E6D28808433E3A5107FA37B1 /* [CP] Check Pods Manifest.lock */ = {
