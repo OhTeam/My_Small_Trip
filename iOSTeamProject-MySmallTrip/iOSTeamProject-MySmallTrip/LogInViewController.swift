@@ -21,7 +21,7 @@ class LogInViewController: UIViewController {
     
     private var safeGuide: UILayoutGuide?
     private var textFieldPositionConstraint: NSLayoutConstraint?
-    private let movingHeight: CGFloat = 64 // distance to be moved at keyboard-up
+    private let movingHeight: CGFloat = 100 // distance to be moved at keyboard-up
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +84,7 @@ class LogInViewController: UIViewController {
         
         let dismissButton = UIButton()
         dismissButton.backgroundColor = .clear
-        // TODO: ***** addTarget으로 dissmiss 구현
+        dismissButton.addTarget(self, action: #selector(dismissLogInVC(_:)), for: .touchUpInside)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         
         dismissImgBtnView!.addSubview(dismissImageView)
@@ -102,8 +102,6 @@ class LogInViewController: UIViewController {
         dismissButton.bottomAnchor.constraint(equalTo: dismissImgBtnView!.bottomAnchor).isActive = true
         dismissButton.leadingAnchor.constraint(equalTo: dismissImgBtnView!.leadingAnchor).isActive = true
         dismissButton.trailingAnchor.constraint(equalTo: dismissImgBtnView!.trailingAnchor).isActive = true
-        
-        
     }
     
     private func setTitleLabel() {
@@ -135,7 +133,8 @@ class LogInViewController: UIViewController {
         emailTextField!.layer.borderWidth = 1
         emailTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         emailTextField!.layer.cornerRadius = 5
-        emailTextField!.clipsToBounds = true // needs testing
+        emailTextField!.clipsToBounds = true
+        emailTextField!.addTarget(self, action: #selector(moveUpAllComponents(_:)), for: UIControlEvents.touchDown)
         emailTextField!.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -148,9 +147,11 @@ class LogInViewController: UIViewController {
         pwTextField!.textColor = .black // temporary color value
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
         pwTextField!.layer.cornerRadius = 5
-        pwTextField!.clipsToBounds = true // needs testing
+        pwTextField!.clipsToBounds = true
         pwTextField!.layer.borderWidth = 1
+        pwTextField!.addTarget(self, action: #selector(moveUpAllComponents(_:)), for: .touchDown)
         pwTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        
         pwTextField!.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -190,8 +191,10 @@ class LogInViewController: UIViewController {
         // Basic View
         basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
         basicView.widthAnchor.constraint(equalTo: safeGuide!.widthAnchor).isActive = true
+        
         textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
         textFieldPositionConstraint!.isActive = true
+        
         basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
         
         // Dismiss Image-Button View
@@ -236,21 +239,39 @@ class LogInViewController: UIViewController {
         lowerDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 16).isActive = true
         basicView.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
     }
+    
+    @objc func dismissLogInVC(_ sender: UIButton) {
+        // to reduce time for keyboard to disappear
+        if emailTextField?.isFirstResponder == true {
+            emailTextField?.resignFirstResponder()
+        } else if pwTextField?.isFirstResponder == true {
+            pwTextField?.resignFirstResponder()
+        }
+        
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func moveUpAllComponents(_ sender: UITextField) {
+        guard let textFieldPositionConstraint = textFieldPositionConstraint else { return }
+        
+        sender.becomeFirstResponder() // for keyboard to start to be shown quickly
+        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+    }
 }
 
 extension LogInViewController: UITextFieldDelegate {
+    // when return key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let emailTextField = emailTextField,
             let pwTextField = pwTextField,
             let textFieldPositionConstraint = textFieldPositionConstraint else { return true }
+        
         if textField.tag == 1 {
             emailTextField.resignFirstResponder()
-            // TODO: ***** 개선 필요 !!
-            textFieldPositionConstraint.constant -= self.movingHeight  // view = safeGuideCenterY - movingHeight
             pwTextField.becomeFirstResponder()
         } else {
-            textFieldPositionConstraint.constant = 0 // += self.movingHeight is possible to move over the safeGuide line
             pwTextField.resignFirstResponder()
+            textFieldPositionConstraint.constant = 0
         }
         
         return true
