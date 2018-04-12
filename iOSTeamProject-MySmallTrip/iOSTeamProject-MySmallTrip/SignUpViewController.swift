@@ -117,7 +117,7 @@ class SignUpViewController: UIViewController {
 //        let imageData = UIImageJPEGRepresentation(UIImage(named: "myImgBig")!, 1)!
 //        let imageData = UIImagePNGRepresentation(UIImage(named: "bigsize")!)!
 //        let imageData = UIImageJPEGRepresentation(UIImage(named: "bigsize")!, 1)!
-        let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.5)
+        let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)
 //        let imageData = UIImageJPEGRepresentation(UIImage(named: "soBig")!, 0.9)!
         print(imageData)
         
