@@ -9,8 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-//    private var titleView: UIView? -> changed to Navigation Bar
+
     private var profileView: UIView?
     private var tableView: UIView?
     private var buttonView: UIView?
@@ -19,46 +18,26 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         // Prepare for Navigation Controller
-        // without any anchor
+        // ㄴ> titleView without any anchor
         self.navigationItem.titleView = {
             () -> UIImageView in
             let tmpImageView = UIImageView(image: UIImage(named: "titleImage"))
             return tmpImageView
         }()
         
-//        // --> temporary code
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarAction(_:))) // OK
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back Item", style: .plain, target: nil, action: nil)
-//        self.navigationItem.rightBarButtonItem?.tintColor = .orange // OK
-//        // <-- temporary code
-        
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
         // MARK: Views Creation and Additon to Super View
-//        titleView = createTitleView() -> changed to Navigation Bar
         profileView = createProfileView()
         tableView = createTableView()
         buttonView = createButtonView()
         
-//        self.view.addSubview(titleView!) -> changed to Navigation Bar
         self.view.addSubview(profileView!)
         self.view.addSubview(tableView!)
         self.view.addSubview(buttonView!)
         
         setBasicLayout()
     }
-    
-//    // --> temporary code
-//    @objc func rightBarAction(_ sender: UIBarButtonItem) {
-//        let tmpVC = UIViewController()
-//        tmpVC.view.backgroundColor = .white
-//
-//        // set UIImageView instead of UIView without any anchor
-//        let tmpImgView = UIImageView(image: UIImage(named: "titleImage"))
-//        tmpVC.navigationItem.titleView = tmpImgView
-//        self.navigationController?.pushViewController(tmpVC, animated: true)
-//    }
-//    // <-- temporary code
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,12 +52,6 @@ class ProfileViewController: UIViewController {
             else { return }
         
         let safeGuie = self.view.safeAreaLayoutGuide
-        
-//        //Title View Layout -> changed to Navigation Bar
-//        titleView.heightAnchor.constraint(equalToConstant: 56).isActive = true
-//        titleView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
-//        titleView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
-//        titleView.topAnchor.constraint(equalTo: safeGuie.topAnchor).isActive = true
         
         // Profile View Layout
         profileView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
@@ -97,28 +70,6 @@ class ProfileViewController: UIViewController {
         buttonView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         buttonView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         safeGuie.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor).isActive = true
-    }
-    
-    // MARK: - Title View -> changed to Navigation Bar
-    private func createTitleView() -> UIView {
-        let titleView = UIView()
-        //        titleView.backgroundColor = .yellow // temporary color to be recognized
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Title Image Creation
-        let titleImageView: UIImageView = UIImageView(image: UIImage(named: "titleImage"))
-        titleImageView.contentMode = .scaleAspectFill
-        titleImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        titleView.addSubview(titleImageView)
-        
-        //MARK: Layout inside Title View
-        titleImageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        titleImageView.widthAnchor.constraint(equalToConstant: 108).isActive = true
-        titleImageView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-        titleImageView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        
-        return titleView
     }
     
     // MARK: - Profile View
@@ -299,6 +250,53 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.accessoryType = .disclosureIndicator
         return cell
+    }
+    
+    // TODO: accessoryButton 눌렀을 때 기능 찾기 ~~~~~~~~~ !!
+//    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+//        if indexPath.section == 0 && indexPath.row == 0 {
+//            let tmpVC = UIViewController()
+//            tmpVC.view.backgroundColor = .white
+//            self.navigationItem.backBarButtonItem = UIBarButtonItem()
+//            self.navigationItem.backBarButtonItem?.title = ""
+//
+//            self.navigationController?.pushViewController(tmpVC, animated: true)
+//        }
+//
+//        if indexPath.section == 0 && indexPath.row == 1 {
+//
+//        }
+//
+//        if indexPath.section == 1 && indexPath.row == 0 {
+//
+//        }
+//
+//        if indexPath.section == 1 && indexPath.row == 1 {
+//
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            let tmpVC = UIViewController()
+            tmpVC.view.backgroundColor = .white
+            self.navigationItem.backBarButtonItem = UIBarButtonItem()
+            self.navigationItem.backBarButtonItem?.title = ""
+            
+            self.navigationController?.pushViewController(tmpVC, animated: true)
+        }
+        
+        if indexPath.section == 0 && indexPath.row == 1 {
+            
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 0 {
+            
+        }
+        
+        if indexPath.section == 1 && indexPath.row == 1 {
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
