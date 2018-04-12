@@ -13,7 +13,7 @@ class MainNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.Custom.greyColor
+        self.view.backgroundColor = UIColor.Custom.backgroundColor
         
         
         // logo image layout update
@@ -49,14 +49,15 @@ class CustomNavigationBar: UINavigationBar {
         
         self.barTintColor = UIColor.Custom.backgroundColor
 
-        var customHeight: CGFloat = 56
+        let customHeight: CGFloat = 20+56
         
         
         frame = CGRect(x: frame.origin.x, y: 0, width: frame.size.width, height: customHeight)
 
-        // title position (statusbar height / 2)
-        setTitleVerticalPositionAdjustment(-10, for: UIBarMetrics.default)
+        // iphone X / 8, 8+ / 차이 큼 ㅠㅜ
+        setTitleVerticalPositionAdjustment(9, for: UIBarMetrics.default)
 
+        
         for subview in self.subviews {
             var stringFromClass = NSStringFromClass(subview.classForCoder)
             if stringFromClass.contains("BarBackground") {

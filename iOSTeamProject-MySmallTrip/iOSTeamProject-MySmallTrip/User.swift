@@ -22,10 +22,13 @@ class UrlData {
     
     static var standards = UrlData()
     
-    var basic = "http://myrealtrip.hongsj.kr"
+    let basic = "http://myrealtrip.hongsj.kr"
     
-    var signUp = "/sign-up/"
-    var facebookLogin = "/facebook-login/"
+    let signUp = "/sign-up/"
+    let facebookLogin = "/facebook-login/"
+    
+    let travelMain = "/travel-information/"
+    let travelSub = "/travel-information/"
     
 }
 
