@@ -8,7 +8,6 @@
 /*******************************************************************
  [구현필요 내용 : 완료는 삭제됨]
  //회원가입 에러처리: response JSON으로 받아서 Alert 처리(msg는 Dic Value값)
- //User Info 서버로 전달, profile 사진은 url로 전달
  //비밀번호는 최소 8문자 이상 영문 + 숫자
  *******************************************************************/
 
@@ -17,7 +16,7 @@ import Alamofire
 
 class SignUpViewController: UIViewController {
     
-    //MARK: - LifeCycle
+//MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         yourNameTextField.delegate = self
@@ -32,11 +31,11 @@ class SignUpViewController: UIViewController {
         setupProfileImage()
     }
     
-    //MARK: - Head label
+//MARK: - Head label
     @IBOutlet weak var singUpLabel: UILabel!
     @IBOutlet weak var greetingLabel: UILabel!
     
-    //MARK: - TextField 및 View
+//MARK: - TextField 및 View
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var yourNameTextField: UITextField!
@@ -45,11 +44,10 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     
-    //MARK: - Profile image 입력부
+//MARK: - Profile image 입력부
     @IBOutlet weak var profileImage: UIImageView!
     let imagePicker = UIImagePickerController()
-    var uiImage: UIImage!
-    
+
     @IBAction func profileImageButton(_ sender: UIButton) {
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -81,7 +79,7 @@ class SignUpViewController: UIViewController {
     }
     
     
-    //MARK: - CreateAccount 버튼 액션
+//MARK: - CreateAccount 버튼 액션
     @IBOutlet weak var createAccountButton: UIButton!
     @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -89,46 +87,63 @@ class SignUpViewController: UIViewController {
     
     @IBAction func createAccountButton(_ sender: Any) {
         let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
-        let parameter: Parameters = [
-            "email" : yourEmailTextField.text!,
-            "first_name" : yourNameTextField.text!,
-            "password" : passwordTextField.text!,
-            "password2" : passwordConfirmTextField.text!,
-            "phone_number" : phoneNumberTextField.text!,
-//            "img_profile" : profileImage.image!
-        ]
+//        let profile = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)?.base64EncodedData()
+//        let parameter: Parameters = [
+//            "email" : yourEmailTextField.text!,
+//            "first_name" : yourNameTextField.text!,
+//            "password" : passwordTextField.text!,
+//            "password2" : passwordConfirmTextField.text!,
+//            "phone_number" : phoneNumberTextField.text!,
+//            "img_profile" : profile!
+//        ]
+//        print(parameter)
         
-        //MARK: - 대용량 파일 업로드
-        Alamofire
-            .request(urlString, method: .post, parameters: parameter)
-            .responseJSON { (response) in
-                print(response.response?.statusCode)
-                if let responseValue = response.result.value as! [String:Any]? {
-                    print(responseValue.keys)
-                    print(responseValue.values)
-                }
-        }
+//MARK: - 가입정보 데이터 전송
+//        Alamofire
+//            .request(urlString, method: .post, parameters: parameter)
+//            .responseJSON { (response) in
+//                print(response.response?.statusCode)
+//                if let responseValue = response.result.value as! [String:Any]? {
+//                    print(responseValue.keys)
+//                    print(responseValue.values)
+//                }
+//        }
+        let emailData = self.yourEmailTextField.text!.data(using: .utf8)
+        let nameData = self.yourNameTextField.text!.data(using: .utf8)
+        let passwordData = self.passwordTextField.text!.data(using: .utf8)
+        let password2Data = self.passwordConfirmTextField.text!.data(using: .utf8)
+        let phoneData = self.phoneNumberTextField.text!.data(using: .utf8)
+//        let imageData = UIImagePNGRepresentation(UIImage(named: "myImg")!)!
+//        let imageData = UIImageJPEGRepresentation(UIImage(named: "myImgBig")!, 1)!
+//        let imageData = UIImagePNGRepresentation(UIImage(named: "bigsize")!)!
+//        let imageData = UIImageJPEGRepresentation(UIImage(named: "bigsize")!, 1)!
+        let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.5)
+//        let imageData = UIImageJPEGRepresentation(UIImage(named: "soBig")!, 0.9)!
+        print(imageData)
         
         Alamofire.upload(
             multipartFormData: { multipartform in
-//                if let image = self.profileImage.image {
-//                    let imageData = UIImageJPEGRepresentation(self.uiImage, 0.1)
-                let data = UIImageJPEGRepresentation(UIImage(named: "myImg")!, 0.1)
-                    multipartform.append(data!, withName: "img_profile", mimeType: "image/jpeg")
-//                }
+                multipartform.append(emailData!, withName: "email")
+                multipartform.append(nameData!, withName: "first_name")
+                multipartform.append(passwordData!, withName: "password")
+                multipartform.append(password2Data!, withName: "password2")
+                multipartform.append(phoneData!, withName: "phone_number")
+//                multipartform.append(imageData, withName: "img_profile", fileName: "myImg.png", mimeType: "image/png")
+//                multipartform.append(imageData, withName: "img_profile", fileName: "myImgBig.jpg", mimeType: "image/jpg")
+//                multipartform.append(imageData, withName: "img_profile", fileName: "bigsize.png", mimeType: "image/png")
+//                multipartform.append(imageData, withName: "img_profile", fileName: "bigsize.jpg", mimeType: "image/jpg")
+                multipartform.append(imageData!, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
+//                multipartform.append(imageData, withName: "img_profile", fileName: "soBig.jpg", mimeType: "image/jpg")
         },
             to: urlString,
             method: .post,
             encodingCompletion: { result in
                 switch result {
                 case .success(let request, _, _):
-                    request.responseData(completionHandler: { (response) in
-                        switch response.result {
-                        case .success:
-                            print(response)
-                        case .failure(let error):
-                            print(error)
-                        }
+                    request.responseJSON(completionHandler: { (response) in
+                        print(response)
+                        print(response.result)
+                        print(response.response)
                     })
                 case .failure(let error):
                     print(error)
@@ -136,7 +151,7 @@ class SignUpViewController: UIViewController {
         })
     }
     
-    //MARK: - UI 구현부 및 키보드 willAppear & Disappear & touchDisappear
+//MARK: - Textfield UI 및 키보드 willAppear & Disappear & touchDisappear
     private func createUIAndTouchKeaboardDisappear() {
         yourNameTextField.placeholder = "Your Name"
         yourEmailTextField.placeholder = "Your Email"
@@ -151,14 +166,13 @@ class SignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         addKeyboardOberver()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     private func addKeyboardOberver() {
         NotificationCenter.default.addObserver(
             self,
@@ -188,7 +202,7 @@ class SignUpViewController: UIViewController {
     }
 }
 
-//MARK: - TextReturn 구현부
+//MARK: - textFieldShouldReturn 구현부
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -207,12 +221,11 @@ extension SignUpViewController: UITextFieldDelegate {
     }
 }
 
-//MARK: - Profile image - UIImagePickerController
+//MARK: - 프로필 이미지 UIImagePickerController
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profileImage.image = image
-            uiImage = image
             print(info)
         }
         dismiss(animated: true, completion: nil)
@@ -227,9 +240,55 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
 }
 
 //MARK: - 회원가입시 이벤트 처리
-extension SignUpViewController {
-    @IBAction func createAccountButton2(_ sender: Any) {
-    }
-}
+//extension SignUpViewController {
+//    func isValidEmailAddress(email: String) -> Bool {
+//        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+//        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+//        if email {
+//            return emailTest.evaluate(with: email)
+//        } else {
+//        let alert = UIAlertController(title: "기입정보 오류", message: "이메일 형식이 잘못되었습니다.", preferredStyle: .actionSheet)
+//        let email = UIAlertAction(title: "Email", style: .default)
+//        alert.addAction(email)
+//        present(alert, animated: true, completion: nil)
+//        }
+//    }
+//}
+
+/***
+ // 아이디 체크 정규식
+ 
+ var regId = /^[a-z0-9_-]\w{5,20}$/;
+ 
+ 
+ 
+ // 비밀번호 길이 체크 정규식
+ 
+ var regPassword = /^\w[6,16]$/;
+ 
+ 
+ 
+ // 비밀번호 조합(영문, 숫자) 및 길이 체크 정규식
+ 
+ var regPassword = /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,16}$/;
+ 
+ 
+ 
+ // 이메일 체크 정규식
+ 
+ var regEmail=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+ 
+ 
+ 
+ // 휴대폰번호 정규식
+ 
+ var regMobile = /^01([016789]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+ 
+ 
+ 
+ // 숫자만 사용 정규식
+ 
+ var regNumber = /^\d+$/;
+ ***/
 
 
