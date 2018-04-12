@@ -38,6 +38,7 @@ class LogInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Add Subviews
     private func addSubviews() {
         guard let basicView = basicView,
             let dismissImgBtnView = dismissImgBtnView,
@@ -50,7 +51,7 @@ class LogInViewController: UIViewController {
             else { return }
         
         self.view.addSubview(basicView)
-        self.view.addSubview(dismissImgBtnView)
+        self.view.addSubview(dismissImgBtnView)  // MARK: subViews were already laid out inside
         basicView.addSubview(titleLabel)
         basicView.addSubview(upperDesLabel)
         basicView.addSubview(emailTextField)
@@ -59,6 +60,8 @@ class LogInViewController: UIViewController {
         basicView.addSubview(lowerDesLabel)
     }
     
+    // MARK: - Create All Components
+    /// Create all components on this view controller
     private func createItems() {
         setBasicView()
         setDismissImgBtnView()
@@ -175,6 +178,8 @@ class LogInViewController: UIViewController {
         lowerDesLabel!.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    // MARK: - Set Layout
+    /// Set layout components
     private func setLayout() {
         guard let basicView = basicView,
             let dismissImgBtnView = dismissImgBtnView,
@@ -259,6 +264,7 @@ class LogInViewController: UIViewController {
     }
 }
 
+// MARK: - Extension of LogInVC
 extension LogInViewController: UITextFieldDelegate {
     // when return key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
