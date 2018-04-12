@@ -81,15 +81,42 @@ class ViewController: UIViewController {
     
     
     // MARK: - YS @objc funcs to open view controllers
-    @objc func showLogIn(_ sender: UIButton) {
+    @objc private func showLogIn(_ sender: UIButton) {
         let tmpStoryBoard = UIStoryboard(name: "Login", bundle: nil)
         let logInVC: LogInViewController = tmpStoryBoard.instantiateInitialViewController() as! LogInViewController
         self.present(logInVC, animated: true)
     }
     
-    @objc func showProfile(_ sender: UIButton) {
+    @objc private func showProfile(_ sender: UIButton) {
         let profileVC: ProfileViewController = ProfileViewController()
-        self.present(profileVC, animated: true)
+        let tmpNaviVC = UINavigationController(rootViewController: profileVC)
+
+/*
+        // Navigation Bar setting
+        // to make back button like '<' with red color
+        tmpNaviVC.navigationBar.topItem?.title = ""
+        tmpNaviVC.navigationBar.tintColor = .red
+        
+        // to set the title image of navigation controller as the default image
+        tmpNaviVC.navigationBar.topItem?.titleView = naviView()
+*/
+        self.present(tmpNaviVC, animated: true)
+    }
+    
+    // Navigation Controller's title image
+    private func naviView() -> UIView {
+        let tmp: UIView = UIView()
+        let tmpImageView: UIImageView = UIImageView(image: UIImage(named: "titleImage"))
+        tmpImageView.translatesAutoresizingMaskIntoConstraints = false
+        tmp.addSubview(tmpImageView)
+        
+        // This doesn't always need to be
+        tmpImageView.topAnchor.constraint(equalTo: tmp.topAnchor).isActive = true
+        tmpImageView.bottomAnchor.constraint(equalTo: tmp.bottomAnchor).isActive = true
+        tmpImageView.leadingAnchor.constraint(equalTo: tmp.leadingAnchor).isActive = true
+        tmpImageView.trailingAnchor.constraint(equalTo: tmp.trailingAnchor).isActive = true
+        
+        return tmp
     }
 }
 
