@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
-        // MARK: - Views Creation and Additon to Super View
+        // MARK: Views Creation and Additon to Super View
         titleView = createTitleView()
         profileView = createProfileView()
         tableView = createTableView()
@@ -244,6 +244,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
+// MARK: - Extension of ProfileVC
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
