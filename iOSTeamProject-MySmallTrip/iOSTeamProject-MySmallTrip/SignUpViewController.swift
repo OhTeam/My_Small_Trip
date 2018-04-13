@@ -86,6 +86,10 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func createAccountButton(_ sender: Any) {
+        guard let userName = yourNameTextField.text?.isEmpty else {
+            return yourNameTextField.text = "이름을 입력하여 주세요."
+        }
+        
         let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
 //        let profile = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)?.base64EncodedData()
 //        let parameter: Parameters = [
