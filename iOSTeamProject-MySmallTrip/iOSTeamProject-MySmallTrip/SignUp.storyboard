@@ -170,6 +170,14 @@
                                                     <constraint firstItem="dJM-M4-0EW" firstAttribute="leading" secondItem="Gno-sa-vLD" secondAttribute="leading" constant="24" id="yrT-Y2-9aV"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ql0-rK-pPn">
+                                                <rect key="frame" x="15" y="20" width="18" height="16"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button" image="dismiss"/>
+                                                <connections>
+                                                    <action selector="dismissToMain:" destination="6vX-fn-WtU" eventType="touchUpInside" id="XCL-Bx-grr"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -209,6 +217,7 @@
                     <connections>
                         <outlet property="contentView" destination="RPD-JA-hZQ" id="mrS-rS-zVX"/>
                         <outlet property="createAccountButton" destination="7v2-oD-QAd" id="jr1-Mm-Tmk"/>
+                        <outlet property="dismissToMain" destination="ql0-rK-pPn" id="gjU-ed-bzK"/>
                         <outlet property="greetingLabel" destination="V95-Nn-OB3" id="IzW-E2-7Rv"/>
                         <outlet property="passwordConfirmTextField" destination="dJM-M4-0EW" id="HWB-Gm-79T"/>
                         <outlet property="passwordTextField" destination="kaS-rn-xF7" id="CIB-WH-bIT"/>
@@ -227,5 +236,6 @@
     </scenes>
     <resources>
         <image name="avatar" width="115" height="115"/>
+        <image name="dismiss" width="18" height="16"/>
     </resources>
 </document>

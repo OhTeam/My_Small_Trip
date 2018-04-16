@@ -30,11 +30,23 @@ class SignUpViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordConfirmTextField.isSecureTextEntry = true
         
+        dismissToMain.translatesAutoresizingMaskIntoConstraints = false
+        let safeGuide = self.view.safeAreaLayoutGuide
+        dismissToMain.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        dismissToMain.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        dismissToMain.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 20).isActive = true
+        dismissToMain.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 15).isActive = true
+        
+        
         createUIAndTouchKeaboardDisappear()
         setupProfileImage()
     }
-    
-//MARK: - Head label
+    //MARK: - Dismiss To Main
+    @IBOutlet weak var dismissToMain: UIButton!
+    @IBAction func dismissToMain(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    //MARK: - Head label
     @IBOutlet weak var singUpLabel: UILabel!
     @IBOutlet weak var greetingLabel: UILabel!
     
