@@ -21,10 +21,10 @@
 		6FBE2FCE207C9C4500BEAD8F /* CustomTabbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCD207C9C4500BEAD8F /* CustomTabbarButton.swift */; };
 		6FBE2FD0207C9C4D00BEAD8F /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */; };
 		6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */; };
-		CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F65207CB8ED00032251 /* LogInViewController.swift */; };
-		CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F67207CB90400032251 /* ProfileViewController.swift */; };
 		7A819F43207EED7000CC92E0 /* SignUpUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */; };
 		7A9DD106207DD2B9008166A0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */; };
+		CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F65207CB8ED00032251 /* LogInViewController.swift */; };
+		CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F67207CB90400032251 /* ProfileViewController.swift */; };
 		FE6B4913D11E00C78E6DF30F /* Pods_iOSTeamProject_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
@@ -155,7 +155,6 @@
 				6FBE2FA3207C7D7C00BEAD8F /* Frameworks */,
 				6FBE2FA4207C7D7C00BEAD8F /* Resources */,
 				7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */,
-				A46CC5174C6EF28DF7351646 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -238,21 +237,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A46CC5174C6EF28DF7351646 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E6D28808433E3A5107FA37B1 /* [CP] Check Pods Manifest.lock */ = {
@@ -439,10 +423,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -458,10 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

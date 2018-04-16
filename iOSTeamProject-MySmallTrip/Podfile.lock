@@ -16,6 +16,13 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - Bolts
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
@@ -24,4 +31,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 74d8467241c356aa860ea75b9e1e9773a0960763
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0.beta.1
