@@ -17,8 +17,9 @@ class PopularCityTableViewCell: UITableViewCell {
     var cityInfo: PopularCity? {
         didSet {
             cityNameLabel.text = cityInfo?.name
-            
+        
             let cityImageUrl = URL(string: (cityInfo?.cityImage)!)
+
             Alamofire
                 .request(cityImageUrl!)
                 .responseData { (response) in
@@ -46,7 +47,6 @@ class PopularCityTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
 
 }

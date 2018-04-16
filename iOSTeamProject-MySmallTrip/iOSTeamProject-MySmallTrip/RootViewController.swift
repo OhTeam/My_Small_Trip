@@ -27,7 +27,7 @@ class RootViewController: UIViewController {
         facebookLoginButton.delegate = self
         
         if FBSDKAccessToken.current() != nil {
-            print("\n---------- [ current access ] -----------\n")
+//            print("\n---------- [ current access ] -----------\n")
             fetchProfile()
         }
     }
@@ -55,7 +55,7 @@ class RootViewController: UIViewController {
                 if response.response!.statusCode == 200 {
                     print("FB Login Success")
                     if let responseValue = response.result.value as! [String:Any]? {
-                        print(responseValue)
+//                        print(responseValue)
                     }
                 } else {
                     print("FB Login Fail")
