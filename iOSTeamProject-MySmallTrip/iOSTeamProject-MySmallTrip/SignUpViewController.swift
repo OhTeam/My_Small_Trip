@@ -15,14 +15,17 @@ import UIKit
 import Alamofire
 
 class SignUpViewController: UIViewController {
+    let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
+    
+
     
 //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         yourNameTextField.delegate = self
         yourEmailTextField.delegate = self
-        passwordConfirmTextField.delegate = self
         passwordTextField.delegate = self
+        passwordConfirmTextField.delegate = self
         phoneNumberTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
         passwordConfirmTextField.isSecureTextEntry = true
@@ -43,6 +46,14 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    
+    var nameCheck:Bool = false
+    var emailCheck:Bool = false
+    var passwordCheck:Bool = false
+    var passwordCountCheck: Bool = false
+    var password2Check:Bool = false
+    var phoneNoCheck:Bool = false
+    var phoneNoCountCheck:Bool = false
     
 //MARK: - Profile image 입력부
     @IBOutlet weak var profileImage: UIImageView!
@@ -85,83 +96,192 @@ class SignUpViewController: UIViewController {
         view.endEditing(true)
     }
     
+
+    //MARK: - 가입정보 데이터 전송
+    func vaildName(nameText: String) -> Bool {
+        let nameRegEx = "^[A-Za-z가-힣]+$"
+        let nameTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
+        return nameTest.evaluate(with: nameText)
+    }
+    
+    func validEmail(email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
+    
+    func validPassword(passwordNo: String) -> Bool {
+        let regPassword = "^(?=.*[a-zA-Z])(?=.*[0-9]).{6,16}$"
+        let passwordTest = NSPredicate(format:"SELF MATCHES %@", regPassword)
+        return passwordTest.evaluate(with: passwordNo)
+    }
+    
+    func countOfPassword(count: String) -> Bool {
+        let countOfPassword = passwordTextField.text!.count
+        if countOfPassword < 8 && countOfPassword > 8 {
+            self.passwordCountCheck = false
+        } else {
+            self.passwordCountCheck = true
+        }
+        return passwordCountCheck
+    }
+    
+    func validPhoneNo(phoneNo: String) -> Bool {
+        let PhoneRegEx = "[0-9]{3}+[0-9]{3,4}+[0-9]{4}"
+        let PhoneTest = NSPredicate(format:"SELF MATCHES %@", PhoneRegEx)
+        return PhoneTest.evaluate(with: phoneNo)
+    }
+    
+    func countOfPhoneNo(count: Int) -> Bool {
+        let countOfPhoneNo = phoneNumberTextField.text!.count
+        if countOfPhoneNo < 7 && countOfPhoneNo > 8 {
+            phoneNoCountCheck = false
+        } else {
+            phoneNoCountCheck = true
+        }
+        return phoneNoCountCheck
+    }
+    
     @IBAction func createAccountButton(_ sender: Any) {
-        guard let userName = yourNameTextField.text?.isEmpty else {
-            return yourNameTextField.text = "이름을 입력하여 주세요."
+        //여기에 조건을 걸어서 안넘어가게 해줘 (guard let)
+        if vaildName(nameText: yourNameTextField.text!) == false {
+            nameCheck = false
+        } else {
+            nameCheck = true
+        }
+        if validEmail(email: yourEmailTextField.text!) == false {
+            emailCheck = false
+        } else {
+            emailCheck = true
         }
         
-        let urlString = "http://myrealtrip.hongsj.kr/sign-up/"
-//        let profile = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)?.base64EncodedData()
-//        let parameter: Parameters = [
-//            "email" : yourEmailTextField.text!,
-//            "first_name" : yourNameTextField.text!,
-//            "password" : passwordTextField.text!,
-//            "password2" : passwordConfirmTextField.text!,
-//            "phone_number" : phoneNumberTextField.text!,
-//            "img_profile" : profile!
-//        ]
-//        print(parameter)
+        if validPassword(passwordNo: passwordTextField.text!) == false {
+            passwordCheck = false
+        } else {
+            self.passwordCheck = true
+        }
         
-//MARK: - 가입정보 데이터 전송
-//        Alamofire
-//            .request(urlString, method: .post, parameters: parameter)
-//            .responseJSON { (response) in
-//                print(response.response?.statusCode)
-//                if let responseValue = response.result.value as! [String:Any]? {
-//                    print(responseValue.keys)
-//                    print(responseValue.values)
-//                }
+        if countOfPassword(count: passwordTextField.text!) == false {
+            passwordCheck = false
+        } else {
+            passwordCheck = true
+        }
+            
+        if validPhoneNo(phoneNo: phoneNumberTextField.text!) == false {
+            phoneNoCheck = false
+        } else {
+            phoneNoCheck = true
+        }
+        
+        if countOfPhoneNo(count: phoneNumberTextField.text!.count) == false {
+            phoneNoCheck = false
+        } else {
+            phoneNoCheck = true
+        }
+        
+        if nameCheck == true && emailCheck == true && passwordCheck == true && passwordCountCheck == true && phoneNoCheck == true && phoneNoCountCheck == true {
+            guard let nameData = self.yourNameTextField.text!.data(using: .utf8) else { return }
+            guard let emailData = self.yourEmailTextField.text!.data(using: .utf8) else { return }
+            guard let passwordData = self.passwordTextField.text!.data(using: .utf8) else { return }
+            guard let password2Data = self.passwordConfirmTextField.text!.data(using: .utf8) else { return }
+            guard let phoneData = self.phoneNumberTextField.text!.data(using: .utf8) else { return }
+            guard let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) else { return }
+            
+            Alamofire
+                .upload(
+                    multipartFormData: { multipartform in
+                        multipartform.append(emailData, withName: "email")
+                        multipartform.append(nameData, withName: "first_name")
+                        multipartform.append(passwordData, withName: "password")
+                        multipartform.append(password2Data, withName: "password2")
+                        multipartform.append(phoneData, withName: "phone_number")
+                        multipartform.append(imageData, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
+                },
+                    to: urlString,
+                    method: .post,
+                    encodingCompletion: { result in
+                        switch result {
+                        case .success(let request, _, _):
+                            request.responseJSON(completionHandler: { (res) in
+                                print(res.response?.statusCode)
+                                if let responseValue = res.result.value as! [String: Any]? {
+                                    print(responseValue.keys)
+                                    print(responseValue.values)
+                                }
+                                if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
+                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
+                                    let failureAlert = UIAlertAction(title: "확인", style: .default)
+                                    alertController.addAction(failureAlert)
+                                    self.present(alertController, animated: true, completion: nil)
+                                } else {
+                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                                    let successAlert = UIAlertAction(title: "확인", style: .default)
+                                    alertController.addAction(successAlert)
+                                    self.present(alertController, animated: true, completion: nil)
+                                    print("Sucess_회원가입 성공")
+                                }
+                                print(res.response)
+                            })
+                        case .failure(let error):
+                            print(error)
+                        }
+                })
+        }
+        if nameCheck == false {
+            let alertController = UIAlertController(title: "이름 형식 확인", message: "한글 또는 영문인 이름을 사용하여 주세요.", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        if emailCheck == false {
+            let alertController = UIAlertController(title: "이메일 형식 확인", message: "반드시 본인의 유효한 이메일을 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        if passwordCheck == false {
+            let alertController = UIAlertController(title: "비밀번호 확인", message: "8자리의 특수문자+숫자+알파벳을 넣어 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        if passwordCountCheck == false {
+            let alertController = UIAlertController(title: "비밀번호 확인", message: "비밀번호가 8자리를 초과 하였습니다", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
+//        if passwordTextField.text! != passwordConfirmTextField.text! {
+//            let alertController = UIAlertController(title: "비밀번호", message: "비밀번호가 일치하지 않습니다", preferredStyle: UIAlertControllerStyle.alert)
+//            let inconsistentPasswordAlert = UIAlertAction(title: "확인", style: .default)
+//            alertController.addAction(inconsistentPasswordAlert)
+//            self.present(alertController, animated: true, completion: nil)
+//            print("비밀번호 불일치")
+//            return
 //        }
-        let emailData = self.yourEmailTextField.text!.data(using: .utf8)
-        let nameData = self.yourNameTextField.text!.data(using: .utf8)
-        let passwordData = self.passwordTextField.text!.data(using: .utf8)
-        let password2Data = self.passwordConfirmTextField.text!.data(using: .utf8)
-        let phoneData = self.phoneNumberTextField.text!.data(using: .utf8)
-//        let imageData = UIImagePNGRepresentation(UIImage(named: "myImg")!)!
-//        let imageData = UIImageJPEGRepresentation(UIImage(named: "myImgBig")!, 1)!
-//        let imageData = UIImagePNGRepresentation(UIImage(named: "bigsize")!)!
-//        let imageData = UIImageJPEGRepresentation(UIImage(named: "bigsize")!, 1)!
-        let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1)
-//        let imageData = UIImageJPEGRepresentation(UIImage(named: "soBig")!, 0.9)!
-        print(imageData)
+        if phoneNoCheck == false {
+            let alertController = UIAlertController(title: "휴대폰 번호 확인", message: "본인의 유효한 휴대폰 번호를 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
         
-        Alamofire.upload(
-            multipartFormData: { multipartform in
-                multipartform.append(emailData!, withName: "email")
-                multipartform.append(nameData!, withName: "first_name")
-                multipartform.append(passwordData!, withName: "password")
-                multipartform.append(password2Data!, withName: "password2")
-                multipartform.append(phoneData!, withName: "phone_number")
-//                multipartform.append(imageData, withName: "img_profile", fileName: "myImg.png", mimeType: "image/png")
-//                multipartform.append(imageData, withName: "img_profile", fileName: "myImgBig.jpg", mimeType: "image/jpg")
-//                multipartform.append(imageData, withName: "img_profile", fileName: "bigsize.png", mimeType: "image/png")
-//                multipartform.append(imageData, withName: "img_profile", fileName: "bigsize.jpg", mimeType: "image/jpg")
-                multipartform.append(imageData!, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
-//                multipartform.append(imageData, withName: "img_profile", fileName: "soBig.jpg", mimeType: "image/jpg")
-        },
-            to: urlString,
-            method: .post,
-            encodingCompletion: { result in
-                switch result {
-                case .success(let request, _, _):
-                    request.responseJSON(completionHandler: { (response) in
-                        print(response)
-                        print(response.result)
-                        print(response.response)
-                    })
-                case .failure(let error):
-                    print(error)
-                }
-        })
+        if phoneNoCountCheck == false {
+            let alertController = UIAlertController(title: "휴대폰 번호 확인", message: "본인의 유효한 휴대폰 번호를 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
+            let failureAlert = UIAlertAction(title: "확인", style: .default)
+            alertController.addAction(failureAlert)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
 //MARK: - Textfield UI 및 키보드 willAppear & Disappear & touchDisappear
     private func createUIAndTouchKeaboardDisappear() {
-        yourNameTextField.placeholder = "Your Name"
-        yourEmailTextField.placeholder = "Your Email"
-        passwordTextField.placeholder = "Password"
-        passwordConfirmTextField.placeholder = "Password Confirm"
-        phoneNumberTextField.placeholder = "Phone Number"
+        yourNameTextField.placeholder = "이름을 입력하여 주세요(선택사양)"
+        yourEmailTextField.placeholder = "유효한 email 주소를 입력하여 주세요(필수사항)"
+        passwordTextField.placeholder = "8자리의 특수문자+숫자+알파벳 조합의 비밀번호"
+        passwordConfirmTextField.placeholder = "비밀번호를 다시 한번 확인해 주세요"
+        phoneNumberTextField.placeholder = "핸드폰 번호를 숫자만 입력하여 주세요"
         createAccountButton.layer.cornerRadius = 5
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard(_:)))
@@ -243,21 +363,73 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
     }
 }
 
+//MARK: - Applying optional method to Textfield String? or nil
+extension Optional where Wrapped == String {
+    var nilIfEmpty: String? {
+        guard let strongSelf = self else {
+            return nil
+        }
+        return strongSelf.isEmpty ? nil : strongSelf
+    }
+}
 //MARK: - 회원가입시 이벤트 처리
 //extension SignUpViewController {
-//    func isValidEmailAddress(email: String) -> Bool {
+//    func validName(nameText: String) -> Bool {
+//        let nameRegEx = "^[A-Za-z가-힣]+$"
+//        let nameTest = NSPredicate(format:"SELF MATCHES %@", nameRegEx)
+//        return nameTest.evaluate(with: nameText)
+//    }
+    
+//    func validEmail(email: String) -> Bool {
 //        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-//        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-//        if email {
-//            return emailTest.evaluate(with: email)
-//        } else {
-//        let alert = UIAlertController(title: "기입정보 오류", message: "이메일 형식이 잘못되었습니다.", preferredStyle: .actionSheet)
-//        let email = UIAlertAction(title: "Email", style: .default)
-//        alert.addAction(email)
-//        present(alert, animated: true, completion: nil)
-//        }
+//        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+//        return emailTest.evaluate(with: email)
+//    }
+    
+//    func validPassword(passwordNo: String) -> Bool {
+//        let regPassword = "^(?=.*[a-zA-Z])(?=.*[0-9]).{6,16}$"
+//        let passwordTest = NSPredicate(format:"SELF MATCHES %@", regPassword)
+//        return passwordTest.evaluate(with: passwordNo)
+//    }
+    
+//    func validPhoneNo(phoneNo: String) -> Bool {
+//        let PhoneRegEx = "[0-9]{3}+[0-9]{3,4}+[0-9]{4}"
+//        let PhoneTest = NSPredicate(format:"SELF MATCHES %@", PhoneRegEx)
+//        return PhoneTest.evaluate(with: phoneNo)
 //    }
 //}
+
+//    @objc func emailCheck(_ sender: UITextField){
+//        guard let text = sender.text else { return }
+//        emailCheck = vaildEmail(email: text)
+//    }
+//
+//    @objc func mobiletextField(_ sender: UITextField) {
+//        guard let text = sender.text else { return }
+//
+//        let formatNumber = format(phoneNumber: text, shouldRemoveLastDigit: true)
+//        mobile.text = formatNumber
+//
+//    }
+//
+//    @objc func passWordTextField(_ sender: UITextField) {
+//        let newLength = sender.text!.count
+//        if newLength >= 5 {
+//            passWordCheck = true
+//        }else {
+//            passWordCheck = false
+//        }
+//    }
+
+//}
+
+
+//
+//var emailCheck:Bool = false
+//var nameCheck:Bool = false
+//var passwordCheck:Bool = false
+//var password2Check:Bool = false
+//var phoneNoCheck:Bool = false
 
 /***
  // 아이디 체크 정규식
