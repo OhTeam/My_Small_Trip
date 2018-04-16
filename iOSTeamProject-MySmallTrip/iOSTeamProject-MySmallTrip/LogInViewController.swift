@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class LogInViewController: UIViewController {
     
@@ -22,6 +23,8 @@ class LogInViewController: UIViewController {
     private var safeGuide: UILayoutGuide?
     private var textFieldPositionConstraint: NSLayoutConstraint?
     private let movingHeight: CGFloat = 100 // distance to be moved at keyboard-up
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +85,7 @@ class LogInViewController: UIViewController {
         dismissImgBtnView = UIView()
         dismissImgBtnView!.translatesAutoresizingMaskIntoConstraints = false
         
-        let dismissImageView = UIImageView(image: UIImage(named: "logInDismiss"))
+        let dismissImageView = UIImageView(image: UIImage(named: "dismiss"))
         dismissImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let dismissButton = UIButton()
@@ -166,6 +169,7 @@ class LogInViewController: UIViewController {
         logInButton!.setTitleColor(.white, for: .normal)
         logInButton!.layer.cornerRadius = 10
         logInButton!.clipsToBounds = true
+        logInButton!.addTarget(self, action: #selector(logIn(_:)), for: .touchUpInside)
         logInButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -245,6 +249,7 @@ class LogInViewController: UIViewController {
         basicView.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
     }
     
+    // MARK: - Targets
     @objc func dismissLogInVC(_ sender: UIButton) {
         // to reduce time for keyboard to disappear
         if emailTextField?.isFirstResponder == true {
@@ -254,6 +259,24 @@ class LogInViewController: UIViewController {
         }
         
         self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func logIn(_ sender: UIButton) {
+        let host: String = "http://myrealtrip.hongsj.kr/login/"
+        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
+        
+        Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
+            switch response.result {
+            case .success(let data):
+                print(data)
+                if let loggedUser = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
+                    print(loggedUser)
+                }
+                    
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
     
     @objc func moveUpAllComponents(_ sender: UITextField) {
