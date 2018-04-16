@@ -146,6 +146,7 @@ class LogInViewController: UIViewController {
     
     private func setPWTextField() {
         pwTextField = UITextField()
+        pwTextField!.isSecureTextEntry = true
         pwTextField!.delegate = self
         pwTextField!.tag = 2
         pwTextField!.placeholder = "Password"
@@ -263,7 +264,7 @@ class LogInViewController: UIViewController {
     
     @objc func logIn(_ sender: UIButton) {
         let host: String = "http://myrealtrip.hongsj.kr/login/"
-        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
+        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
             switch response.result {
