@@ -88,7 +88,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gno-sa-vLD" userLabel="View3">
                                                 <rect key="frame" x="0.0" y="314" width="375" height="416"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="KimKim" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rxp-NQ-YDy">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rxp-NQ-YDy">
                                                         <rect key="frame" x="24" y="0.0" width="327" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="Ela-R3-Mhd"/>
@@ -97,7 +97,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="KimTest@gmail.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fa4-yp-UnU">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fa4-yp-UnU">
                                                         <rect key="frame" x="24" y="64" width="327" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="ePK-rl-seV"/>
@@ -106,7 +106,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="kkk11111" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kaS-rn-xF7">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kaS-rn-xF7">
                                                         <rect key="frame" x="24" y="128" width="327" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="0J2-BR-JxL"/>
@@ -115,7 +115,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="kkk11111" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dJM-M4-0EW">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dJM-M4-0EW">
                                                         <rect key="frame" x="24" y="192" width="327" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="XLM-wN-GdO"/>
@@ -124,7 +124,7 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="01088889999" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AvT-bJ-7li">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AvT-bJ-7li">
                                                         <rect key="frame" x="24" y="256" width="327" height="48"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="48" id="4mO-bY-eTf"/>

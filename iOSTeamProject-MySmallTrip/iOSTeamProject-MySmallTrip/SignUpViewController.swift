@@ -220,6 +220,8 @@ class SignUpViewController: UIViewController {
                                     self.present(alertController, animated: true, completion: nil)
                                     print("Sucess_회원가입 성공")
                                 }
+                                //확인 누르면 로그인뷰로 이동 (present modally)
+                                //X 버튼 dismiss 하기
                                 print(res.response)
                             })
                         case .failure(let error):

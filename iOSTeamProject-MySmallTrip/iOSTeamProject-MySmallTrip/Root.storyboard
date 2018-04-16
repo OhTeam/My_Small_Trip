@@ -123,18 +123,18 @@
             </objects>
             <point key="canvasLocation" x="696.79999999999995" y="85.907046476761622"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--Login-->
         <scene sceneID="L4g-sQ-RkT">
             <objects>
-                <viewControllerPlaceholder id="dRA-gZ-wD8" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Login" id="dRA-gZ-wD8" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wcq-bj-FcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="865" y="540"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--SignUp-->
         <scene sceneID="TKN-zm-8Ka">
             <objects>
-                <viewControllerPlaceholder id="HDI-9F-fc7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="SignUp" id="HDI-9F-fc7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTw-AU-gkO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="529" y="540"/>

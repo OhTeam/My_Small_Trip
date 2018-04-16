@@ -19,7 +19,8 @@ class ViewController: UIViewController {
         
         // addButtonsToOpenViews() // For temporarily execution
         
-        // seRootVCOpen()
+         seRootVCOpen()
+        
     }
     
     override func didReceiveMemoryWarning() {

@@ -28,6 +28,8 @@
 		6FBE2FCE207C9C4500BEAD8F /* CustomTabbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCD207C9C4500BEAD8F /* CustomTabbarButton.swift */; };
 		6FBE2FD0207C9C4D00BEAD8F /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */; };
 		6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */; };
+		6FBE300A207E525700BEAD8F /* TravleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE3009207E525700BEAD8F /* TravleDataModel.swift */; };
+		6FBE300C207E564300BEAD8F /* PopularCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */; };
 		7A2E9A2E2084312300F41031 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2E9A2D2084312300F41031 /* CalendarViewController.swift */; };
 		7A819F43207EED7000CC92E0 /* SignUpUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */; };
 		7A9DD106207DD2B9008166A0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */; };
@@ -36,8 +38,6 @@
 		CADA81AD2083BDB70072417F /* LogInResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADA81AC2083BDB70072417F /* LogInResponse.swift */; };
 		CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F65207CB8ED00032251 /* LogInViewController.swift */; };
 		CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F67207CB90400032251 /* ProfileViewController.swift */; };
-		6FBE300A207E525700BEAD8F /* TravleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE3009207E525700BEAD8F /* TravleDataModel.swift */; };
-		6FBE300C207E564300BEAD8F /* PopularCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */; };
 		FE6B4913D11E00C78E6DF30F /* Pods_iOSTeamProject_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,11 +65,11 @@
 		6FBE2FCD207C9C4500BEAD8F /* CustomTabbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarButton.swift; sourceTree = "<group>"; };
 		6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6FBE3009207E525700BEAD8F /* TravleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravleDataModel.swift; sourceTree = "<group>"; };
+		6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCityTableViewCell.swift; sourceTree = "<group>"; };
 		7A2E9A2D2084312300F41031 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUserInfo.swift; sourceTree = "<group>"; };
 		7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		6FBE3009207E525700BEAD8F /* TravleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravleDataModel.swift; sourceTree = "<group>"; };
-		6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCityTableViewCell.swift; sourceTree = "<group>"; };
 		C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; sourceTree = "<group>"; };
 		CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactChangeViewController.swift; sourceTree = "<group>"; };
 		CACA9069208085DA00E3D1DD /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -117,8 +117,6 @@
 				6FBE2FAB207C7D7C00BEAD8F /* ViewController.swift */,
 				CAEA9F65207CB8ED00032251 /* LogInViewController.swift */,
 				CAEA9F67207CB90400032251 /* ProfileViewController.swift */,
-				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
-				7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */,
 				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
 				CACA9069208085DA00E3D1DD /* UserData.swift */,
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
@@ -196,6 +194,7 @@
 				6FBE2FA3207C7D7C00BEAD8F /* Frameworks */,
 				6FBE2FA4207C7D7C00BEAD8F /* Resources */,
 				7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */,
+				0BF44191CACD2FB2011346E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,6 +256,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BF44191CACD2FB2011346E3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
