@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="travelCell" rowHeight="644" id="KGk-i7-Jjw" customClass="ProductListTableViewCell" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="344" height="274"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="344" height="273.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMS-zS-tL5">
+                        <rect key="frame" x="0.0" y="0.0" width="344" height="257.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pgW-eL-wlZ">
+                                <rect key="frame" x="0.0" y="217.5" width="344" height="24"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₩ 26,700" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSQ-py-YoG">
+                                        <rect key="frame" x="246" y="0.0" width="82" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="156" id="7gh-gX-DdR"/>
+                                            <constraint firstAttribute="height" constant="24" id="b5u-wN-vOx"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Praha, Europe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBz-0s-lmy">
+                                        <rect key="frame" x="40" y="4.5" width="80" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jed-vx-JUw">
+                                        <rect key="frame" x="222" y="5" width="16" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
+                                        <color key="textColor" red="0.61960784313725492" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconLocation" translatesAutoresizingMaskIntoConstraints="NO" id="1fK-Z6-bVo">
+                                        <rect key="frame" x="16" y="0.0" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="HvG-8B-Eif"/>
+                                            <constraint firstAttribute="height" constant="24" id="gcd-9c-O59"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="AIF-4f-DNX"/>
+                                    <constraint firstAttribute="bottom" secondItem="kSQ-py-YoG" secondAttribute="bottom" id="U4g-s5-0mq"/>
+                                    <constraint firstItem="Jed-vx-JUw" firstAttribute="centerY" secondItem="pgW-eL-wlZ" secondAttribute="centerY" id="cnq-ZN-SKO"/>
+                                    <constraint firstItem="1fK-Z6-bVo" firstAttribute="centerY" secondItem="pgW-eL-wlZ" secondAttribute="centerY" id="gsN-LP-Flz"/>
+                                    <constraint firstItem="kSQ-py-YoG" firstAttribute="leading" secondItem="Jed-vx-JUw" secondAttribute="trailing" constant="8" id="ihx-dn-LjF"/>
+                                    <constraint firstAttribute="trailing" secondItem="kSQ-py-YoG" secondAttribute="trailing" constant="16" id="kTp-Xx-8fD"/>
+                                    <constraint firstItem="1fK-Z6-bVo" firstAttribute="leading" secondItem="pgW-eL-wlZ" secondAttribute="leading" constant="16" id="nCe-tt-T8e"/>
+                                    <constraint firstItem="VBz-0s-lmy" firstAttribute="centerY" secondItem="pgW-eL-wlZ" secondAttribute="centerY" id="qbj-g9-JQ0"/>
+                                    <constraint firstItem="VBz-0s-lmy" firstAttribute="leading" secondItem="1fK-Z6-bVo" secondAttribute="trailing" id="vM4-nS-Kmm"/>
+                                    <constraint firstItem="kSQ-py-YoG" firstAttribute="centerY" secondItem="pgW-eL-wlZ" secondAttribute="centerY" id="xR6-fS-xS3"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행상품 명" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hb4-ii-9fq">
+                                <rect key="frame" x="16" y="190" width="312" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="j4D-Aj-C51">
+                                <rect key="frame" x="0.0" y="0.0" width="344" height="182"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="182" id="m85-IO-ugZ"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hb4-ii-9fq" firstAttribute="top" secondItem="j4D-Aj-C51" secondAttribute="bottom" constant="8" id="H1g-rh-cXF"/>
+                            <constraint firstItem="pgW-eL-wlZ" firstAttribute="top" secondItem="hb4-ii-9fq" secondAttribute="bottom" constant="8" id="ICT-Sx-Hx5"/>
+                            <constraint firstAttribute="trailing" secondItem="pgW-eL-wlZ" secondAttribute="trailing" id="Mvi-GU-fYv"/>
+                            <constraint firstAttribute="trailing" secondItem="hb4-ii-9fq" secondAttribute="trailing" constant="16" id="NA8-YF-Bxf"/>
+                            <constraint firstItem="j4D-Aj-C51" firstAttribute="top" secondItem="KMS-zS-tL5" secondAttribute="top" id="RPo-bw-0if"/>
+                            <constraint firstAttribute="bottom" secondItem="pgW-eL-wlZ" secondAttribute="bottom" constant="16" id="agq-nx-EAU"/>
+                            <constraint firstAttribute="trailing" secondItem="j4D-Aj-C51" secondAttribute="trailing" id="f76-Js-GNa"/>
+                            <constraint firstItem="j4D-Aj-C51" firstAttribute="leading" secondItem="KMS-zS-tL5" secondAttribute="leading" id="sTt-4R-A0E"/>
+                            <constraint firstItem="hb4-ii-9fq" firstAttribute="leading" secondItem="KMS-zS-tL5" secondAttribute="leading" constant="16" id="si2-Oi-vm6"/>
+                            <constraint firstItem="pgW-eL-wlZ" firstAttribute="leading" secondItem="KMS-zS-tL5" secondAttribute="leading" id="v6P-FU-bhb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="KMS-zS-tL5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5QD-Va-I7b"/>
+                    <constraint firstItem="KMS-zS-tL5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="F14-6S-3eg"/>
+                    <constraint firstAttribute="bottom" secondItem="KMS-zS-tL5" secondAttribute="bottom" constant="16" id="OCh-95-FhI"/>
+                    <constraint firstAttribute="trailing" secondItem="KMS-zS-tL5" secondAttribute="trailing" id="gzd-WO-bVl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cityName" destination="VBz-0s-lmy" id="S7V-bI-FGl"/>
+                <outlet property="price" destination="kSQ-py-YoG" id="98M-F3-hgG"/>
+                <outlet property="travelImageView" destination="j4D-Aj-C51" id="Agc-Lr-5uL"/>
+                <outlet property="travelName" destination="hb4-ii-9fq" id="wDJ-ez-d4N"/>
+            </connections>
+            <point key="canvasLocation" x="16" y="77"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="iconLocation" width="60" height="60"/>
+    </resources>
+</document>
