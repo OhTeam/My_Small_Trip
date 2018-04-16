@@ -32,6 +32,19 @@ class SignUpViewController: UIViewController {
         
         createUIAndTouchKeaboardDisappear()
         setupProfileImage()
+        
+    dismissToMain.translatesAutoresizingMaskIntoConstraints = false
+        
+        let safeGuide = self.view.safeAreaLayoutGuide
+        
+        dismissToMain.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        dismissToMain.widthAnchor.constraint(equalToConstant: 18).isActive = true
+        
+        dismissToMain.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 20).isActive = true
+        dismissToMain.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 15).isActive = true
+        
+        
+        
     }
     
 //MARK: - Head label
@@ -46,6 +59,13 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordConfirmTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    
+    @IBOutlet weak var dismissToMain: UIButton!
+    
+    @IBAction func dismissToMain(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     var nameCheck:Bool = false
     var emailCheck:Bool = false
@@ -220,6 +240,10 @@ class SignUpViewController: UIViewController {
                                     self.present(alertController, animated: true, completion: nil)
                                     print("Sucess_회원가입 성공")
                                 }
+//                                let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+//                                let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
+//                                self.present(nextVC, animated: true, completion: nil)
+                                
                                 //확인 누르면 로그인뷰로 이동 (present modally)
                                 //X 버튼 dismiss 하기
                                 print(res.response)
