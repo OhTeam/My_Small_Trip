@@ -26,7 +26,8 @@ class RootViewController: UIViewController {
         updateLayout()
         facebookLoginButton.delegate = self
         
-        if let token = FBSDKAccessToken.current() {
+        if FBSDKAccessToken.current() != nil {
+//            print("\n---------- [ current access ] -----------\n")
             fetchProfile()
         }
     }
@@ -42,80 +43,47 @@ class RootViewController: UIViewController {
     }
     
     private func fetchProfile() {
-        print("fetch")
+        let url = UrlData.standards.basic + UrlData.standards.facebookLogin
         
-        let fbParams = ["fields":"email, name, picture.type(large)"]
-        FBSDKGraphRequest(graphPath: "me", parameters: fbParams).start { (connection, result, error) in
+        guard let token = FBSDKAccessToken.current().tokenString else { return }
+        let params = ["access_token":token]
         
-            if error != nil {
-                print(error!.localizedDescription)
-                return
-            }
-            
-            print(result)
-            
-//            let postParams = [
-//                "username":"",
-//                "email":"",
-//                ]
-//
-//            let url = "http://myrealtrip.hongsj.kr/" + "/sign-up/"
-//            Alamofire
-//                .request(url, method: .post, parameters: postParams)
-//                .responseJSON { (response) in
-//                    print(response.response?.statusCode)
-//
-//                    if let responseValue = response.result.value as! [String:Any]? {
-//                        print(responseValue.keys)
-//                        print(responseValue.values)
-//                    }
-//            }
+        Alamofire
+            .request(url, method: .post, parameters: params)
+            .responseJSON(completionHandler: { (response) in
+                print(response.response!.statusCode)
+                if response.response!.statusCode == 200 {
+                    print("FB Login Success")
+                    if let responseValue = response.result.value as! [String:Any]? {
+//                        print(responseValue)
+                    }
+                } else {
+                    print("FB Login Fail")
+                    if let responseValue = response.result.value as! [String:Any]? {
+                        print(responseValue)
+                    }
+                }
+            })
         }
+
     }
-
-}
-
-//{
-//    "pk": "사용자 id",
-//    "username": "사용자 이메일",
-//    "email": "사용자 이메일",
-//    "first_name": "사용자 이름",
-//    "phone_number": "사용자 핸드폰 번호",
-//    "img_profile": "프로필 이미지",
-//    "is_facebook_user": "페이스북 유저"
-//}
-
-//struct User: Codable {
-//    let pk: Int
-//    let userName: String
-//    let email: String
-//    let firstName: String
-//    let phoneNumber: String
-//    let profileImg: String
-//    let isFacebookUser: Bool
-//    
-//    
-//}
-
-
-
-
-
-
-
-
-
-
 
 
 extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        print("login")
+
+        // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
+        // 읽기 권한 취소 / 거부하면 fail 되야함.
+        loginButton.readPermissions = ["public_profile, email"]
+
+        print("\n---------- [ login ] -----------\n")
         fetchProfile()
+        
+        // + 다른 아이디로 로그인하기가 있어야 할 것 같은데.......
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        print("logout")
+        print("\n---------- [ logout ] -----------\n")
     }
 }

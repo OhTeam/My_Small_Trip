@@ -29,7 +29,7 @@ class MainTabBarController: UITabBarController {
         tabbarLayout()
         makeTabbarItem()
         
-        // 첫번째 탭바 뷰 고정
+//         첫번째 탭바 뷰 고정
         self.onTabBarItemClick(tabItemList[0])
     }
 
@@ -40,10 +40,16 @@ class MainTabBarController: UITabBarController {
         let width = self.view.frame.size.width
         let height: CGFloat = 49
         let x: CGFloat = 0
-        let y = self.view.frame.size.height - height
+//        let y = self.view.frame.size.height - height
+        
+        let y = self.tabBar.frame.origin.y
         
         barView.frame = CGRect(x: x, y: y, width: width, height: height)
         barView.backgroundColor = UIColor.white
+        
+        // iphone x -> auto layout
+        // safe area bottom == barView bottom equeal / barView height : 49 fix
+        
         self.view.addSubview(barView)
     }
     
