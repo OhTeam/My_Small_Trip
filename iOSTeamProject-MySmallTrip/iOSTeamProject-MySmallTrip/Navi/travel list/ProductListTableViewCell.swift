@@ -20,7 +20,6 @@ class ProductListTableViewCell: UITableViewCell {
     var productInfo: Travel? {
         didSet {
             
-            
             travelName.text = productInfo?.name
             cityName.text = (productInfo?.city.name)! + ", " + (productInfo?.city.nationality)!
             
@@ -29,7 +28,7 @@ class ProductListTableViewCell: UITableViewCell {
             }
             
             
-            let productImageUrl = URL(string: (productInfo?.images[0].productImg)!)
+            let productImageUrl = URL(string: (productInfo?.image)!)
             Alamofire
                 .request(productImageUrl!)
                 .responseData { (response) in
@@ -50,13 +49,11 @@ class ProductListTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
     }
-    
 }

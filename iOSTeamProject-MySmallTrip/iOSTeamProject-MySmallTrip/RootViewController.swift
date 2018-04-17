@@ -51,9 +51,9 @@ class RootViewController: UIViewController {
         Alamofire
             .request(url, method: .post, parameters: params)
             .responseJSON(completionHandler: { (response) in
-                print(response.response!.statusCode)
+//                print(response.response!.statusCode)
                 if response.response!.statusCode == 200 {
-                    print("FB Login Success")
+//                    print("FB Login Success")
                     if let responseValue = response.result.value as! [String:Any]? {
 //                        print(responseValue)
                     }
