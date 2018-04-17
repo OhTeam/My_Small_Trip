@@ -36,8 +36,6 @@ class MainViewController: UIViewController {
     
     
     private func fetchCityData() {
-        
-//        print("\n---------- [ start fetchCity Data ] -----------\n")
         let url = UrlData.standards.basic + UrlData.standards.travelMain
         
         Alamofire.request(url, method: .get)

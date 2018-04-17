@@ -11,7 +11,6 @@ import UIKit
 class TravelImagesHeaderView: UIView {
     @IBOutlet private weak var pageControl: UIPageControl!
     
-    
 }
 
 extension TravelImagesHeaderView: TravelImagesPageViewControllerDelegate {

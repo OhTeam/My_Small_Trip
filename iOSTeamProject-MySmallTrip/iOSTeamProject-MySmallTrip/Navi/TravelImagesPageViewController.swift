@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol TravelImagesPageViewControllerDelegate:
     class
@@ -15,32 +16,43 @@ protocol TravelImagesPageViewControllerDelegate:
     func turnPageController(to index: Int)
 }
 
-class TravelImagesPageViewController: UIPageViewController {
 
-    var images: [UIImage]?
+class TravelImagesPageViewController: UIPageViewController {
+ 
+    var images: [TravelImage]?
     weak var pageViewControllerDelegate: TravelImagesPageViewControllerDelegate?
     
+    struct Storyboard {
+        static let travelImageViewController = "TravelImageViewController"
+    }
+    
     lazy var controllers: [UIViewController] = {
-        
-        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        print("\n---------- [ lazy var controllers: [UIViewController] = { ] -----------\n")
+        let storyboard = UIStoryboard(name: "Root", bundle: nil)
         var controllers = [UIViewController]()
         
+        // 이미지의 개수만큼 이미지 뷰컨트롤러를 controllers 배열에 추가
         if let images = self.images {
+            print("이게 안돼냐")
             for image in images {
-                let travelImageVC = storyBoard.instantiateViewController(withIdentifier: "TravelImageViewController")
+                let travelImageVC = storyboard.instantiateViewController(withIdentifier: Storyboard.travelImageViewController)
                 controllers.append(travelImageVC)
+                print(controllers.count)
             }
         }
         
-        self.pageViewControllerDelegate?.setUpPageController(numberOfPages: controllers.count)
-        
+        print("이건 될텐데")
+        print(controllers.count)
+//        self.pageViewControllerDelegate?.setUpPageController(numberOfPages: controllers.count)
         return controllers
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         automaticallyAdjustsScrollViewInsets = false
+
         delegate = self
         dataSource = self
         
@@ -64,27 +76,45 @@ class TravelImagesPageViewController: UIPageViewController {
         setViewControllers([controller], direction: direction, animated: true, completion: nil)
     }
     
+    
     func configureDisplaying(viewController: UIViewController) {
         for (index, vc) in controllers.enumerated() {
             
-            // viewController is indeed this vc : `===`
-            /***************************************************
-             << STUDY >>
-             < === (or !==) >
-             -. Checks if the values are identical (both point to the same memory address).
-             -. Comparing reference types.
-             -. Like == in Obj-C (pointer equality).
-             
-             < == (or !=) >
-             -. Checks if the values are the same.
-             -. Comparing value types.
-             -. Like isEqual: in Obj-C (However, you can override isEqual in Obj-C).
-             ***************************************************/
             if viewController === vc {
                 if let travelImageVC = viewController as? TravelImageViewController {
-                    travelImageVC.image = self.images?[index]
+                   
+                    guard let images = images else { return }
+                    
+                    Alamofire
+                        .request(images[index].productImg)
+                        .responseData { (response) in
+                            
+                            switch response.result {
+                            case .success(let value):
+                                
+                                travelImageVC.image = UIImage(data: value)
+                                
+                            case .failure(let error):
+                                print("\n---------- [ cityImage load fail ] -----------\n")
+                                print(error.localizedDescription)
+                            }
+                    }
                     
                     self.pageViewControllerDelegate?.turnPageController(to: index)
+                    
+                    // viewController is indeed this vc : `===`
+                    /***************************************************
+                     << STUDY >>
+                     < === (or !==) >
+                     -. Checks if the values are identical (both point to the same memory address).
+                     -. Comparing reference types.
+                     -. Like == in Obj-C (pointer equality).
+                     
+                     < == (or !=) >
+                     -. Checks if the values are the same.
+                     -. Comparing value types.
+                     -. Like isEqual: in Obj-C (However, you can override isEqual in Obj-C).
+                     ***************************************************/
                 }
             }
         }

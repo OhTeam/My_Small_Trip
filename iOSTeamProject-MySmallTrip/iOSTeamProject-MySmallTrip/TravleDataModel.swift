@@ -35,7 +35,7 @@ struct PopularCity: Codable {
     }
 }
 
-// 여행상품
+// 여행상품 리스트 info
 struct Travel: Codable {
     let pk: Int
     let name: String // 여행상품 명
@@ -43,8 +43,33 @@ struct Travel: Codable {
     
     let price: Int
     let time: String
-    let images: [TravelImage]
+    let image: String
+    
+    enum CodingKeys: String, CodingKey {
+        case pk
+        case name
+        case city
+        case price
+        case time
+        case image = "main_image"
+    }
 }
+
+
+// 상품 디테일
+struct TravelDetail: Codable {
+    let pk: Int
+    let name: String // 여행상품 명
+    let city: City
+    
+    let price: Int
+    let time: String
+    let images: [TravelImage]
+    
+    let description_title: String
+    let description: String
+}
+
 
 
 // 도시 정보
@@ -52,6 +77,7 @@ struct City: Codable {
     let name: String // 도시명 (ex. 베를린)
     let continent: String // 대륙명 (ex. 유럽)
     let nationality: String // 국가명 (ex. 독일)
+    
     let cityImage: String?
     let cityImageThumbnail: String?
     

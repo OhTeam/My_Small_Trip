@@ -23,6 +23,7 @@ class PopularCityTableViewCell: UITableViewCell {
             Alamofire
                 .request(cityImageUrl!)
                 .responseData { (response) in
+                    
                     switch response.result {
                     case .success(let value):
                         

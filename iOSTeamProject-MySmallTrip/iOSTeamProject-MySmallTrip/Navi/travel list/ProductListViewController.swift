@@ -76,7 +76,7 @@ class ProductListViewController: UIViewController {
 
 
 // MARK: - TableView Delegate Extension
-extension ProductListViewController: UITableViewDelegate, UITableViewDataSource {
+extension ProductListViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return productList.count
@@ -102,8 +102,19 @@ extension ProductListViewController: UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    
+}
+
+extension ProductListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didSelect")
-        print(indexPath.row)
+
+        // cell 선택했을 때, ProductDetailTableViewController로 이동
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let nextVC = storyBoard.instantiateViewController(withIdentifier: "ProductDetailTableViewController") as! ProductDetailTableViewController
+        
+        // 선택한 도시의 url 전달
+        nextVC.url = self.url + String(productList[indexPath.row].pk)
+        self.navigationController?.pushViewController(nextVC, animated: true)
+        
     }
 }
