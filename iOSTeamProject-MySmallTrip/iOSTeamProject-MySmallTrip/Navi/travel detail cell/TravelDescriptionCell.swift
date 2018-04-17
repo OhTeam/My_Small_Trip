@@ -10,7 +10,7 @@ import UIKit
 
 class TravelDescriptionCell: UITableViewCell {
     
-    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
     override func awakeFromNib() {
