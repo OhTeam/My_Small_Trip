@@ -47,6 +47,8 @@ class MainTabBarController: UITabBarController {
         barView.frame = CGRect(x: x, y: y, width: width, height: height)
         barView.backgroundColor = UIColor.white
         
+        
+        
         // iphone x -> auto layout
         // safe area bottom == barView bottom equeal / barView height : 49 fix
         
