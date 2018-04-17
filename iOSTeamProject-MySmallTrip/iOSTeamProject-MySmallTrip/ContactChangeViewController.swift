@@ -16,6 +16,7 @@ class ContactChangeViewController: UIViewController {
     private var actionButton: UIButton?
     
     private var movingHeightOfBtn: NSLayoutConstraint?
+    private let keyFrameHeight: CGFloat = 216
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +33,8 @@ class ContactChangeViewController: UIViewController {
     
     private func setNaviItem() {
         self.navigationItem.title = "연락처 변경"
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "titleImage"), style: .done, target: self, action: #selector(popThis(_:)))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "dismiss")))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "clearDismiss"), style: .done, target: self, action: #selector(popThis(_:)))
+        self.navigationItem.leftBarButtonItem?.tintColor = .black
     }
     
     // MARK: - Set Components
@@ -44,6 +45,7 @@ class ContactChangeViewController: UIViewController {
         upperDesLabel!.font = UIFont.systemFont(ofSize: 14)
         upperDesLabel!.textAlignment = .left
         upperDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        
         self.view.addSubview(upperDesLabel!)
         upperDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
@@ -53,11 +55,13 @@ class ContactChangeViewController: UIViewController {
         tfDesLabel!.font = UIFont.systemFont(ofSize: 12)
         tfDesLabel!.textAlignment = .left
         tfDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        
         self.view.addSubview(tfDesLabel!)
         tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
         inputTextField = UITextField()
+        inputTextField!.delegate = self
         inputTextField!.placeholder = "전화번호를 입력하세요."
         inputTextField!.font = UIFont.systemFont(ofSize: 16)
         inputTextField!.textAlignment = .left
@@ -66,6 +70,8 @@ class ContactChangeViewController: UIViewController {
         inputTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         inputTextField!.layer.cornerRadius = 5
         inputTextField!.clipsToBounds = true
+        inputTextField!.addTarget(self, action: #selector(moveBtnUp(_:)), for: .touchDown)
+        
         self.view.addSubview(inputTextField!)
         inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
@@ -78,6 +84,7 @@ class ContactChangeViewController: UIViewController {
         actionButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
         actionButton!.layer.cornerRadius = 10
         actionButton!.clipsToBounds = true
+        
         self.view.addSubview(actionButton!)
         actionButton!.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -93,33 +100,50 @@ class ContactChangeViewController: UIViewController {
         let safeGuide = self.view.safeAreaLayoutGuide
         
         // Upper Description Label
-        upperDesLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
-        upperDesLabel.widthAnchor.constraint(equalToConstant: 218).isActive = true
         upperDesLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 20).isActive = true
+        tfDesLabel.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor, constant: 34).isActive = true
         upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 16).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 16).isActive = true
         
         // TextField Description Label
-        tfDesLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        tfDesLabel.widthAnchor.constraint(equalToConstant: 54).isActive = true
-        tfDesLabel.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor, constant: 34).isActive = true
+        inputTextField.topAnchor.constraint(equalTo: tfDesLabel.bottomAnchor, constant: 5).isActive = true
         tfDesLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: tfDesLabel.trailingAnchor, constant: 24).isActive = true
         
         // Input TextField
         inputTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        inputTextField.widthAnchor.constraint(equalToConstant: 327).isActive = true
-        inputTextField.centerXAnchor.constraint(equalTo: safeGuide.centerXAnchor).isActive = true
-        inputTextField.topAnchor.constraint(equalTo: tfDesLabel.bottomAnchor, constant: 5).isActive = true
+        inputTextField.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: inputTextField.trailingAnchor, constant: 24).isActive = true        
         
         // Action Button
         actionButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        actionButton.widthAnchor.constraint(equalToConstant: 327).isActive = true
-        actionButton.centerXAnchor.constraint(equalTo: safeGuide.centerXAnchor).isActive = true
+        actionButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: actionButton.trailingAnchor, constant: 24).isActive = true
         movingHeightOfBtn = safeGuide.bottomAnchor.constraint(equalTo: actionButton.bottomAnchor, constant: 24)
-        movingHeightOfBtn?.isActive = true
+        movingHeightOfBtn!.isActive = true
     }
     
     // MARK: - Targets
     @objc func popThis(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func moveBtnUp(_ sender: UITextField) {
+        guard let movingHeightOfBtn = movingHeightOfBtn else { return }
+        movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
+    }
+}
+
+extension ContactChangeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let movingHeightOfBtn = movingHeightOfBtn else { return true }
+        
+        movingHeightOfBtn.constant = 24
+        
+        textField.resignFirstResponder()
+        
+        self.actionButton?.becomeFirstResponder()
+        
+        return true
     }
 }
