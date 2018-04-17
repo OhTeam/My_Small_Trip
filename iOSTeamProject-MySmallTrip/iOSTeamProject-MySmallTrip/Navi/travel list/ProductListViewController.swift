@@ -85,6 +85,7 @@ extension ProductListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "travelCell", for: indexPath) as! ProductListTableViewCell
         cell.productInfo = self.productList[indexPath.row]
+        cell.selectionStyle = .none
         return cell
     }
     
