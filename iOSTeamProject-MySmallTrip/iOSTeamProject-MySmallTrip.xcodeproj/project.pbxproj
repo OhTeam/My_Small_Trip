@@ -15,6 +15,7 @@
 		6FBE2FBC207C7DBB00BEAD8F /* SignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */; };
 		6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */; };
 		6FBE2FC0207C7DD800BEAD8F /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */; };
+		7A2B213C2085C5D9006683C0 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2B213B2085C5D9006683C0 /* Calendar.storyboard */; };
 		7A2E9A2E2084312300F41031 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2E9A2D2084312300F41031 /* CalendarViewController.swift */; };
 		7A819F43207EED7000CC92E0 /* SignUpUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */; };
 		7A9DD106207DD2B9008166A0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */; };
@@ -32,6 +33,7 @@
 		6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUp.storyboard; sourceTree = "<group>"; };
 		6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
+		7A2B213B2085C5D9006683C0 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		7A2E9A2D2084312300F41031 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUserInfo.swift; sourceTree = "<group>"; };
 		7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -77,10 +79,11 @@
 				6FBE2FAB207C7D7C00BEAD8F /* ViewController.swift */,
 				6FBE2FAD207C7D7C00BEAD8F /* Main.storyboard */,
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
-				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
 				7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */,
+				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				7A2E9A2D2084312300F41031 /* CalendarViewController.swift */,
+				7A2B213B2085C5D9006683C0 /* Calendar.storyboard */,
 				6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */,
 				6FBE2FB0207C7D7D00BEAD8F /* Assets.xcassets */,
 				6FBE2FB2207C7D7D00BEAD8F /* LaunchScreen.storyboard */,
@@ -173,6 +176,7 @@
 				6FBE2FBC207C7DBB00BEAD8F /* SignUp.storyboard in Resources */,
 				6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */,
 				6FBE2FAF207C7D7C00BEAD8F /* Main.storyboard in Resources */,
+				7A2B213C2085C5D9006683C0 /* Calendar.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="S7D-cl-XkU">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Calendar View Controller-->
+        <scene sceneID="7O3-7F-q32">
+            <objects>
+                <viewController id="S7D-cl-XkU" customClass="CalendarViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E35-hg-5Aq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cKg-W8-z5F">
+                                <rect key="frame" x="14" y="39" width="30" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="64g-gQ-djU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="취소">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6LQ-Bb-yIa">
+                                <rect key="frame" x="331" y="39" width="30" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="Pgp-iI-EPH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="적용">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a4X-vU-XZ0">
+                                <rect key="frame" x="20" y="86" width="335" height="581"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="FsU-O5-KFK">
+                                        <rect key="frame" x="0.0" y="28" width="335" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FsU-O5-KFK" id="C5Y-13-36D">
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="S7D-cl-XkU" id="hoX-Bf-Ubl"/>
+                                    <outlet property="delegate" destination="S7D-cl-XkU" id="5yq-zK-5gp"/>
+                                </connections>
+                            </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLa-Sf-dBf">
+                                <rect key="frame" x="31" y="139" width="313" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="wfS-yO-kGA"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="a4X-vU-XZ0" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="20" id="RN2-e6-ttD"/>
+                            <constraint firstItem="a4X-vU-XZ0" firstAttribute="bottom" secondItem="zhI-lQ-bFX" secondAttribute="bottom" id="SFf-z7-Yru"/>
+                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="DLa-Sf-dBf" secondAttribute="trailing" constant="31" id="SLg-l4-1Wo"/>
+                            <constraint firstItem="cKg-W8-z5F" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="14" id="VO5-9g-hA1"/>
+                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="a4X-vU-XZ0" secondAttribute="trailing" constant="20" id="Vit-36-EoG"/>
+                            <constraint firstItem="DLa-Sf-dBf" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="31" id="Y9v-2w-Td8"/>
+                            <constraint firstItem="a4X-vU-XZ0" firstAttribute="top" secondItem="cKg-W8-z5F" secondAttribute="bottom" constant="28" id="bwe-Md-xdE"/>
+                            <constraint firstItem="6LQ-Bb-yIa" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="19" id="hRW-fl-Dvf"/>
+                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="6LQ-Bb-yIa" secondAttribute="trailing" constant="14" id="mY8-Rt-XrT"/>
+                            <constraint firstItem="DLa-Sf-dBf" firstAttribute="top" secondItem="cKg-W8-z5F" secondAttribute="bottom" constant="81" id="pqm-l8-v0A"/>
+                            <constraint firstItem="cKg-W8-z5F" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="19" id="z3d-zd-Luf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zhI-lQ-bFX"/>
+                    </view>
+                    <connections>
+                        <outlet property="applyButton" destination="6LQ-Bb-yIa" id="LzP-6q-s9u"/>
+                        <outlet property="calendarUITable" destination="a4X-vU-XZ0" id="2IU-oe-LqR"/>
+                        <outlet property="cancelButton" destination="cKg-W8-z5F" id="0Qd-sM-7e3"/>
+                        <outlet property="dayNameUIStackView" destination="DLa-Sf-dBf" id="6zr-LY-pIb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-cU-YJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12" y="-65"/>
+        </scene>
+    </scenes>
+</document>
