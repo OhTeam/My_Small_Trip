@@ -48,6 +48,9 @@
                                         <state key="normal" title="LOG IN">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="dRA-gZ-wD8" kind="presentation" id="PJb-kB-men"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRW-F2-faE">
                                         <rect key="frame" x="24" y="120" width="327" height="48"/>
@@ -90,6 +93,14 @@
                                     <constraint firstItem="Ad5-0U-axn" firstAttribute="leading" secondItem="cwQ-Uh-eh2" secondAttribute="leading" constant="90" id="vlU-iI-Tn0"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="38V-dP-iWt">
+                                <rect key="frame" x="16" y="575" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="Gh9-Hx-uh3" kind="presentation" id="jjv-W7-Oix"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -112,21 +123,21 @@
             </objects>
             <point key="canvasLocation" x="696.79999999999995" y="85.907046476761622"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--Login-->
         <scene sceneID="L4g-sQ-RkT">
             <objects>
-                <viewControllerPlaceholder id="dRA-gZ-wD8" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Login" id="dRA-gZ-wD8" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wcq-bj-FcZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="865" y="540"/>
+            <point key="canvasLocation" x="529" y="528"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--SignUp-->
         <scene sceneID="TKN-zm-8Ka">
             <objects>
-                <viewControllerPlaceholder id="HDI-9F-fc7" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="SignUp" id="HDI-9F-fc7" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTw-AU-gkO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="529" y="540"/>
+            <point key="canvasLocation" x="937" y="528"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="kv1-WB-xX7">
@@ -604,10 +615,10 @@
             </objects>
             <point key="canvasLocation" x="2396" y="1817"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="sQS-qX-V6D">
             <objects>
-                <viewController id="rkA-yu-OCv" sceneMemberID="viewController">
+                <viewController id="rkA-yu-OCv" customClass="ProfileViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qCQ-Vs-ew3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

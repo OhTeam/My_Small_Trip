@@ -20,11 +20,13 @@ class MainTabBarController: UITabBarController {
     // 탭바 아이템 이미지 String
     let iconList = ["tabBarItem01Home", "tabBarItem02Search", "tabBarItem03Wishlist", "tabBarItem04Profile"]
     
+    // safeGuideLine
+    private var safeGuide: UILayoutGuide?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tabBar.isHidden = true
+        self.tabBar.isHidden = false
         
         tabbarLayout()
         makeTabbarItem()
@@ -38,19 +40,25 @@ class MainTabBarController: UITabBarController {
     func tabbarLayout() {
         // custom tabbar layout
         let width = self.view.frame.size.width
-        let height: CGFloat = 49
+        let height: CGFloat = self.tabBar.frame.height
         let x: CGFloat = 0
-//        let y = self.view.frame.size.height - height
-        
         let y = self.tabBar.frame.origin.y
         
         barView.frame = CGRect(x: x, y: y, width: width, height: height)
         barView.backgroundColor = UIColor.white
+        self.view.addSubview(barView)
+        
+        
+//        safeGuide = self.view.safeAreaLayoutGuide
+//        barView.heightAnchor.constraint(equalToConstant: 49).isActive = true
+//        barView.bottomAnchor.constraint(equalTo: self.tabBar.bottomAnchor).isActive = true
+        
+//        barView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
+//        barView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
+//        barView.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
         
         // iphone x -> auto layout
-        // safe area bottom == barView bottom equeal / barView height : 49 fix
-        
-        self.view.addSubview(barView)
+        // safe area bottom == barView bottom equeal / barView height : 49 fix   
     }
     
     
