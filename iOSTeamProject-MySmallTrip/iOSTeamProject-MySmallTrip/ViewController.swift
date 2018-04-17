@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        // addButtonsToOpenViews() // For temporarily execution
+         addButtonsToOpenViews() // For temporarily execution
         
     }
     
@@ -90,6 +90,9 @@ class ViewController: UIViewController {
     @objc private func showProfile(_ sender: UIButton) {
         let profileVC: ProfileViewController = ProfileViewController()
         let tmpNaviVC = UINavigationController(rootViewController: profileVC)
+        tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+        let tmpTabBarVC = UITabBarController()
+        tmpTabBarVC.viewControllers = [tmpNaviVC]
 
 /*
         // Navigation Bar setting
@@ -100,7 +103,7 @@ class ViewController: UIViewController {
         // to set the title image of navigation controller as the default image
         tmpNaviVC.navigationBar.topItem?.titleView = naviView()
 */
-        self.present(tmpNaviVC, animated: true)
+        self.present(tmpTabBarVC, animated: true)
     }
     
     // Navigation Controller's title image
