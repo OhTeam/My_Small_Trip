@@ -20,6 +20,14 @@ class LogInViewController: UIViewController {
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
     
+    // Preparation for SignUp view controller
+    var loginEmail: String? {
+        didSet {
+            guard let emailTextField = emailTextField else { return }
+            emailTextField.text = loginEmail
+        }
+    }
+    
     private var safeGuide: UILayoutGuide?
     private var textFieldPositionConstraint: NSLayoutConstraint?
     private let movingHeight: CGFloat = 100 // distance to be moved at keyboard-up
@@ -264,14 +272,20 @@ class LogInViewController: UIViewController {
     
     @objc func logIn(_ sender: UIButton) {
         let host: String = "http://myrealtrip.hongsj.kr/login/"
-        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
+//        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
+        
+        // temporary parameters for login process
+        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
         Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
             switch response.result {
             case .success(let data):
                 print(data)
-                if let loggedUser = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
-                    print(loggedUser)
+                if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
+                    print(userLoggedIn)
+                    self.setUserData(userLoggedIn: userLoggedIn)
+                    // self.tmpPrint(user: UserData.user)
+                    
                 }
                     
             case .failure(let error):
@@ -280,6 +294,39 @@ class LogInViewController: UIViewController {
         })
     }
     
+    // MARK: - Set User Data after logging in
+    private func setUserData(userLoggedIn: EmailLogIn) {
+        UserData.user.setToken(token: userLoggedIn.token)
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.user.userName)
+        UserData.user.setEmail(email: userLoggedIn.user.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+    }
+    
+    // MARK: - Temporary - it should be deleted because this is a test code
+    func tmpPrint(user: UserData) {
+        guard let token = user.token,
+            let primaryKey = user.primaryKey,
+            let userName = user.userName,
+            let email = user.email,
+            let firstName = user.firstName,
+            let phoneNumber = user.phoneNumber,
+            let isFacebookUser = user.isFacebookUser
+            else { return }
+        print("**" + token)
+        print("**" + String(primaryKey))
+        print("**" + userName)
+        print("**" + email)
+        print("**" + firstName)
+        print("**" + phoneNumber)
+        print("**" + (user.imgProfile ?? "nil"))
+        print("**" + String(isFacebookUser))
+    }
+    
+    // MARK: - Targets
     @objc func moveUpAllComponents(_ sender: UITextField) {
         guard let textFieldPositionConstraint = textFieldPositionConstraint else { return }
         

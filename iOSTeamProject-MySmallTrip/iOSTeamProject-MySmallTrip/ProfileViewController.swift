@@ -18,15 +18,9 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Prepare for Navigation Controller
-        // ㄴ> titleView without any anchor
-        self.navigationItem.titleView = {
-            () -> UIImageView in
-            let tmpImageView = UIImageView(image: UIImage(named: "titleImage"))
-            return tmpImageView
-        }()
-        
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+        
+        setNaviItems()
         
         // MARK: Views Creation and Additon to Super View
         profileView = createProfileView()
@@ -40,18 +34,33 @@ class ProfileViewController: UIViewController {
         setBasicLayout()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if let index = self.table?.indexPathForSelectedRow {
-            self.table?.deselectRow(at: index, animated: true)
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        if let index = self.table?.indexPathForSelectedRow {
+//            self.table?.deselectRow(at: index, animated: true)
+//        }
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }    
+    }
     
-    // MARK: - SetBasicLayout
+    // MARK: - Set Navigation Items
+    private func setNaviItems() {
+        // Prepare for Navigation Controller
+        // ㄴ> titleView without any anchor
+        self.navigationItem.titleView = {
+            () -> UIImageView in
+            let tmpImageView = UIImageView(image: UIImage(named: "titleImage"))
+            return tmpImageView
+        }()
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem()
+        self.navigationItem.backBarButtonItem?.title = ""
+        self.navigationItem.backBarButtonItem?.tintColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+    }
+    
+    // MARK: - Set Basic Layout
     private func setBasicLayout() {
         guard let profileView = self.profileView,
             let tableView = self.tableView,
@@ -183,7 +192,7 @@ class ProfileViewController: UIViewController {
         self.table = UITableView()
         self.table!.delegate = self
         self.table!.dataSource = self
-        self.table!.register(UITableViewCell.self, forCellReuseIdentifier: "profileCell")
+        self.table!.register(UITableViewCell.self, forCellReuseIdentifier: "profileViewCell")
         self.table!.separatorStyle = .none
         self.table!.translatesAutoresizingMaskIntoConstraints = false
         
@@ -237,7 +246,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "profileCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileViewCell", for: indexPath)
         // TODO: - change to switch ~~~~~~~~~~~~~~ or creation a function dealing with each cell
         if indexPath.section == 0 && indexPath.row == 0 {
             cell.textLabel?.text = "프로필 설정"
@@ -286,12 +295,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.allowsSelection = false
         if indexPath.section == 0 && indexPath.row == 0 {
-            let tmpVC = ContactChangeViewController()
-            tmpVC.view.backgroundColor = .white
             
-//            self.navigationItem.backBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "dismiss")))
-//            self.navigationItem.backBarButtonItem?.title = ""
+            // TODO: to be changed with real code
+            let tmpVC = ProfileSettingViewController()
             self.navigationController?.pushViewController(tmpVC, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 0 && indexPath.row == 1 {
