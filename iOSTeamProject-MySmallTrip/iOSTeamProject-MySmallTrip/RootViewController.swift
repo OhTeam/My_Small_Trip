@@ -59,6 +59,8 @@ class RootViewController: UIViewController {
                         
                         guard let user = responseValue["user"] as! [String:Any]? else { return }
                         FBUser.standards.userName = user["first_name"] as? String
+                        
+//                        self.moveToMainVC()
                     }
 
                 } else {
