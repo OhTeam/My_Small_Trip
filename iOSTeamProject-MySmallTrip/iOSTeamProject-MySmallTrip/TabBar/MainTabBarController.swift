@@ -10,6 +10,8 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
+    private var safeGuide: UILayoutGuide?
+    
     // 탭바 View
     var barView = UIView()
     
@@ -24,7 +26,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tabBar.isHidden = true
+        self.tabBar.isHidden = false
         
         tabbarLayout()
         makeTabbarItem()
@@ -40,19 +42,23 @@ class MainTabBarController: UITabBarController {
         let width = self.view.frame.size.width
         let height: CGFloat = 49
         let x: CGFloat = 0
-//        let y = self.view.frame.size.height - height
-        
         let y = self.tabBar.frame.origin.y
         
         barView.frame = CGRect(x: x, y: y, width: width, height: height)
         barView.backgroundColor = UIColor.white
         
-        
-        
-        // iphone x -> auto layout
-        // safe area bottom == barView bottom equeal / barView height : 49 fix
-        
+        barView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(barView)
+        
+        
+        // autoLayout
+        safeGuide = self.view.safeAreaLayoutGuide
+        barView.heightAnchor.constraint(equalToConstant: 49).isActive = true
+        
+        barView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
+        barView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
+        barView.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
+    
     }
     
     

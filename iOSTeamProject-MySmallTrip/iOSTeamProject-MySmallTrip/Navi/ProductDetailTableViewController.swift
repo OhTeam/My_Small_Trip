@@ -11,6 +11,8 @@ import Alamofire
 
 class ProductDetailTableViewController: UITableViewController {
     
+    private var safeGuide: UILayoutGuide?
+    
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var productNumber: UILabel!
     var reservationButton: UIButton!
@@ -85,38 +87,58 @@ class ProductDetailTableViewController: UITableViewController {
     // reservation Button layout
     func makeReserveBtn() {
         
-        let height: CGFloat = 49
+        let tabBarHeight: CGFloat = 49
+        let btnHeight: CGFloat = 45
         reservationButton = UIButton(frame: CGRect(x: 0,
-                                                   y: self.view.frame.height - height * 2,
+                                                   y: self.view.frame.height - (tabBarHeight + btnHeight),
                                                    width: self.view.frame.width,
-                                                   height: 49))
+                                                   height: btnHeight))
         
         reservationButton.backgroundColor = UIColor.Custom.mainColor
         reservationButton.alpha = 0.95
-        
         reservationButton.setTitle("예약하기", for: .normal)
         reservationButton.setTitleColor(.white, for: .normal)
+        reservationButton.titleLabel!.font = UIFont.systemFont(ofSize: 14)
         
         reservationButton.addTarget(self, action: #selector(moveReserveVC(_:)), for: .touchUpInside)
+        
+        reservationButton.translatesAutoresizingMaskIntoConstraints = false
         
         // TableVC로 생성해서 테이블뷰 위에 위치시키려면 parent.view에 addSubview할 수밖에... ㅠㅜ
         self.parent?.view.addSubview(reservationButton)
         
         // back 누르면 사라지게 해야됨 ㅠ.ㅜ
 //        reservationButton.removeFromSuperview()
+        
+        // autoLayout
+        safeGuide = self.parent?.view.safeAreaLayoutGuide
+        reservationButton.heightAnchor.constraint(equalToConstant: btnHeight).isActive = true
+
+        reservationButton.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
+        reservationButton.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
+        reservationButton.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
     }
     
     
     @objc func moveReserveVC(_ sender: UIButton) {
+        // 누르면 예약하기 뷰컨트롤러로 이동
         let storyBoard = UIStoryboard(name: "Root", bundle: nil)
-        let popUpVC = storyBoard.instantiateViewController(withIdentifier: StoryBoard.reservationVC) as! ReservationViewController
         
+        let popUpVC = storyBoard.instantiateViewController(withIdentifier: "ReservationNavController") as! UINavigationController
         
+        let reservationNavRootVC = popUpVC.childViewControllers[0] as! ReservationViewController
+        
+        // 현재 상품 이미지, 상품명 전달
+        guard let image = self.imageView.image,
+            let productName = productDetail?.name,
+            let price = productDetail?.price else { return }
+        
+            reservationNavRootVC.image = image
+            reservationNavRootVC.text = productName
+            reservationNavRootVC.price = price
         
         self.present(popUpVC, animated: true, completion: nil)
     }
-    
-    
 }
 
 

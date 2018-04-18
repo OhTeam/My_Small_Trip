@@ -6,6 +6,17 @@
 //  Copyright © 2018년 ohteam. All rights reserved.
 //
 
+
+// user(temp)
+class FBUser {
+    
+    static var standards = FBUser()
+    
+    var token: String?
+    var userName: String?
+    
+}
+
 // url(String)
 class UrlData {
     
