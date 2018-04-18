@@ -13,13 +13,16 @@ class ContactChangeViewController: UIViewController {
     private var upperDesLabel: UILabel?
     private var tfDesLabel: UILabel?
     private var inputTextField: UITextField?
-    private var actionButton: UIButton?
+    private var getAuthButton: UIButton?
     
     private var movingHeightOfBtn: NSLayoutConstraint?
     private let keyFrameHeight: CGFloat = 216
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
+        
         setNaviItem()
         setComponents()
         setLayout()
@@ -31,10 +34,16 @@ class ContactChangeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Set Nvaigation Item
     private func setNaviItem() {
         self.navigationItem.title = "연락처 변경"
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "clearDismiss"), style: .done, target: self, action: #selector(popThis(_:)))
         self.navigationItem.leftBarButtonItem?.tintColor = .black
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem()
+        self.navigationItem.backBarButtonItem?.title = ""
+        self.navigationItem.backBarButtonItem?.tintColor = UIColor(displayP3Red: 74/255, green: 74/255, blue: 74/255, alpha: 1)
     }
     
     // MARK: - Set Components
@@ -76,17 +85,18 @@ class ContactChangeViewController: UIViewController {
         inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         // Action Button
-        actionButton = UIButton()
-        actionButton!.setTitle("문자로 인증코드 보내기", for: .normal)
-        actionButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        actionButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
-        actionButton!.titleLabel!.textAlignment = .center
-        actionButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        actionButton!.layer.cornerRadius = 10
-        actionButton!.clipsToBounds = true
+        getAuthButton = UIButton()
+        getAuthButton!.setTitle("문자로 인증코드 보내기", for: .normal)
+        getAuthButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        getAuthButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
+        getAuthButton!.titleLabel!.textAlignment = .center
+        getAuthButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        getAuthButton!.layer.cornerRadius = 10
+        getAuthButton!.clipsToBounds = true
+        getAuthButton!.addTarget(self, action: #selector(getAuthCode(_:)), for: .touchUpInside)
         
-        self.view.addSubview(actionButton!)
-        actionButton!.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(getAuthButton!)
+        getAuthButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - Set Layout of All Components
@@ -94,7 +104,7 @@ class ContactChangeViewController: UIViewController {
         guard let upperDesLabel = upperDesLabel,
             let tfDesLabel = tfDesLabel,
             let inputTextField = inputTextField,
-            let actionButton = actionButton
+            let getAuthButton = getAuthButton
             else { return }
         
         let safeGuide = self.view.safeAreaLayoutGuide
@@ -116,10 +126,10 @@ class ContactChangeViewController: UIViewController {
         safeGuide.trailingAnchor.constraint(equalTo: inputTextField.trailingAnchor, constant: 24).isActive = true        
         
         // Action Button
-        actionButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        actionButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
-        safeGuide.trailingAnchor.constraint(equalTo: actionButton.trailingAnchor, constant: 24).isActive = true
-        movingHeightOfBtn = safeGuide.bottomAnchor.constraint(equalTo: actionButton.bottomAnchor, constant: 24)
+        getAuthButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        getAuthButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: getAuthButton.trailingAnchor, constant: 24).isActive = true
+        movingHeightOfBtn = safeGuide.bottomAnchor.constraint(equalTo: getAuthButton.bottomAnchor, constant: 24)
         movingHeightOfBtn!.isActive = true
     }
     
@@ -132,17 +142,20 @@ class ContactChangeViewController: UIViewController {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return }
         movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
     }
+    
+    @objc func getAuthCode(_ sender: UIButton) {
+        let smsAuthVC = SMSAuthenticationViewController()
+        self.navigationController?.pushViewController(smsAuthVC, animated: true)
+    }
 }
 
 extension ContactChangeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return true }
         
-        movingHeightOfBtn.constant = 24
-        
         textField.resignFirstResponder()
         
-        self.actionButton?.becomeFirstResponder()
+        movingHeightOfBtn.constant = 24
         
         return true
     }
