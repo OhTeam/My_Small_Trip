@@ -32,6 +32,7 @@
 		6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */; };
 		6FBE300A207E525700BEAD8F /* TravleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE3009207E525700BEAD8F /* TravleDataModel.swift */; };
 		6FBE300C207E564300BEAD8F /* PopularCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */; };
+		7A2B213C2085C5D9006683C0 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2B213B2085C5D9006683C0 /* Calendar.storyboard */; };
 		7A2E9A2E2084312300F41031 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2E9A2D2084312300F41031 /* CalendarViewController.swift */; };
 		7A819F43207EED7000CC92E0 /* SignUpUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */; };
 		7A9DD106207DD2B9008166A0 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */; };
@@ -71,6 +72,7 @@
 		6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6FBE3009207E525700BEAD8F /* TravleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravleDataModel.swift; sourceTree = "<group>"; };
 		6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCityTableViewCell.swift; sourceTree = "<group>"; };
+		7A2B213B2085C5D9006683C0 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		7A2E9A2D2084312300F41031 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUserInfo.swift; sourceTree = "<group>"; };
 		7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -154,9 +156,12 @@
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
 				6FBE2FAD207C7D7C00BEAD8F /* Main.storyboard */,
 				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
+				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
 				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
 				7A819F42207EED7000CC92E0 /* SignUpUserInfo.swift */,
+				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				7A2E9A2D2084312300F41031 /* CalendarViewController.swift */,
+				7A2B213B2085C5D9006683C0 /* Calendar.storyboard */,
 				6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */,
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
 				6FBE2FC9207C8EC100BEAD8F /* RootViewController.swift */,
@@ -224,6 +229,7 @@
 				6FBE2FA3207C7D7C00BEAD8F /* Frameworks */,
 				6FBE2FA4207C7D7C00BEAD8F /* Resources */,
 				7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */,
+				6303806A8B36BAA421B0EAF9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,12 +285,28 @@
 				6FBE2FBC207C7DBB00BEAD8F /* SignUp.storyboard in Resources */,
 				6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */,
 				6FBE2FAF207C7D7C00BEAD8F /* Main.storyboard in Resources */,
+				7A2B213C2085C5D9006683C0 /* Calendar.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6303806A8B36BAA421B0EAF9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7213E4D1465B5E677363883B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -507,10 +529,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -526,10 +545,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
