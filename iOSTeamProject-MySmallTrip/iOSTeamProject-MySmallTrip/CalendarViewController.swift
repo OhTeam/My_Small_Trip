@@ -62,9 +62,9 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
         return 300
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 88
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 88
+//    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -72,9 +72,9 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return ""
-    }
-    
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return ""
+//    }
+//    
     
 }
