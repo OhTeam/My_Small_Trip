@@ -10,6 +10,9 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
+    // safeGuideLine
+    private var safeGuide: UILayoutGuide?
+    
     // 탭바 View
     var barView = UIView()
     
@@ -20,8 +23,7 @@ class MainTabBarController: UITabBarController {
     // 탭바 아이템 이미지 String
     let iconList = ["tabBarItem01Home", "tabBarItem02Search", "tabBarItem03Wishlist", "tabBarItem04Profile"]
     
-    // safeGuideLine
-    private var safeGuide: UILayoutGuide?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,17 +50,18 @@ class MainTabBarController: UITabBarController {
         barView.backgroundColor = UIColor.white
         self.view.addSubview(barView)
         
+        barView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(barView)
         
-//        safeGuide = self.view.safeAreaLayoutGuide
-//        barView.heightAnchor.constraint(equalToConstant: 49).isActive = true
-//        barView.bottomAnchor.constraint(equalTo: self.tabBar.bottomAnchor).isActive = true
         
-//        barView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
-//        barView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
-//        barView.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
+        // autoLayout
+        safeGuide = self.view.safeAreaLayoutGuide
+        barView.heightAnchor.constraint(equalToConstant: 49).isActive = true
         
-        // iphone x -> auto layout
-        // safe area bottom == barView bottom equeal / barView height : 49 fix   
+        barView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
+        barView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
+        barView.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
+    
     }
     
     

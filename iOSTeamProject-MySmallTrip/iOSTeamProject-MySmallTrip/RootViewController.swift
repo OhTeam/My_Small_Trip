@@ -27,7 +27,6 @@ class RootViewController: UIViewController {
         facebookLoginButton.delegate = self
         
         if FBSDKAccessToken.current() != nil {
-//            print("\n---------- [ current access ] -----------\n")
             fetchProfile()
         }
     }
@@ -42,6 +41,7 @@ class RootViewController: UIViewController {
         signUpButton.layer.borderColor = UIColor.Custom.mainColor.cgColor
     }
     
+    
     private func fetchProfile() {
         let url = UrlData.standards.basic + UrlData.standards.facebookLogin
         
@@ -51,12 +51,18 @@ class RootViewController: UIViewController {
         Alamofire
             .request(url, method: .post, parameters: params)
             .responseJSON(completionHandler: { (response) in
-//                print(response.response!.statusCode)
                 if response.response!.statusCode == 200 {
-//                    print("FB Login Success")
                     if let responseValue = response.result.value as! [String:Any]? {
-//                        print(responseValue)
+                        
+                        // 로그인 성공하면 fbuser singleton에 토큰값 / user name 저장
+                        FBUser.standards.token = responseValue["token"] as? String
+                        
+                        guard let user = responseValue["user"] as! [String:Any]? else { return }
+                        FBUser.standards.userName = user["first_name"] as? String
+                        
+//                        self.moveToMainVC()
                     }
+
                 } else {
                     print("FB Login Fail")
                     if let responseValue = response.result.value as! [String:Any]? {
@@ -65,6 +71,13 @@ class RootViewController: UIViewController {
                 }
             })
         }
+    
+    
+    func moveToMainVC() {
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        self.present(mainVC, animated: true, completion: nil)
+    }
 
     }
 
@@ -73,17 +86,25 @@ extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
 
+        if result.isCancelled {
+            print("login cancle: \(result.isCancelled)")
+        } else {
+            loginButton.readPermissions = ["public_profile, email"]
+            fetchProfile()
+            moveToMainVC()
+        }
+        
         // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
         // 읽기 권한 취소 / 거부하면 fail 되야함.
-        loginButton.readPermissions = ["public_profile, email"]
-
-        print("\n---------- [ login ] -----------\n")
-        fetchProfile()
         
         // + 다른 아이디로 로그인하기가 있어야 할 것 같은데.......
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("\n---------- [ logout ] -----------\n")
+        
+        // fbuser singleton value값 삭제
+        FBUser.standards.token = nil
+        FBUser.standards.userName = nil
     }
 }
