@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -93,13 +94,8 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a4X-vU-XZ0">
                                 <rect key="frame" x="20" y="172" width="335" height="495"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="Wdy-2U-L4U">
-                                    <rect key="frame" x="0.0" y="0.0" width="335" height="51"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
                                 <collectionView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ULT-sW-ms7">
-                                    <rect key="frame" x="0.0" y="123" width="335" height="44"/>
+                                    <rect key="frame" x="0.0" y="72" width="335" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YYx-2J-hSi">
@@ -109,7 +105,7 @@
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                     <cells>
-                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ffd-IY-EUH">
+                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="CollectionViewCell" id="ffd-IY-EUH">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -121,7 +117,7 @@
                                 </collectionView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="FsU-O5-KFK">
-                                        <rect key="frame" x="0.0" y="79" width="335" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="335" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FsU-O5-KFK" id="C5Y-13-36D">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
@@ -135,36 +131,59 @@
                                 </connections>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLa-Sf-dBf">
-                                <rect key="frame" x="31" y="139" width="313" height="35"/>
+                                <rect key="frame" x="20" y="139" width="335" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="wfS-yO-kGA"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjP-nO-Uht" userLabel="dayTopLine">
+                                <rect key="frame" x="20" y="137" width="335" height="1"/>
+                                <color key="backgroundColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.74117647058823533" green="0.74117647058823533" blue="0.74117647058823533" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2g-ch-Vz3" userLabel="dayBottomLine">
+                                <rect key="frame" x="20" y="172" width="335" height="1"/>
+                                <color key="backgroundColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.74117647060000003" green="0.74117647060000003" blue="0.74117647060000003" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="e2g-ch-Vz3" firstAttribute="leading" secondItem="E35-hg-5Aq" secondAttribute="leadingMargin" constant="4" id="0gI-ik-1dn"/>
                             <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="64Z-S7-U5W" secondAttribute="trailing" constant="20" id="1AL-Yv-cBW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fjP-nO-Uht" secondAttribute="trailing" constant="4" id="7XH-9s-fES"/>
+                            <constraint firstItem="fjP-nO-Uht" firstAttribute="top" secondItem="64Z-S7-U5W" secondAttribute="bottom" id="HTh-FX-U9z"/>
                             <constraint firstItem="a4X-vU-XZ0" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="20" id="RN2-e6-ttD"/>
                             <constraint firstItem="a4X-vU-XZ0" firstAttribute="bottom" secondItem="zhI-lQ-bFX" secondAttribute="bottom" id="SFf-z7-Yru"/>
-                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="DLa-Sf-dBf" secondAttribute="trailing" constant="31" id="SLg-l4-1Wo"/>
+                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="DLa-Sf-dBf" secondAttribute="trailing" constant="20" id="SLg-l4-1Wo"/>
                             <constraint firstItem="zhI-lQ-bFX" firstAttribute="top" secondItem="64Z-S7-U5W" secondAttribute="bottom" constant="-117" id="U3L-L3-5qc"/>
                             <constraint firstItem="cKg-W8-z5F" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="14" id="VO5-9g-hA1"/>
                             <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="a4X-vU-XZ0" secondAttribute="trailing" constant="20" id="Vit-36-EoG"/>
                             <constraint firstItem="a4X-vU-XZ0" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="152" id="WyI-WD-HaK"/>
-                            <constraint firstItem="DLa-Sf-dBf" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="31" id="Y9v-2w-Td8"/>
+                            <constraint firstItem="DLa-Sf-dBf" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="20" id="Y9v-2w-Td8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="e2g-ch-Vz3" secondAttribute="trailing" constant="4" id="gwj-7F-TL3"/>
                             <constraint firstItem="6LQ-Bb-yIa" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="19" id="hRW-fl-Dvf"/>
                             <constraint firstItem="64Z-S7-U5W" firstAttribute="leading" secondItem="zhI-lQ-bFX" secondAttribute="leading" constant="20" id="hc3-j2-B66"/>
+                            <constraint firstItem="zhI-lQ-bFX" firstAttribute="bottom" secondItem="e2g-ch-Vz3" secondAttribute="bottom" constant="494" id="mII-nl-o1c"/>
                             <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="6LQ-Bb-yIa" secondAttribute="trailing" constant="14" id="mY8-Rt-XrT"/>
+                            <constraint firstItem="DLa-Sf-dBf" firstAttribute="top" secondItem="fjP-nO-Uht" secondAttribute="bottom" constant="1" id="mfL-AP-1Ky"/>
+                            <constraint firstItem="e2g-ch-Vz3" firstAttribute="top" secondItem="fjP-nO-Uht" secondAttribute="bottom" constant="34" id="njK-Uk-Dfc"/>
                             <constraint firstItem="DLa-Sf-dBf" firstAttribute="top" secondItem="cKg-W8-z5F" secondAttribute="bottom" constant="81" id="pqm-l8-v0A"/>
                             <constraint firstItem="cKg-W8-z5F" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="19" id="z3d-zd-Luf"/>
+                            <constraint firstItem="fjP-nO-Uht" firstAttribute="leading" secondItem="E35-hg-5Aq" secondAttribute="leadingMargin" constant="4" id="zxp-Mt-hrB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zhI-lQ-bFX"/>
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="6LQ-Bb-yIa" id="LzP-6q-s9u"/>
+                        <outlet property="calendarCollectionView" destination="ULT-sW-ms7" id="umj-xP-xmf"/>
                         <outlet property="calendarUITable" destination="a4X-vU-XZ0" id="2IU-oe-LqR"/>
                         <outlet property="cancelButton" destination="cKg-W8-z5F" id="0Qd-sM-7e3"/>
                         <outlet property="dayNameUIStackView" destination="DLa-Sf-dBf" id="6zr-LY-pIb"/>
+                        <outlet property="todayLabel" destination="Ztn-ed-Rdc" id="5KV-6J-rpL"/>
+                        <outlet property="topViewOfCalendar" destination="64Z-S7-U5W" id="JJq-TB-w54"/>
+                        <outlet property="unavailableDateLabel" destination="E1u-6F-bbO" id="m0R-3z-9CK"/>
+                        <outlet property="unavailableDateMarkLabel" destination="6bo-e4-Itx" id="wwq-Uy-J51"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gdu-cU-YJ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
