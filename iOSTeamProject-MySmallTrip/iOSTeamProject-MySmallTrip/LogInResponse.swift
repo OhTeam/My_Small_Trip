@@ -19,7 +19,7 @@ struct EmailLogIn: Codable {
 }
 
 struct User: Codable {
-    var pk: Int
+    var primaryKey: Int
     var userName: String
     var email: String
     var firstName: String
@@ -28,7 +28,7 @@ struct User: Codable {
     var isFacebookUser: Bool
     
     enum CodingKeys: String, CodingKey {
-        case pk
+        case primaryKey = "pk"
         case userName = "username"
         case email
         case firstName = "first_name"
