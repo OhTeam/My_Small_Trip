@@ -31,7 +31,6 @@ class UserData {
     }
     
     var token: String? {
-        guard let _token = _token else { return nil }
         return _token
     }
     
@@ -40,7 +39,6 @@ class UserData {
     }
     
     var primaryKey: Int? {
-        guard let _primaryKey = _primaryKey else { return nil }
         return _primaryKey
     }
     
@@ -49,7 +47,6 @@ class UserData {
     }
     
     var userName: String? {
-        guard let _userName = _userName else { return nil }
         return _userName
     }
     
@@ -58,7 +55,6 @@ class UserData {
     }
     
     var email: String? {
-        guard let _email = _email else { return nil }
         return _email
     }
     
@@ -67,7 +63,6 @@ class UserData {
     }
     
     var firstName: String? {
-        guard let _firstName = _firstName else { return nil }
         return _firstName
     }
     
@@ -76,7 +71,6 @@ class UserData {
     }
     
     var phoneNumber: String? {
-        guard let _phoneNumber = _phoneNumber else { return nil }
         return _phoneNumber
     }
     
@@ -85,7 +79,6 @@ class UserData {
     }
     
     var imgProfile: String? {
-        guard let _imgProfile = _imgProfile else { return nil }
         return _imgProfile
     }
     
@@ -94,7 +87,6 @@ class UserData {
     }
     
     var isFacebookUser: Bool? {
-        guard let _isFacebookUser = _isFacebookUser else { return nil }
         return _isFacebookUser
     }
 }
