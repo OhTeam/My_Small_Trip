@@ -300,17 +300,23 @@ class LogInViewController: UIViewController {
         let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         // temporary parameters for login process
-//        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
+        // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
         Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
             switch response.result {
             case .success(let data):
-                print(data)
                 if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
-                    print(userLoggedIn)
                     self.setUserData(userLoggedIn: userLoggedIn)
-                    // self.tmpPrint(user: UserData.user)
+                    print("login succeeded")
                     
+                    // TODO: add next view controller
+                    let profileVC: ProfileViewController = ProfileViewController()
+                    let tmpNaviVC = UINavigationController(rootViewController: profileVC)
+                    tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+                    let tmpTabBarVC = UITabBarController()
+                    tmpTabBarVC.viewControllers = [tmpNaviVC]
+
+                    self.present(tmpTabBarVC, animated: true)
                 }
                     
             case .failure(let error):
@@ -337,24 +343,24 @@ class LogInViewController: UIViewController {
     }
     
     // MARK: - Temporary - it should be deleted because this is a test code
-    func tmpPrint(user: UserData) {
-        guard let token = user.token,
-            let primaryKey = user.primaryKey,
-            let userName = user.userName,
-            let email = user.email,
-            let firstName = user.firstName,
-            let phoneNumber = user.phoneNumber,
-            let isFacebookUser = user.isFacebookUser
-            else { return }
-        print("**" + token)
-        print("**" + String(primaryKey))
-        print("**" + userName)
-        print("**" + email)
-        print("**" + firstName)
-        print("**" + phoneNumber)
-        print("**" + (user.imgProfile ?? "nil"))
-        print("**" + String(isFacebookUser))
-    }
+//    func tmpPrint(user: UserData) {
+//        guard let token = user.token,
+//            let primaryKey = user.primaryKey,
+//            let userName = user.userName,
+//            let email = user.email,
+//            let firstName = user.firstName,
+//            let phoneNumber = user.phoneNumber,
+//            let isFacebookUser = user.isFacebookUser
+//            else { return }
+//        print("**" + token)
+//        print("**" + String(primaryKey))
+//        print("**" + userName)
+//        print("**" + email)
+//        print("**" + firstName)
+//        print("**" + phoneNumber)
+//        print("**" + (user.imgProfile ?? "nil"))
+//        print("**" + String(isFacebookUser))
+//    }
     
     // MARK: - Targets
     @objc func moveUpAllComponents(_ sender: UITextField) {

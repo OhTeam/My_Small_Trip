@@ -11,7 +11,20 @@ import Foundation
 class UserData {
     
     static var user: UserData = UserData()
-    private var _isLoggedIn: Bool = false // Boolean value if logged in
+    private var _isLoggedIn: Bool = false {
+        willSet {
+            if newValue == false {
+                self.setToken(token: nil)
+                self.setPrimaryKey(primaryKey: nil)
+                self.setUserName(userName: nil)
+                self.setEmail(email: nil)
+                self.setFirstName(firstName: nil)
+                self.setPhoneNumber(phoneNumber: nil)
+                self.setIsFacebookUser(isFacebookUser: nil)
+                self.setImgProfile(imgProfile: nil)
+            }
+        }
+    } // Boolean value if logged in
     
     private var _token: String? // password token
     private var _primaryKey: Int? // User Primary Key
@@ -45,7 +58,7 @@ class UserData {
         
     }
     
-    func setToken(token: String) {
+    func setToken(token: String?) {
         self._token = token
     }
     
@@ -53,7 +66,7 @@ class UserData {
         return _token
     }
     
-    func setPrimaryKey(primaryKey: Int) {
+    func setPrimaryKey(primaryKey: Int?) {
         self._primaryKey = primaryKey
     }
     
@@ -61,7 +74,7 @@ class UserData {
         return _primaryKey
     }
     
-    func setUserName(userName: String) {
+    func setUserName(userName: String?) {
         self._userName = userName
     }
     
@@ -69,7 +82,7 @@ class UserData {
         return _userName
     }
     
-    func setEmail(email: String) {
+    func setEmail(email: String?) {
         self._email = email
     }
     
@@ -77,7 +90,7 @@ class UserData {
         return _email
     }
     
-    func setFirstName(firstName: String) {
+    func setFirstName(firstName: String?) {
         self._firstName = firstName
     }
     
@@ -85,7 +98,7 @@ class UserData {
         return _firstName
     }
     
-    func setPhoneNumber(phoneNumber: String) {
+    func setPhoneNumber(phoneNumber: String?) {
         self._phoneNumber = phoneNumber
     }
     
@@ -94,26 +107,28 @@ class UserData {
     }
     
     func setImgProfile(imgProfile: String?) {
-        guard let imgProfile = imgProfile else { return }
         self._imgProfile = imgProfile
+        
+        guard let imgProfile = imgProfile else { return }
         
         let profileImageLink: URL = URL(string: imgProfile)! // TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
         
         // TODO: *** 실행 흐름 이해할 것!!
         DispatchQueue.global().async {
-            print(profileImageLink)
             let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
-            DispatchQueue.main.async {
-                self.profileImgData = profileImageData as Data
-            }
-        }        
+            self.profileImgData = profileImageData as Data
+            
+//            DispatchQueue.main.async {
+//
+//            }
+        }
     }
     
     var imgProfile: String? {
         return _imgProfile
     }
     
-    func setIsFacebookUser(isFacebookUser: Bool) {
+    func setIsFacebookUser(isFacebookUser: Bool?) {
         self._isFacebookUser = isFacebookUser
     }
     

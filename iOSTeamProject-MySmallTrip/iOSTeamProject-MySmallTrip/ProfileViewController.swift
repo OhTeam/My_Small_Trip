@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileViewController: UIViewController {
 
@@ -133,11 +134,34 @@ class ProfileViewController: UIViewController {
         
         // Profile Image Creation
         profileImageView = UIImageView()
-        profileImageView!.image = {
-            guard let profileImage = UserData.user.profileImgData else { return UIImage(named: "avatar") }
-            return UIImage(data: profileImage)
-        }()
+        
+//        profileImageView!.image = {
+//            guard let profileImage = UserData.user.profileImgData else { return UIImage(named: "avatar") }
+//            return UIImage(data: profileImage)
+//        }()
+        
+        ({
+            guard let profileImageView = self.profileImageView else { return }
+
+            if let _ = UserData.user.imgProfile {
+                if let profileImgData = UserData.user.profileImgData {
+                    profileImageView.image = UIImage(data: profileImgData)
+                    return
+                } else {
+                    DispatchQueue.global().async {
+                        while UserData.user.profileImgData == nil { }
+                        DispatchQueue.main.async {
+                            profileImageView.image = UIImage(data: UserData.user.profileImgData!)
+                        }
+                    }
+                }
+            } else {
+                profileImageView.image = UIImage(named: "avatar")
+            }
+        })()
+        
 //        loadProfileImage() // profile image setting
+        
         profileImageView!.layer.cornerRadius = 115/2
         profileImageView!.clipsToBounds = true
         profileImageView!.translatesAutoresizingMaskIntoConstraints = false
@@ -227,7 +251,6 @@ class ProfileViewController: UIViewController {
 //
 //        // TODO: *** 실행 흐름 이해할 것!!
 //        DispatchQueue.global().async {
-//            print(profileImageLink)
 //            let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
 //            DispatchQueue.main.async {
 //                self.profileImageView!.image = UIImage(data: profileImageData as Data)
@@ -267,31 +290,55 @@ class ProfileViewController: UIViewController {
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         // Button Creation
-        let signOutbutton = UIButton()
-        signOutbutton.setTitle("SIGN OUT", for: .normal)
-        signOutbutton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
-        signOutbutton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        signOutbutton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        signOutbutton.layer.cornerRadius = 10
-        signOutbutton.clipsToBounds = true
-        signOutbutton.translatesAutoresizingMaskIntoConstraints = false
+        let signOutButton = UIButton()
+        signOutButton.setTitle("SIGN OUT", for: .normal)
+        signOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
+        signOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        signOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        signOutButton.layer.cornerRadius = 10
+        signOutButton.clipsToBounds = true
+        signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
+        signOutButton.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonView.addSubview(signOutbutton)
+        buttonView.addSubview(signOutButton)
         
         //MARK: Layout inside Button View
-        signOutbutton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        signOutbutton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
-        signOutbutton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: signOutbutton.trailingAnchor, constant: 24).isActive = true
+        signOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        signOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
+        signOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
+        buttonView.trailingAnchor.constraint(equalTo: signOutButton.trailingAnchor, constant: 24).isActive = true
         
         return buttonView
     }
     
     // MARK: - Targets
+    // MARK: Function to change profile image
     @objc func changeUserProfileImage(_ sender: UIButton) {
         // needs to be modified
         print("Profile image button clicked")
     }
+    
+    // MARK: Function to sign out
+    @objc func signOut (_ sender: UIButton) {
+        guard let token = UserData.user.token else { return }
+        let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
+        let header = ["Authorization" : "Token " + token]
+        
+        Alamofire.request(signOutLink, method: .get, headers: header).validate().responseData { (response) in
+            switch response.result {
+            case .success(let data):
+                UserData.user.isLoggedIn = false // user data signed out
+                print("signed out")
+                
+                // TODO: add dismiss (sign up? -> login? or login?)
+                // view controller 마다 tag 넣고 자동 계산되는 순환 메소드 구현해서 알아서 첫 페이지로 향하도록 !!
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
 }
 
 // MARK: - Extension of ProfileVC
