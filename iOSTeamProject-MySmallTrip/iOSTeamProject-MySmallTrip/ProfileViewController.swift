@@ -11,9 +11,24 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     private var profileView: UIView?
+    private var profileImageView: UIImageView?
+    private var nameLabel: UILabel?
+    private var emailLabel: UILabel?
     private var tableView: UIView?
     private var buttonView: UIView?
-    private var table: UITableView?
+    
+    private var tableTitles: Dictionary<String, Array<String>> = [
+        "profile" :
+            [
+                "프로필 설정",
+                "나의 여행"
+        ],
+        "service" :
+            [
+                "고객센터",
+                "이용 약관"
+        ]
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,36 +132,49 @@ class ProfileViewController: UIViewController {
         profileSubview.addSubview(movingProfileSubview)
         
         // Profile Image Creation
-        let profileImageView: UIImageView = UIImageView()
-        profileImageView.backgroundColor = .gray // temporary color
-        profileImageView.layer.cornerRadius = 115/2
-        profileImageView.clipsToBounds = true
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView = UIImageView()
+        profileImageView!.image = {
+            guard let profileImage = UserData.user.profileImgData else { return UIImage(named: "avatar") }
+            return UIImage(data: profileImage)
+        }()
+//        loadProfileImage() // profile image setting
+        profileImageView!.layer.cornerRadius = 115/2
+        profileImageView!.clipsToBounds = true
+        profileImageView!.translatesAutoresizingMaskIntoConstraints = false
         
-        movingProfileSubview.addSubview(profileImageView)
+        movingProfileSubview.addSubview(profileImageView!)
+        
+        // Profile Image Button Creation, which changes profile photo
+        let pfImgButton: UIButton = UIButton()
+        pfImgButton.backgroundColor = .clear
+        pfImgButton.layer.cornerRadius = 115/2
+        pfImgButton.clipsToBounds = true
+        pfImgButton.addTarget(self, action: #selector(changeUserProfileImage(_:)), for: .touchUpInside)
+        pfImgButton.translatesAutoresizingMaskIntoConstraints = false
+
+        movingProfileSubview.addSubview(pfImgButton)
         
         // Name Label Creation
-        let nameLabel: UILabel = UILabel()
-        nameLabel.text = "Amanda Rhodes"
-        nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        nameLabel.textColor = UIColor(displayP3Red: 50/255, green: 59/255, blue: 69/255, alpha: 1)
-        nameLabel.textAlignment = .center
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel = UILabel()
+        nameLabel!.text = UserData.user.firstName // user name logged In
+        nameLabel!.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        nameLabel!.textColor = UIColor(displayP3Red: 50/255, green: 59/255, blue: 69/255, alpha: 1)
+        nameLabel!.textAlignment = .center
+        nameLabel!.translatesAutoresizingMaskIntoConstraints = false
         
-        movingProfileSubview.addSubview(nameLabel)
+        movingProfileSubview.addSubview(nameLabel!)
         
         // Email Label Creation
-        let emailLabel: UILabel = UILabel()
-        emailLabel.text = "contact@tripbooking.com"
-        emailLabel.font = UIFont.systemFont(ofSize: 14)
-        emailLabel.textColor = UIColor(displayP3Red: 36/255, green: 37/255, blue: 61/255, alpha: 0.5)
-        emailLabel.textAlignment = .center
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel = UILabel()
+        emailLabel!.text = UserData.user.email // user email logged In
+        emailLabel!.font = UIFont.systemFont(ofSize: 14)
+        emailLabel!.textColor = UIColor(displayP3Red: 36/255, green: 37/255, blue: 61/255, alpha: 0.5)
+        emailLabel!.textAlignment = .center
+        emailLabel!.translatesAutoresizingMaskIntoConstraints = false
         
-        movingProfileSubview.addSubview(emailLabel)
+        movingProfileSubview.addSubview(emailLabel!)
         
         //MARK: Layout inside Porfile View
-        
         // Profile Label
         profileLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 20).isActive = true
@@ -166,21 +194,46 @@ class ProfileViewController: UIViewController {
         movingProfileSubview.trailingAnchor.constraint(equalTo: profileSubview.trailingAnchor).isActive = true
         
         // ㄴㅡㅡ> Profile Image View
-        profileImageView.widthAnchor.constraint(equalToConstant: 115).isActive = true
-        profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor, multiplier: 1).isActive = true
-        profileImageView.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
-        profileImageView.topAnchor.constraint(equalTo: movingProfileSubview.topAnchor).isActive = true
+        profileImageView!.heightAnchor.constraint(equalToConstant: 115).isActive = true
+        profileImageView!.widthAnchor.constraint(equalTo: profileImageView!.heightAnchor, multiplier: 1).isActive = true
+        profileImageView!.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
+        profileImageView!.topAnchor.constraint(equalTo: movingProfileSubview.topAnchor).isActive = true
+        
+        // ㄴㅡㅡ> Profile Image Button
+        pfImgButton.heightAnchor.constraint(equalToConstant: 115).isActive = true
+        pfImgButton.widthAnchor.constraint(equalTo: pfImgButton.heightAnchor, multiplier: 1).isActive = true
+        pfImgButton.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
+        pfImgButton.topAnchor.constraint(equalTo: movingProfileSubview.topAnchor).isActive = true
         
         // ㄴㅡㅡ> Name Label
-        nameLabel.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12).isActive = true
-        emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+        nameLabel!.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
+        nameLabel!.topAnchor.constraint(equalTo: profileImageView!.bottomAnchor, constant: 12).isActive = true
+        emailLabel!.topAnchor.constraint(equalTo: nameLabel!.bottomAnchor).isActive = true
         
         // ㄴㅡㅡ> Email Label
-        emailLabel.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
+        emailLabel!.centerXAnchor.constraint(equalTo: movingProfileSubview.centerXAnchor).isActive = true
         
         return profileView
     }
+    
+    // MARK: Load Profile Image
+//    private func loadProfileImage() {
+//        guard let imgProfile = UserData.user.imgProfile else {
+//            self.profileImageView?.image = UIImage.init(named: "avatar")
+//            return
+//        }
+//
+//        let profileImageLink: URL = URL(string: imgProfile)! // TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
+//
+//        // TODO: *** 실행 흐름 이해할 것!!
+//        DispatchQueue.global().async {
+//            print(profileImageLink)
+//            let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
+//            DispatchQueue.main.async {
+//                self.profileImageView!.image = UIImage(data: profileImageData as Data)
+//            }
+//        }
+//    }
     
     // MARK: - Table View
     private func createTableView() -> UIView {
@@ -189,20 +242,20 @@ class ProfileViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         // Table View Creation
-        self.table = UITableView()
-        self.table!.delegate = self
-        self.table!.dataSource = self
-        self.table!.register(UITableViewCell.self, forCellReuseIdentifier: "profileViewCell")
-        self.table!.separatorStyle = .none
-        self.table!.translatesAutoresizingMaskIntoConstraints = false
+        let table = UITableView()
+        table.delegate = self
+        table.dataSource = self
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "profileViewCell")
+        table.separatorStyle = .none
+        table.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.addSubview(self.table!)
+        tableView.addSubview(table)
         
         //MARK: Layout inside Table View
-        self.table!.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
-        self.table!.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
-        self.table!.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
-        self.table!.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+        table.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+        table.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+        table.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
+        table.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
         
         return tableView
     }
@@ -233,42 +286,55 @@ class ProfileViewController: UIViewController {
         
         return buttonView
     }
+    
+    // MARK: - Targets
+    @objc func changeUserProfileImage(_ sender: UIButton) {
+        // needs to be modified
+        print("Profile image button clicked")
+    }
 }
 
 // MARK: - Extension of ProfileVC
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    // MARK: The Number of Section
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return tableTitles.count
     }
     
+    // MARK: The Number of Cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if section == 0 {
+            return tableTitles["profile"]!.count
+        } else {
+            return tableTitles["service"]!.count
+        }
     }
     
+    // MARK: Row Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileViewCell", for: indexPath)
-        // TODO: - change to switch ~~~~~~~~~~~~~~ or creation a function dealing with each cell
+        // TODO: switch문으로 교체 아니면 각 셀 처리할 메소드 생성 고민 !!
         if indexPath.section == 0 && indexPath.row == 0 {
-            cell.textLabel?.text = "프로필 설정"
+            cell.textLabel?.text = tableTitles["profile"]![0]
         }
         
         if indexPath.section == 0 && indexPath.row == 1 {
-            cell.textLabel?.text = "나의 여행"
+            cell.textLabel?.text = tableTitles["profile"]![1]
         }
         
         if indexPath.section == 1 && indexPath.row == 0 {
-            cell.textLabel?.text = "고객센터"
+            cell.textLabel?.text = tableTitles["service"]![0]
         }
         
         if indexPath.section == 1 && indexPath.row == 1 {
-            cell.textLabel?.text = "이용 약관"
+            cell.textLabel?.text = tableTitles["service"]![1]
         }
         
         cell.accessoryType = .disclosureIndicator
         return cell
     }
     
-    // TODO: accessoryButton 눌렀을 때 기능 찾기 ~~~~~~~~~ !!
+    // TODO: accessoryButton 눌렀을 때 기능 찾기 !!
 //    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
 //        if indexPath.section == 0 && indexPath.row == 0 {
 //            let tmpVC = UIViewController()
@@ -292,39 +358,39 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 //        }
 //    }
     
+    // MARK: Row Selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.allowsSelection = false
+        // tableView.allowsSelection = false // prevention from row selection
         if indexPath.section == 0 && indexPath.row == 0 {
-            
-            // TODO: to be changed with real code
-            let tmpVC = ProfileSettingViewController()
-            self.navigationController?.pushViewController(tmpVC, animated: true)
+            // TODO: Add 프로필 설정 view controller push
+            let profileSettingVC = ProfileSettingViewController()
+            self.navigationController?.pushViewController(profileSettingVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 0 && indexPath.row == 1 {
-            
+            // TODO: Add 나의 여행 view controller push
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 1 && indexPath.row == 0 {
-            
+            // TODO: Add 고객센터 view controller push
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 1 && indexPath.row == 1 {
-            
+            // TODO: Add 이용관약관 view controller push
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
     
-//    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
-//        return indexPath
-//    }
-    
+    // MARK: Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
     
-    
-    // TODO: - 이부분 string 없이 어떻게 처리 할 수 있는지 확인 할 것!!
+    // TODO: 이부분 string 없이 어떻게 처리 할 수 있는지 확인 할 것 !!
+    // MARK: Header Height
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
             return 20
@@ -333,6 +399,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // MARK: Header Title
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return " "

@@ -11,6 +11,19 @@ import UIKit
 class ProfileSettingViewController: UIViewController {
     
     private var table: UITableView?
+    private var tableTitles: Dictionary<String, Array<String>> = [
+        "basic" :
+            [
+                "이름",
+                "연락처 변경"
+        ],
+        "loggedIn":
+            [
+                "이메일",
+                "SNS 연동",
+                "비밀번호 변경"
+        ]
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,22 +73,26 @@ class ProfileSettingViewController: UIViewController {
 }
 
 extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSource {
+    // MARK: The Number of Section
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return tableTitles.count
     }
     
+    // MARK: The Number of Row
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return tableTitles["basic"]!.count
         } else {
-            return 3
+            return tableTitles["loggedIn"]!.count
         }
     }
     
+    // MARK: Row Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
     
+    // MARK: Header Title
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         var headerTitle: String?
@@ -87,6 +104,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         return headerTitle
     }
     
+    // MARK: Header View
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let view = view as? UITableViewHeaderFooterView else { return }
         if section == 1 {
@@ -96,6 +114,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    // MARK: Header Height
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var headerHeight: CGFloat?
         
@@ -105,6 +124,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         return headerHeight ?? 0
     }
     
+    // MARK: Footer Title
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         var footerTitle: String?
         
@@ -115,6 +135,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         return footerTitle
     }
     
+    // MARK: Footer Height
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var footerHeight: CGFloat?
         
@@ -125,31 +146,64 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         return footerHeight ?? 0
     }
     
+    // MARK: Row Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingCell", for: indexPath) as! ProfileSettingTableViewCell
         
         if indexPath.section == 0 && indexPath.row == 0 {
-            cell.leftText = "이름"
-            cell.rightText = "Amanda Rhodes"
-            cell.isUserInteractionEnabled = false // MARK: User Interaction Enabled
+            cell.leftText = tableTitles["basic"]![0]
+            cell.rightText = UserData.user.userName
+            cell.isUserInteractionEnabled = false // MARK: User Interaction Disable
         } else if indexPath.section == 0 && indexPath.row == 1 {
-            cell.leftText = "연락처 변경"
-            cell.rightText = "010-5835-0602"
+            cell.leftText = tableTitles["basic"]![1]
+            cell.rightText = UserData.user.phoneNumber
             cell.accessoryType = .disclosureIndicator
         } else if indexPath.section == 1 && indexPath.row == 0 {
-            cell.leftText = "이메일"
-            cell.rightText = "contact@tripbooking.com"
+            cell.leftText = tableTitles["loggedIn"]![0]
+            cell.rightText = UserData.user.email
             cell.isUserInteractionEnabled = false
-        } else if indexPath.section == 1 && indexPath.row == 1 { // MARK: isFacebookUser
-            cell.leftText = "SNS 연동"
-            cell.rightText = "페이스북 연동됨"
+        } else if indexPath.section == 1 && indexPath.row == 1 {
+            cell.leftText = tableTitles["loggedIn"]![1]
+            switch UserData.user.isFacebookUser ?? false {
+            case true:
+                cell.rightText = "페이스북 연동됨"
+            case false:
+                cell.rightText = "페이스북 연동 안됨"
+            }
             cell.isUserInteractionEnabled = false
         } else if indexPath.section == 1 && indexPath.row == 2 {
-            cell.leftText = "이메일"
-            cell.rightText = "contact@tripbooking.com"
+            cell.leftText = tableTitles["loggedIn"]![2]
+            // cell.rightText = ""
             cell.accessoryType = .disclosureIndicator
         }
         
         return cell
+    }
+    
+    // MARK: Row Selection
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            // Empty
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else if indexPath.section == 0 && indexPath.row == 1 {
+            // TODO: 연락처 변경 view controller push
+            let contactChangeVC = ContactChangeViewController()
+            self.navigationController?.pushViewController(contactChangeVC, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else if indexPath.section == 1 && indexPath.row == 0 {
+            // Empty
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else if indexPath.section == 1 && indexPath.row == 1 {
+            // Empty
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        } else if indexPath.section == 1 && indexPath.row == 2 {
+            // TODO: 비밀번호 변경 view controller push
+            tableView.deselectRow(at: indexPath, animated: true)
+            
+        }
     }
 }
