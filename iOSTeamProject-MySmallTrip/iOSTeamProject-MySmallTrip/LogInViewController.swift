@@ -13,6 +13,7 @@ class LogInViewController: UIViewController {
     
     private var basicView: UIView?
     private var dismissImgBtnView: UIView?
+    private var logInFailureNoti: UILabel?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
     private var emailTextField: UITextField?
@@ -20,7 +21,7 @@ class LogInViewController: UIViewController {
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
     
-    // Preparation for SignUp view controller
+    // Preparation for user email transmission from SignUp view controller
     var loginEmail: String? {
         didSet {
             guard let emailTextField = emailTextField else { return }
@@ -52,6 +53,7 @@ class LogInViewController: UIViewController {
     // MARK: - Add Subviews
     private func addSubviews() {
         guard let basicView = basicView,
+            let logInFailureNoti = logInFailureNoti,
             let dismissImgBtnView = dismissImgBtnView,
             let titleLabel = self.titleLabel,
             let upperDesLabel = self.upperDesLabel,
@@ -62,6 +64,7 @@ class LogInViewController: UIViewController {
             else { return }
         
         self.view.addSubview(basicView)
+        self.view.addSubview(logInFailureNoti)
         self.view.addSubview(dismissImgBtnView)  // MARK: subViews were already laid out inside
         basicView.addSubview(titleLabel)
         basicView.addSubview(upperDesLabel)
@@ -75,6 +78,7 @@ class LogInViewController: UIViewController {
     /// Create all components on this view controller
     private func createItems() {
         setBasicView()
+        setLogInFailureNoti()
         setDismissImgBtnView()
         setTitleLabel()
         setUpperDesLabel()
@@ -87,6 +91,20 @@ class LogInViewController: UIViewController {
     private func setBasicView() {
         basicView = UIView()
         basicView!.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setLogInFailureNoti() {
+        logInFailureNoti = UILabel()
+        logInFailureNoti!.text = "이메일 혹은 비밀번호가 틀립니다. 다시 시도해 주세요."
+        logInFailureNoti!.textColor = .white
+        logInFailureNoti!.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        logInFailureNoti!.backgroundColor = .gray
+        logInFailureNoti!.alpha = 0.5
+        logInFailureNoti!.layer.cornerRadius = 10
+        logInFailureNoti!.clipsToBounds = true
+        logInFailureNoti!.textAlignment = .center
+        logInFailureNoti!.isHidden = true
+        logInFailureNoti!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setDismissImgBtnView() {
@@ -195,6 +213,7 @@ class LogInViewController: UIViewController {
     /// Set layout components
     private func setLayout() {
         guard let basicView = basicView,
+            let logInFailureNoti = logInFailureNoti,
             let dismissImgBtnView = dismissImgBtnView,
             let titleLabel = self.titleLabel,
             let upperDesLabel = self.upperDesLabel,
@@ -214,6 +233,12 @@ class LogInViewController: UIViewController {
         textFieldPositionConstraint!.isActive = true
         
         basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+        
+        // LogIn Failure Notification Label
+        logInFailureNoti.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        logInFailureNoti.widthAnchor.constraint(equalToConstant: 312).isActive = true
+        logInFailureNoti.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+        logInFailureNoti.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 156).isActive = true
         
         // Dismiss Image-Button View
         dismissImgBtnView.heightAnchor.constraint(equalToConstant: 16).isActive = true
@@ -272,10 +297,10 @@ class LogInViewController: UIViewController {
     
     @objc func logIn(_ sender: UIButton) {
         let host: String = "http://myrealtrip.hongsj.kr/login/"
-//        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
+        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         // temporary parameters for login process
-        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
+//        let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
         Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
             switch response.result {
@@ -289,6 +314,11 @@ class LogInViewController: UIViewController {
                 }
                     
             case .failure(let error):
+                self.emailTextField?.text = ""
+                self.pwTextField?.text = ""
+                self.emailTextField?.layer.borderColor = UIColor.red.cgColor
+                self.pwTextField?.layer.borderColor = UIColor.red.cgColor
+                self.logInFailureNoti?.isHidden = false
                 print(error.localizedDescription)
             }
         })
@@ -328,8 +358,14 @@ class LogInViewController: UIViewController {
     
     // MARK: - Targets
     @objc func moveUpAllComponents(_ sender: UITextField) {
-        guard let textFieldPositionConstraint = textFieldPositionConstraint else { return }
+        guard let textFieldPositionConstraint = textFieldPositionConstraint,
+            let logInFailureNoti = logInFailureNoti,
+            let emailTextField = emailTextField,
+            let pwTextField = pwTextField else { return }
         
+        logInFailureNoti.isHidden = true
+        emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         sender.becomeFirstResponder() // for keyboard to start to be shown quickly
         textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
     }
