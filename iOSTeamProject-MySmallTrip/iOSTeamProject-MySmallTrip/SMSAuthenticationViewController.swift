@@ -17,8 +17,24 @@ class SMSAuthenticationViewController: UIViewController {
     private var getAuthAgainButton: UIButton?
     private var verifyButton: UIButton?
     
+    private var movingHeightOfGetAuthAgainButton: NSLayoutConstraint?
     private var movingHeightOfBtn: NSLayoutConstraint?
     private let keyFrameHeight: CGFloat = 216
+    
+    var isVerified: Bool = true {
+        didSet {
+            guard let invisibleLabel = invisibleLabel,
+                let movingHeightOfGetAuthAgainButton = movingHeightOfGetAuthAgainButton
+                else { return }
+            
+            invisibleLabel.isHidden = isVerified
+            if isVerified == false {
+                movingHeightOfGetAuthAgainButton.constant = 35
+            } else {
+                movingHeightOfGetAuthAgainButton.constant = 0
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,40 +90,19 @@ class SMSAuthenticationViewController: UIViewController {
         self.invisibleLabel!.font = UIFont.systemFont(ofSize: 12)
         self.invisibleLabel!.textColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
         self.invisibleLabel!.textAlignment = .left
-        self.invisibleLabel!.isHidden = false // set hidden ?
+        self.invisibleLabel!.isHidden = true // set hidden
         
         self.view.addSubview(invisibleLabel!)
         self.invisibleLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Get Authentication Again View
         self.getAuthAgainButton = UIButton()
-//        getAuthAgainButton?.translatesAutoresizingMaskIntoConstraints = false
-        getAuthAgainButton?.addTarget(self, action: #selector(getAuthAgain(_:)), for: .touchUpInside)
+//        getAuthAgainButton!.translatesAutoresizingMaskIntoConstraints = false
+        self.getAuthAgainButton!.addTarget(self, action: #selector(getAuthAgain(_:)), for: .touchUpInside)
         self.getAuthAgainView = makePackageOfGetAuthBtn(btn: self.getAuthAgainButton!)
-        self.getAuthAgainView?.translatesAutoresizingMaskIntoConstraints = false
+        self.getAuthAgainView!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(getAuthAgainView!)
-        
-//        // Get Authentication Again Button with *** the attributed title ***
-//        self.getAuthAgainButton = UIButton()
-//        // -->
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.alignment = .left
-//
-//        let attrs: Dictionary<NSAttributedStringKey, Any> = [
-//            NSAttributedStringKey.font : UIFont.systemFont(ofSize: 12),
-//            NSAttributedStringKey.foregroundColor : UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1),
-//            NSAttributedStringKey.underlineStyle : NSUnderlineStyle.styleSingle.rawValue,
-//            NSAttributedStringKey.paragraphStyle : paragraph
-//            ]
-//
-//        let buttonTitle = NSMutableAttributedString(string: "인증코드 다시 보내기", attributes: attrs)
-//
-//        self.getAuthAgainButton!.setAttributedTitle(buttonTitle, for: .normal)
-//        // <--
-//
-//        self.view.addSubview(getAuthAgainButton!)
-//        self.getAuthAgainButton!.translatesAutoresizingMaskIntoConstraints = false
         
         // Verify Button
         self.verifyButton = UIButton()
@@ -150,12 +145,13 @@ class SMSAuthenticationViewController: UIViewController {
         
         // Invisible Label
         invisibleLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        getAuthAgainView.topAnchor.constraint(equalTo: invisibleLabel.bottomAnchor, constant: 20).isActive = true
         invisibleLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
         safeGuide.trailingAnchor.constraint(equalTo: invisibleLabel.trailingAnchor, constant: 24).isActive = true
         
         // Get Authentication Again View
         getAuthAgainView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        movingHeightOfGetAuthAgainButton = getAuthAgainView.topAnchor.constraint(equalTo: invisibleLabel.topAnchor)
+        movingHeightOfGetAuthAgainButton!.isActive = true
         getAuthAgainView.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
         safeGuide.trailingAnchor.constraint(equalTo: getAuthAgainView.trailingAnchor, constant: 24).isActive = true
         
@@ -216,11 +212,13 @@ class SMSAuthenticationViewController: UIViewController {
     
     @objc func getAuthAgain(_ sender: UIButton) {
         // TODO: - Get authentication number again
+        self.isVerified = true
         print("Test Again Button")
     }
     
     @objc func verifyAuth(_ sender: UIButton) {
         // TODO: - Verify authentication number
+        self.isVerified = false
         print("Test Verify Button")
     }
 }

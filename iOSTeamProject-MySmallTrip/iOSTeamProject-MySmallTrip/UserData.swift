@@ -11,6 +11,7 @@ import Foundation
 class UserData {
     
     static var user: UserData = UserData()
+    
     private var _isLoggedIn: Bool = false {
         willSet {
             if newValue == false {
