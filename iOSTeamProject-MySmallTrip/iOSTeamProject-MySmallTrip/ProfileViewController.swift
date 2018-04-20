@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class ProfileViewController: UIViewController {
-
+    
     private var profileView: UIView?
     private var profileImageView: UIImageView?
     private var nameLabel: UILabel?
@@ -50,15 +50,19 @@ class ProfileViewController: UIViewController {
         setBasicLayout()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        if let index = self.table?.indexPathForSelectedRow {
-//            self.table?.deselectRow(at: index, animated: true)
+//        override func viewWillAppear(_ animated: Bool) {
+//            if let index = self.table?.indexPathForSelectedRow {
+//                self.table?.deselectRow(at: index, animated: true)
+//            }
 //        }
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        print("ProfileView VC is disposed")
     }
     
     // MARK: - Set Navigation Items
@@ -107,7 +111,7 @@ class ProfileViewController: UIViewController {
     // MARK: - Profile View
     private func createProfileView() -> UIView {
         let profileView = UIView()
-        //        profileView.backgroundColor = .red // temporary color to be recognized
+//        profileView.backgroundColor = .red // temporary color to be recognized
         profileView.translatesAutoresizingMaskIntoConstraints = false
         
         // Profile Label Creation
@@ -135,14 +139,14 @@ class ProfileViewController: UIViewController {
         // Profile Image Creation
         profileImageView = UIImageView()
         
-//        profileImageView!.image = {
-//            guard let profileImage = UserData.user.profileImgData else { return UIImage(named: "avatar") }
-//            return UIImage(data: profileImage)
-//        }()
+//                profileImageView!.image = {
+//                    guard let profileImage = UserData.user.profileImgData else { return UIImage(named: "avatar") }
+//                    return UIImage(data: profileImage)
+//                }()
         
         ({
             guard let profileImageView = self.profileImageView else { return }
-
+            
             if let _ = UserData.user.imgProfile {
                 if let profileImgData = UserData.user.profileImgData {
                     profileImageView.image = UIImage(data: profileImgData)
@@ -175,7 +179,7 @@ class ProfileViewController: UIViewController {
         pfImgButton.clipsToBounds = true
         pfImgButton.addTarget(self, action: #selector(changeUserProfileImage(_:)), for: .touchUpInside)
         pfImgButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         movingProfileSubview.addSubview(pfImgButton)
         
         // Name Label Creation
@@ -247,7 +251,8 @@ class ProfileViewController: UIViewController {
 //            return
 //        }
 //
-//        let profileImageLink: URL = URL(string: imgProfile)! // TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
+//        TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
+//        let profileImageLink: URL = URL(string: imgProfile)!
 //
 //        // TODO: *** 실행 흐름 이해할 것!!
 //        DispatchQueue.global().async {
@@ -328,10 +333,18 @@ class ProfileViewController: UIViewController {
             switch response.result {
             case .success(let data):
                 UserData.user.isLoggedIn = false // user data signed out
+                
                 print("signed out")
                 
-                // TODO: add dismiss (sign up? -> login? or login?)
-                // view controller 마다 tag 넣고 자동 계산되는 순환 메소드 구현해서 알아서 첫 페이지로 향하도록 !!
+                // YS
+                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+                // dev
+//                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+//                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                } else {
+//                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                }               
                 
             case .failure(let error):
                 print(error)
