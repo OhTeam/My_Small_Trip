@@ -299,14 +299,14 @@ class LogInViewController: UIViewController {
         }
         
         // YS
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
         
         // dev
-//        if self.presentingViewController is SignUpViewController {
-//            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
-//        } else {
-//            self.presentingViewController?.dismiss(animated: true, completion: nil)
-//        }
+        if self.presentingViewController is SignUpViewController {
+            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
+        } else {
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func logIn(_ sender: UIButton) {
@@ -327,22 +327,22 @@ class LogInViewController: UIViewController {
                     self.loadWishList()
                     
                     // YS
-                    let profileVC: ProfileViewController = ProfileViewController()
-                    let tmpNaviVC = UINavigationController(rootViewController: profileVC)
-                                        tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-                    let tmpTabBarVC = UITabBarController()
-                                        tmpTabBarVC.viewControllers = [tmpNaviVC]
-                    self.present(tmpTabBarVC, animated: true) {
-                        self.reInitializeTextFields()
-                    }
+//                    let profileVC: ProfileViewController = ProfileViewController()
+//                    let tmpNaviVC = UINavigationController(rootViewController: profileVC)
+//                                        tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+//                    let tmpTabBarVC = UITabBarController()
+//                                        tmpTabBarVC.viewControllers = [tmpNaviVC]
+//                    self.present(tmpTabBarVC, animated: true) {
+//                        self.reInitializeTextFields()
+//                    }
                     
                     
                     // dev
-//                    let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
-//                    let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-//                    self.present(mainTabBarVC, animated: true) {
-//                        self.reInitializeTextFields()
-//                    }
+                    let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
+                    let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+                    self.present(mainTabBarVC, animated: true) {
+                        self.reInitializeTextFields()
+                    }
                 }
                 
             case .failure(let error):

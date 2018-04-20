@@ -337,14 +337,14 @@ class ProfileViewController: UIViewController {
                 print("signed out")
                 
                 // YS
-                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 
                 // dev
-//                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-//                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                } else {
-//                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                }               
+                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }               
                 
             case .failure(let error):
                 print(error)
