@@ -45,9 +45,15 @@ class LogInViewController: UIViewController {
         setLayout() // set auto layout
     }
     
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+    }
+    
+    deinit {
+        print("LogIn VC is disposed")
     }
     
     // MARK: - Add Subviews
@@ -292,7 +298,15 @@ class LogInViewController: UIViewController {
             pwTextField?.resignFirstResponder()
         }
         
-        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        // YS
+        self.dismiss(animated: true, completion: nil)
+        
+        // dev
+//        if self.presentingViewController is SignUpViewController {
+//            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
+//        } else {
+//            self.presentingViewController?.dismiss(animated: true, completion: nil)
+//        }
     }
     
     @objc func logIn(_ sender: UIButton) {
@@ -309,16 +323,28 @@ class LogInViewController: UIViewController {
                     self.setUserData(userLoggedIn: userLoggedIn)
                     print("login succeeded")
                     
-                    // TODO: add next view controller
+                    // Load Wish List
+                    self.loadWishList()
+                    
+                    // YS
                     let profileVC: ProfileViewController = ProfileViewController()
                     let tmpNaviVC = UINavigationController(rootViewController: profileVC)
-                    tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+                                        tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
                     let tmpTabBarVC = UITabBarController()
-                    tmpTabBarVC.viewControllers = [tmpNaviVC]
-
-                    self.present(tmpTabBarVC, animated: true)
-                }
+                                        tmpTabBarVC.viewControllers = [tmpNaviVC]
+                    self.present(tmpTabBarVC, animated: true) {
+                        self.reInitializeTextFields()
+                    }
                     
+                    
+                    // dev
+//                    let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
+//                    let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+//                    self.present(mainTabBarVC, animated: true) {
+//                        self.reInitializeTextFields()
+//                    }
+                }
+                
             case .failure(let error):
                 self.emailTextField?.text = ""
                 self.pwTextField?.text = ""
@@ -328,6 +354,31 @@ class LogInViewController: UIViewController {
                 print(error.localizedDescription)
             }
         })
+    }
+    
+    @objc func moveUpAllComponents(_ sender: UITextField) {
+        guard let textFieldPositionConstraint = textFieldPositionConstraint,
+            let logInFailureNoti = logInFailureNoti,
+            let emailTextField = emailTextField,
+            let pwTextField = pwTextField else { return }
+        
+        logInFailureNoti.isHidden = true
+        emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        sender.becomeFirstResponder() // for keyboard to start to be shown quickly
+        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+    }
+    
+    // MARK: - // Re-initialize text on textfields
+    private func reInitializeTextFields() {
+        guard let emailTextField = emailTextField,
+            let pwTextField = pwTextField,
+            let textFieldPositionConstraint = textFieldPositionConstraint
+            else { return }
+        
+        emailTextField.text = nil
+        pwTextField.text = nil
+        textFieldPositionConstraint.constant = 0
     }
     
     // MARK: - Set User Data after logging in
@@ -340,6 +391,24 @@ class LogInViewController: UIViewController {
         UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
         UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
         UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+    }
+    
+    // MARK: - Load Wish List Primary Keys
+    private func loadWishList() {
+        guard let token = UserData.user.token else { return }
+        let header = ["Authorization": "Token " + token]
+        let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
+        
+        Alamofire
+            .request(wishListLink, method: .get, headers: header)
+            .responseJSON { (response) in
+                if let datas = response.result.value as! [[String:Any]]? {
+                    for data in datas {
+                        let pkInt = data["pk"] as! Int
+                        UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
+                    }
+                }
+        }
     }
     
     // MARK: - Temporary - it should be deleted because this is a test code
@@ -361,20 +430,6 @@ class LogInViewController: UIViewController {
 //        print("**" + (user.imgProfile ?? "nil"))
 //        print("**" + String(isFacebookUser))
 //    }
-    
-    // MARK: - Targets
-    @objc func moveUpAllComponents(_ sender: UITextField) {
-        guard let textFieldPositionConstraint = textFieldPositionConstraint,
-            let logInFailureNoti = logInFailureNoti,
-            let emailTextField = emailTextField,
-            let pwTextField = pwTextField else { return }
-        
-        logInFailureNoti.isHidden = true
-        emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
-        pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
-        sender.becomeFirstResponder() // for keyboard to start to be shown quickly
-        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
-    }
 }
 
 // MARK: - Extension of LogInVC

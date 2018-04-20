@@ -9,7 +9,7 @@
 import UIKit
 
 class SMSAuthenticationViewController: UIViewController {
-
+    
     private var tfDesLabel: UILabel?
     private var inputTextField: UITextField?
     private var invisibleLabel: UILabel?
@@ -35,7 +35,7 @@ class SMSAuthenticationViewController: UIViewController {
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,10 +45,14 @@ class SMSAuthenticationViewController: UIViewController {
         setComponents()
         setLayout()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        print("SMSAuthentication VC is disposed")
     }
     
     // MARK: - Set Nvaigation Item
@@ -229,7 +233,7 @@ extension SMSAuthenticationViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
-        movingHeightOfBtn.constant = 24        
+        movingHeightOfBtn.constant = 24
         
         return true
     }

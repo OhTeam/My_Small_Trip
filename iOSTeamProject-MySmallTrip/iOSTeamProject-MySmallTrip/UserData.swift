@@ -37,6 +37,8 @@ class UserData {
     private var _isFacebookUser: Bool? // Boolean value if user is facebook user
     private var _profileImgData: Data? // Profile Image Data
     
+    private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
+    
     var isLoggedIn: Bool {
         set {
             self._isLoggedIn = newValue
@@ -112,13 +114,13 @@ class UserData {
         
         guard let imgProfile = imgProfile else { return }
         
-        let profileImageLink: URL = URL(string: imgProfile)! // TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
+        // TODO: 에러처리 공부 / DispatchQueue 공부 할 것 !!
+        let profileImageLink: URL = URL(string: imgProfile)!
         
         // TODO: *** 실행 흐름 이해할 것!!
         DispatchQueue.global().async {
             let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
             self.profileImgData = profileImageData as Data
-            
 //            DispatchQueue.main.async {
 //
 //            }
@@ -135,5 +137,17 @@ class UserData {
     
     var isFacebookUser: Bool? {
         return _isFacebookUser
+    }
+    
+    func setWishListPrimaryKeys(wishListPrimaryKey: Int) {
+        self._wishListPrimaryKeys.append(wishListPrimaryKey)
+    }
+    
+    func setWishListPrimaryKeys(wishListPrimaryKeys: Array<Int>) {
+        self._wishListPrimaryKeys = wishListPrimaryKeys
+    }
+    
+    var wishListPrimaryKeys: Array<Int> {
+        return self._wishListPrimaryKeys
     }
 }

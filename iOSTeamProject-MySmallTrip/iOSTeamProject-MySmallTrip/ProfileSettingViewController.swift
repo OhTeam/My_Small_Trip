@@ -24,7 +24,7 @@ class ProfileSettingViewController: UIViewController {
                 "비밀번호 변경"
         ]
     ]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,10 +34,14 @@ class ProfileSettingViewController: UIViewController {
         setTable()
         setLayout()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        print("ProfileSetting VC is disposed")
     }
     
     // MARK: - Set Navigation Items
@@ -94,13 +98,13 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
     
     // MARK: Header Title
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
+        
         var headerTitle: String?
-
+        
         if section == 1 {
             headerTitle = "로그인 정보"
         }
-
+        
         return headerTitle
     }
     
@@ -110,7 +114,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         if section == 1 {
             view.textLabel?.font = UIFont.systemFont(ofSize: 12)
             view.textLabel?.textColor = UIColor(displayP3Red: 147/255, green: 147/255, blue: 147/255, alpha: 1)
-            view.textLabel?.textAlignment = .left            
+            view.textLabel?.textAlignment = .left
         }
     }
     
@@ -152,25 +156,33 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
         
         if indexPath.section == 0 && indexPath.row == 0 {
             cell.leftText = tableTitles["basic"]![0]
-            cell.rightText = UserData.user.userName
+            cell.rightText = UserData.user.firstName
             cell.isUserInteractionEnabled = false // MARK: User Interaction Disable
+            
         } else if indexPath.section == 0 && indexPath.row == 1 {
             cell.leftText = tableTitles["basic"]![1]
             cell.rightText = UserData.user.phoneNumber
             cell.accessoryType = .disclosureIndicator
+            
         } else if indexPath.section == 1 && indexPath.row == 0 {
             cell.leftText = tableTitles["loggedIn"]![0]
             cell.rightText = UserData.user.email
             cell.isUserInteractionEnabled = false
+            
         } else if indexPath.section == 1 && indexPath.row == 1 {
             cell.leftText = tableTitles["loggedIn"]![1]
-            switch UserData.user.isFacebookUser ?? false {
-            case true:
-                cell.rightText = "페이스북 연동됨"
-            case false:
-                cell.rightText = "페이스북 연동 안됨"
+            if let isFacebookUser = UserData.user.isFacebookUser {
+                switch isFacebookUser {
+                case true:
+                    cell.rightText = "페이스북 연동됨"
+                case false:
+                    cell.rightText = "페이스북 연동 안됨"
+                }
+            } else {
+                cell.rightText = nil
             }
             cell.isUserInteractionEnabled = false
+            
         } else if indexPath.section == 1 && indexPath.row == 2 {
             cell.leftText = tableTitles["loggedIn"]![2]
             // cell.rightText = ""

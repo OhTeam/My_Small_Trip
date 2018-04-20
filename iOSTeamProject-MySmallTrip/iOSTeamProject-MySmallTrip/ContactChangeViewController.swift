@@ -9,7 +9,7 @@
 import UIKit
 
 class ContactChangeViewController: UIViewController {
-
+    
     private var upperDesLabel: UILabel?
     private var tfDesLabel: UILabel?
     private var inputTextField: UITextField?
@@ -28,10 +28,14 @@ class ContactChangeViewController: UIViewController {
         setLayout()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        print("ContactChange VC is disposed")
     }
     
     // MARK: - Set Nvaigation Item
@@ -123,7 +127,7 @@ class ContactChangeViewController: UIViewController {
         // Input TextField
         inputTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
         inputTextField.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
-        safeGuide.trailingAnchor.constraint(equalTo: inputTextField.trailingAnchor, constant: 24).isActive = true        
+        safeGuide.trailingAnchor.constraint(equalTo: inputTextField.trailingAnchor, constant: 24).isActive = true
         
         // Action Button
         getAuthButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
