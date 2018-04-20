@@ -13,12 +13,16 @@ class ContactChangeViewController: UIViewController {
     private var upperDesLabel: UILabel?
     private var tfDesLabel: UILabel?
     private var inputTextField: UITextField?
-    private var actionButton: UIButton?
+    private var getAuthButton: UIButton?
     
     private var movingHeightOfBtn: NSLayoutConstraint?
+    private let keyFrameHeight: CGFloat = 216
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
+        
         setNaviItem()
         setComponents()
         setLayout()
@@ -30,10 +34,16 @@ class ContactChangeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Set Nvaigation Item
     private func setNaviItem() {
         self.navigationItem.title = "연락처 변경"
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "titleImage"), style: .done, target: self, action: #selector(popThis(_:)))
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIImageView(image: UIImage(named: "dismiss")))
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "clearDismiss"), style: .done, target: self, action: #selector(popThis(_:)))
+        self.navigationItem.leftBarButtonItem?.tintColor = .black
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem()
+        self.navigationItem.backBarButtonItem?.title = ""
+        self.navigationItem.backBarButtonItem?.tintColor = UIColor(displayP3Red: 74/255, green: 74/255, blue: 74/255, alpha: 1)
     }
     
     // MARK: - Set Components
@@ -44,6 +54,7 @@ class ContactChangeViewController: UIViewController {
         upperDesLabel!.font = UIFont.systemFont(ofSize: 14)
         upperDesLabel!.textAlignment = .left
         upperDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        
         self.view.addSubview(upperDesLabel!)
         upperDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
@@ -53,11 +64,13 @@ class ContactChangeViewController: UIViewController {
         tfDesLabel!.font = UIFont.systemFont(ofSize: 12)
         tfDesLabel!.textAlignment = .left
         tfDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        
         self.view.addSubview(tfDesLabel!)
         tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
         inputTextField = UITextField()
+        inputTextField!.delegate = self
         inputTextField!.placeholder = "전화번호를 입력하세요."
         inputTextField!.font = UIFont.systemFont(ofSize: 16)
         inputTextField!.textAlignment = .left
@@ -66,20 +79,24 @@ class ContactChangeViewController: UIViewController {
         inputTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         inputTextField!.layer.cornerRadius = 5
         inputTextField!.clipsToBounds = true
+        inputTextField!.addTarget(self, action: #selector(moveBtnUp(_:)), for: .touchDown)
+        
         self.view.addSubview(inputTextField!)
         inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         // Action Button
-        actionButton = UIButton()
-        actionButton!.setTitle("문자로 인증코드 보내기", for: .normal)
-        actionButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        actionButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
-        actionButton!.titleLabel!.textAlignment = .center
-        actionButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        actionButton!.layer.cornerRadius = 10
-        actionButton!.clipsToBounds = true
-        self.view.addSubview(actionButton!)
-        actionButton!.translatesAutoresizingMaskIntoConstraints = false
+        getAuthButton = UIButton()
+        getAuthButton!.setTitle("문자로 인증코드 보내기", for: .normal)
+        getAuthButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        getAuthButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
+        getAuthButton!.titleLabel!.textAlignment = .center
+        getAuthButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        getAuthButton!.layer.cornerRadius = 10
+        getAuthButton!.clipsToBounds = true
+        getAuthButton!.addTarget(self, action: #selector(getAuthCode(_:)), for: .touchUpInside)
+        
+        self.view.addSubview(getAuthButton!)
+        getAuthButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - Set Layout of All Components
@@ -87,39 +104,59 @@ class ContactChangeViewController: UIViewController {
         guard let upperDesLabel = upperDesLabel,
             let tfDesLabel = tfDesLabel,
             let inputTextField = inputTextField,
-            let actionButton = actionButton
+            let getAuthButton = getAuthButton
             else { return }
         
         let safeGuide = self.view.safeAreaLayoutGuide
         
         // Upper Description Label
-        upperDesLabel.heightAnchor.constraint(equalToConstant: 17).isActive = true
-        upperDesLabel.widthAnchor.constraint(equalToConstant: 218).isActive = true
         upperDesLabel.topAnchor.constraint(equalTo: safeGuide.topAnchor, constant: 20).isActive = true
+        tfDesLabel.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor, constant: 34).isActive = true
         upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 16).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 16).isActive = true
         
         // TextField Description Label
-        tfDesLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        tfDesLabel.widthAnchor.constraint(equalToConstant: 54).isActive = true
-        tfDesLabel.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor, constant: 34).isActive = true
+        inputTextField.topAnchor.constraint(equalTo: tfDesLabel.bottomAnchor, constant: 5).isActive = true
         tfDesLabel.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: tfDesLabel.trailingAnchor, constant: 24).isActive = true
         
         // Input TextField
         inputTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        inputTextField.widthAnchor.constraint(equalToConstant: 327).isActive = true
-        inputTextField.centerXAnchor.constraint(equalTo: safeGuide.centerXAnchor).isActive = true
-        inputTextField.topAnchor.constraint(equalTo: tfDesLabel.bottomAnchor, constant: 5).isActive = true
+        inputTextField.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: inputTextField.trailingAnchor, constant: 24).isActive = true        
         
         // Action Button
-        actionButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        actionButton.widthAnchor.constraint(equalToConstant: 327).isActive = true
-        actionButton.centerXAnchor.constraint(equalTo: safeGuide.centerXAnchor).isActive = true
-        movingHeightOfBtn = safeGuide.bottomAnchor.constraint(equalTo: actionButton.bottomAnchor, constant: 24)
-        movingHeightOfBtn?.isActive = true
+        getAuthButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        getAuthButton.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        safeGuide.trailingAnchor.constraint(equalTo: getAuthButton.trailingAnchor, constant: 24).isActive = true
+        movingHeightOfBtn = safeGuide.bottomAnchor.constraint(equalTo: getAuthButton.bottomAnchor, constant: 24)
+        movingHeightOfBtn!.isActive = true
     }
     
     // MARK: - Targets
     @objc func popThis(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func moveBtnUp(_ sender: UITextField) {
+        guard let movingHeightOfBtn = movingHeightOfBtn else { return }
+        movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
+    }
+    
+    @objc func getAuthCode(_ sender: UIButton) {
+        let smsAuthVC = SMSAuthenticationViewController()
+        self.navigationController?.pushViewController(smsAuthVC, animated: true)
+    }
+}
+
+extension ContactChangeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let movingHeightOfBtn = movingHeightOfBtn else { return true }
+        
+        textField.resignFirstResponder()
+        
+        movingHeightOfBtn.constant = 24
+        
+        return true
     }
 }
