@@ -322,8 +322,8 @@ class LogInViewController: UIViewController {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
                 
-                // Load Wish List
-                self.loadWishList()
+                // to see logged user data
+                // self.printDataOf(user: UserData.user)
                 
                 // YS
                 let profileVC: ProfileViewController = ProfileViewController()
@@ -389,6 +389,9 @@ class LogInViewController: UIViewController {
         UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
         UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
         UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
     }
     
     // MARK: - Load Wish List Primary Keys
@@ -409,25 +412,31 @@ class LogInViewController: UIViewController {
         }
     }
     
-    // MARK: - Temporary - it should be deleted because this is a test code
-//    func tmpPrint(user: UserData) {
-//        guard let token = user.token,
-//            let primaryKey = user.primaryKey,
-//            let userName = user.userName,
-//            let email = user.email,
-//            let firstName = user.firstName,
-//            let phoneNumber = user.phoneNumber,
-//            let isFacebookUser = user.isFacebookUser
-//            else { return }
-//        print("**" + token)
-//        print("**" + String(primaryKey))
-//        print("**" + userName)
-//        print("**" + email)
-//        print("**" + firstName)
-//        print("**" + phoneNumber)
-//        print("**" + (user.imgProfile ?? "nil"))
-//        print("**" + String(isFacebookUser))
-//    }
+    // MARK: Print User Data
+    func printDataOf(user: UserData) {
+        print("token: " + (user.token ?? "nil"))
+        if let primaryKey = user.primaryKey {
+            print("primaryKey: \(primaryKey)")
+        } else {
+            print("primaryKey: nil")
+        }
+        print("userName: " + (user.userName ?? "nil"))
+        print("email: " + (user.email ?? "nil"))
+        print("firstName: " + (user.firstName ?? "nil"))
+        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
+        print("imgProfile: " + (user.imgProfile ?? "nil"))
+        if let isFacebookUser = user.isFacebookUser {
+            print("isFacebookUser: \(isFacebookUser)")
+        } else {
+            print("isFacebookUser: nil")
+        }
+        if let _ = user.profileImgData {
+            print("Data: OK")
+        } else {
+            print("Data: nil")
+        }
+        print("whishList: \(user.wishListPrimaryKeys)")
+    }
 }
 
 // MARK: - Extension of LogInVC
