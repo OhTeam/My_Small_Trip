@@ -199,52 +199,52 @@ class SignUpViewController: UIViewController {
             guard let phoneData = self.phoneNumberTextField.text!.data(using: .utf8) else { return }
             guard let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) else { return }
             
-            Alamofire
-                .upload(
-                    multipartFormData: { multipartform in
-                        multipartform.append(emailData, withName: "email")
-                        multipartform.append(nameData, withName: "first_name")
-                        multipartform.append(passwordData, withName: "password")
-                        multipartform.append(password2Data, withName: "password2")
-                        multipartform.append(phoneData, withName: "phone_number")
-                        multipartform.append(imageData, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
-                },
-                    to: urlString,
-                    method: .post,
-                    encodingCompletion: { result in
-                        switch result {
-                        case .success(let request, _, _):
-                            request.responseJSON(completionHandler: { (res) in
-                                print(res.response?.statusCode)
-                                if let responseValue = res.result.value as! [String: Any]? {
-                                    print(responseValue.keys)
-                                    print(responseValue.values)
-                                }
-                                if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
-                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
-                                    let failureAlert = UIAlertAction(title: "확인", style: .default)
-                                    alertController.addAction(failureAlert)
-                                    self.present(alertController, animated: true, completion: nil)
-                                } else {
-                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
-                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (sucessAlert) in
-                                        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
-                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
-                                        self.present(nextVC, animated: true, completion: nil)
-                                        //TODO: - 로그인화면으로 이메일 가기
-                                        //logintextfiled.text = yourEmailTextField.text
-                                    })
-                                    alertController.addAction(successAlert)
-
-                                    self.present(alertController, animated: true, completion: nil)
-                                    print("Sucess_회원가입 성공")
-                                }
-                                print(res.response)
-                            })
-                        case .failure(let error):
-                            print(error)
-                        }
-                })
+//            Alamofire
+//                .upload(
+//                    multipartFormData: { multipartform in
+//                        multipartform.append(emailData, withName: "email")
+//                        multipartform.append(nameData, withName: "first_name")
+//                        multipartform.append(passwordData, withName: "password")
+//                        multipartform.append(password2Data, withName: "password2")
+//                        multipartform.append(phoneData, withName: "phone_number")
+//                        multipartform.append(imageData, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
+//                },
+//                    to: urlString,
+//                    method: .post,
+//                    encodingCompletion: { result in
+//                        switch result {
+//                        case .success(let request, _, _):
+//                            request.responseJSON(completionHandler: { (res) in
+//                                print(res.response?.statusCode)
+//                                if let responseValue = res.result.value as! [String: Any]? {
+//                                    print(responseValue.keys)
+//                                    print(responseValue.values)
+//                                }
+//                                if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
+//                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
+//                                    let failureAlert = UIAlertAction(title: "확인", style: .default)
+//                                    alertController.addAction(failureAlert)
+//                                    self.present(alertController, animated: true, completion: nil)
+//                                } else {
+//                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
+//                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (sucessAlert) in
+//                                        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+//                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
+//                                        self.present(nextVC, animated: true, completion: nil)
+//                                        //TODO: - 로그인화면으로 이메일 가기
+//                                        //logintextfiled.text = yourEmailTextField.text
+//                                    })
+//                                    alertController.addAction(successAlert)
+//
+//                                    self.present(alertController, animated: true, completion: nil)
+//                                    print("Sucess_회원가입 성공")
+//                                }
+//                                print(res.response)
+//                            })
+//                        case .failure(let error):
+//                            print(error)
+//                        }
+//                })
         }
         if nameCheck == false {
             let alertController = UIAlertController(title: "이름 형식 확인", message: "한글 또는 영문인 이름을 사용하여 주세요.", preferredStyle: UIAlertControllerStyle.alert)
