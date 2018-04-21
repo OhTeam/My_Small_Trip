@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class LogInViewController: UIViewController {
     
@@ -310,50 +309,45 @@ class LogInViewController: UIViewController {
     }
     
     @objc func logIn(_ sender: UIButton) {
-        let host: String = "http://myrealtrip.hongsj.kr/login/"
-        let param: Parameters = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
+        let logInLink: String = "http://myrealtrip.hongsj.kr/login/"
+        let param: Dictionary<String, Any> = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         // temporary parameters for login process
         // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
-        Alamofire.request(host, method: .post, parameters: param).validate().responseData(completionHandler: { (response) in
-            switch response.result {
-            case .success(let data):
-                if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
-                    self.setUserData(userLoggedIn: userLoggedIn)
-                    print("login succeeded")
-                    
-                    // Load Wish List
-                    self.loadWishList()
-                    
-                    // YS
-//                    let profileVC: ProfileViewController = ProfileViewController()
-//                    let tmpNaviVC = UINavigationController(rootViewController: profileVC)
-//                                        tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-//                    let tmpTabBarVC = UITabBarController()
-//                                        tmpTabBarVC.viewControllers = [tmpNaviVC]
-//                    self.present(tmpTabBarVC, animated: true) {
-//                        self.reInitializeTextFields()
-//                    }
-                    
-                    
-                    // dev
-                    let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
-                    let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-                    self.present(mainTabBarVC, animated: true) {
-                        self.reInitializeTextFields()
-                    }
-                }
+        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data) in
+            if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
+                self.setUserData(userLoggedIn: userLoggedIn)
+                print("login succeeded")
                 
-            case .failure(let error):
-                self.emailTextField?.text = ""
-                self.pwTextField?.text = ""
-                self.emailTextField?.layer.borderColor = UIColor.red.cgColor
-                self.pwTextField?.layer.borderColor = UIColor.red.cgColor
-                self.logInFailureNoti?.isHidden = false
-                print(error.localizedDescription)
+                // Load Wish List
+                self.loadWishList()
+                
+                // YS
+//                let profileVC: ProfileViewController = ProfileViewController()
+//                let tmpNaviVC = UINavigationController(rootViewController: profileVC)
+//                tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+//                let tmpTabBarVC = UITabBarController()
+//                tmpTabBarVC.viewControllers = [tmpNaviVC]
+//                self.present(tmpTabBarVC, animated: true) {
+//                    self.reInitializeTextFields()
+//                }
+                
+                // dev
+                let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
+                let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+                self.present(mainTabBarVC, animated: true) {
+                    self.reInitializeTextFields()
+                }
             }
-        })
+        }) { (error) in
+            self.emailTextField?.text = ""
+            self.pwTextField?.text = ""
+            self.emailTextField?.layer.borderColor = UIColor.red.cgColor
+            self.pwTextField?.layer.borderColor = UIColor.red.cgColor
+            self.logInFailureNoti?.isHidden = false
+            print(error.localizedDescription)
+        }
     }
     
     @objc func moveUpAllComponents(_ sender: UITextField) {
@@ -382,7 +376,8 @@ class LogInViewController: UIViewController {
     }
     
     // MARK: - Set User Data after logging in
-    private func setUserData(userLoggedIn: EmailLogIn) {
+    private func setUserData(userLoggedIn: EmailLogIn) {        
+        UserData.user.isLoggedIn = true
         UserData.user.setToken(token: userLoggedIn.token)
         UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
         UserData.user.setUserName(userName: userLoggedIn.user.userName)
@@ -396,18 +391,18 @@ class LogInViewController: UIViewController {
     // MARK: - Load Wish List Primary Keys
     private func loadWishList() {
         guard let token = UserData.user.token else { return }
-        let header = ["Authorization": "Token " + token]
+        let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        Alamofire
-            .request(wishListLink, method: .get, headers: header)
-            .responseJSON { (response) in
-                if let datas = response.result.value as! [[String:Any]]? {
-                    for data in datas {
-                        let pkInt = data["pk"] as! Int
-                        UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
-                    }
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json) in
+            if let datas = json as? [[String:Any]] {
+                for data in datas {
+                    let pkInt = data["pk"] as! Int
+                    UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
                 }
+            }
+        }) { (error) in
+            print(error.localizedDescription)
         }
     }
     

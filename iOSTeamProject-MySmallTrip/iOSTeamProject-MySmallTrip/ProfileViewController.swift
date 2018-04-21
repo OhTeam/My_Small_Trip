@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class ProfileViewController: UIViewController {
     
@@ -325,13 +324,18 @@ class ProfileViewController: UIViewController {
     
     // MARK: Function to sign out
     @objc func signOut (_ sender: UIButton) {
-        guard let token = UserData.user.token else { return }
-        let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
-        let header = ["Authorization" : "Token " + token]
-        
-        Alamofire.request(signOutLink, method: .get, headers: header).validate().responseData { (response) in
-            switch response.result {
-            case .success(let data):
+        guard UserData.user.isLoggedIn else { return }
+        if UserData.user.isFacebookUser! {
+            // TODO: Needs a function to sign out from Facebook
+            
+            // if signing out from Facebook is succeeded...
+            UserData.user.isLoggedIn = false
+            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
+            let header = ["Authorization" : "Token " + UserData.user.token!]
+            
+            importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
                 UserData.user.isLoggedIn = false // user data signed out
                 
                 print("signed out")
@@ -344,14 +348,13 @@ class ProfileViewController: UIViewController {
                     self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 } else {
                     self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                }               
+                }
                 
-            case .failure(let error):
-                print(error)
+            }) { (error) in
+                print(error.localizedDescription)
             }
         }
     }
-    
 }
 
 // MARK: - Extension of ProfileVC
