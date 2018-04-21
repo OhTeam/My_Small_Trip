@@ -15,8 +15,8 @@ class LogInViewController: UIViewController {
     private var logInFailureNoti: UILabel?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
-    private var emailTextField: UITextField?
-    private var pwTextField: UITextField?
+    private var emailTextField: TextFieldWithInsets?
+    private var pwTextField: TextFieldWithInsets?
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
     
@@ -160,13 +160,14 @@ class LogInViewController: UIViewController {
     }
     
     private func setEmailTextField() {
-        emailTextField = UITextField()
+        emailTextField = TextFieldWithInsets()
         emailTextField!.delegate = self
         emailTextField!.tag = 1
         emailTextField!.placeholder = "Your Email"
         emailTextField!.textAlignment = .left
         emailTextField!.textColor = .black // temporary color value
         emailTextField!.font = UIFont.systemFont(ofSize: 14)
+        emailTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         emailTextField!.layer.borderWidth = 1
         emailTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         emailTextField!.layer.cornerRadius = 5
@@ -176,7 +177,7 @@ class LogInViewController: UIViewController {
     }
     
     private func setPWTextField() {
-        pwTextField = UITextField()
+        pwTextField = TextFieldWithInsets()
         pwTextField!.isSecureTextEntry = true
         pwTextField!.delegate = self
         pwTextField!.tag = 2
@@ -184,6 +185,7 @@ class LogInViewController: UIViewController {
         pwTextField!.textAlignment = .left
         pwTextField!.textColor = .black // temporary color value
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
+        pwTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         pwTextField!.layer.cornerRadius = 5
         pwTextField!.clipsToBounds = true
         pwTextField!.layer.borderWidth = 1

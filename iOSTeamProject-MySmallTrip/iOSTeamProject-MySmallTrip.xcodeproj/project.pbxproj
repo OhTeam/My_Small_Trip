@@ -16,9 +16,10 @@
 		6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */; };
 		6FBE2FC0207C7DD800BEAD8F /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */; };
 		CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */; };
-		CA22C88F2087689D00B08CF3 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22C88E2087689D00B08CF3 /* ProfileSettingTableViewCell.swift */; };
-		CA22C8952087B2F600B08CF3 /* ProfileSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA22C8932087B2F600B08CF3 /* ProfileSettingTableViewCell.xib */; };
 		CA309811208AEDA900015B70 /* importLibraries.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA309810208AEDA900015B70 /* importLibraries.swift */; };
+		CA68D40D208B65AE003E6A0F /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */; };
+		CA68D410208B6BEF003E6A0F /* ProfileSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */; };
+		CA68D411208B6BEF003E6A0F /* ProfileSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */; };
 		CAC3F43C2084356400AF3DCD /* ContactChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */; };
 		CACA2ED920872D3A0022ACAA /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */; };
 		CACA906A208085DA00E3D1DD /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA9069208085DA00E3D1DD /* UserData.swift */; };
@@ -41,9 +42,10 @@
 		6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
 		C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; sourceTree = "<group>"; };
 		CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAuthenticationViewController.swift; sourceTree = "<group>"; };
-		CA22C88E2087689D00B08CF3 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
-		CA22C8932087B2F600B08CF3 /* ProfileSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileSettingTableViewCell.xib; sourceTree = "<group>"; };
 		CA309810208AEDA900015B70 /* importLibraries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importLibraries.swift; sourceTree = "<group>"; };
+		CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithInsets.swift; sourceTree = "<group>"; };
+		CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCell.swift; sourceTree = "<group>"; };
+		CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileSettingCell.xib; sourceTree = "<group>"; };
 		CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactChangeViewController.swift; sourceTree = "<group>"; };
 		CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		CACA9069208085DA00E3D1DD /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -92,10 +94,11 @@
 				CAEA9F65207CB8ED00032251 /* LogInViewController.swift */,
 				CAEA9F67207CB90400032251 /* ProfileViewController.swift */,
 				CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */,
-				CA22C88E2087689D00B08CF3 /* ProfileSettingTableViewCell.swift */,
-				CA22C8932087B2F600B08CF3 /* ProfileSettingTableViewCell.xib */,
+				CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */,
+				CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */,
 				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
 				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
+				CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */,
 				CACA9069208085DA00E3D1DD /* UserData.swift */,
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
 				CA309810208AEDA900015B70 /* importLibraries.swift */,
@@ -187,12 +190,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA22C8952087B2F600B08CF3 /* ProfileSettingTableViewCell.xib in Resources */,
 				6FBE2FC0207C7DD800BEAD8F /* Root.storyboard in Resources */,
 				6FBE2FB4207C7D7D00BEAD8F /* LaunchScreen.storyboard in Resources */,
 				6FBE2FB1207C7D7D00BEAD8F /* Assets.xcassets in Resources */,
 				6FBE2FBC207C7DBB00BEAD8F /* SignUp.storyboard in Resources */,
 				6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */,
+				CA68D411208B6BEF003E6A0F /* ProfileSettingCell.xib in Resources */,
 				6FBE2FAF207C7D7C00BEAD8F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,7 +254,7 @@
 			files = (
 				CAC3F43C2084356400AF3DCD /* ContactChangeViewController.swift in Sources */,
 				CADA81AD2083BDB70072417F /* LogInResponse.swift in Sources */,
-				CA22C88F2087689D00B08CF3 /* ProfileSettingTableViewCell.swift in Sources */,
+				CA68D410208B6BEF003E6A0F /* ProfileSettingCell.swift in Sources */,
 				CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */,
 				CA309811208AEDA900015B70 /* importLibraries.swift in Sources */,
 				6FBE2FAC207C7D7C00BEAD8F /* ViewController.swift in Sources */,
@@ -260,6 +263,7 @@
 				CACA906A208085DA00E3D1DD /* UserData.swift in Sources */,
 				CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */,
 				CACA2ED920872D3A0022ACAA /* ProfileSettingViewController.swift in Sources */,
+				CA68D40D208B65AE003E6A0F /* TextFieldWithInsets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

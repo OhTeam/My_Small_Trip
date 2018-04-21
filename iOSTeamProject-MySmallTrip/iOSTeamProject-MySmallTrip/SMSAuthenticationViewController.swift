@@ -11,7 +11,7 @@ import UIKit
 class SMSAuthenticationViewController: UIViewController {
     
     private var tfDesLabel: UILabel?
-    private var inputTextField: UITextField?
+    private var inputTextField: TextFieldWithInsets?
     private var invisibleLabel: UILabel?
     private var getAuthAgainView: UIView?
     private var getAuthAgainButton: UIButton?
@@ -73,12 +73,13 @@ class SMSAuthenticationViewController: UIViewController {
         self.tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
-        self.inputTextField = UITextField()
+        self.inputTextField = TextFieldWithInsets()
         self.inputTextField!.delegate = self
         self.inputTextField!.placeholder = "인증코드를 입력해주세요."
         self.inputTextField!.font = UIFont.systemFont(ofSize: 16)
         self.inputTextField!.textAlignment = .left
         self.inputTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
+        self.inputTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         self.inputTextField!.layer.borderWidth = 1
         self.inputTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         self.inputTextField!.layer.cornerRadius = 5
