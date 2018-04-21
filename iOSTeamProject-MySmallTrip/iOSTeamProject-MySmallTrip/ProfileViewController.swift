@@ -325,33 +325,40 @@ class ProfileViewController: UIViewController {
     
     // MARK: Function to sign out
     @objc func signOut (_ sender: UIButton) {
-        guard let token = UserData.user.token else { return }
-        let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
-        let header = ["Authorization" : "Token " + token]
-        
-        Alamofire.request(signOutLink, method: .get, headers: header).validate().responseData { (response) in
-            switch response.result {
-            case .success(let data):
-                UserData.user.isLoggedIn = false // user data signed out
-                
-                print("signed out")
-                
-                // YS
-                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                
-                // dev
-//                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-//                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                } else {
-//                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                }               
-                
-            case .failure(let error):
-                print(error)
+        guard UserData.user.isLoggedIn else { return }
+        if UserData.user.isFacebookUser! {
+            // TODO: Needs a function to sign out from Facebook
+            
+            // if signing out from Facebook is succeeded...
+            UserData.user.isLoggedIn = false
+            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
+            let header = ["Authorization" : "Token " + UserData.user.token!]
+            
+            Alamofire.request(signOutLink, method: .get, headers: header).validate().responseData { (response) in
+                switch response.result {
+                case .success(let data):
+                    UserData.user.isLoggedIn = false // user data signed out
+                    
+                    print("signed out")
+                    
+                    // YS
+                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    
+                    // dev
+//                    if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+//                        self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    } else {
+//                        self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    }
+                    
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }
-    
 }
 
 // MARK: - Extension of ProfileVC

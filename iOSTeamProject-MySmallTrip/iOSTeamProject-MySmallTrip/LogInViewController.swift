@@ -382,7 +382,8 @@ class LogInViewController: UIViewController {
     }
     
     // MARK: - Set User Data after logging in
-    private func setUserData(userLoggedIn: EmailLogIn) {
+    private func setUserData(userLoggedIn: EmailLogIn) {        
+        UserData.user.isLoggedIn = true
         UserData.user.setToken(token: userLoggedIn.token)
         UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
         UserData.user.setUserName(userName: userLoggedIn.user.userName)
