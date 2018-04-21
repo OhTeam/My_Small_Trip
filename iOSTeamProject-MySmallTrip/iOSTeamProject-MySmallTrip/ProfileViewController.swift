@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class ProfileViewController: UIViewController {
     
@@ -336,26 +335,22 @@ class ProfileViewController: UIViewController {
             let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + UserData.user.token!]
             
-            Alamofire.request(signOutLink, method: .get, headers: header).validate().responseData { (response) in
-                switch response.result {
-                case .success(let data):
-                    UserData.user.isLoggedIn = false // user data signed out
-                    
-                    print("signed out")
-                    
-                    // YS
-                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                    
-                    // dev
-//                    if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-//                        self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                    } else {
-//                        self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                    }
-                    
-                case .failure(let error):
-                    print(error)
-                }
+            importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
+                UserData.user.isLoggedIn = false // user data signed out
+                
+                print("signed out")
+                
+                // YS
+                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+                // dev
+//                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+//                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                } else {
+//                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                }
+            }) { (error) in
+                print(error)
             }
         }
     }

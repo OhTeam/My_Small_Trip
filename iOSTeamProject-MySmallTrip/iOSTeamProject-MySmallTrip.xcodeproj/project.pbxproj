@@ -18,6 +18,7 @@
 		CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */; };
 		CA22C88F2087689D00B08CF3 /* ProfileSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA22C88E2087689D00B08CF3 /* ProfileSettingTableViewCell.swift */; };
 		CA22C8952087B2F600B08CF3 /* ProfileSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA22C8932087B2F600B08CF3 /* ProfileSettingTableViewCell.xib */; };
+		CA309811208AEDA900015B70 /* importLibraries.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA309810208AEDA900015B70 /* importLibraries.swift */; };
 		CAC3F43C2084356400AF3DCD /* ContactChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */; };
 		CACA2ED920872D3A0022ACAA /* ProfileSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */; };
 		CACA906A208085DA00E3D1DD /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACA9069208085DA00E3D1DD /* UserData.swift */; };
@@ -42,6 +43,7 @@
 		CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAuthenticationViewController.swift; sourceTree = "<group>"; };
 		CA22C88E2087689D00B08CF3 /* ProfileSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingTableViewCell.swift; sourceTree = "<group>"; };
 		CA22C8932087B2F600B08CF3 /* ProfileSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileSettingTableViewCell.xib; sourceTree = "<group>"; };
+		CA309810208AEDA900015B70 /* importLibraries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importLibraries.swift; sourceTree = "<group>"; };
 		CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactChangeViewController.swift; sourceTree = "<group>"; };
 		CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingViewController.swift; sourceTree = "<group>"; };
 		CACA9069208085DA00E3D1DD /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
 				CACA9069208085DA00E3D1DD /* UserData.swift */,
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
+				CA309810208AEDA900015B70 /* importLibraries.swift */,
 				6FBE2FAD207C7D7C00BEAD8F /* Main.storyboard */,
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
 				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
@@ -250,6 +253,7 @@
 				CADA81AD2083BDB70072417F /* LogInResponse.swift in Sources */,
 				CA22C88F2087689D00B08CF3 /* ProfileSettingTableViewCell.swift in Sources */,
 				CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */,
+				CA309811208AEDA900015B70 /* importLibraries.swift in Sources */,
 				6FBE2FAC207C7D7C00BEAD8F /* ViewController.swift in Sources */,
 				6FBE2FAA207C7D7C00BEAD8F /* AppDelegate.swift in Sources */,
 				CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */,
