@@ -349,8 +349,9 @@ class ProfileViewController: UIViewController {
 //                } else {
 //                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
 //                }
+                
             }) { (error) in
-                print(error)
+                print(error.localizedDescription)
             }
         }
     }
