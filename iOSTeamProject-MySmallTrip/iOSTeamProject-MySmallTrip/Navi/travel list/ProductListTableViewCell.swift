@@ -11,6 +11,8 @@ import Alamofire
 
 class ProductListTableViewCell: UITableViewCell {
 
+    var wishListButton: WishListButton = WishListButton()
+    
     @IBOutlet weak var travelImageView: UIImageView!
     
     @IBOutlet weak var travelName: UILabel!
@@ -19,30 +21,40 @@ class ProductListTableViewCell: UITableViewCell {
     
     var productInfo: Travel? {
         didSet {
-            
             travelName.text = productInfo?.name
-            cityName.text = (productInfo?.city.name)! + ", " + (productInfo?.city.nationality)!
+            cityName.text = (productInfo?.city.name.capitalized)! + ", " + (productInfo?.city.nationality.capitalized)!
             
             if let price = productInfo?.price {
                 self.price.text = "₩ " + String(price)
             }
             
+            // wishList Check
+            wishListButton.tag = productInfo!.pk
+            wishListButton.checkWishList(wishListButton)
             
-            let productImageUrl = URL(string: (productInfo?.image)!)
-            Alamofire
-                .request(productImageUrl!)
-                .responseData { (response) in
-                    switch response.result {
-                    case .success(let value):
-                        
-                        self.travelImageView.contentMode = .scaleAspectFill
-                        self.travelImageView.clipsToBounds = true
-                        self.travelImageView.image = UIImage(data: value)
-                        
-                    case .failure(let error):
-                        print("\n---------- [ cityImage load fail ] -----------\n")
-                        print(error.localizedDescription)
-                    }
+            // 핸드폰 사이즈에 따른 wishList button layout 재조정
+            wishListBtnLayout()
+            self.contentView.layoutIfNeeded()
+            
+            // add Image
+            if let imageUrl = productInfo?.image {
+            
+                let productImageUrl = URL(string: (imageUrl))
+                Alamofire
+                    .request(productImageUrl!)
+                    .responseData { (response) in
+                        switch response.result {
+                        case .success(let value):
+                            
+                            self.travelImageView.contentMode = .scaleAspectFill
+                            self.travelImageView.clipsToBounds = true
+                            self.travelImageView.image = UIImage(data: value)
+                            
+                        case .failure(let error):
+                            print("\n---------- [ cityImage load fail ] -----------\n")
+                            print(error.localizedDescription)
+                        }
+                }
             }
         }
     }
@@ -50,10 +62,26 @@ class ProductListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // Initialization code
+        wishListBtnLayout()
+        self.contentView.addSubview(wishListButton)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+   
+}
+
+
+// MARK: - WishList Button
+extension ProductListTableViewCell {
+    
+    func wishListBtnLayout() {
+        
+        let padding: CGFloat = 10
+        let iconSize = WishListButton.standards.iconSize
+        let x = self.contentView.frame.width - (padding + iconSize)
+
+        wishListButton.frame = CGRect(x: x, y: padding, width: iconSize, height: iconSize)
     }
 }

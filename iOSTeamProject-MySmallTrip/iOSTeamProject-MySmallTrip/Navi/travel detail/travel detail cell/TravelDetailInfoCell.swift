@@ -23,7 +23,7 @@ class TravelDetailInfoCell: UITableViewCell {
     
     func updateUI(travel: TravelDetail) {
         travelName.text = travel.name
-        cityName.text = travel.city.name + ", " + travel.city.nationality
+        cityName.text = travel.city.name.capitalized + ", " + travel.city.nationality.capitalized
         self.price.text = "₩ " + String(travel.price)
     }
     

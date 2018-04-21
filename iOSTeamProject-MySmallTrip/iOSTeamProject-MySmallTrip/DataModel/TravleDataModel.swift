@@ -15,6 +15,8 @@ class FBUser {
     var token: String?
     var userName: String?
     
+    var pkList: [Int] = []
+    
 }
 
 // url(String)
@@ -28,6 +30,8 @@ class UrlData {
     let facebookLogin = "/facebook-login/"
     
     let travelMain = "/travel-information/"
+    let wishList = "/reservation/wishlist/"
+    let wishListDelete = "delete/"
 }
 
 
@@ -46,6 +50,7 @@ struct PopularCity: Codable {
     }
 }
 
+
 // 여행상품 리스트 info
 struct Travel: Codable {
     let pk: Int
@@ -54,7 +59,7 @@ struct Travel: Codable {
     
     let price: Int
     let time: String
-    let image: String
+    let image: String?
     
     enum CodingKeys: String, CodingKey {
         case pk
@@ -79,6 +84,7 @@ struct TravelDetail: Codable {
     
     let description_title: String
     let description: String
+    let max_people: Int
 }
 
 

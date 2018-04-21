@@ -21,7 +21,6 @@ class MainViewController: UIViewController {
         popularCityTableView.dataSource = self
         
         popularCityTableView.backgroundColor = UIColor.Custom.backgroundColor
-        
         fetchCityData()
     }
     

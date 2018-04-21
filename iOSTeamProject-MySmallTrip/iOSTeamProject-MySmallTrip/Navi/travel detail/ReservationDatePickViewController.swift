@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReservationDatePickViewController: UIViewController {
 
@@ -15,6 +16,7 @@ class ReservationDatePickViewController: UIViewController {
     
     var numberOfPeople: String?
     var price: String?
+    var pk: Int?
     
     
     override func viewDidLoad() {
@@ -38,15 +40,41 @@ class ReservationDatePickViewController: UIViewController {
         
     }
 
+    var date: Date?
     @objc func doneBtn() {
         // format date
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-mm-dd"
+        formatter.dateFormat = "yyyy-MM-dd"
         
         let dateString = formatter.string(from: datePicker.date)
+        print(dateString)
+
+        self.date = formatter.date(from: dateString)
         
         dateTf.text = "\(dateString)"
         self.view.endEditing(true)
+    }
+    
+    @IBAction private func reserveAction() {
+        
+        print(dateTf.text)
+        print(numberOfPeople)
+        print(pk)
+        
+        let header = ["Authorization": "Token \(FBUser.standards.token ?? "error")"]
+        let params: [String:Any] = ["travel_info":pk,
+                                    "start_date":dateTf.text,
+                                    "people":Int(numberOfPeople!)]
+        print(params)
+        let url = "http://myrealtrip.hongsj.kr/reservation/"
+        
+        Alamofire
+            .request(url, method: .post, parameters: params, headers: header)
+            .responseJSON { (response) in
+                if let responseValue = response.result.value as! [String:Any]? {
+                    print(responseValue)
+                }
+        }
     }
 
 }
