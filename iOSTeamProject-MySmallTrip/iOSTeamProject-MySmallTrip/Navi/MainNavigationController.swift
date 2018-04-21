@@ -12,12 +12,11 @@ class MainNavigationController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.view.backgroundColor = UIColor.Custom.backgroundColor
         setNavigationItemTitleView()
     }
     
-    private func setNavigationItemTitleView() {
+    func setNavigationItemTitleView() {
         
         // logo image layout update
         let width: CGFloat = 90
@@ -35,7 +34,7 @@ class MainNavigationController: UINavigationController {
             self.childViewControllers[idx].navigationItem.titleView = logoContainer
         }
         
-        
+            
         /***************************************************
          <study.>
          -. logoContainer는 navigationItem.titleView이기 때문에 (x, y) 좌표값 상관 X

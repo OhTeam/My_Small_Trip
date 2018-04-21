@@ -14,6 +14,7 @@ class ReservationViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     
+    var pk: Int?
     var image: UIImage?
     var text: String?
     
@@ -21,17 +22,15 @@ class ReservationViewController: UIViewController {
     // 인원 수 선택
     @IBOutlet private weak var numberOfPeopleTextField: UITextField!
     
+    var number: [Int] = []
     var maxPeople: Int? {
         willSet {
-            number = []
             for num in 0..<newValue! {
-//                number?.append(num+1)
-                number.append(num+1) // test
+                number.append(num+1)
             }
         }
     }
     
-    var number: [Int] = [1, 2, 3, 4, 5, 6, 7]
     let pickerView = UIPickerView()
     var pickerSelectRow = 0
     
@@ -99,6 +98,7 @@ class ReservationViewController: UIViewController {
         // 인원 / 가격 정보 넘기기
         nextVC.numberOfPeople = numberOfPeopleTextField.text
         nextVC.price = priceLabel.text
+        nextVC.pk = self.pk
         
         self.navigationController?.pushViewController(nextVC, animated: true)
 

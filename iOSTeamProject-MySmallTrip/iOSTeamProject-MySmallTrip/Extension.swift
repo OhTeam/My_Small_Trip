@@ -20,3 +20,29 @@ extension UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
     }
 }
+
+
+// MARK: - Navi Bar Extension
+extension UIViewController {
+    func setNaviTitle() {
+        // Bar Tint Color Change
+        self.navigationController?.navigationBar.tintColor = UIColor.Custom.mainColor
+        
+        // Navi Bar TitleView - title image add
+        let width: CGFloat = 90
+        let height: CGFloat = 26
+        
+        let logoContainer = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        imageView.image = UIImage(named: "logo(small)")
+        logoContainer.addSubview(imageView)
+        
+        self.navigationItem.titleView = logoContainer
+    }
+    
+    func setNaviBackBtn() {
+        let backBtnString = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = backBtnString
+    }
+}

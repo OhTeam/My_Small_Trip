@@ -14,7 +14,6 @@ class ProductDetailTableViewController: UITableViewController {
     private var safeGuide: UILayoutGuide?
     
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var productNumber: UILabel!
     var reservationButton: UIButton!
     
     var productDetail: TravelDetail?
@@ -41,21 +40,22 @@ class ProductDetailTableViewController: UITableViewController {
                         do {
                             let productDetailList  = try JSONDecoder().decode([TravelDetail].self, from: value)
                             self.productDetail = productDetailList[0]
-                            self.productNumber.text = "상품번호: \(self.productDetail!.pk)"
                             
-                            // image insert
-                            Alamofire
-                                .request(self.productDetail!.images[0].productImg)
-                                .responseData { (response) in
-                                    
-                                    switch response.result {
-                                    case .success(let value):
-                                        self.imageView.image = UIImage(data: value)
-                                        self.tableView.reloadData()
-                                    case .failure(let error):
-                                        print("\n---------- [ cityImage load fail ] -----------\n")
-                                        print(error.localizedDescription)
-                                    }
+                            if let imageUrl = self.productDetail?.images[0].productImg {                                
+                                // image insert
+                                Alamofire
+                                    .request(imageUrl)
+                                    .responseData { (response) in
+                                        
+                                        switch response.result {
+                                        case .success(let value):
+                                            self.imageView.image = UIImage(data: value)
+                                            self.tableView.reloadData()
+                                        case .failure(let error):
+                                            print("\n---------- [ cityImage load fail ] -----------\n")
+                                            print(error.localizedDescription)
+                                        }
+                                }
                             }
                         } catch(let error) {
                             print("\n---------- [ JSON Decoder error ] -----------\n")
@@ -72,21 +72,37 @@ class ProductDetailTableViewController: UITableViewController {
     }
 
     
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.backgroundColor = UIColor.Custom.backgroundColor
         
         // tableView cell height - text length에 따라 맞추기
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
+        // navi bar title - image add / back btn color change
+        self.setNaviTitle()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // 예약하기 버튼
         makeReserveBtn()
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        reservationButton.removeFromSuperview()
     }
     
     
+    
+    // MARK: - Reservation function
     // reservation Button layout
     func makeReserveBtn() {
-        
         let tabBarHeight: CGFloat = 49
         let btnHeight: CGFloat = 45
         reservationButton = UIButton(frame: CGRect(x: 0,
@@ -104,11 +120,8 @@ class ProductDetailTableViewController: UITableViewController {
         
         reservationButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // TableVC로 생성해서 테이블뷰 위에 위치시키려면 parent.view에 addSubview할 수밖에... ㅠㅜ
+        // TableVC로 생성해서 테이블뷰 위에 위치시키려고 parent.view에 addSubview함.
         self.parent?.view.addSubview(reservationButton)
-        
-        // back 누르면 사라지게 해야됨 ㅠ.ㅜ
-//        reservationButton.removeFromSuperview()
         
         // autoLayout
         safeGuide = self.parent?.view.safeAreaLayoutGuide
@@ -131,11 +144,14 @@ class ProductDetailTableViewController: UITableViewController {
         // 현재 상품 이미지, 상품명 전달
         guard let image = self.imageView.image,
             let productName = productDetail?.name,
-            let price = productDetail?.price else { return }
+            let price = productDetail?.price,
+            let maxPeople = productDetail?.max_people else { return }
         
             reservationNavRootVC.image = image
             reservationNavRootVC.text = productName
             reservationNavRootVC.price = price
+            reservationNavRootVC.maxPeople = maxPeople
+            reservationNavRootVC.pk = productDetail?.pk
         
         self.present(popUpVC, animated: true, completion: nil)
     }
@@ -172,5 +188,4 @@ extension ProductDetailTableViewController {
             return cell
         }
     }
-    
 }

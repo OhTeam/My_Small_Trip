@@ -16,7 +16,7 @@ class PopularCityTableViewCell: UITableViewCell {
     
     var cityInfo: PopularCity? {
         didSet {
-            cityNameLabel.text = cityInfo?.name
+            cityNameLabel.text = cityInfo?.name.capitalized
         
             let cityImageUrl = URL(string: (cityInfo?.cityImage)!)
 

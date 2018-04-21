@@ -60,7 +60,8 @@ class RootViewController: UIViewController {
                         guard let user = responseValue["user"] as! [String:Any]? else { return }
                         FBUser.standards.userName = user["first_name"] as? String
                         
-//                        self.moveToMainVC()
+                        self.fetchWishList()
+                        self.moveToMainVC()
                     }
 
                 } else {
@@ -79,9 +80,29 @@ class RootViewController: UIViewController {
         self.present(mainVC, animated: true, completion: nil)
     }
 
+    
+    // MARK:  - WishList data get & User singleton save
+    func fetchWishList() {
+        
+        guard let token = FBUser.standards.token else { return }
+        let header = ["Authorization": "Token \(token)"]
+        let url = UrlData.standards.basic + UrlData.standards.wishList
+        
+        Alamofire
+            .request(url, method: .get, headers: header)
+            .responseJSON { (response) in
+                if let datas = response.result.value as! [[String:Any]]? {
+                    for data in datas {
+                        let pkInt = data["pk"] as! Int
+                        FBUser.standards.pkList.append(pkInt)
+                    }
+                }
+        }
     }
+}
 
 
+// MARK:  - FBSDK LoginButton Delegate
 extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
