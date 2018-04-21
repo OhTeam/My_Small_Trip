@@ -15,8 +15,8 @@ class LogInViewController: UIViewController {
     private var logInFailureNoti: UILabel?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
-    private var emailTextField: UITextField?
-    private var pwTextField: UITextField?
+    private var emailTextField: TextFieldWithInsets?
+    private var pwTextField: TextFieldWithInsets?
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
     
@@ -160,13 +160,14 @@ class LogInViewController: UIViewController {
     }
     
     private func setEmailTextField() {
-        emailTextField = UITextField()
+        emailTextField = TextFieldWithInsets()
         emailTextField!.delegate = self
         emailTextField!.tag = 1
         emailTextField!.placeholder = "Your Email"
         emailTextField!.textAlignment = .left
         emailTextField!.textColor = .black // temporary color value
         emailTextField!.font = UIFont.systemFont(ofSize: 14)
+        emailTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         emailTextField!.layer.borderWidth = 1
         emailTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         emailTextField!.layer.cornerRadius = 5
@@ -176,7 +177,7 @@ class LogInViewController: UIViewController {
     }
     
     private func setPWTextField() {
-        pwTextField = UITextField()
+        pwTextField = TextFieldWithInsets()
         pwTextField!.isSecureTextEntry = true
         pwTextField!.delegate = self
         pwTextField!.tag = 2
@@ -184,6 +185,7 @@ class LogInViewController: UIViewController {
         pwTextField!.textAlignment = .left
         pwTextField!.textColor = .black // temporary color value
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
+        pwTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         pwTextField!.layer.cornerRadius = 5
         pwTextField!.clipsToBounds = true
         pwTextField!.layer.borderWidth = 1
@@ -320,8 +322,8 @@ class LogInViewController: UIViewController {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
                 
-                // Load Wish List
-                self.loadWishList()
+                // to see logged user data
+                // self.printDataOf(user: UserData.user)
                 
                 // YS
 //                let profileVC: ProfileViewController = ProfileViewController()
@@ -386,6 +388,9 @@ class LogInViewController: UIViewController {
         UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
         UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
         UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
     }
     
     // MARK: - Load Wish List Primary Keys
@@ -406,25 +411,31 @@ class LogInViewController: UIViewController {
         }
     }
     
-    // MARK: - Temporary - it should be deleted because this is a test code
-//    func tmpPrint(user: UserData) {
-//        guard let token = user.token,
-//            let primaryKey = user.primaryKey,
-//            let userName = user.userName,
-//            let email = user.email,
-//            let firstName = user.firstName,
-//            let phoneNumber = user.phoneNumber,
-//            let isFacebookUser = user.isFacebookUser
-//            else { return }
-//        print("**" + token)
-//        print("**" + String(primaryKey))
-//        print("**" + userName)
-//        print("**" + email)
-//        print("**" + firstName)
-//        print("**" + phoneNumber)
-//        print("**" + (user.imgProfile ?? "nil"))
-//        print("**" + String(isFacebookUser))
-//    }
+    // MARK: Print User Data
+    func printDataOf(user: UserData) {
+        print("token: " + (user.token ?? "nil"))
+        if let primaryKey = user.primaryKey {
+            print("primaryKey: \(primaryKey)")
+        } else {
+            print("primaryKey: nil")
+        }
+        print("userName: " + (user.userName ?? "nil"))
+        print("email: " + (user.email ?? "nil"))
+        print("firstName: " + (user.firstName ?? "nil"))
+        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
+        print("imgProfile: " + (user.imgProfile ?? "nil"))
+        if let isFacebookUser = user.isFacebookUser {
+            print("isFacebookUser: \(isFacebookUser)")
+        } else {
+            print("isFacebookUser: nil")
+        }
+        if let _ = user.profileImgData {
+            print("Data: OK")
+        } else {
+            print("Data: nil")
+        }
+        print("whishList: \(user.wishListPrimaryKeys)")
+    }
 }
 
 // MARK: - Extension of LogInVC

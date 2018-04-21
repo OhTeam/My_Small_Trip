@@ -23,6 +23,8 @@ class UserData {
                 self.setPhoneNumber(phoneNumber: nil)
                 self.setIsFacebookUser(isFacebookUser: nil)
                 self.setImgProfile(imgProfile: nil)
+                self.setProfileImgData(profileImgData: nil)
+                self.setWishListPrimaryKeys(wishListPrimaryKeys: Array<Int>())
             }
         }
     } // Boolean value if logged in
@@ -36,7 +38,6 @@ class UserData {
     private var _imgProfile: String? // User Profile Image Link
     private var _isFacebookUser: Bool? // Boolean value if user is facebook user
     private var _profileImgData: Data? // Profile Image Data
-    
     private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
     
     var isLoggedIn: Bool {
@@ -48,13 +49,12 @@ class UserData {
         }
     }
     
+    func setProfileImgData(profileImgData: Data?) {
+        self._profileImgData = profileImgData
+    }
+    
     var profileImgData: Data? {
-        set {
-            self._profileImgData = newValue
-        }
-        get {
-            return _profileImgData
-        }
+        return _profileImgData
     }
     
     private init() {
@@ -120,7 +120,7 @@ class UserData {
         // TODO: *** 실행 흐름 이해할 것!!
         DispatchQueue.global().async {
             let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
-            self.profileImgData = profileImageData as Data
+            self.setProfileImgData(profileImgData: profileImageData as Data)
 //            DispatchQueue.main.async {
 //
 //            }

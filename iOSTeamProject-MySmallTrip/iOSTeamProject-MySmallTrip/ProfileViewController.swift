@@ -149,17 +149,20 @@ class ProfileViewController: UIViewController {
             if let _ = UserData.user.imgProfile {
                 if let profileImgData = UserData.user.profileImgData {
                     profileImageView.image = UIImage(data: profileImgData)
+                    profileImageView.contentMode = .scaleAspectFit
                     return
                 } else {
                     DispatchQueue.global().async {
                         while UserData.user.profileImgData == nil { }
                         DispatchQueue.main.async {
                             profileImageView.image = UIImage(data: UserData.user.profileImgData!)
+                            profileImageView.contentMode = .scaleAspectFit
                         }
                     }
                 }
             } else {
                 profileImageView.image = UIImage(named: "avatar")
+                profileImageView.contentMode = .scaleAspectFit
             }
         })()
         
@@ -340,6 +343,9 @@ class ProfileViewController: UIViewController {
                 
                 print("signed out")
                 
+                // to see logged user data
+                // self.printDataOf(user: UserData.user)
+                
                 // YS
 //                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
                 
@@ -354,6 +360,32 @@ class ProfileViewController: UIViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    // MARK: Print User Data
+    func printDataOf(user: UserData) {
+        print("token: " + (user.token ?? "nil"))
+        if let primaryKey = user.primaryKey {
+            print("primaryKey: \(primaryKey)")
+        } else {
+            print("primaryKey: nil")
+        }
+        print("userName: " + (user.userName ?? "nil"))
+        print("email: " + (user.email ?? "nil"))
+        print("firstName: " + (user.firstName ?? "nil"))
+        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
+        print("imgProfile: " + (user.imgProfile ?? "nil"))
+        if let isFacebookUser = user.isFacebookUser {
+            print("isFacebookUser: \(isFacebookUser)")
+        } else {
+            print("isFacebookUser: nil")
+        }
+        if let _ = user.profileImgData {
+            print("Data: OK")
+        } else {
+            print("Data: nil")
+        }
+        print("whishList: \(user.wishListPrimaryKeys)")
     }
 }
 

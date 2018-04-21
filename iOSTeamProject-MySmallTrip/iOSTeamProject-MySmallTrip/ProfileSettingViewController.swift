@@ -55,7 +55,7 @@ class ProfileSettingViewController: UIViewController {
         self.table!.delegate = self
         self.table!.dataSource = self
 //        self.table!.register(ProfileSettingTableViewCell.self, forCellReuseIdentifier: "profileSettingCell")
-        self.table!.register(UINib(nibName: "ProfileSettingTableViewCell", bundle: nil), forCellReuseIdentifier: "profileSettingCell")
+        self.table!.register(UINib(nibName: "ProfileSettingCell", bundle: nil), forCellReuseIdentifier: "profileSettingCell")
         self.table!.separatorStyle = .singleLine
         self.table!.separatorColor = UIColor(displayP3Red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
         
@@ -152,7 +152,7 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
     
     // MARK: Row Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingCell", for: indexPath) as! ProfileSettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingCell", for: indexPath) as! ProfileSettingCell
         
         if indexPath.section == 0 && indexPath.row == 0 {
             cell.leftText = tableTitles["basic"]![0]
