@@ -232,24 +232,24 @@ class SMSAuthenticationViewController: UIViewController {
     }
     
     // MARK: - Targets
-    @objc func moveBtnUp(_ sender: UITextField) {
+    @objc private func moveBtnUp(_ sender: UITextField) {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return }
         movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
     }
     
-    @objc func getAuthAgain(_ sender: UIButton) {
+    @objc private func getAuthAgain(_ sender: UIButton) {
         // TODO: - Get authentication number again
         self.isVerified = true
         print("Again Button is touched")
     }
     
-    @objc func verifyAuth(_ sender: UIButton) {
+    @objc private func verifyAuth(_ sender: UIButton) {
         // TODO: - Verify authentication number
         self.isVerified = false
         print("Test Verify Button")
     }
     
-    @objc func touchDone(_ sender: UIBarButtonItem) {
+    @objc private func touchDone(_ sender: UIBarButtonItem) {
         guard let movingHeightOfBtn = movingHeightOfBtn,
             let inputTextField = inputTextField
             else { return }

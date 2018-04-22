@@ -150,16 +150,16 @@ class ContactChangeViewController: UIViewController {
     
     
     // MARK: - Targets
-    @objc func popThis(_ sender: UIBarButtonItem) {
+    @objc private func popThis(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @objc func moveBtnUp(_ sender: UITextField) {
+    @objc private func moveBtnUp(_ sender: UITextField) {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return }
         movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
     }
     
-    @objc func getAuthCode(_ sender: UIButton) {
+    @objc private func getAuthCode(_ sender: UIButton) {
         guard let inputTextField = inputTextField,
             let movingHeightOfBtn = movingHeightOfBtn
             else { return }
@@ -185,7 +185,7 @@ class ContactChangeViewController: UIViewController {
         self.present(authNumNotiAlert, animated: false)
     }
     
-    @objc func touchDone(_ sender: UIBarButtonItem) {
+    @objc private func touchDone(_ sender: UIBarButtonItem) {
         guard let movingHeightOfBtn = movingHeightOfBtn,
             let inputTextField = inputTextField
             else { return }

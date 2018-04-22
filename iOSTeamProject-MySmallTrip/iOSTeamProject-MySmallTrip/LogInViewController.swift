@@ -340,21 +340,19 @@ class LogInViewController: UIViewController {
                 // self.printDataOf(user: UserData.user)
                 
                 // YS
+                self.reInitializeTextFields()
                 let profileVC: ProfileViewController = ProfileViewController()
                 let tmpNaviVC = UINavigationController(rootViewController: profileVC)
                 tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
                 let tmpTabBarVC = UITabBarController()
                 tmpTabBarVC.viewControllers = [tmpNaviVC]
-                self.present(tmpTabBarVC, animated: true) {
-                    self.reInitializeTextFields()
-                }
+                self.present(tmpTabBarVC, animated: true)
                 
                 // dev
-//                    let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
-//                    let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-//                    self.present(mainTabBarVC, animated: true) {
-//                        self.reInitializeTextFields()
-//                    }
+//                self.reInitializeTextFields()
+//                let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
+//                let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+//                self.present(mainTabBarVC, animated: true)
                 
             }
         }) { (error) in
@@ -424,7 +422,7 @@ class LogInViewController: UIViewController {
     }
     
     // MARK: - Targets
-    @objc func dismissLogInVC(_ sender: UIButton) {
+    @objc private func dismissLogInVC(_ sender: UIButton) {
         // to reduce time for keyboard to disappear
         if emailTextField?.isFirstResponder == true {
             emailTextField?.resignFirstResponder()
@@ -443,13 +441,13 @@ class LogInViewController: UIViewController {
 //        }
     }
     
-    @objc func touchLogIn(_ sender: UIButton) {
+    @objc private func touchLogIn(_ sender: UIButton) {
         guard let logInFailureNoti = logInFailureNoti else { return }
         logInFailureNoti.isHidden = true
         logIn()
     }
     
-    @objc func moveUpAllComponents(_ sender: UITextField) {
+    @objc private func moveUpAllComponents(_ sender: UITextField) {
         guard let logInFailureNoti = logInFailureNoti,
             let textFieldPositionConstraint = textFieldPositionConstraint,
             let emailTextField = emailTextField,
