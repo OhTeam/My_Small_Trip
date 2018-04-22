@@ -76,6 +76,15 @@ class ContactChangeViewController: UIViewController {
         inputTextField = TextFieldWithInsets()
         inputTextField!.delegate = self
         inputTextField!.placeholder = "전화번호를 입력하세요."
+        inputTextField!.keyboardType = .numberPad
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchDone(_:)))
+        let inputAccessoryView = UIToolbar()
+        inputAccessoryView.items = [flexibleSpace, doneButton]
+        inputAccessoryView.sizeToFit()
+        inputTextField?.inputAccessoryView = inputAccessoryView
+        
         inputTextField!.font = UIFont.systemFont(ofSize: 16)
         inputTextField!.textAlignment = .left
         inputTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
@@ -138,6 +147,8 @@ class ContactChangeViewController: UIViewController {
         movingHeightOfBtn!.isActive = true
     }
     
+    
+    
     // MARK: - Targets
     @objc func popThis(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
@@ -149,8 +160,39 @@ class ContactChangeViewController: UIViewController {
     }
     
     @objc func getAuthCode(_ sender: UIButton) {
-        let smsAuthVC = SMSAuthenticationViewController()
-        self.navigationController?.pushViewController(smsAuthVC, animated: true)
+        guard let inputTextField = inputTextField,
+            let movingHeightOfBtn = movingHeightOfBtn
+            else { return }
+        
+        inputTextField.resignFirstResponder()
+        movingHeightOfBtn.constant = 24
+        
+        let notiMsg: String = """
+입력하신 번호로 인증코드가 발송되었습니다.
+3분 내에 인증코드를 입력해 주세요.
+"""
+        
+        let authNumNotiAlert = UIAlertController(title: inputTextField.text, message: notiMsg, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+            let smsAuthVC = SMSAuthenticationViewController()
+            smsAuthVC.setPhoneNumberForAuth(phoneNumber: inputTextField.text)
+            self.navigationController?.pushViewController(smsAuthVC, animated: false)
+            inputTextField.text = nil
+        }
+        authNumNotiAlert.addAction(cancelAction)
+        authNumNotiAlert.addAction(okAction)
+        self.present(authNumNotiAlert, animated: false)
+    }
+    
+    @objc func touchDone(_ sender: UIBarButtonItem) {
+        guard let movingHeightOfBtn = movingHeightOfBtn,
+            let inputTextField = inputTextField
+            else { return }
+        
+        movingHeightOfBtn.constant = 24
+        
+        inputTextField.resignFirstResponder()
     }
 }
 

@@ -24,16 +24,29 @@ class SMSAuthenticationViewController: UIViewController {
     var isVerified: Bool = true {
         didSet {
             guard let invisibleLabel = invisibleLabel,
-                let movingHeightOfGetAuthAgainButton = movingHeightOfGetAuthAgainButton
+                let movingHeightOfGetAuthAgainButton = movingHeightOfGetAuthAgainButton,
+                let inputTextField = inputTextField
                 else { return }
             
             invisibleLabel.isHidden = isVerified
             if isVerified == false {
                 movingHeightOfGetAuthAgainButton.constant = 35
+                inputTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
             } else {
+                inputTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
                 movingHeightOfGetAuthAgainButton.constant = 0
             }
         }
+    }
+    
+    private var _phoneNumber: String?
+    
+    var phoneNumber: String? {
+        return self._phoneNumber
+    }
+    
+    func setPhoneNumberForAuth(phoneNumber: String?) {
+        self._phoneNumber = phoneNumber
     }
     
     override func viewDidLoad() {
@@ -76,6 +89,15 @@ class SMSAuthenticationViewController: UIViewController {
         self.inputTextField = TextFieldWithInsets()
         self.inputTextField!.delegate = self
         self.inputTextField!.placeholder = "인증코드를 입력해주세요."
+        self.inputTextField!.keyboardType = .numberPad
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchDone(_:)))
+        let inputAccessoryView = UIToolbar()
+        inputAccessoryView.items = [flexibleSpace, doneButton]
+        inputAccessoryView.sizeToFit()
+        self.inputTextField!.inputAccessoryView = inputAccessoryView
+        
         self.inputTextField!.font = UIFont.systemFont(ofSize: 16)
         self.inputTextField!.textAlignment = .left
         self.inputTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
@@ -218,13 +240,23 @@ class SMSAuthenticationViewController: UIViewController {
     @objc func getAuthAgain(_ sender: UIButton) {
         // TODO: - Get authentication number again
         self.isVerified = true
-        print("Test Again Button")
+        print("Again Button is touched")
     }
     
     @objc func verifyAuth(_ sender: UIButton) {
         // TODO: - Verify authentication number
         self.isVerified = false
         print("Test Verify Button")
+    }
+    
+    @objc func touchDone(_ sender: UIBarButtonItem) {
+        guard let movingHeightOfBtn = movingHeightOfBtn,
+            let inputTextField = inputTextField
+            else { return }
+        
+        movingHeightOfBtn.constant = 24
+        
+        inputTextField.resignFirstResponder()
     }
 }
 

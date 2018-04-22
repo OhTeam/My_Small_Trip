@@ -30,7 +30,7 @@ class LogInViewController: UIViewController {
     
     private var safeGuide: UILayoutGuide?
     private var textFieldPositionConstraint: NSLayoutConstraint?
-    private let movingHeight: CGFloat = 100 // distance to be moved at keyboard-up
+    private let movingHeight: CGFloat = 130 // distance to be moved at keyboard-up
     
     
     
@@ -164,6 +164,11 @@ class LogInViewController: UIViewController {
         emailTextField!.delegate = self
         emailTextField!.tag = 1
         emailTextField!.placeholder = "Your Email"
+        emailTextField!.keyboardType = .emailAddress
+        emailTextField!.returnKeyType = .next
+        emailTextField!.spellCheckingType = .no
+        emailTextField!.autocorrectionType = .no
+        emailTextField!.autocapitalizationType = .none
         emailTextField!.textAlignment = .left
         emailTextField!.textColor = .black // temporary color value
         emailTextField!.font = UIFont.systemFont(ofSize: 14)
@@ -182,6 +187,7 @@ class LogInViewController: UIViewController {
         pwTextField!.delegate = self
         pwTextField!.tag = 2
         pwTextField!.placeholder = "Password"
+        pwTextField!.returnKeyType = .join
         pwTextField!.textAlignment = .left
         pwTextField!.textColor = .black // temporary color value
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
@@ -203,7 +209,7 @@ class LogInViewController: UIViewController {
         logInButton!.setTitleColor(.white, for: .normal)
         logInButton!.layer.cornerRadius = 10
         logInButton!.clipsToBounds = true
-        logInButton!.addTarget(self, action: #selector(logIn(_:)), for: .touchUpInside)
+        logInButton!.addTarget(self, action: #selector(touchLogIn(_:)), for: .touchUpInside)
         logInButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -290,27 +296,35 @@ class LogInViewController: UIViewController {
         basicView.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
     }
     
-    // MARK: - Targets
-    @objc func dismissLogInVC(_ sender: UIButton) {
-        // to reduce time for keyboard to disappear
-        if emailTextField?.isFirstResponder == true {
-            emailTextField?.resignFirstResponder()
-        } else if pwTextField?.isFirstResponder == true {
-            pwTextField?.resignFirstResponder()
-        }
+    
+    // MARK: - Notify wrong login information
+    private func notifyWrongLogInInfo() {
+        guard let emailTextField = emailTextField,
+            let pwTextField = pwTextField,
+            let logInFailureNoti = logInFailureNoti
+            else { return }
         
-        // YS
-        self.dismiss(animated: true, completion: nil)
-        
-        // dev
-//        if self.presentingViewController is SignUpViewController {
-//            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
-//        } else {
-//            self.presentingViewController?.dismiss(animated: true, completion: nil)
-//        }
+        emailTextField.text = ""
+        pwTextField.text = ""
+        emailTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+        pwTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+        logInFailureNoti.isHidden = false
     }
     
-    @objc func logIn(_ sender: UIButton) {
+    // MARK: - Re-initialize text on textfields
+    private func reInitializeTextFields() {
+        guard let emailTextField = emailTextField,
+            let pwTextField = pwTextField,
+            let textFieldPositionConstraint = textFieldPositionConstraint
+            else { return }
+        
+        emailTextField.text = nil
+        pwTextField.text = nil
+        textFieldPositionConstraint.constant = 0
+    }
+    
+    // MARK: - Log In
+    private func logIn() {
         let logInLink: String = "http://myrealtrip.hongsj.kr/login/"
         let param: Dictionary<String, Any> = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
@@ -344,42 +358,13 @@ class LogInViewController: UIViewController {
                 
             }
         }) { (error) in
-            self.emailTextField?.text = ""
-            self.pwTextField?.text = ""
-            self.emailTextField?.layer.borderColor = UIColor.red.cgColor
-            self.pwTextField?.layer.borderColor = UIColor.red.cgColor
-            self.logInFailureNoti?.isHidden = false
+            self.notifyWrongLogInInfo()
             print(error.localizedDescription)
         }
     }
     
-    @objc func moveUpAllComponents(_ sender: UITextField) {
-        guard let textFieldPositionConstraint = textFieldPositionConstraint,
-            let logInFailureNoti = logInFailureNoti,
-            let emailTextField = emailTextField,
-            let pwTextField = pwTextField else { return }
-        
-        logInFailureNoti.isHidden = true
-        emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
-        pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
-        sender.becomeFirstResponder() // for keyboard to start to be shown quickly
-        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
-    }
-    
-    // MARK: - // Re-initialize text on textfields
-    private func reInitializeTextFields() {
-        guard let emailTextField = emailTextField,
-            let pwTextField = pwTextField,
-            let textFieldPositionConstraint = textFieldPositionConstraint
-            else { return }
-        
-        emailTextField.text = nil
-        pwTextField.text = nil
-        textFieldPositionConstraint.constant = 0
-    }
-    
     // MARK: - Set User Data after logging in
-    private func setUserData(userLoggedIn: EmailLogIn) {        
+    private func setUserData(userLoggedIn: EmailLogIn) {
         UserData.user.isLoggedIn = true
         UserData.user.setToken(token: userLoggedIn.token)
         UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
@@ -412,7 +397,7 @@ class LogInViewController: UIViewController {
         }
     }
     
-    // MARK: Print User Data
+    // MARK: - Print User Data
     func printDataOf(user: UserData) {
         print("token: " + (user.token ?? "nil"))
         if let primaryKey = user.primaryKey {
@@ -437,6 +422,46 @@ class LogInViewController: UIViewController {
         }
         print("whishList: \(user.wishListPrimaryKeys)")
     }
+    
+    // MARK: - Targets
+    @objc func dismissLogInVC(_ sender: UIButton) {
+        // to reduce time for keyboard to disappear
+        if emailTextField?.isFirstResponder == true {
+            emailTextField?.resignFirstResponder()
+        } else if pwTextField?.isFirstResponder == true {
+            pwTextField?.resignFirstResponder()
+        }
+        
+        // YS
+        self.dismiss(animated: true, completion: nil)
+        
+        // dev
+//        if self.presentingViewController is SignUpViewController {
+//            self.presentingViewController?.presentingViewController?.dismiss(animated: true)
+//        } else {
+//            self.presentingViewController?.dismiss(animated: true, completion: nil)
+//        }
+    }
+    
+    @objc func touchLogIn(_ sender: UIButton) {
+        guard let logInFailureNoti = logInFailureNoti else { return }
+        logInFailureNoti.isHidden = true
+        logIn()
+    }
+    
+    @objc func moveUpAllComponents(_ sender: UITextField) {
+        guard let logInFailureNoti = logInFailureNoti,
+            let textFieldPositionConstraint = textFieldPositionConstraint,
+            let emailTextField = emailTextField,
+            let pwTextField = pwTextField
+            else { return }
+        
+        logInFailureNoti.isHidden = true
+        sender.becomeFirstResponder() // for keyboard to start to be shown quickly
+        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+        emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+    }
 }
 
 // MARK: - Extension of LogInVC
@@ -444,15 +469,15 @@ extension LogInViewController: UITextFieldDelegate {
     // when return key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let emailTextField = emailTextField,
-            let pwTextField = pwTextField,
-            let textFieldPositionConstraint = textFieldPositionConstraint else { return true }
+            let pwTextField = pwTextField
+            else { return true }
         
         if textField.tag == 1 {
             emailTextField.resignFirstResponder()
             pwTextField.becomeFirstResponder()
         } else {
             pwTextField.resignFirstResponder()
-            textFieldPositionConstraint.constant = 0
+            logIn()
         }
         
         return true
