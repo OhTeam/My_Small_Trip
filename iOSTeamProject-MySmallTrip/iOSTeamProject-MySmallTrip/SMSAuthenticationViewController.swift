@@ -24,16 +24,29 @@ class SMSAuthenticationViewController: UIViewController {
     var isVerified: Bool = true {
         didSet {
             guard let invisibleLabel = invisibleLabel,
-                let movingHeightOfGetAuthAgainButton = movingHeightOfGetAuthAgainButton
+                let movingHeightOfGetAuthAgainButton = movingHeightOfGetAuthAgainButton,
+                let inputTextField = inputTextField
                 else { return }
             
             invisibleLabel.isHidden = isVerified
             if isVerified == false {
                 movingHeightOfGetAuthAgainButton.constant = 35
+                inputTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
             } else {
+                inputTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
                 movingHeightOfGetAuthAgainButton.constant = 0
             }
         }
+    }
+    
+    private var _phoneNumber: String?
+    
+    var phoneNumber: String? {
+        return self._phoneNumber
+    }
+    
+    func setPhoneNumberForAuth(phoneNumber: String?) {
+        self._phoneNumber = phoneNumber
     }
     
     override func viewDidLoad() {
@@ -68,14 +81,23 @@ class SMSAuthenticationViewController: UIViewController {
         self.tfDesLabel!.font = UIFont.systemFont(ofSize: 12)
         self.tfDesLabel!.textAlignment = .left
         self.tfDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        self.tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(tfDesLabel!)
-        self.tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
         self.inputTextField = TextFieldWithInsets()
         self.inputTextField!.delegate = self
         self.inputTextField!.placeholder = "인증코드를 입력해주세요."
+        self.inputTextField!.keyboardType = .numberPad
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchDone(_:)))
+        let inputAccessoryView = UIToolbar()
+        inputAccessoryView.items = [flexibleSpace, doneButton]
+        inputAccessoryView.sizeToFit()
+        self.inputTextField!.inputAccessoryView = inputAccessoryView
+        
         self.inputTextField!.font = UIFont.systemFont(ofSize: 16)
         self.inputTextField!.textAlignment = .left
         self.inputTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
@@ -85,9 +107,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.inputTextField!.layer.cornerRadius = 5
         self.inputTextField!.clipsToBounds = true
         self.inputTextField!.addTarget(self, action: #selector(moveBtnUp(_:)), for: .touchDown)
+        self.inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(inputTextField!)
-        self.inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         // Invisible Notification Label
         self.invisibleLabel = UILabel()
@@ -96,9 +118,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.invisibleLabel!.textColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
         self.invisibleLabel!.textAlignment = .left
         self.invisibleLabel!.isHidden = true // set hidden
+        self.invisibleLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(invisibleLabel!)
-        self.invisibleLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Get Authentication Again View
         self.getAuthAgainButton = UIButton()
@@ -119,9 +141,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.verifyButton!.layer.cornerRadius = 10
         self.verifyButton!.clipsToBounds = true
         self.verifyButton!.addTarget(self, action: #selector(verifyAuth(_:)), for: .touchUpInside)
+        self.verifyButton!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(verifyButton!)
-        self.verifyButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - Set Layout of All Components
@@ -210,21 +232,31 @@ class SMSAuthenticationViewController: UIViewController {
     }
     
     // MARK: - Targets
-    @objc func moveBtnUp(_ sender: UITextField) {
+    @objc private func moveBtnUp(_ sender: UITextField) {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return }
         movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
     }
     
-    @objc func getAuthAgain(_ sender: UIButton) {
+    @objc private func getAuthAgain(_ sender: UIButton) {
         // TODO: - Get authentication number again
         self.isVerified = true
-        print("Test Again Button")
+        print("Again Button is touched")
     }
     
-    @objc func verifyAuth(_ sender: UIButton) {
+    @objc private func verifyAuth(_ sender: UIButton) {
         // TODO: - Verify authentication number
         self.isVerified = false
         print("Test Verify Button")
+    }
+    
+    @objc private func touchDone(_ sender: UIBarButtonItem) {
+        guard let movingHeightOfBtn = movingHeightOfBtn,
+            let inputTextField = inputTextField
+            else { return }
+        
+        movingHeightOfBtn.constant = 24
+        
+        inputTextField.resignFirstResponder()
     }
 }
 
