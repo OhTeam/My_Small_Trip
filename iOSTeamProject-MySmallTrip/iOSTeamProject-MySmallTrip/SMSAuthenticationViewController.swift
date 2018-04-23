@@ -81,9 +81,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.tfDesLabel!.font = UIFont.systemFont(ofSize: 12)
         self.tfDesLabel!.textAlignment = .left
         self.tfDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        self.tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(tfDesLabel!)
-        self.tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
         self.inputTextField = TextFieldWithInsets()
@@ -107,9 +107,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.inputTextField!.layer.cornerRadius = 5
         self.inputTextField!.clipsToBounds = true
         self.inputTextField!.addTarget(self, action: #selector(moveBtnUp(_:)), for: .touchDown)
+        self.inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(inputTextField!)
-        self.inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         // Invisible Notification Label
         self.invisibleLabel = UILabel()
@@ -118,9 +118,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.invisibleLabel!.textColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
         self.invisibleLabel!.textAlignment = .left
         self.invisibleLabel!.isHidden = true // set hidden
+        self.invisibleLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(invisibleLabel!)
-        self.invisibleLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Get Authentication Again View
         self.getAuthAgainButton = UIButton()
@@ -141,9 +141,9 @@ class SMSAuthenticationViewController: UIViewController {
         self.verifyButton!.layer.cornerRadius = 10
         self.verifyButton!.clipsToBounds = true
         self.verifyButton!.addTarget(self, action: #selector(verifyAuth(_:)), for: .touchUpInside)
+        self.verifyButton!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(verifyButton!)
-        self.verifyButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - Set Layout of All Components

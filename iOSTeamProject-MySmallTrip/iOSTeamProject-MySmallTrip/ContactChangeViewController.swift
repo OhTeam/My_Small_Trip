@@ -58,9 +58,9 @@ class ContactChangeViewController: UIViewController {
         upperDesLabel!.font = UIFont.systemFont(ofSize: 14)
         upperDesLabel!.textAlignment = .left
         upperDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        upperDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(upperDesLabel!)
-        upperDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // TextField Description Label
         tfDesLabel = UILabel()
@@ -68,9 +68,9 @@ class ContactChangeViewController: UIViewController {
         tfDesLabel!.font = UIFont.systemFont(ofSize: 12)
         tfDesLabel!.textAlignment = .left
         tfDesLabel!.textColor = UIColor(displayP3Red: 66/255, green: 66/255, blue: 66/255, alpha: 1)
+        tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(tfDesLabel!)
-        tfDesLabel!.translatesAutoresizingMaskIntoConstraints = false
         
         // Input TextField
         inputTextField = TextFieldWithInsets()
@@ -94,9 +94,9 @@ class ContactChangeViewController: UIViewController {
         inputTextField!.layer.cornerRadius = 5
         inputTextField!.clipsToBounds = true
         inputTextField!.addTarget(self, action: #selector(moveBtnUp(_:)), for: .touchDown)
+        inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(inputTextField!)
-        inputTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         // Action Button
         getAuthButton = UIButton()
@@ -108,9 +108,9 @@ class ContactChangeViewController: UIViewController {
         getAuthButton!.layer.cornerRadius = 10
         getAuthButton!.clipsToBounds = true
         getAuthButton!.addTarget(self, action: #selector(getAuthCode(_:)), for: .touchUpInside)
+        getAuthButton!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(getAuthButton!)
-        getAuthButton!.translatesAutoresizingMaskIntoConstraints = false
     }
     
     // MARK: - Set Layout of All Components

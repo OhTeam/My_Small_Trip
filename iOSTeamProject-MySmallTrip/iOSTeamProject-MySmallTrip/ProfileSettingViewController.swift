@@ -214,6 +214,8 @@ extension ProfileSettingViewController: UITableViewDelegate, UITableViewDataSour
             
         } else if indexPath.section == 1 && indexPath.row == 2 {
             // TODO: 비밀번호 변경 view controller push
+            let pwChangeVC = PWChangeViewController()
+            self.navigationController?.pushViewController(pwChangeVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
             
         }

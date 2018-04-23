@@ -16,6 +16,7 @@
 		6FBE2FBE207C7DC200BEAD8F /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */; };
 		6FBE2FC0207C7DD800BEAD8F /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */; };
 		CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */; };
+		CA13835B208D2FDE006BBC03 /* PWChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */; };
 		CA309811208AEDA900015B70 /* importLibraries.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA309810208AEDA900015B70 /* importLibraries.swift */; };
 		CA68D40D208B65AE003E6A0F /* TextFieldWithInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */; };
 		CA68D410208B6BEF003E6A0F /* ProfileSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */; };
@@ -42,6 +43,7 @@
 		6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
 		C875B768B2CD4E47456F0E3C /* Pods-iOSTeamProject-MySmallTrip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.debug.xcconfig"; sourceTree = "<group>"; };
 		CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAuthenticationViewController.swift; sourceTree = "<group>"; };
+		CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWChangeViewController.swift; sourceTree = "<group>"; };
 		CA309810208AEDA900015B70 /* importLibraries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importLibraries.swift; sourceTree = "<group>"; };
 		CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithInsets.swift; sourceTree = "<group>"; };
 		CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingCell.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */,
 				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
 				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
+				CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */,
 				CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */,
 				CACA9069208085DA00E3D1DD /* UserData.swift */,
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
@@ -254,6 +257,7 @@
 			files = (
 				CAC3F43C2084356400AF3DCD /* ContactChangeViewController.swift in Sources */,
 				CADA81AD2083BDB70072417F /* LogInResponse.swift in Sources */,
+				CA13835B208D2FDE006BBC03 /* PWChangeViewController.swift in Sources */,
 				CA68D410208B6BEF003E6A0F /* ProfileSettingCell.swift in Sources */,
 				CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */,
 				CA309811208AEDA900015B70 /* importLibraries.swift in Sources */,

@@ -170,7 +170,7 @@ class LogInViewController: UIViewController {
         emailTextField!.autocorrectionType = .no
         emailTextField!.autocapitalizationType = .none
         emailTextField!.textAlignment = .left
-        emailTextField!.textColor = .black // temporary color value
+        emailTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         emailTextField!.font = UIFont.systemFont(ofSize: 14)
         emailTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         emailTextField!.layer.borderWidth = 1
@@ -189,7 +189,7 @@ class LogInViewController: UIViewController {
         pwTextField!.placeholder = "Password"
         pwTextField!.returnKeyType = .join
         pwTextField!.textAlignment = .left
-        pwTextField!.textColor = .black // temporary color value
+        pwTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
         pwTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         pwTextField!.layer.cornerRadius = 5
