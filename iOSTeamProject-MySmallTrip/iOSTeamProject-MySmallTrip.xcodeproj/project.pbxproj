@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F3A75A32089E9F6004E2287 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3A75A22089E9F6004E2287 /* WishListViewController.swift */; };
+		6F4140E0208C3F4300C79613 /* TravelPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */; };
 		6F6E369420860E2200657F41 /* testVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E369320860E2200657F41 /* testVC.swift */; };
 		6F6E369620864E3400657F41 /* ReservationDatePickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */; };
 		6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E3697208705BF00657F41 /* WishListButton.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		6F3A75A22089E9F6004E2287 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
+		6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPhotosCell.swift; sourceTree = "<group>"; };
 		6F6E369320860E2200657F41 /* testVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testVC.swift; sourceTree = "<group>"; };
 		6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDatePickViewController.swift; sourceTree = "<group>"; };
 		6F6E3697208705BF00657F41 /* WishListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListButton.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				6F775EC820846252006437FC /* TravelDetailInfoCell.swift */,
 				6F775ECA2084627A006437FC /* TravelDescriptionCell.swift */,
+				6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */,
 			);
 			path = "travel detail cell";
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				6FBE2FAC207C7D7C00BEAD8F /* ViewController.swift in Sources */,
 				6FBE2FCC207C9C4200BEAD8F /* MainTabBarController.swift in Sources */,
 				6F6E369420860E2200657F41 /* testVC.swift in Sources */,
+				6F4140E0208C3F4300C79613 /* TravelPhotosCell.swift in Sources */,
 				6FBE2FD0207C9C4D00BEAD8F /* MainNavigationController.swift in Sources */,
 				6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */,
 				6FBE2FCA207C8EC100BEAD8F /* RootViewController.swift in Sources */,
