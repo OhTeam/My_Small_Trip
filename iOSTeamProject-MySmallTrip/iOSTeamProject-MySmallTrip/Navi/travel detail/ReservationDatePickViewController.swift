@@ -57,14 +57,10 @@ class ReservationDatePickViewController: UIViewController {
     
     @IBAction private func reserveAction() {
         
-        print(dateTf.text)
-        print(numberOfPeople)
-        print(pk)
-        
         let header = ["Authorization": "Token \(FBUser.standards.token ?? "error")"]
-        let params: [String:Any] = ["travel_info":pk,
-                                    "start_date":dateTf.text,
-                                    "people":Int(numberOfPeople!)]
+        let params: [String:Any] = ["travel_info":pk!,
+                                    "start_date":dateTf.text!,
+                                    "people":Int(numberOfPeople!)!]
         print(params)
         let url = "http://myrealtrip.hongsj.kr/reservation/"
         

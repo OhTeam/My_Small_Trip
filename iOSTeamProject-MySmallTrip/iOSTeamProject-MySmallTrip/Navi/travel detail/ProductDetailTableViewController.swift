@@ -20,9 +20,8 @@ class ProductDetailTableViewController: UITableViewController {
     
     struct StoryBoard {
         static let infoCell = "InfoCell"
-        static let photoCell = "PhotoCell"
+        static let photoCell = "PhotosCell"
         static let descriptionCell = "DescriptionCell"
-        static let companyCell = "CompanyCell"
         
         static let reservationVC = "ReservationViewController"
     }
@@ -165,8 +164,8 @@ extension ProductDetailTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 0 - travel info cell (name, price, ..)
-        // 1 - detail description cell
-        // 2 - photo cell
+        // 1 - photo cell
+        // 2 - detail description cell
         return 3
     }
     
@@ -179,12 +178,16 @@ extension ProductDetailTableViewController {
             cell.travel = productDetail
             return cell
         case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.photoCell, for: indexPath) as! TravelPhotosCell
+            guard let images = productDetail?.images else { return cell }
+            cell.images = images
+            
+//            self.tableView.reloadData()
+            return cell
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.descriptionCell, for: indexPath) as! TravelDescriptionCell
             cell.titleLabel.text = productDetail?.description_title
             cell.descriptionLabel.text = productDetail?.description
-            return cell
-        default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.photoCell, for: indexPath)
             return cell
         }
     }
