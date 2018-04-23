@@ -183,6 +183,13 @@ class PWChangeViewController: UIViewController {
         lowerFailureNotiLabel.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -81).isActive = true
     }
     
+    // MARK: - Pop Up Failure Notification Labels
+    private func popUpFailureNotiLabels() {
+        guard let upperFailureNotiLabel = upperFailureNotiLabel,
+            let lowerFailureNotiLabel = lowerFailureNotiLabel
+            else { return }
+    }
+    
     // MARK: - Change Password
     private func changePW() {
         guard let firstPWTextField = firstPWTextField,

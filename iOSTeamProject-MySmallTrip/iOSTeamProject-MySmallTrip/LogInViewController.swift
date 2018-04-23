@@ -467,7 +467,8 @@ extension LogInViewController: UITextFieldDelegate {
     // when return key is tapped
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let emailTextField = emailTextField,
-            let pwTextField = pwTextField
+            let pwTextField = pwTextField,
+            let textFieldPositionConstraint = textFieldPositionConstraint
             else { return true }
         
         if textField.tag == 1 {
@@ -475,6 +476,7 @@ extension LogInViewController: UITextFieldDelegate {
             pwTextField.becomeFirstResponder()
         } else {
             pwTextField.resignFirstResponder()
+            textFieldPositionConstraint.constant = 0
             logIn()
         }
         
