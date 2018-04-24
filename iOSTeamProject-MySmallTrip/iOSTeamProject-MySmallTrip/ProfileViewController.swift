@@ -335,7 +335,7 @@ class ProfileViewController: UIViewController {
             UserData.user.isLoggedIn = false
             self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
         } else {
-            let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
+            let signOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + UserData.user.token!]
             
             importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in

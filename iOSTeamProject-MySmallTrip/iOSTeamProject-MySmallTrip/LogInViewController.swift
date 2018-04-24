@@ -12,9 +12,9 @@ class LogInViewController: UIViewController {
     
     private var basicView: UIView?
     private var dismissImgBtnView: UIView?
-    private var logInFailureNoti: UILabel?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
+    private var logInFailureNoti: UILabel?
     private var emailTextField: TextFieldWithInsets?
     private var pwTextField: TextFieldWithInsets?
     private var logInButton: UIButton?
@@ -49,6 +49,10 @@ class LogInViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
     }
     
     deinit {
@@ -304,8 +308,7 @@ class LogInViewController: UIViewController {
             let logInFailureNoti = logInFailureNoti
             else { return }
         
-        emailTextField.text = ""
-        pwTextField.text = ""
+        reInitializeTextFields()
         emailTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
         pwTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
         logInFailureNoti.isHidden = false
@@ -314,18 +317,17 @@ class LogInViewController: UIViewController {
     // MARK: - Re-initialize text on textfields
     private func reInitializeTextFields() {
         guard let emailTextField = emailTextField,
-            let pwTextField = pwTextField,
-            let textFieldPositionConstraint = textFieldPositionConstraint
+            let pwTextField = pwTextField
             else { return }
         
         emailTextField.text = nil
         pwTextField.text = nil
-        textFieldPositionConstraint.constant = 0
     }
     
     // MARK: - Log In
     private func logIn() {
-        let logInLink: String = "http://myrealtrip.hongsj.kr/login/"
+        guard let textFieldPositionConstraint = textFieldPositionConstraint else { return }
+        let logInLink: String = "https://myrealtrip.hongsj.kr/login/"
         let param: Dictionary<String, Any> = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         // temporary parameters for login process
@@ -341,6 +343,7 @@ class LogInViewController: UIViewController {
                 
                 // YS
                 self.reInitializeTextFields()
+                textFieldPositionConstraint.constant = 0
                 let profileVC: ProfileViewController = ProfileViewController()
                 let tmpNaviVC = UINavigationController(rootViewController: profileVC)
                 tmpNaviVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
