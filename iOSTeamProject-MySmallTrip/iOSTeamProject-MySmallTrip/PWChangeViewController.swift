@@ -299,8 +299,8 @@ class PWChangeViewController: UIViewController {
             self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
             
         }) { (error) in
-            안
-            self.noti안tring = "네트워크 오류입니다. 다시 시행해 주세요."
+            // token 유효성 잃었을 때 처리 방안
+            self.notiString = "네트워크 오류입니다. 다시 시행해 주세요."
             lowerFailureNotiLabel.isHidden = true
             
             print(error.localizedDescription)
