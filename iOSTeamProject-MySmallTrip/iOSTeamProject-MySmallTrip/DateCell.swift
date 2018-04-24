@@ -9,18 +9,16 @@
 import UIKit
 
 class DateCell: UICollectionViewCell {
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        layer.cornerRadius = 50
-//        layer.borderColor = UIColor.clear.cgColor
-//        layer.borderWidth = 0
-//        
-//        layer.masksToBounds = true
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
+
+    @IBOutlet weak var dateLabel: UILabel!
+//    var date: Int? {
+//        didSet{
+//            if date = today{
+//                dsajdjhaskjk
+//            }
+//        }
 //    }
     
-    @IBOutlet weak var dateLabel: UILabel!
+    
+    // ""
 }

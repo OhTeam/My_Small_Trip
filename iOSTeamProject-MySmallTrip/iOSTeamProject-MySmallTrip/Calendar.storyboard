@@ -26,7 +26,7 @@
                                     <constraint firstAttribute="height" constant="2" id="bn3-hx-522"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UDO-jk-SxD" userLabel="bottomLine">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDO-jk-SxD" userLabel="bottomLine">
                                 <rect key="frame" x="20" y="171" width="335" height="2"/>
                                 <color key="backgroundColor" red="0.60392156860000001" green="0.602715373" blue="0.60392156860000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -144,39 +144,20 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Today" id="Uzx-2P-aey" customClass="MonthHeaderView" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="Today" id="KSn-su-qXy" customClass="MonthHeaderView" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="46"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DzY-Fh-d1R">
-                                            <rect key="frame" x="0.0" y="0.0" width="335" height="46"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPH-06-Vu5">
-                                                    <rect key="frame" x="11" y="7" width="121" height="32"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="121" id="kLl-0q-Tse"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <constraints>
-                                                <constraint firstItem="uPH-06-Vu5" firstAttribute="leading" secondItem="DzY-Fh-d1R" secondAttribute="leading" constant="11" id="2KA-lV-D2J"/>
-                                                <constraint firstItem="uPH-06-Vu5" firstAttribute="centerY" secondItem="DzY-Fh-d1R" secondAttribute="centerY" id="k6j-V2-o6J"/>
-                                            </constraints>
-                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-Zs-OHt">
+                                            <rect key="frame" x="8" y="13" width="42" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="DzY-Fh-d1R" secondAttribute="bottom" id="1Vu-To-1GO"/>
-                                        <constraint firstItem="DzY-Fh-d1R" firstAttribute="leading" secondItem="Uzx-2P-aey" secondAttribute="leading" id="XpW-Rj-pYK"/>
-                                        <constraint firstItem="DzY-Fh-d1R" firstAttribute="top" secondItem="Uzx-2P-aey" secondAttribute="top" id="i41-yw-moQ"/>
-                                        <constraint firstAttribute="trailing" secondItem="DzY-Fh-d1R" secondAttribute="trailing" id="lBq-tA-9bm"/>
-                                    </constraints>
                                     <connections>
-                                        <outlet property="todayButton" destination="uPH-06-Vu5" id="1oY-G3-mVp"/>
+                                        <outlet property="monthLabel" destination="YbS-Zs-OHt" id="Ujx-OO-x3C"/>
                                     </connections>
                                 </collectionReusableView>
                                 <connections>
@@ -205,6 +186,7 @@
                             <constraint firstItem="zhI-lQ-bFX" firstAttribute="trailing" secondItem="ADd-Mq-Gyc" secondAttribute="trailing" constant="20" id="o53-Ou-AOc"/>
                             <constraint firstItem="UDO-jk-SxD" firstAttribute="trailing" secondItem="DLa-Sf-dBf" secondAttribute="trailing" id="pD9-Z3-5Vi"/>
                             <constraint firstItem="ADd-Mq-Gyc" firstAttribute="top" secondItem="DLa-Sf-dBf" secondAttribute="bottom" constant="1" id="sio-4H-6pb"/>
+                            <constraint firstItem="UDO-jk-SxD" firstAttribute="top" secondItem="DLa-Sf-dBf" secondAttribute="bottom" id="vvs-kY-Jez"/>
                             <constraint firstItem="cKg-W8-z5F" firstAttribute="top" secondItem="zhI-lQ-bFX" secondAttribute="top" constant="19" id="z3d-zd-Luf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zhI-lQ-bFX"/>

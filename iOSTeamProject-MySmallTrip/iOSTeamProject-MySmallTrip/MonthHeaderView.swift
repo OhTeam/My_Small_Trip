@@ -8,7 +8,8 @@
 
 import UIKit
 
-final class MonthHeaderView: UICollectionReusableView {
+class MonthHeaderView: UICollectionReusableView {
         
-    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var monthLabel: UILabel!
+    
 }
