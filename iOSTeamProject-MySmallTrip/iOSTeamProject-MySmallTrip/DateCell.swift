@@ -11,14 +11,10 @@ import UIKit
 class DateCell: UICollectionViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
-//    var date: Int? {
-//        didSet{
-//            if date = today{
-//                dsajdjhaskjk
-//            }
-//        }
-//    }
     
-    
-    // ""
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        dateLabel.text = nil
+    }
 }

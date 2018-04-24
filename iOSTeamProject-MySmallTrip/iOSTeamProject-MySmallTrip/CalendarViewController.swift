@@ -20,19 +20,25 @@ struct ColorOfIsSelected {
 
 class CalendarViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var resevationDateArray:[[String]] = [[], [], []]
-    var currentMonthSelected: String = ""
+    var selectedDate:[String] = []
+    var reservationDateSelectedArray: [String] = []
+    
 
+//    func printreservationDateSelectedArray() {
+//        print(reservationDateSelectedArray)
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
         createUI()
         initializeView()
-        
+//        printreservationDateSelectedArray()
+
         
 //        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
     }
-    
+
     @IBOutlet weak var unavailableDateMarkLabel: NSLayoutConstraint!
     @IBOutlet weak var unavailableDateLabel: UILabel!
     @IBOutlet weak var todayLabel: UILabel!
@@ -45,9 +51,9 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBOutlet weak var applyButton: UIButton!
     @IBAction func applyDateForReservationButton(_ sender: Any) {
-        //날짜를 선택하고, 적용 버튼을 누르면 '2018 / 03 / 21' 형식으로 print 할 수 있도록 처리.
-        
-        //nextVC.
+        print(reservationDateSelectedArray.last)
+//        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
+//        self.present(nextVC, animated: true, completion: nil)
     }
     
     
@@ -83,9 +89,29 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         }
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "YYYY/MM/dd"
-        let result = formatter.string(from: date)
+        formatter.dateFormat = "MM/dd"
+        var result = formatter.string(from: date)
+        
+        let weekday = Calendar.current.component(.weekday, from: date)
+        switch weekday {
+        case 1:
+            result += "(일)"
+        case 2:
+            result += "(월)"
+        case 3:
+            result += "(화)"
+        case 4:
+            result += "(수)"
+        case 5:
+            result += "(목)"
+        case 6:
+            result += "(금)"
+        default:
+            result += "(토)"
+        }
         todayLabel.text = result
+
+        
     }
     
     func initializeView() {
@@ -108,23 +134,18 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     }
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear) - \(currentMonthIndex) - 01".date?.firstDayofTheMonth.weekday)!
-        print("4월: \(day)")
-        print(currentYear)
-        print(currentMonthIndex)
         return day
     }
     
     //5월의 첫째날
     func getsecondWeekDay() -> Int {
         let day = ("\(currentYear) - \(currentMonthIndex + 1) - 01".date?.firstDayofTheMonth.weekday)!
-        print("5월: \(day)")
         return day
     }
     
     //6월의 첫째날
     func getthirdWeekDay() -> Int {
         let day = ("\(currentYear) - \(currentMonthIndex + 2) - 01".date?.firstDayofTheMonth.weekday)!
-        print("6월: \(day)")
         return day
     }
     
@@ -138,12 +159,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Today", for: indexPath) as! MonthHeaderView
         let data = 4
         let dateString = String(data + indexPath.section)
-        header.monthLabel.text = "\(dateString)월"
-        if dateString.count == 1 {
-            currentMonthSelected = "0\(header.monthLabel.text)"
-        } else {
-            currentMonthSelected = dateString
-        }
+        header.monthLabel.text = "\(currentYear)년 \(dateString)월"
         return header
     }
     
@@ -157,7 +173,6 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         default:
             return numberOfDaysInMonth[currentMonthIndex - 1 + 2] + thirdWeekDayOfMonth - 1
         }
-//        return numberOfDaysInMonth[currentMonthIndex + section - 1] + firstWeekDayOfMonth - 1
     }
 
 
@@ -175,15 +190,11 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
                 if calendarDate < todayDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex {
                     cell.isUserInteractionEnabled = false
                     cell.dateLabel.textColor = UIColor.lightGray
-                    //TODO: Bool값을 받아 false이면 해당 날짜를 회색처리 및 선택 안되게 함
-                    //불가능한 날짜 : 서버에서 Bool(false)로 받아와서 선택 안되도록 회색 처리
-                    //(현재 날짜 이전은 무조건 선택 안되도록)
                 } else {
                     cell.isUserInteractionEnabled = true
                     cell.dateLabel.textColor = UIColor.black
                 }
             }
-            
             for i in resevationDateArray[indexPath.section] {
                 if cell.dateLabel.text == i {
                     cell.dateLabel.textColor = UIColor.lightGray
@@ -202,15 +213,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
                 cell.isHidden = false
                 cell.dateLabel.text = "\(calendarDate)"
                 cell.dateLabel.textColor = UIColor.black
-//                if calendarDate < todayDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex {
-//                    cell.isUserInteractionEnabled = false
-//                    cell.dateLabel.textColor = UIColor.lightGray
-//                    //TODO: Bool값을 받아 false이면 해당 날짜를 회색처리 및 선택 안되게 함
-//                    //불가능한 날짜 : 서버에서 Bool(false)로 받아와서 선택 안되도록 회색 처리
-//                    //(현재 날짜 이전은 무조건 선택 안되도록)
-//                } else {
-                    cell.isUserInteractionEnabled = true
-//                }
+                cell.isUserInteractionEnabled = true
             }
             for i in resevationDateArray[indexPath.section] {
                 if cell.dateLabel.text == i {
@@ -230,15 +233,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
                 cell.isHidden = false
                 cell.dateLabel.text = "\(calendarDate)"
                 cell.dateLabel.textColor = UIColor.black
-//                if calendarDate < todayDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex {
-//                    cell.isUserInteractionEnabled = false
-//                    cell.dateLabel.textColor = UIColor.lightGray
-//                    //TODO: Bool값을 받아 false이면 해당 날짜를 회색처리 및 선택 안되게 함
-//                    //불가능한 날짜 : 서버에서 Bool(false)로 받아와서 선택 안되도록 회색 처리
-//                    //(현재 날짜 이전은 무조건 선택 안되도록)
-//                } else {
                     cell.isUserInteractionEnabled = true
-//                }
             }
             for i in resevationDateArray[indexPath.section] {
                 if cell.dateLabel.text == i {
@@ -254,19 +249,62 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         print(collectionView)
         switch indexPath.section {
         case 0:
-            print(currentMonthSelected)
+            let cell = collectionView.cellForItem(at: indexPath) as! DateCell
+            cell.backgroundColor = ColorOfIsSelected.red
+            cell.layer.cornerRadius = cell.frame.size.width/10
+            var day: String = cell.dateLabel.text!
+            var year = String(currentYear)
+            var reservationDateSelected: String = ""
+            if indexPath.item - Int(cell.dateLabel.text!)! == -1 {
+                reservationDateSelected += year
+                reservationDateSelected += "-04-"
+                if day.count == 1 {
+                    reservationDateSelected += "0" + day
+                } else {
+                reservationDateSelected += day
+                }
+            }
+            reservationDateSelectedArray.append(reservationDateSelected)
+            print(reservationDateSelected)
+
         case 1:
-            print(currentMonthSelected)
+            let cell = collectionView.cellForItem(at: indexPath) as! DateCell
+            cell.backgroundColor = ColorOfIsSelected.red
+            cell.layer.cornerRadius = cell.frame.size.width/10
+            var day: String = cell.dateLabel.text!
+            var year = String(currentYear)
+            var reservationDateSelected: String = ""
+            if indexPath.item - Int(cell.dateLabel.text!)! == 1 {
+                reservationDateSelected += year
+                reservationDateSelected += "-05-"
+                if day.count == 1 {
+                    reservationDateSelected += "0" + day
+                } else {
+                    reservationDateSelected += day
+                }
+            }
+            reservationDateSelectedArray.append(reservationDateSelected)
+            print(reservationDateSelected)
         default:
-            print(currentMonthSelected)
+            let cell = collectionView.cellForItem(at: indexPath) as! DateCell
+            cell.backgroundColor = ColorOfIsSelected.red
+            cell.layer.cornerRadius = cell.frame.size.width/10
+            var day: String = cell.dateLabel.text!
+            var year = String(currentYear)
+            var reservationDateSelected: String = ""
+            if indexPath.item - Int(cell.dateLabel.text!)! == 4 {
+                reservationDateSelected += year
+                reservationDateSelected += "-06-"
+                if day.count == 1 {
+                    reservationDateSelected += "0" + day
+                } else {
+                    reservationDateSelected += day
+                }
+            }
+            reservationDateSelectedArray.append(reservationDateSelected)
+            print(reservationDateSelected)
         }
         
-//
-        let cell = collectionView.cellForItem(at: indexPath) as! DateCell
-        cell.backgroundColor = ColorOfIsSelected.red
-//        if cell?.backgroundColor == ColorOfIsSelected.red {
-        print(cell.dateLabel.text)
-        print(currentMonthSelected)
     }
     
     
