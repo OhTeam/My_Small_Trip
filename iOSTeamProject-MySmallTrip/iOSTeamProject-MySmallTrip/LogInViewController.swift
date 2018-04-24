@@ -343,7 +343,7 @@ class LogInViewController: UIViewController {
         // temporary parameters for login process
         // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data) in
+        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
@@ -368,7 +368,7 @@ class LogInViewController: UIViewController {
 //                self.present(mainTabBarVC, animated: true)
                 
             }
-        }) { (error) in
+        }) { (error, code) in
             self.notifyWrongLogInInfo()
             print(error.localizedDescription)
         }
@@ -396,14 +396,14 @@ class LogInViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json) in
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int
                     UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
                 }
             }
-        }) { (error) in
+        }) { (error, code) in
             print(error.localizedDescription)
         }
     }

@@ -10,26 +10,26 @@ import Foundation
 import Alamofire
 
 class importLibraries {
-    static func connectionOfSeverForDataWith(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?, success: @escaping (_ data: Data) -> Void, failure: @escaping (_ error: Error) -> ()) {
-        
+    static func connectionOfSeverForDataWith(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?, success: @escaping (_ data: Data, _ code: Int?) -> Void, failure: @escaping (_ error: Error, _ code: Int?) -> ()) {
+    
         Alamofire.request(url, method: method, parameters: parameters, headers: headers).validate().responseData { (response) in
             switch response.result {
             case .success(let data):
-                success(data)
+                success(data, response.response?.statusCode)
             case .failure(let error):
-                failure(error)
+                failure(error, response.response?.statusCode)
             }
         }
     }
     
-    static func connectionOfServerForJSONWith(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?, success: @escaping (_ data: Any) -> Void, failure: @escaping (_ error: Error) -> ()) {
+    static func connectionOfServerForJSONWith(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?, success: @escaping (_ data: Any, _ code: Int?) -> Void, failure: @escaping (_ error: Error, _ code: Int?) -> ()) {
         
         Alamofire.request(url, method: method, parameters: parameters, headers: headers).validate().responseJSON { (response) in
             switch response.result {
             case .success(let any):
-                success(any)
+                success(any, response.response?.statusCode)
             case .failure(let error):
-                failure(error)
+                failure(error, response.response?.statusCode)
             }
         }
     }

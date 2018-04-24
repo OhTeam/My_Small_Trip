@@ -240,7 +240,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber]
         
-        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data) in
+        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             let notiMsg: String = """
 입력하신 번호로 인증코드가 발송되었습니다.
@@ -257,7 +257,7 @@ class SMSAuthenticationViewController: UIViewController {
             print("Authentication sent")
             print("data")
             
-        }) { (error) in
+        }) { (error, code) in
             // 토큰 유효하지 않을 때 처리 방안
             print(error.localizedDescription)
         }
@@ -274,7 +274,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber, "certification_number":inputTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data) in
+        importLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
             
             UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
             movingHeightOfBtn.constant = 24
@@ -292,7 +292,7 @@ class SMSAuthenticationViewController: UIViewController {
             print("Phone Number changed")
             print(data)
             
-        }) { (error) in
+        }) { (error, code) in
             // 로그인 토큰 유효성 실패 때 방안
             self.isVerified = false
             print(error.localizedDescription)

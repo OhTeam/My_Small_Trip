@@ -157,7 +157,7 @@ class ContactChangeViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":inputTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data) in
+        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             inputTextField.resignFirstResponder()
             movingHeightOfBtn.constant = 24
@@ -182,7 +182,7 @@ class ContactChangeViewController: UIViewController {
             print("Authentication sent")
             print("data")
             
-        }) { (error) in
+        }) { (error, code) in
             // 토큰 유효하지 않을 때 처리 방안
             print(error.localizedDescription)
         }

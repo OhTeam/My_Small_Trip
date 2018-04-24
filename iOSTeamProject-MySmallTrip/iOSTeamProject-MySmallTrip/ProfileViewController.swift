@@ -338,7 +338,7 @@ class ProfileViewController: UIViewController {
             let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
             
-            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
+            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
                 UserData.user.isLoggedIn = false // user data logged out
                 
                 print("logged out")
@@ -356,7 +356,7 @@ class ProfileViewController: UIViewController {
 //                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
 //                }
                 
-            }) { (error) in
+            }) { (error, code) in
                 // token 유효성 잃었을 때 처리 방안
                 print(error.localizedDescription)
             }
