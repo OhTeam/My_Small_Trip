@@ -178,7 +178,7 @@ class ContactChangeViewController: UIViewController {
             let smsAuthVC = SMSAuthenticationViewController()
             smsAuthVC.setPhoneNumberForAuth(phoneNumber: inputTextField.text)
             self.navigationController?.pushViewController(smsAuthVC, animated: false)
-            inputTextField.text = nil
+            inputTextField.text = ""
         }
         authNumNotiAlert.addAction(cancelAction)
         authNumNotiAlert.addAction(okAction)

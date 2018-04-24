@@ -330,8 +330,8 @@ class LogInViewController: UIViewController {
             let pwTextField = pwTextField
             else { return }
         
-        emailTextField.text = nil
-        pwTextField.text = nil
+        emailTextField.text = ""
+        pwTextField.text = ""
     }
     
     // MARK: - Log In

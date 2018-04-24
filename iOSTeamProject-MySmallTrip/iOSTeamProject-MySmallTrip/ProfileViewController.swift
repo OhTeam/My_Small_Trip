@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController {
         "service" :
             [
                 "고객센터",
-                "이용 약관"
+                "FAQ"
         ]
     ]
     
@@ -304,7 +304,7 @@ class ProfileViewController: UIViewController {
         logOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
         logOutButton.layer.cornerRadius = 10
         logOutButton.clipsToBounds = true
-        logOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
+        logOutButton.addTarget(self, action: #selector(logOut(_:)), for: .touchUpInside)
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         
         buttonView.addSubview(logOutButton)
@@ -325,23 +325,23 @@ class ProfileViewController: UIViewController {
         print("Profile image button clicked")
     }
     
-    // MARK: Function to sign out
-    @objc func signOut (_ sender: UIButton) {
+    // MARK: Function to log out
+    @objc func logOut (_ sender: UIButton) {
         guard UserData.user.isLoggedIn else { return }
         if UserData.user.isFacebookUser! {
-            // TODO: Needs a function to sign out from Facebook
+            // TODO: Needs a function to log out from Facebook
             
-            // if signing out from Facebook is succeeded...
+            // if loging out from Facebook is succeeded...
             UserData.user.isLoggedIn = false
             self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
         } else {
-            let signOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
-            let header = ["Authorization" : "Token " + UserData.user.token!]
+            let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
+            let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
             
-            importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
-                UserData.user.isLoggedIn = false // user data signed out
+            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
+                UserData.user.isLoggedIn = false // user data logged out
                 
-                print("signed out")
+                print("logged out")
                 
                 // to see logged user data
                 // self.printDataOf(user: UserData.user)
@@ -357,6 +357,7 @@ class ProfileViewController: UIViewController {
 //                }
                 
             }) { (error) in
+                // token 유효성 잃었을 때 처리 방안
                 print(error.localizedDescription)
             }
         }

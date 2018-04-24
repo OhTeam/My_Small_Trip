@@ -14,10 +14,20 @@ class PWChangeViewController: UIViewController {
     private var secondPWLabel: UILabel?
     private var firstPWTextField: TextFieldWithInsets?
     private var secondPWTextField: TextFieldWithInsets?
+    private var pwDescription: UILabel?
     private var upperFailureNotiLabel: UILabel?
     private var lowerFailureNotiLabel: UILabel?
     
+    private var notiString: String? {
+        didSet {
+            guard let upperFailureNotiLabel = upperFailureNotiLabel else { return }
+            
+            upperFailureNotiLabel.text = notiString
+        }
+    }
+    
     private var movingHeightOfLowerFailureNotiLabel: NSLayoutConstraint?
+    private let keyFrameHeight: CGFloat = 216
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +91,7 @@ class PWChangeViewController: UIViewController {
         firstPWTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         firstPWTextField!.layer.cornerRadius = 5
         firstPWTextField!.clipsToBounds = true
+        firstPWTextField!.addTarget(self, action: #selector(touchDown(_:)), for: .touchDown)
         firstPWTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(firstPWTextField!)
@@ -100,15 +111,25 @@ class PWChangeViewController: UIViewController {
         secondPWTextField!.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         secondPWTextField!.layer.cornerRadius = 5
         secondPWTextField!.clipsToBounds = true
+        secondPWTextField!.addTarget(self, action: #selector(touchDown(_:)), for: .touchDown)
         secondPWTextField!.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(secondPWTextField!)
         
+        // Password Description
+        pwDescription = UILabel()
+        pwDescription!.text = "영 대・소문자 및 숫자 그리고 특수문자를 포함한 8자의 비밀번호"
+        pwDescription!.textColor = UIColor(displayP3Red: 74/255, green: 74/255, blue: 74/255, alpha: 0.5)
+        pwDescription!.font = UIFont.systemFont(ofSize: 12)
+        pwDescription!.textAlignment = .center
+        pwDescription!.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(pwDescription!)
         
         // Upper Failure Notification
         upperFailureNotiLabel = UILabel()
         upperFailureNotiLabel!.backgroundColor = UIColor(displayP3Red: 74/255, green: 74/255, blue: 74/255, alpha: 0.8)
-        upperFailureNotiLabel!.text = "영문자가 포함된 8글자 이상의 비밀번호를 설정해 주세요."
+//        upperFailureNotiLabel!.text = "영문자가 포함된 8글자 이상의 비밀번호를 설정해 주세요."
         upperFailureNotiLabel!.textColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
         upperFailureNotiLabel!.font = UIFont.systemFont(ofSize: 15)
         upperFailureNotiLabel!.textAlignment = .center
@@ -139,6 +160,7 @@ class PWChangeViewController: UIViewController {
             let secondPWLabel = secondPWLabel,
             let firstPWTextField = firstPWTextField,
             let secondPWTextField = secondPWTextField,
+            let pwDescription = pwDescription,
             let upperFailureNotiLabel = upperFailureNotiLabel,
             let lowerFailureNotiLabel = lowerFailureNotiLabel
             else { return }
@@ -169,6 +191,12 @@ class PWChangeViewController: UIViewController {
         secondPWTextField.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
         secondPWTextField.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -24).isActive = true
         
+        // Password Description
+        pwDescription.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        pwDescription.topAnchor.constraint(equalTo: secondPWTextField.bottomAnchor, constant: 10).isActive = true
+        pwDescription.leadingAnchor.constraint(equalTo: safeGuide.leadingAnchor, constant: 24).isActive = true
+        pwDescription.trailingAnchor.constraint(equalTo: safeGuide.trailingAnchor, constant: -24).isActive = true
+        
         // Upper Failure Notification Label
         upperFailureNotiLabel.heightAnchor.constraint(equalToConstant: 29).isActive = true
         upperFailureNotiLabel.bottomAnchor.constraint(equalTo: lowerFailureNotiLabel.topAnchor, constant: -11).isActive = true
@@ -184,18 +212,99 @@ class PWChangeViewController: UIViewController {
     }
     
     // MARK: - Pop Up Failure Notification Labels
-    private func popUpFailureNotiLabels() {
+    private func popUpFailureNotiLabels(_ isHidden: Bool) {
         guard let upperFailureNotiLabel = upperFailureNotiLabel,
             let lowerFailureNotiLabel = lowerFailureNotiLabel
             else { return }
+        
+        upperFailureNotiLabel.isHidden = isHidden
+        lowerFailureNotiLabel.isHidden = isHidden
+    }
+    
+    // MARK: - Verify Password
+    private func verifyPW() -> Bool {
+        guard let firstPWTextField = firstPWTextField,
+            let secondPWTextFiedld = secondPWTextField
+            else { return false }
+      
+        var isVerified: Bool = false
+        let password = Password(firstPW: firstPWTextField.text!, secondPW: secondPWTextFiedld.text!)
+        
+        // first condition
+        if firstPWTextField.text! == "" || password.isBlank {
+            notiString = "아무것도 입력되지 않았거나 모두 빈칸입니다"
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.isSameAsSecondPW {
+            notiString = "변경을 원하는 비밀번호와 재입력된 비밀번호가 다릅니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.isOverEightCharacters {
+            notiString = "비밀번호는 여덟글자 이상 작성되어야 합니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if password.hasBlank {
+            notiString = "비밀번호에 빈칸은 포함되지 않습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if password.hasOnlyNumber {
+            notiString = "비밀번호는 숫자로만 구성되지 않습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.hasUppercase {
+            notiString = "비밀번호에 영 대문자가 포함되지 않았습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.hasLowercase {
+            notiString = "비밀번호에 영 소문자가 포함되지 않았습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.hasSpecialCharacter {
+            notiString = "비밀번호에 특수문자가 포함되지 않았습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else if !password.hasNumber {
+            notiString = "비밀번호에 숫자가 포함되지 않았습니다."
+            popUpFailureNotiLabels(false)
+            
+        } else {
+            isVerified = true
+            popUpFailureNotiLabels(true)
+        }
+        
+        return isVerified
     }
     
     // MARK: - Change Password
     private func changePW() {
-        guard let firstPWTextField = firstPWTextField,
-            let secondPWTextFiedld = secondPWTextField
+        guard verifyPW(),
+            let firstPWTextField = firstPWTextField,
+            let secondPWTextField = secondPWTextField,
+            let lowerFailureNotiLabel = lowerFailureNotiLabel,
+            let movingHeightOfLowerFailureNotiLabel = movingHeightOfLowerFailureNotiLabel
             else { return }
         
+        let pwChangeLink: String = "https://myrealtrip.hongsj.kr/members/info/password/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
+        let param: Dictionary<String, Any> = ["password":firstPWTextField.text!, "password2":secondPWTextField.text!]
+        
+        importLibraries.connectionOfSeverForDataWith(pwChangeLink, method: .patch, parameters: param, headers: header, success: { (data) in
+            firstPWTextField.text = ""
+            secondPWTextField.text = ""
+            movingHeightOfLowerFailureNotiLabel.constant = -24
+            
+            print("Password changed")
+            print(data)
+            
+            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+            
+        }) { (error) in
+            안
+            self.noti안tring = "네트워크 오류입니다. 다시 시행해 주세요."
+            lowerFailureNotiLabel.isHidden = true
+            
+            print(error.localizedDescription)
+        }
     }
     
     // MARK: - Targets
@@ -204,20 +313,30 @@ class PWChangeViewController: UIViewController {
     }
     
     @objc private func changePW(_ sender: UIBarButtonItem) {
+        changePW()
+    }
+    
+    @objc private func touchDown(_ sender: UITextField) {
+        guard let movingHeightOfLowerFailureNotiLabel = movingHeightOfLowerFailureNotiLabel
+            else { return }
         
+        movingHeightOfLowerFailureNotiLabel.constant = -24 - keyFrameHeight
     }
 }
 
 extension PWChangeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let firstPWTextField = firstPWTextField,
-            let secondPWTextField = secondPWTextField
+            let secondPWTextField = secondPWTextField,
+            let movingHeightOfLowerFailureNotiLabel = movingHeightOfLowerFailureNotiLabel
             else { return true }
         if textField.tag == 1 {
             firstPWTextField.resignFirstResponder()
             secondPWTextField.becomeFirstResponder()
         } else {
             secondPWTextField.resignFirstResponder()
+            movingHeightOfLowerFailureNotiLabel.constant = -24
+            changePW()
         }
         return true
     }
