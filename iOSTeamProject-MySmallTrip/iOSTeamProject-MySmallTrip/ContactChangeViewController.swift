@@ -147,7 +147,46 @@ class ContactChangeViewController: UIViewController {
         movingHeightOfBtn!.isActive = true
     }
     
-    
+    // MARK: - Requset Authentication Number
+    private func requestAuthNumber() {
+        guard let inputTextField = inputTextField,
+            let movingHeightOfBtn = movingHeightOfBtn
+            else { return }
+        
+        let requestAuthNumLink = "https://myrealtrip.hongsj.kr/members/info/phone-change/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
+        let param: Dictionary<String, Any> = ["phone_number":inputTextField.text!]
+        
+        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data) in
+            
+            inputTextField.resignFirstResponder()
+            movingHeightOfBtn.constant = 24
+            
+            let notiMsg: String = """
+입력하신 번호로 인증코드가 발송되었습니다.
+3분 내에 인증코드를 입력해 주세요.
+"""
+            
+            let authNumNotiAlert = UIAlertController(title: inputTextField.text, message: notiMsg, preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                let smsAuthVC = SMSAuthenticationViewController()
+                smsAuthVC.setPhoneNumberForAuth(phoneNumber: inputTextField.text)
+                self.navigationController?.pushViewController(smsAuthVC, animated: false)
+                inputTextField.text = ""
+            }
+            authNumNotiAlert.addAction(cancelAction)
+            authNumNotiAlert.addAction(okAction)
+            self.present(authNumNotiAlert, animated: false)
+            
+            print("Authentication sent")
+            print("data")
+            
+        }) { (error) in
+            // 토큰 유효하지 않을 때 처리 방안
+            print(error.localizedDescription)
+        }
+    }
     
     // MARK: - Targets
     @objc private func popThis(_ sender: UIBarButtonItem) {
@@ -160,29 +199,29 @@ class ContactChangeViewController: UIViewController {
     }
     
     @objc private func getAuthCode(_ sender: UIButton) {
-        guard let inputTextField = inputTextField,
-            let movingHeightOfBtn = movingHeightOfBtn
-            else { return }
+        requestAuthNumber()
         
-        inputTextField.resignFirstResponder()
-        movingHeightOfBtn.constant = 24
+        // -> tmp
+//        self.inputTextField!.resignFirstResponder()
+//        self.movingHeightOfBtn!.constant = 24
+//
+//        let notiMsg: String = """
+//입력하신 번호로 인증코드가 발송되었습니다.
+//3분 내에 인증코드를 입력해 주세요.
+//"""
+//
+//        let authNumNotiAlert = UIAlertController(title: inputTextField!.text, message: notiMsg, preferredStyle: .alert)
+//        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+//        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+//            let smsAuthVC = SMSAuthenticationViewController()
+//            smsAuthVC.setPhoneNumberForAuth(phoneNumber: self.inputTextField!.text)
+//            self.navigationController?.pushViewController(smsAuthVC, animated: false)
+//            self.inputTextField!.text = ""
+//        }
+//        authNumNotiAlert.addAction(cancelAction)
+//        authNumNotiAlert.addAction(okAction)
+//        self.present(authNumNotiAlert, animated: false)
         
-        let notiMsg: String = """
-입력하신 번호로 인증코드가 발송되었습니다.
-3분 내에 인증코드를 입력해 주세요.
-"""
-        
-        let authNumNotiAlert = UIAlertController(title: inputTextField.text, message: notiMsg, preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
-            let smsAuthVC = SMSAuthenticationViewController()
-            smsAuthVC.setPhoneNumberForAuth(phoneNumber: inputTextField.text)
-            self.navigationController?.pushViewController(smsAuthVC, animated: false)
-            inputTextField.text = ""
-        }
-        authNumNotiAlert.addAction(cancelAction)
-        authNumNotiAlert.addAction(okAction)
-        self.present(authNumNotiAlert, animated: false)
     }
     
     @objc private func touchDone(_ sender: UIBarButtonItem) {
@@ -203,6 +242,8 @@ extension ContactChangeViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         movingHeightOfBtn.constant = 24
+        
+        requestAuthNumber()
         
         return true
     }
