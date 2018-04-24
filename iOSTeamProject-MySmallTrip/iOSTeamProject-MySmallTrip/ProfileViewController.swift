@@ -297,23 +297,23 @@ class ProfileViewController: UIViewController {
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         // Button Creation
-        let signOutButton = UIButton()
-        signOutButton.setTitle("SIGN OUT", for: .normal)
-        signOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
-        signOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        signOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        signOutButton.layer.cornerRadius = 10
-        signOutButton.clipsToBounds = true
-        signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
-        signOutButton.translatesAutoresizingMaskIntoConstraints = false
+        let logOutButton = UIButton()
+        logOutButton.setTitle("LOG OUT", for: .normal)
+        logOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
+        logOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        logOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logOutButton.layer.cornerRadius = 10
+        logOutButton.clipsToBounds = true
+        logOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
+        logOutButton.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonView.addSubview(signOutButton)
+        buttonView.addSubview(logOutButton)
         
         //MARK: Layout inside Button View
-        signOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        signOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
-        signOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: signOutButton.trailingAnchor, constant: 24).isActive = true
+        logOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        logOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
+        logOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
+        buttonView.trailingAnchor.constraint(equalTo: logOutButton.trailingAnchor, constant: 24).isActive = true
         
         return buttonView
     }

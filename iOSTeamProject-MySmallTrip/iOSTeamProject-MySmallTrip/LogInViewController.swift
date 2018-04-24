@@ -20,6 +20,8 @@ class LogInViewController: UIViewController {
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
     
+    private var isStausBarHidden: Bool = false  // to set status bar on
+    
     // Preparation for user email transmission from SignUp view controller
     var loginEmail: String? {
         didSet {
@@ -52,7 +54,11 @@ class LogInViewController: UIViewController {
     }
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        if isStausBarHidden {
+            return true
+        } else {
+            return false
+        }
     }
     
     deinit {
@@ -75,8 +81,8 @@ class LogInViewController: UIViewController {
         self.view.addSubview(basicView)
         self.view.addSubview(logInFailureNoti)
         self.view.addSubview(dismissImgBtnView)  // MARK: subViews were already laid out inside
-        basicView.addSubview(titleLabel)
-        basicView.addSubview(upperDesLabel)
+        self.view.addSubview(titleLabel)
+        self.view.addSubview(upperDesLabel)
         basicView.addSubview(emailTextField)
         basicView.addSubview(pwTextField)
         basicView.addSubview(logInButton)
@@ -243,13 +249,17 @@ class LogInViewController: UIViewController {
         safeGuide = self.view.safeAreaLayoutGuide
         
         // Basic View
-        basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
+//        basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
         basicView.widthAnchor.constraint(equalTo: safeGuide!.widthAnchor).isActive = true
         
-        textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
-        textFieldPositionConstraint!.isActive = true
+//        textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
+//        textFieldPositionConstraint!.isActive = true
         
         basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+        basicView.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor).isActive = true
+        
+        textFieldPositionConstraint = basicView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor)
+        textFieldPositionConstraint?.isActive = true
         
         // LogIn Failure Notification Label
         logInFailureNoti.heightAnchor.constraint(equalToConstant: 24).isActive = true
@@ -265,15 +275,15 @@ class LogInViewController: UIViewController {
         
         // Title Label
         titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: basicView.topAnchor, constant: 80).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 80).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
-        basicView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
+        safeGuide!.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
         
         // Uppder Description Label
         upperDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        upperDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 32).isActive = true
-        basicView.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
+        upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
+        safeGuide!.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
         
         // Email TextField
         emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
@@ -457,6 +467,8 @@ class LogInViewController: UIViewController {
             let pwTextField = pwTextField
             else { return }
         
+//        isStausBarHidden = true
+//        setNeedsStatusBarAppearanceUpdate()  // update status bar at this point
         logInFailureNoti.isHidden = true
         sender.becomeFirstResponder() // for keyboard to start to be shown quickly
         textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
