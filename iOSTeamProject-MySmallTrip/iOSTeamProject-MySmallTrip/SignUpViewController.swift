@@ -199,34 +199,34 @@ class SignUpViewController: UIViewController {
             guard let phoneData = self.phoneNumberTextField.text!.data(using: .utf8) else { return }
             guard let imageData = UIImageJPEGRepresentation(self.profileImage.image!, 0.1) else { return }
             
-//            Alamofire
-//                .upload(
-//                    multipartFormData: { multipartform in
-//                        multipartform.append(emailData, withName: "email")
-//                        multipartform.append(nameData, withName: "first_name")
-//                        multipartform.append(passwordData, withName: "password")
-//                        multipartform.append(password2Data, withName: "password2")
-//                        multipartform.append(phoneData, withName: "phone_number")
-//                        multipartform.append(imageData, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
-//                },
-//                    to: urlString,
-//                    method: .post,
-//                    encodingCompletion: { result in
-//                        switch result {
-//                        case .success(let request, _, _):
-//                            request.responseJSON(completionHandler: { (res) in
-//                                print(res.response?.statusCode)
-//                                if let responseValue = res.result.value as! [String: Any]? {
-//                                    print(responseValue.keys)
-//                                    print(responseValue.values)
-//                                }
-//                                if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
-//                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
-//                                    let failureAlert = UIAlertAction(title: "확인", style: .default)
-//                                    alertController.addAction(failureAlert)
-//                                    self.present(alertController, animated: true, completion: nil)
-//                                } else {
-//                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
+            Alamofire
+                .upload(
+                    multipartFormData: { multipartform in
+                        multipartform.append(emailData, withName: "email")
+                        multipartform.append(nameData, withName: "first_name")
+                        multipartform.append(passwordData, withName: "password")
+                        multipartform.append(password2Data, withName: "password2")
+                        multipartform.append(phoneData, withName: "phone_number")
+                        multipartform.append(imageData, withName: "img_profile", fileName: "profileImage.png", mimeType: "image/png")
+                },
+                    to: urlString,
+                    method: .post,
+                    encodingCompletion: { result in
+                        switch result {
+                        case .success(let request, _, _):
+                            request.responseJSON(completionHandler: { (res) in
+                                print(res.response?.statusCode)
+                                if let responseValue = res.result.value as! [String: Any]? {
+                                    print(responseValue.keys)
+                                    print(responseValue.values)
+                                }
+                                if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
+                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
+                                    let failureAlert = UIAlertAction(title: "확인", style: .default)
+                                    alertController.addAction(failureAlert)
+                                    self.present(alertController, animated: true, completion: nil)
+                                } else {
+                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
 //                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (sucessAlert) in
 //                                        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
 //                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
@@ -234,17 +234,19 @@ class SignUpViewController: UIViewController {
 //                                        //TODO: - 로그인화면으로 이메일 가기
 //                                        //logintextfiled.text = yourEmailTextField.text
 //                                    })
-//                                    alertController.addAction(successAlert)
-//
-//                                    self.present(alertController, animated: true, completion: nil)
-//                                    print("Sucess_회원가입 성공")
-//                                }
-//                                print(res.response)
-//                            })
-//                        case .failure(let error):
-//                            print(error)
-//                        }
-//                })
+                                    
+                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: nil)
+                                    alertController.addAction(successAlert)
+
+                                    self.present(alertController, animated: true, completion: nil)
+                                    print("Sucess_회원가입 성공")
+                                }
+                                print(res.response)
+                            })
+                        case .failure(let error):
+                            print(error)
+                        }
+                })
         }
         if nameCheck == false {
             let alertController = UIAlertController(title: "이름 형식 확인", message: "한글 또는 영문인 이름을 사용하여 주세요.", preferredStyle: UIAlertControllerStyle.alert)
@@ -252,19 +254,19 @@ class SignUpViewController: UIViewController {
             alertController.addAction(failureAlert)
             self.present(alertController, animated: true, completion: nil)
         }
-        if emailCheck == false {
+        else if emailCheck == false {
             let alertController = UIAlertController(title: "이메일 형식 확인", message: "반드시 본인의 유효한 이메일을 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
             let failureAlert = UIAlertAction(title: "확인", style: .default)
             alertController.addAction(failureAlert)
             self.present(alertController, animated: true, completion: nil)
         }
-        if passwordCheck == false {
+        else if passwordCheck == false {
             let alertController = UIAlertController(title: "비밀번호 확인", message: "8자리의 특수문자+숫자+알파벳을 넣어 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
             let failureAlert = UIAlertAction(title: "확인", style: .default)
             alertController.addAction(failureAlert)
             self.present(alertController, animated: true, completion: nil)
         }
-        if passwordCountCheck == false {
+        else if passwordCountCheck == false {
             let alertController = UIAlertController(title: "비밀번호 확인", message: "비밀번호가 8자리를 초과 하였습니다", preferredStyle: UIAlertControllerStyle.alert)
             let failureAlert = UIAlertAction(title: "확인", style: .default)
             alertController.addAction(failureAlert)
@@ -278,14 +280,14 @@ class SignUpViewController: UIViewController {
 //            print("비밀번호 불일치")
 //            return
 //        }
-        if phoneNoCheck == false {
+        else if phoneNoCheck == false {
             let alertController = UIAlertController(title: "휴대폰 번호 확인", message: "본인의 유효한 휴대폰 번호를 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
             let failureAlert = UIAlertAction(title: "확인", style: .default)
             alertController.addAction(failureAlert)
             self.present(alertController, animated: true, completion: nil)
         }
         
-        if phoneNoCountCheck == false {
+        else if phoneNoCountCheck == false {
             let alertController = UIAlertController(title: "휴대폰 번호 확인", message: "본인의 유효한 휴대폰 번호를 입력하여 주세요", preferredStyle: UIAlertControllerStyle.alert)
             let failureAlert = UIAlertAction(title: "확인", style: .default)
             alertController.addAction(failureAlert)
@@ -296,7 +298,7 @@ class SignUpViewController: UIViewController {
     
 //MARK: - Textfield UI 및 키보드 willAppear & Disappear & touchDisappear
     private func createUIAndTouchKeaboardDisappear() {
-        yourNameTextField.placeholder = "이름을 입력하여 주세요(선택사양)"
+        yourNameTextField.placeholder = "이름을 입력하여 주세요"
         yourEmailTextField.placeholder = "유효한 email 주소를 입력하여 주세요(필수사항)"
         passwordTextField.placeholder = "8자리의 특수문자+숫자+알파벳 조합의 비밀번호"
         passwordConfirmTextField.placeholder = "비밀번호를 다시 한번 확인해 주세요"
@@ -367,8 +369,11 @@ extension SignUpViewController: UITextFieldDelegate {
 //MARK: - 프로필 이미지 UIImagePickerController
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileImage.image = image
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            profileImage.image = editedImage
+            print(info)
+        } else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            profileImage.image = originalImage
             print(info)
         }
         dismiss(animated: true, completion: nil)
