@@ -24,7 +24,7 @@ class ReservationViewController: UIViewController {
     var reservationInfo: [TravelReservationInfo]?
     
     // 인원 수 선택
-    @IBOutlet private weak var numberOfPeopleTextField: UITextField!
+    @IBOutlet var numberOfPeopleTextField: UITextField!
     
     var number: [Int] = []
     var maxPeople: Int? {
