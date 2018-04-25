@@ -19,6 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        // init VC - rootVC로 설정
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+        
+        self.window?.rootViewController = initialVC
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
     

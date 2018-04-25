@@ -9,15 +9,17 @@
 import UIKit
 import Alamofire
 
-
-
 struct ColorOfIsSelected {
     static var red = #colorLiteral(red: 0.9490196078, green: 0.3607843137, blue: 0.3843137255, alpha: 1)
 
 }
 
 class CalendarViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    var resevationDateArray:[[String]] = [[], [], []]
+    var resevationDateArray:[[String]] = [[], [], []] {
+        willSet {
+            print(newValue)
+        }
+    }
     var selectedDate:[String] = []
     var reservationDateSelectedArray: [String] = []
     
@@ -41,9 +43,12 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBOutlet weak var applyButton: UIButton!
     @IBAction func applyDateForReservationButton(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Root", bundle: nil)
-//        let nextVC = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as! ReservationViewController!
-//        nextVC.scheduleTextField.text = reservationDateSelectedArray.last
+        let storyboard = UIStoryboard(name: "Root", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as! ReservationViewController
+        
+        guard let text = reservationDateSelectedArray.last else { return }
+        
+        UserData.user.calendarDate = text
         dismiss(animated: true, completion: nil)
     }
     

@@ -158,8 +158,7 @@ class SignUpViewController: UIViewController {
             phoneNoCheck = true
         }
         
-        
-        if nameCheck == true && emailCheck == true && passwordCheck == true && passwordCountCheck == true && phoneNoCheck == true && phoneNoCountCheck == true {
+        if nameCheck == true && emailCheck == true && passwordCheck == true && phoneNoCheck == true {
             guard let nameData = self.yourNameTextField.text!.data(using: .utf8) else { return }
             guard let emailData = self.yourEmailTextField.text!.data(using: .utf8) else { return }
             guard let passwordData = self.passwordTextField.text!.data(using: .utf8) else { return }
@@ -189,18 +188,20 @@ class SignUpViewController: UIViewController {
                                     print(responseValue.values)
                                 }
                                 if res.response?.statusCode == 400, let responseValue = res.result.value as! [String: Any]? {
-                                    let alertController = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
+                                    let alertController0 = UIAlertController(title: "회원가입 실패", message: "\(responseValue.values)", preferredStyle: UIAlertControllerStyle.alert)
                                     let failureAlert = UIAlertAction(title: "확인", style: .default)
-                                    alertController.addAction(failureAlert)
-                                    self.present(alertController, animated: true, completion: nil)
+                                    alertController0.addAction(failureAlert)
+                                    self.present(alertController0, animated: true, completion: nil)
                                 } else {
-                                    let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
-                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (sucessAlert) in
+                                    let alertController1 = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
+                                    let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (action) in
                                         let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
-//                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
-//                                        nextVC.emailTextField = yourEmailTextField.text
-//                                        self.present(nextVC, animated: true, completion: nil)
+                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
+                                        nextVC.loginEmail = self.yourEmailTextField.text
+                                        self.present(nextVC, animated: true, completion: nil)
                                     })
+                                    alertController1.addAction(successAlert)
+                                    self.present(alertController1, animated: true, completion: nil)
                                 }
                                 print(res.response)
                             })
