@@ -83,6 +83,7 @@ class PWChangeViewController: UIViewController {
         firstPWTextField!.delegate = self
         firstPWTextField!.isSecureTextEntry = true
         firstPWTextField!.returnKeyType = .next
+        firstPWTextField!.textContentType = UITextContentType("")
         firstPWTextField!.placeholder = "비밀번호 입력"
         firstPWTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         firstPWTextField!.font = UIFont.systemFont(ofSize: 16)
@@ -103,6 +104,7 @@ class PWChangeViewController: UIViewController {
         secondPWTextField!.delegate = self
         secondPWTextField!.isSecureTextEntry = true
         secondPWTextField!.returnKeyType = .send
+        secondPWTextField!.textContentType = UITextContentType("")
         secondPWTextField!.placeholder = "비밀번호 재입력"
         secondPWTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         secondPWTextField!.font = UIFont.systemFont(ofSize: 16)

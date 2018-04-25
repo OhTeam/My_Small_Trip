@@ -90,6 +90,7 @@ class SMSAuthenticationViewController: UIViewController {
         self.inputTextField!.delegate = self
         self.inputTextField!.placeholder = "인증코드를 입력해주세요."
         self.inputTextField!.keyboardType = .numberPad
+        self.inputTextField!.textContentType = UITextContentType("")
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchDone(_:)))
