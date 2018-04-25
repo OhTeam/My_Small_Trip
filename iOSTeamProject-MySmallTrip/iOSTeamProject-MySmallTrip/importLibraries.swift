@@ -33,4 +33,9 @@ class importLibraries {
             }
         }
     }
+    
+    static func uploadOntoServer(multipartFormData: @ escaping (MultipartFormData) -> Void, usingThreshold: UInt64, to: URLConvertible, method: HTTPMethod, headers: HTTPHeaders?, endingCompletion: ((SessionManager.MultipartFormDataEncodingResult) -> Void)?) {
+        
+        Alamofire.upload(multipartFormData: multipartFormData, usingThreshold: usingThreshold, to: to, method: method, headers: headers, encodingCompletion: endingCompletion)
+    }
 }
