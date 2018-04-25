@@ -21,9 +21,9 @@ struct EmailLogIn: Codable {
 struct User: Codable {
     var primaryKey: Int
     var userName: String
-    var email: String
+    var email: String?
     var firstName: String
-    var phoneNumber: String
+    var phoneNumber: String?
     var imgProfile: String?
     var isFacebookUser: Bool
     

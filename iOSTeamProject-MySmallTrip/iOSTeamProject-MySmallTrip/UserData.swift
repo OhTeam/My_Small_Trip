@@ -147,6 +147,10 @@ class UserData {
         self._wishListPrimaryKeys = wishListPrimaryKeys
     }
     
+    func removeWishListPrimaryKey(of index: Int) {
+        self._wishListPrimaryKeys.remove(at: index)
+    }
+    
     var wishListPrimaryKeys: Array<Int> {
         return self._wishListPrimaryKeys
     }
