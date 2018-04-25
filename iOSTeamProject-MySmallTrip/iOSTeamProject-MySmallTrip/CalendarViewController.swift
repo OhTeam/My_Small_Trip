@@ -16,27 +16,17 @@ struct ColorOfIsSelected {
 
 }
 
-//UICollectionViewController
-
 class CalendarViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     var resevationDateArray:[[String]] = [[], [], []]
     var selectedDate:[String] = []
     var reservationDateSelectedArray: [String] = []
-    
-
-//    func printreservationDateSelectedArray() {
-//        print(reservationDateSelectedArray)
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
         createUI()
         initializeView()
-//        printreservationDateSelectedArray()
 
-        
-//        profileImage.layer.cornerRadius = profileImage.frame.size.width / 2
     }
 
     @IBOutlet weak var unavailableDateMarkLabel: NSLayoutConstraint!
@@ -51,9 +41,10 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBOutlet weak var applyButton: UIButton!
     @IBAction func applyDateForReservationButton(_ sender: Any) {
-        print(reservationDateSelectedArray.last)
-//        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
-//        self.present(nextVC, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Root", bundle: nil)
+        let nextVC = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as! ReservationViewController!
+        nextVC.scheduleTextField.text = reservationDateSelectedArray.last
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -127,7 +118,6 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         if currentMonthIndex == 2 && currentYear % 4 == 0 {
             numberOfDaysInMonth[currentMonthIndex - 1] = 29
         }
-        
         presentMonthIndex = currentMonthIndex
         presentYear = currentYear
         
@@ -148,7 +138,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
         let day = ("\(currentYear) - \(currentMonthIndex + 2) - 01".date?.firstDayofTheMonth.weekday)!
         return day
     }
-    
+    //90일
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 3
     }

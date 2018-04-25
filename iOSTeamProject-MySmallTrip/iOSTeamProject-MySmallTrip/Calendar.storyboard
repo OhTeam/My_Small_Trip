@@ -14,7 +14,7 @@
         <!--Calendar View Controller-->
         <scene sceneID="7O3-7F-q32">
             <objects>
-                <viewController id="S7D-cl-XkU" customClass="CalendarViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalendarViewController" id="S7D-cl-XkU" customClass="CalendarViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E35-hg-5Aq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
