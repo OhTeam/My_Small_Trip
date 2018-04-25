@@ -86,8 +86,10 @@ class WishListButton: UIButton {
         if self.isWishList {
             self.isWishList = false
             heartImageView.image = UIImage(named: heartIconNoneSelect)
+            
+//            print("del--eteWishList")
             deleteWishList(sender.tag)
-            print("deleteWishList")
+            
         } else {
         // 위시리스트에 없는 경우
             self.isWishList = true
@@ -148,8 +150,9 @@ extension WishListButton {
         
         // 리스트에 pk있는지 체크
         if pkList.contains(pk) {
+            
             // 싱글턴 리스트에서 삭제
-            while let idx = pkList.index(of: pk) {
+            if let idx = pkList.index(of: pk) {
                 UserData.user.removeWishListPrimaryKey(of: idx)
             }
             

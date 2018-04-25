@@ -2,7 +2,7 @@
 //  UserData.swift
 //  iOSTeamProject-MySmallTrip
 //
-//  Created by sungnni on 2018. 4. 23..
+//  Created by 최용석 on 2018. 4. 13..
 //  Copyright © 2018년 ohteam. All rights reserved.
 //
 
@@ -11,6 +11,8 @@ import Foundation
 class UserData {
     
     static var user: UserData = UserData()
+    
+    var calendarDate: String = ""
     
     private var _isLoggedIn: Bool = false {
         willSet {
@@ -39,6 +41,8 @@ class UserData {
     private var _isFacebookUser: Bool? // Boolean value if user is facebook user
     private var _profileImgData: Data? // Profile Image Data
     private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
+    
+
     
     var isLoggedIn: Bool {
         set {
@@ -121,9 +125,9 @@ class UserData {
         DispatchQueue.global().async {
             let profileImageData: NSData = NSData(contentsOf: profileImageLink)! // TODO: 여기도 공부 !!
             self.setProfileImgData(profileImgData: profileImageData as Data)
-            //            DispatchQueue.main.async {
-            //
-            //            }
+//            DispatchQueue.main.async {
+//
+//            }
         }
     }
     
@@ -148,16 +152,14 @@ class UserData {
     }
     
     func removeWishListPrimaryKey(of index: Int) {
+//        print(self._wishListPrimaryKeys)
         self._wishListPrimaryKeys.remove(at: index)
     }
-    
-    
     
     var wishListPrimaryKeys: Array<Int> {
         return self._wishListPrimaryKeys
     }
 }
-
 
 
 struct EmailLogIn: Codable {

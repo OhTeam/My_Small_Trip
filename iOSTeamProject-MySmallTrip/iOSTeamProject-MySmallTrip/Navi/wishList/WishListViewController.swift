@@ -29,7 +29,7 @@ class WishListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        fetchWishListData()
+        tableView.backgroundColor = UIColor.Custom.backgroundColor
         self.tableView.register(UINib(nibName: text.travelCell, bundle: nil), forCellReuseIdentifier: text.travelCell)
         
         setNaviBackBtn()
@@ -37,6 +37,7 @@ class WishListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         fetchWishListData()
+        
     }
     
     
