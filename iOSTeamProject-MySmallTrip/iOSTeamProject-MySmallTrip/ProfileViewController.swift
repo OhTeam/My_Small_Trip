@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
@@ -389,6 +390,12 @@ class ProfileViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    // Facebook Log Out
+    private func logoutFunc() {
+        let fbLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
     }
     
     // MARK: - Targets

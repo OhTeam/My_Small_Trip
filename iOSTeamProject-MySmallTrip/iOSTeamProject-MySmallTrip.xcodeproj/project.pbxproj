@@ -216,18 +216,9 @@
 				6FBE2FAB207C7D7C00BEAD8F /* ViewController.swift */,
 				CAEA9F65207CB8ED00032251 /* LogInViewController.swift */,
 				CAEA9F67207CB90400032251 /* ProfileViewController.swift */,
-				CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */,
-				CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */,
-				CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */,
-				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
-				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
-				CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */,
-				CAFFBA73208FEDE800937830 /* ServiceCenterViewController.swift */,
-				CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */,
-				CACA9069208085DA00E3D1DD /* UserData.swift */,
-				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
-				CA309810208AEDA900015B70 /* importLibraries.swift */,
-				CAFFBA71208F472100937830 /* Password.swift */,
+				CABDD16020911E4D003BD6F4 /* Profile Setting */,
+				CABDD16220911F5B003BD6F4 /* Service Center */,
+				CABDD16120911E95003BD6F4 /* Common Libraries */,
 				6FBE2FAD207C7D7C00BEAD8F /* Main.storyboard */,
 				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
@@ -288,6 +279,63 @@
 				D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CABDD16020911E4D003BD6F4 /* Profile Setting */ = {
+			isa = PBXGroup;
+			children = (
+				CACA2ED820872D3A0022ACAA /* ProfileSettingViewController.swift */,
+				CABDD16320911FF1003BD6F4 /* Profile Setting Cell */,
+				CABDD16420912015003BD6F4 /* Contact Change */,
+				CABDD1652091202D003BD6F4 /* Password Change */,
+			);
+			path = "Profile Setting";
+			sourceTree = "<group>";
+		};
+		CABDD16120911E95003BD6F4 /* Common Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */,
+				CACA9069208085DA00E3D1DD /* UserData.swift */,
+				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
+				CA309810208AEDA900015B70 /* importLibraries.swift */,
+				CAFFBA71208F472100937830 /* Password.swift */,
+			);
+			path = "Common Libraries";
+			sourceTree = "<group>";
+		};
+		CABDD16220911F5B003BD6F4 /* Service Center */ = {
+			isa = PBXGroup;
+			children = (
+				CAFFBA73208FEDE800937830 /* ServiceCenterViewController.swift */,
+			);
+			path = "Service Center";
+			sourceTree = "<group>";
+		};
+		CABDD16320911FF1003BD6F4 /* Profile Setting Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CA68D40E208B6BEF003E6A0F /* ProfileSettingCell.swift */,
+				CA68D40F208B6BEF003E6A0F /* ProfileSettingCell.xib */,
+			);
+			path = "Profile Setting Cell";
+			sourceTree = "<group>";
+		};
+		CABDD16420912015003BD6F4 /* Contact Change */ = {
+			isa = PBXGroup;
+			children = (
+				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
+				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
+			);
+			path = "Contact Change";
+			sourceTree = "<group>";
+		};
+		CABDD1652091202D003BD6F4 /* Password Change */ = {
+			isa = PBXGroup;
+			children = (
+				CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */,
+			);
+			path = "Password Change";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
