@@ -53,6 +53,7 @@ class ProfileViewController: UIViewController {
         
         self.picker = UIImagePickerController()
         picker!.delegate = self
+        picker!.allowsEditing = true
         
     }
     
@@ -102,8 +103,7 @@ class ProfileViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: profileView.bottomAnchor).isActive = true
         
         // Table View Layout
-        tableView.heightAnchor.constraint(equalToConstant: 108).isActive = true
-//        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
         tableView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         buttonView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
@@ -365,7 +365,30 @@ class ProfileViewController: UIViewController {
         } else {
             print("Camera is not available")
         }
-       
+    }
+    
+    // MARK: - Resize Image in the rectangle of 115 * 115
+    private func reSizeImageWithRatio(image: UIImage?, targetSize: CGSize) -> UIImage? {
+        guard let image = image else { return nil }
+        let heightRatio = targetSize.height / image.size.height
+        let widthRatio = targetSize.width / image.size.width
+        
+        var newSize: CGSize
+        
+        if heightRatio > widthRatio {
+            newSize = CGSize(width: image.size.width * widthRatio, height: image.size.height * widthRatio)
+        } else {
+            newSize = CGSize(width: image.size.width * heightRatio, height: image.size.height * heightRatio)
+        }
+        
+        let newRect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: newRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
     // MARK: - Targets
@@ -429,7 +452,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
-// MARK: - Extension of ProfileVC
+// MARK: - Extension for UITableView of ProfileVC
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: The Number of Section
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -439,11 +462,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: The Number of Cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-//            return tableTitles["profile"]!.count
-            return 1
+            return tableTitles["profile"]!.count
         } else {
-//            return tableTitles["service"]!.count
-            return 1
+            return tableTitles["service"]!.count
         }
     }
     
@@ -548,16 +569,89 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Extension of UIImagePickerController
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let profileImgChangeLing = "https://myrealtrip.hongsj.kr/members/info/img-change/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.profileImageView!.image = image
-            self.uploadedImage = image
-            print(info)
+        var tmpImage: UIImage?
+        
+        if let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            tmpImage = originImage
+        } else if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            tmpImage = editedImage
         }
+        
+        guard let profileImageView = profileImageView, let resizedImage = self.reSizeImageWithRatio(image: tmpImage, targetSize: CGSize(width: 115, height: 115)), let data = UIImageJPEGRepresentation(resizedImage, 1)
+            else {
+                self.dismiss(animated: true, completion: nil)
+                return
+        }
+        
+        print("***IMG: \(resizedImage)")
+        
+        importLibraries.uploadOntoServer(multipartFormData: { (multiData) in
+            multiData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
+        }, usingThreshold: UInt64(), to: profileImgChangeLing, method: .patch, headers: header) { (encodingResult) in
+            switch encodingResult {
+            case .success(request: let upload, _, _):
+                profileImageView.image = resizedImage
+                
+                upload.responseJSON(completionHandler: { (response) in
+                    print(response)
+                })
+
+                print("Profile Photo is changed")
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+//        if let selectedImage = tmpImage {
+//            self.profileImageView!.image = selectedImage
+//            self.uploadedImage = selectedImage
+//            print(info)
+        
+            
+            
+//            if let data = UIImageJPEGRepresentation(selectedImages,1) {
+//                let parameters: Parameters = [
+//                    "access_token" : "YourToken"
+//                ]
+//                // You can change your image name here, i use NSURL image and convert into string
+//                let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+//                let fileName = imageURL.absouluteString
+//                // Start Alamofire
+//                Alamofire.upload(multipartFormData: { multipartFormData in
+//                    for (key,value) in parameters {
+//                        multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
+//                    }
+//                    multipartFormData.append(data, withName: "avatar", fileName: fileName!,mimeType: "image/jpeg")
+//                },
+//                                 usingTreshold: UInt64.init(),
+//                                 to: "YourURL",
+//                                 method: .put,
+//                                 encodingCompletion: { encodingResult in
+//                                    switch encodingResult {
+//                                    case .success(let upload, _, _):
+//                                        upload.responJSON { response in
+//                                            debugPrint(response)
+//                                        }
+//                                    case .failure(let encodingError):
+//                                        print(encodingError)
+//                                    }
+//                })
+//            }
+//        }
         
         // TODO: - 확인해 볼것!
         dismiss(animated: true, completion: nil) // Warnig double touch and have to find solution !!!
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }
