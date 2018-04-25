@@ -261,7 +261,9 @@ class ContactChangeViewController: UIViewController {
 
 extension ContactChangeViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let movingHeightOfBtn = movingHeightOfBtn else { return true }
+        guard let movingHeightOfBtn = movingHeightOfBtn,
+        let inputTextField = inputTextField
+        else { return true }
         
         textField.resignFirstResponder()
         
@@ -269,6 +271,11 @@ extension ContactChangeViewController: UITextFieldDelegate {
             movingHeightOfBtn.constant = 24
             self.view.layoutIfNeeded()
         }, completion: nil)
+        
+        if inputTextField.text == "" {
+            inputTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+            return true
+        }
         
         requestAuthNumber()
         
