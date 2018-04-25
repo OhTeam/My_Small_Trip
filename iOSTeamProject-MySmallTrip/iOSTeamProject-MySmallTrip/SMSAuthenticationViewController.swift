@@ -231,32 +231,148 @@ class SMSAuthenticationViewController: UIViewController {
         return tmpView
     }
     
+    // MARK: - Requset Authentication Number
+    private func requestAuthNumber() {
+        guard let phoneNumber = phoneNumber,
+            let inputTextField = inputTextField,
+            let movingHeightOfBtn = movingHeightOfBtn
+            else { return }
+        
+        let requestAuthNumLink = "https://myrealtrip.hongsj.kr/members/info/phone-change/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
+        let param: Dictionary<String, Any> = ["phone_number":phoneNumber]
+        
+        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
+            
+            inputTextField.resignFirstResponder()
+            
+            movingHeightOfBtn.constant = 24
+            
+            self.isVerified = true
+            
+            let notiMsg: String = """
+입력하신 번호로 인증코드가 발송되었습니다.
+3분 내에 인증코드를 입력해 주세요.
+"""
+            let authNumNotiAlert = UIAlertController(title: phoneNumber, message: notiMsg, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                self.isVerified = true
+            }
+            authNumNotiAlert.addAction(okAction)
+            self.present(authNumNotiAlert, animated: false)
+            
+            print("Authentication sent")
+            print("data")
+            
+        }) { (error, code) in
+            // 토큰 유효하지 않을 때 처리 방안
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Change Phone Number
+    private func changePhoneNumber() {
+        guard let phoneNumber = phoneNumber,
+            let inputTextField = inputTextField,
+            let movingHeightOfBtn = movingHeightOfBtn
+            else { return }
+        
+        let changePhoneNumLink = "https://myrealtrip.hongsj.kr/members/info/phone-change/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
+        let param: Dictionary<String, Any> = ["phone_number":phoneNumber, "certification_number":inputTextField.text!]
+        
+        importLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
+            
+            UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
+            
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                movingHeightOfBtn.constant = 24
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
+            self.isVerified = true
+            
+            let notiMsg = """
+연락처가
+성공적으로 변경되었습니다.
+"""
+            let successAlert = UIAlertController(title: nil, message: notiMsg, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+                inputTextField.text = ""
+            }
+            successAlert.addAction(okAction)
+            self.present(successAlert, animated: false)
+            
+            print("Phone Number changed")
+            print(data)
+            
+        }) { (error, code) in
+            // 로그인 토큰 유효성 실패 때 방안
+            self.isVerified = false
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     // MARK: - Targets
     @objc private func moveBtnUp(_ sender: UITextField) {
         guard let movingHeightOfBtn = movingHeightOfBtn else { return }
-        movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
+        
+        // Button Animation
+        UIView.animate(withDuration: 0.4, delay: 0.1, animations: {
+            // height should be changed with the real one
+            movingHeightOfBtn.constant = 24 + self.keyFrameHeight
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     @objc private func getAuthAgain(_ sender: UIButton) {
-        // TODO: - Get authentication number again
-        self.isVerified = true
-        print("Again Button is touched")
+        requestAuthNumber()
+        
+        // -> tmp
+//        let notiMsg: String = """
+//입력하신 번호로 인증코드가 발송되었습니다.
+//3분 내에 인증코드를 입력해 주세요.
+//"""
+//
+//        let authNumNotiAlert = UIAlertController(title: phoneNumber, message: notiMsg, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+//            self.isVerified = true
+//        }
+//        authNumNotiAlert.addAction(okAction)
+//        self.present(authNumNotiAlert, animated: false)
     }
     
     @objc private func verifyAuth(_ sender: UIButton) {
-        // TODO: - Verify authentication number
-        self.isVerified = false
-        print("Test Verify Button")
+        changePhoneNumber()
+        
+        // -> tmp
+//        UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
+//        movingHeightOfBtn!.constant = 24
+//
+//        let notiMsg = "비밀번호가 성공적으로 변경되었습니다."
+//
+//        let successAlert = UIAlertController(title: inputTextField!.text, message: notiMsg, preferredStyle: .alert)
+//        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+//            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+//            self.inputTextField!.text = ""
+//
+//        }
+//        successAlert.addAction(okAction)
+//        self.present(successAlert, animated: false)
     }
     
     @objc private func touchDone(_ sender: UIBarButtonItem) {
         guard let movingHeightOfBtn = movingHeightOfBtn,
             let inputTextField = inputTextField
             else { return }
-        
-        movingHeightOfBtn.constant = 24
-        
         inputTextField.resignFirstResponder()
+        
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            movingHeightOfBtn.constant = 24
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
@@ -266,7 +382,12 @@ extension SMSAuthenticationViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
-        movingHeightOfBtn.constant = 24
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            movingHeightOfBtn.constant = 24
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
+        changePhoneNumber()
         
         return true
     }

@@ -12,10 +12,13 @@ class ProfileViewController: UIViewController {
     
     private var profileView: UIView?
     private var profileImageView: UIImageView?
+    private var uploadedImage: UIImage?
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var tableView: UIView?
     private var buttonView: UIView?
+    
+    private var picker: UIImagePickerController?
     
     private var tableTitles: Dictionary<String, Array<String>> = [
         "profile" :
@@ -26,7 +29,7 @@ class ProfileViewController: UIViewController {
         "service" :
             [
                 "고객센터",
-                "이용 약관"
+                "FAQ"
         ]
     ]
     
@@ -47,6 +50,10 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(buttonView!)
         
         setBasicLayout()
+        
+        self.picker = UIImagePickerController()
+        picker!.delegate = self
+        
     }
     
 //        override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +102,8 @@ class ProfileViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: profileView.bottomAnchor).isActive = true
         
         // Table View Layout
-        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 108).isActive = true
+//        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
         tableView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         buttonView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
@@ -297,69 +305,25 @@ class ProfileViewController: UIViewController {
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         // Button Creation
-        let signOutButton = UIButton()
-        signOutButton.setTitle("SIGN OUT", for: .normal)
-        signOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
-        signOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        signOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        signOutButton.layer.cornerRadius = 10
-        signOutButton.clipsToBounds = true
-        signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
-        signOutButton.translatesAutoresizingMaskIntoConstraints = false
+        let logOutButton = UIButton()
+        logOutButton.setTitle("LOG OUT", for: .normal)
+        logOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
+        logOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        logOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logOutButton.layer.cornerRadius = 10
+        logOutButton.clipsToBounds = true
+        logOutButton.addTarget(self, action: #selector(logOut(_:)), for: .touchUpInside)
+        logOutButton.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonView.addSubview(signOutButton)
+        buttonView.addSubview(logOutButton)
         
         //MARK: Layout inside Button View
-        signOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        signOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
-        signOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: signOutButton.trailingAnchor, constant: 24).isActive = true
+        logOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        logOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
+        logOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
+        buttonView.trailingAnchor.constraint(equalTo: logOutButton.trailingAnchor, constant: 24).isActive = true
         
         return buttonView
-    }
-    
-    // MARK: - Targets
-    // MARK: Function to change profile image
-    @objc func changeUserProfileImage(_ sender: UIButton) {
-        // needs to be modified
-        print("Profile image button clicked")
-    }
-    
-    // MARK: Function to sign out
-    @objc func signOut (_ sender: UIButton) {
-        guard UserData.user.isLoggedIn else { return }
-        if UserData.user.isFacebookUser! {
-            // TODO: Needs a function to sign out from Facebook
-            
-            // if signing out from Facebook is succeeded...
-            UserData.user.isLoggedIn = false
-            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        } else {
-            let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
-            let header = ["Authorization" : "Token " + UserData.user.token!]
-            
-            importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
-                UserData.user.isLoggedIn = false // user data signed out
-                
-                print("signed out")
-                
-                // to see logged user data
-                // self.printDataOf(user: UserData.user)
-                
-                // YS
-//                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                
-                // dev
-                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                } else {
-                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                }
-                
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
     }
     
     // MARK: Print User Data
@@ -387,6 +351,82 @@ class ProfileViewController: UIViewController {
         }
         print("whishList: \(user.wishListPrimaryKeys)")
     }
+    
+    // MARK - Use Photo or Camera
+    private func openLibray() {
+        self.picker!.sourceType = .photoLibrary
+        present(picker!, animated: false)
+    }
+    
+    private func openCamera() {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            picker!.sourceType = .camera
+            present(picker!, animated: false)
+        } else {
+            print("Camera is not available")
+        }
+       
+    }
+    
+    // MARK: - Targets
+    // MARK: Function to change profile image
+    @objc func changeUserProfileImage(_ sender: UIButton) {
+        // needs to be modified
+        print("Profile image button clicked")
+        
+        let photoAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let library = UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibray()
+        }
+        let camera = UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        photoAlert.addAction(library)
+        photoAlert.addAction(camera)
+        photoAlert.addAction(cancel)
+        
+        present(photoAlert, animated: true)
+    }
+    
+    // MARK: Function to log out
+    @objc func logOut (_ sender: UIButton) {
+        guard UserData.user.isLoggedIn else { return }
+        if UserData.user.isFacebookUser! {
+            // TODO: Needs a function to log out from Facebook
+            
+            // if loging out from Facebook is succeeded...
+            UserData.user.isLoggedIn = false
+            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
+            let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
+            
+            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+                UserData.user.isLoggedIn = false // user data logged out
+                
+                print("logged out")
+                
+                // to see logged user data
+                // self.printDataOf(user: UserData.user)
+                
+                // YS
+//                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+                // dev
+                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
+                
+            }) { (error, code) in
+                // token 유효성 잃었을 때 처리 방안
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: - Extension of ProfileVC
@@ -399,9 +439,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: The Number of Cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return tableTitles["profile"]!.count
+//            return tableTitles["profile"]!.count
+            return 1
         } else {
-            return tableTitles["service"]!.count
+//            return tableTitles["service"]!.count
+            return 1
         }
     }
     
@@ -470,6 +512,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 1 && indexPath.row == 0 {
             // TODO: Add 고객센터 view controller push
+            let serviceCenterVC = ServiceCenterViewController()
+            self.navigationController?.pushViewController(serviceCenterVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
@@ -501,5 +545,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return ""
         }
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profileImageView!.image = image
+            self.uploadedImage = image
+            print(info)
+        }
+        
+        // TODO: - 확인해 볼것!
+        dismiss(animated: true, completion: nil) // Warnig double touch and have to find solution !!!
     }
 }

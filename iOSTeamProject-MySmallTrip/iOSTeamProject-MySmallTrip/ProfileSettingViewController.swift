@@ -11,6 +11,7 @@ import UIKit
 class ProfileSettingViewController: UIViewController {
     
     private var table: UITableView?
+    
     private var tableTitles: Dictionary<String, Array<String>> = [
         "basic" :
             [
@@ -35,6 +36,12 @@ class ProfileSettingViewController: UIViewController {
         setLayout()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.table?.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,6 +50,8 @@ class ProfileSettingViewController: UIViewController {
     deinit {
         print("ProfileSetting VC is disposed")
     }
+    
+    
     
     // MARK: - Set Navigation Items
     private func setNaviItems() {

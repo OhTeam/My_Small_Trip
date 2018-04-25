@@ -12,13 +12,15 @@ class LogInViewController: UIViewController {
     
     private var basicView: UIView?
     private var dismissImgBtnView: UIView?
-    private var logInFailureNoti: UILabel?
     private var titleLabel: UILabel?
     private var upperDesLabel: UILabel?
+    private var logInFailureNoti: UILabel?
     private var emailTextField: TextFieldWithInsets?
     private var pwTextField: TextFieldWithInsets?
     private var logInButton: UIButton?
     private var lowerDesLabel: UILabel?
+    
+    private var isStausBarHidden: Bool = false  // to set status bar on
     
     // Preparation for user email transmission from SignUp view controller
     var loginEmail: String? {
@@ -51,6 +53,14 @@ class LogInViewController: UIViewController {
         
     }
     
+    override var prefersStatusBarHidden: Bool {
+        if isStausBarHidden {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     deinit {
         print("LogIn VC is disposed")
     }
@@ -71,8 +81,8 @@ class LogInViewController: UIViewController {
         self.view.addSubview(basicView)
         self.view.addSubview(logInFailureNoti)
         self.view.addSubview(dismissImgBtnView)  // MARK: subViews were already laid out inside
-        basicView.addSubview(titleLabel)
-        basicView.addSubview(upperDesLabel)
+        self.view.addSubview(titleLabel)
+        self.view.addSubview(upperDesLabel)
         basicView.addSubview(emailTextField)
         basicView.addSubview(pwTextField)
         basicView.addSubview(logInButton)
@@ -239,13 +249,17 @@ class LogInViewController: UIViewController {
         safeGuide = self.view.safeAreaLayoutGuide
         
         // Basic View
-        basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
+//        basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
         basicView.widthAnchor.constraint(equalTo: safeGuide!.widthAnchor).isActive = true
         
-        textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
-        textFieldPositionConstraint!.isActive = true
+//        textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
+//        textFieldPositionConstraint!.isActive = true
         
         basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+        basicView.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor).isActive = true
+        
+        textFieldPositionConstraint = basicView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor)
+        textFieldPositionConstraint?.isActive = true
         
         // LogIn Failure Notification Label
         logInFailureNoti.heightAnchor.constraint(equalToConstant: 24).isActive = true
@@ -261,15 +275,15 @@ class LogInViewController: UIViewController {
         
         // Title Label
         titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: basicView.topAnchor, constant: 80).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 80).isActive = true
         titleLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
-        basicView.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
+        safeGuide!.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
         
         // Uppder Description Label
         upperDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        upperDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 32).isActive = true
-        basicView.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
+        upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
+        safeGuide!.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
         
         // Email TextField
         emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
@@ -304,8 +318,7 @@ class LogInViewController: UIViewController {
             let logInFailureNoti = logInFailureNoti
             else { return }
         
-        emailTextField.text = ""
-        pwTextField.text = ""
+        reInitializeTextFields()
         emailTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
         pwTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
         logInFailureNoti.isHidden = false
@@ -314,24 +327,23 @@ class LogInViewController: UIViewController {
     // MARK: - Re-initialize text on textfields
     private func reInitializeTextFields() {
         guard let emailTextField = emailTextField,
-            let pwTextField = pwTextField,
-            let textFieldPositionConstraint = textFieldPositionConstraint
+            let pwTextField = pwTextField
             else { return }
         
-        emailTextField.text = nil
-        pwTextField.text = nil
-        textFieldPositionConstraint.constant = 0
+        emailTextField.text = ""
+        pwTextField.text = ""
     }
     
     // MARK: - Log In
     private func logIn() {
-        let logInLink: String = "http://myrealtrip.hongsj.kr/login/"
+        guard let textFieldPositionConstraint = textFieldPositionConstraint else { return }
+        let logInLink: String = "https://myrealtrip.hongsj.kr/login/"
         let param: Dictionary<String, Any> = ["username":self.emailTextField?.text ?? "", "password":self.pwTextField?.text ?? ""]
         
         // temporary parameters for login process
         // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data) in
+        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
@@ -354,7 +366,7 @@ class LogInViewController: UIViewController {
                 let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
                 self.present(mainTabBarVC, animated: true)
             }
-        }) { (error) in
+        }) { (error, code) in
             self.notifyWrongLogInInfo()
             print(error.localizedDescription)
         }
@@ -382,14 +394,14 @@ class LogInViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json) in
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int
                     UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
                 }
             }
-        }) { (error) in
+        }) { (error, code) in
             print(error.localizedDescription)
         }
     }
@@ -453,9 +465,16 @@ class LogInViewController: UIViewController {
             let pwTextField = pwTextField
             else { return }
         
+//        isStausBarHidden = true
+//        setNeedsStatusBarAppearanceUpdate()  // update status bar at this point
         logInFailureNoti.isHidden = true
         sender.becomeFirstResponder() // for keyboard to start to be shown quickly
-        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+        
+        UIView.animate(withDuration: 0.3, delay: 0, animations: {
+            textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
         emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
     }
@@ -475,7 +494,12 @@ extension LogInViewController: UITextFieldDelegate {
             pwTextField.becomeFirstResponder()
         } else {
             pwTextField.resignFirstResponder()
-            textFieldPositionConstraint.constant = 0
+            
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                textFieldPositionConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
             logIn()
         }
         
