@@ -676,65 +676,6 @@
             </objects>
             <point key="canvasLocation" x="6287" y="-259"/>
         </scene>
-        <!--Reservation Date Pick View Controller-->
-        <scene sceneID="7so-BU-ktM">
-            <objects>
-                <viewController storyboardIdentifier="ReservationDatePickViewController" id="Y1O-RB-GHf" customClass="ReservationDatePickViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="okv-Li-Nq7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cVW-rP-g7R">
-                                <rect key="frame" x="30" y="304" width="315" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B0S-m2-mK7">
-                                <rect key="frame" x="168" y="617" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="move"/>
-                                <connections>
-                                    <action selector="reserveAction" destination="Y1O-RB-GHf" eventType="touchUpInside" id="5AT-9f-CY1"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="LEe-PL-GbX"/>
-                    </view>
-                    <connections>
-                        <outlet property="dateTf" destination="cVW-rP-g7R" id="gC2-CI-Tfm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iyO-Wj-m8I" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6956" y="-255.02248875562222"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ITd-EP-y2y">
-            <objects>
-                <viewController storyboardIdentifier="reserveVC" id="T5B-F1-oK0" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Hrv-P6-rPJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="reservation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZ7-rB-eJG">
-                                <rect key="frame" x="144" y="113" width="86" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="dqg-iN-S0f"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bM8-rc-6vM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7645.6000000000004" y="-254.12293853073464"/>
-        </scene>
         <!--Search-->
         <scene sceneID="ECf-Rl-N0d">
             <objects>
