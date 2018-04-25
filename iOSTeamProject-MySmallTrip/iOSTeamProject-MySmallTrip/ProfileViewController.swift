@@ -393,7 +393,7 @@ class ProfileViewController: UIViewController {
     }
     
     // Facebook Log Out
-    private func logoutFunc() {
+    private func logOutFacebook() {
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
     }
@@ -425,8 +425,8 @@ class ProfileViewController: UIViewController {
         guard UserData.user.isLoggedIn else { return }
         if UserData.user.isFacebookUser! {
             // TODO: Needs a function to log out from Facebook
-            
-            // if loging out from Facebook is succeeded...
+            logOutFacebook()
+            // if logging out from Facebook is succeeded...
             UserData.user.isLoggedIn = false
             self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
         } else {
