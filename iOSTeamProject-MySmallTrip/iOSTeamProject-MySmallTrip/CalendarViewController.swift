@@ -41,9 +41,9 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
     
     @IBOutlet weak var applyButton: UIButton!
     @IBAction func applyDateForReservationButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Root", bundle: nil)
-        let nextVC = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as! ReservationViewController!
-        nextVC.scheduleTextField.text = reservationDateSelectedArray.last
+//        let storyboard = UIStoryboard(name: "Root", bundle: nil)
+//        let nextVC = storyboard.instantiateViewController(withIdentifier: "ReservationViewController") as! ReservationViewController!
+//        nextVC.scheduleTextField.text = reservationDateSelectedArray.last
         dismiss(animated: true, completion: nil)
     }
     

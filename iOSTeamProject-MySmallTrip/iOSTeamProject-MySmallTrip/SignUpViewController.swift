@@ -197,9 +197,9 @@ class SignUpViewController: UIViewController {
                                     let alertController = UIAlertController(title: "회원가입 성공", message: "회원가입에 성공하였습니다.", preferredStyle: UIAlertControllerStyle.alert)
                                     let successAlert = UIAlertAction(title: "확인", style: .default, handler: { (sucessAlert) in
                                         let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
-                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
-                                        nextVC.emailTextField = yourEmailTextField.text
-                                        self.present(nextVC, animated: true, completion: nil)
+//                                        let nextVC = loginStoryBoard.instantiateInitialViewController() as! LogInViewController
+//                                        nextVC.emailTextField = yourEmailTextField.text
+//                                        self.present(nextVC, animated: true, completion: nil)
                                     })
                                 }
                                 print(res.response)
