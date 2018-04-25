@@ -110,8 +110,7 @@ class Password {
         return compare(self.firstPW, with: numbers)
     }
     
-    // Compare password with some letters
-    
+    // Compare password with some letters    
     private func compare(_ object: String, with: String) -> Bool {
         var hasSpecificCharacter: Bool = false
         let objectString: Array<Character> = Array<Character>(object)

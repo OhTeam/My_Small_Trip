@@ -471,7 +471,12 @@ class LogInViewController: UIViewController {
 //        setNeedsStatusBarAppearanceUpdate()  // update status bar at this point
         logInFailureNoti.isHidden = true
         sender.becomeFirstResponder() // for keyboard to start to be shown quickly
-        textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+        
+        UIView.animate(withDuration: 0.3, delay: 0, animations: {
+            textFieldPositionConstraint.constant = -(self.movingHeight) // due to current position is same
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+        
         emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
     }
@@ -491,7 +496,12 @@ extension LogInViewController: UITextFieldDelegate {
             pwTextField.becomeFirstResponder()
         } else {
             pwTextField.resignFirstResponder()
-            textFieldPositionConstraint.constant = 0
+            
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                textFieldPositionConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
             logIn()
         }
         

@@ -160,13 +160,16 @@ class ContactChangeViewController: UIViewController {
         importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             inputTextField.resignFirstResponder()
-            movingHeightOfBtn.constant = 24
+            
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                movingHeightOfBtn.constant = 24
+                self.view.layoutIfNeeded()
+            }, completion: nil)
             
             let notiMsg: String = """
 입력하신 번호로 인증코드가 발송되었습니다.
 3분 내에 인증코드를 입력해 주세요.
 """
-            
             let authNumNotiAlert = UIAlertController(title: inputTextField.text, message: notiMsg, preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
             let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
@@ -194,11 +197,30 @@ class ContactChangeViewController: UIViewController {
     }
     
     @objc private func moveBtnUp(_ sender: UITextField) {
-        guard let movingHeightOfBtn = movingHeightOfBtn else { return }
-        movingHeightOfBtn.constant = 24 + self.keyFrameHeight  // height should be changed with the real one
+        guard let movingHeightOfBtn = movingHeightOfBtn,
+            let inputTextField = inputTextField
+            else { return }
+        
+        inputTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        
+        // Button Animation
+        UIView.animate(withDuration: 0.4, delay: 0.1, animations: {
+            // height should be changed with the real one
+            movingHeightOfBtn.constant = 24 + self.keyFrameHeight
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     @objc private func getAuthCode(_ sender: UIButton) {
+        guard let inputTextField = inputTextField else {
+            return
+        }
+        
+        if inputTextField.text == "" {
+            inputTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+            return
+        }
+        
         requestAuthNumber()
         
         // -> tmp
@@ -227,11 +249,13 @@ class ContactChangeViewController: UIViewController {
     @objc private func touchDone(_ sender: UIBarButtonItem) {
         guard let movingHeightOfBtn = movingHeightOfBtn,
             let inputTextField = inputTextField
-            else { return }
-        
-        movingHeightOfBtn.constant = 24
-        
+            else { return }        
         inputTextField.resignFirstResponder()
+        
+        UIView.animate(withDuration: 0.3, delay: 0, animations: {
+            movingHeightOfBtn.constant = 24
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
@@ -241,7 +265,10 @@ extension ContactChangeViewController: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
-        movingHeightOfBtn.constant = 24
+        UIView.animate(withDuration: 0.2, delay: 0, animations: {
+            movingHeightOfBtn.constant = 24
+            self.view.layoutIfNeeded()
+        }, completion: nil)
         
         requestAuthNumber()
         

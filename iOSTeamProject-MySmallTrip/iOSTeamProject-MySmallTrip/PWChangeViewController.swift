@@ -293,10 +293,20 @@ class PWChangeViewController: UIViewController {
             secondPWTextField.text = ""
             movingHeightOfLowerFailureNotiLabel.constant = -24
             
+            let notiMsg = """
+비밀번호가
+성공적으로 변경되었습니다.
+"""
+            
+            let successAlert = UIAlertController(title: nil, message: notiMsg, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+                self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
+            }
+            successAlert.addAction(okAction)
+            self.present(successAlert, animated: false)
+            
             print("Password changed")
             print(data)
-            
-            self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: true)
             
         }) { (error, code) in
             // token 유효성 잃었을 때 처리 방안
@@ -315,12 +325,16 @@ class PWChangeViewController: UIViewController {
     @objc private func changePW(_ sender: UIBarButtonItem) {
         changePW()
     }
-    
+    // MARK: Move Buttons Up
     @objc private func touchDown(_ sender: UITextField) {
         guard let movingHeightOfLowerFailureNotiLabel = movingHeightOfLowerFailureNotiLabel
             else { return }
         
-        movingHeightOfLowerFailureNotiLabel.constant = -24 - keyFrameHeight
+        // Button Animation
+        UIView.animate(withDuration: 0.4, delay: 0.1, animations: {
+            movingHeightOfLowerFailureNotiLabel.constant = -24 - self.keyFrameHeight
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
@@ -335,7 +349,12 @@ extension PWChangeViewController: UITextFieldDelegate {
             secondPWTextField.becomeFirstResponder()
         } else {
             secondPWTextField.resignFirstResponder()
-            movingHeightOfLowerFailureNotiLabel.constant = -24
+            
+            UIView.animate(withDuration: 0.2, delay: 0, animations: {
+                movingHeightOfLowerFailureNotiLabel.constant = -24
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            
             changePW()
         }
         return true
