@@ -56,13 +56,13 @@ class ReservationDatePickViewController: UIViewController {
     }
     
     @IBAction private func reserveAction() {
-        
-        let header = ["Authorization": "Token \(FBUser.standards.token ?? "error")"]
+        guard let token = UserData.user.token else { return }
+        let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let params: [String:Any] = ["travel_info":pk!,
                                     "start_date":dateTf.text!,
                                     "people":Int(numberOfPeople!)!]
         print(params)
-        let url = "http://myrealtrip.hongsj.kr/reservation/"
+        let url = "https://myrealtrip.hongsj.kr/reservation/"
         
         Alamofire
             .request(url, method: .post, parameters: params, headers: header)

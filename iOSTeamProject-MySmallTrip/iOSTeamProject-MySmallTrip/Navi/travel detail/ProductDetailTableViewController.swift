@@ -11,12 +11,22 @@ import Alamofire
 
 class ProductDetailTableViewController: UITableViewController {
     
+    // UI
     private var safeGuide: UILayoutGuide?
     
     @IBOutlet private weak var imageView: UIImageView!
     var reservationButton: UIButton!
+    var wishListButton = WishListButton()
     
-    var productDetail: TravelDetail?
+    // Data
+    var productDetail: TravelDetail? {
+        willSet {
+            wishListButton.tag = newValue!.pk
+            wishListButton.checkWishList(wishListButton)
+            wishListButtonLayout()
+            self.imageView.layoutIfNeeded()
+        }
+    }
     
     struct StoryBoard {
         static let infoCell = "InfoCell"
@@ -83,18 +93,33 @@ class ProductDetailTableViewController: UITableViewController {
         
         // navi bar title - image add / back btn color change
         self.setNaviTitle()
+        
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 예약하기 버튼
         makeReserveBtn()
+        wishListButtonLayout()
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         reservationButton.removeFromSuperview()
+    }
+    
+    
+    // MARK: - wishListButton
+    private func wishListButtonLayout() {
+        
+        let padding: CGFloat = 10
+        let iconSize = WishListButton.standards.iconSize
+        let x = self.imageView.frame.width - (padding + iconSize)
+        
+        wishListButton.frame = CGRect(x: x, y: padding, width: iconSize, height: iconSize)
+        imageView.addSubview(wishListButton)
     }
     
     
@@ -144,13 +169,17 @@ class ProductDetailTableViewController: UITableViewController {
         guard let image = self.imageView.image,
             let productName = productDetail?.name,
             let price = productDetail?.price,
-            let maxPeople = productDetail?.max_people else { return }
+            let maxPeople = productDetail?.max_people,
+            let url = self.url else { return }
         
             reservationNavRootVC.image = image
             reservationNavRootVC.text = productName
             reservationNavRootVC.price = price
             reservationNavRootVC.maxPeople = maxPeople
             reservationNavRootVC.pk = productDetail?.pk
+        
+            reservationNavRootVC.url = url
+            print(url)
         
         self.present(popUpVC, animated: true, completion: nil)
     }
@@ -181,8 +210,6 @@ extension ProductDetailTableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.photoCell, for: indexPath) as! TravelPhotosCell
             guard let images = productDetail?.images else { return cell }
             cell.images = images
-            
-//            self.tableView.reloadData()
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.descriptionCell, for: indexPath) as! TravelDescriptionCell
@@ -191,4 +218,5 @@ extension ProductDetailTableViewController {
             return cell
         }
     }
+    
 }
