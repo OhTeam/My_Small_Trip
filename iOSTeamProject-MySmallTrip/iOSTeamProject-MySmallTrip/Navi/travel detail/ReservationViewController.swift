@@ -22,6 +22,7 @@ class ReservationViewController: UIViewController {
     var url: String?
     
     var reservationInfo: [TravelReservationInfo]?
+    var schedules: [Schedule]?
     
     // 인원 수 선택
     @IBOutlet private weak var numberOfPeopleTextField: UITextField!
@@ -109,6 +110,12 @@ class ReservationViewController: UIViewController {
 
     }
     
+    func moveCalendarVC() {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "calendar") // as! Calendar
+//        [["18","12"],[],[]]
+    
+    }
+    
     
     func fetchCalendarDate() {
         
@@ -126,22 +133,14 @@ class ReservationViewController: UIViewController {
         
         Alamofire
             .request(url, method: .get, parameters: urlParam, encoding: URLEncoding(destination: .queryString), headers: header)
-//            .responseJSON(completionHandler: { (response) in
-//                print(response.response?.statusCode)
-//                if let responseValue = response.result.value as! [String:Any]? {
-//                    print("\n---------- [ dataPost ] -----------\n")
-//                    print(responseValue)
-//                }
-//            })
-//
             .responseData { (response) in
                 switch response.result {
                 case .success(let value):
                     do {
                         let json = try JSONDecoder().decode([TravelReservationInfo].self, from: value)
                         self.reservationInfo = json
-//                        print(self.reservationInfo)
-                        print(self.reservationInfo![0].schedules)
+                        self.schedules = self.reservationInfo![0].schedules
+                        
                     } catch(let error) {
                         print("\n---------- [ JSON Decoder error ] -----------\n")
                         print(error)
