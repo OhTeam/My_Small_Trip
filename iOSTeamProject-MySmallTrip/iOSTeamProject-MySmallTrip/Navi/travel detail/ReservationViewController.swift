@@ -24,8 +24,12 @@ class ReservationViewController: UIViewController {
     var reservationInfo: [TravelReservationInfo]?
     var schedules: [Schedule]?
     
+    var isFalseSchedules: [String] = []
+    var parsingSchedules: [[String]] = []
+    
     // 인원 수 선택
     @IBOutlet private weak var numberOfPeopleTextField: UITextField!
+    @IBOutlet var scheduleTextField: UITextField!
     
     var number: [Int] = []
     var maxPeople: Int? {
@@ -45,6 +49,16 @@ class ReservationViewController: UIViewController {
     var price: Int?
 
     
+    func shceduleParsing() {
+        guard let schedules = schedules else { return }
+        for schedule in schedules {
+            isFalseSchedules.append(schedule.date)
+        }
+//        print(isFalseSchedules)
+        self.parsingSchedules = parsingString(isFalseSchedules)
+        print(self.parsingSchedules)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         imageView.image = image
         titleLabel.text = text
@@ -57,6 +71,9 @@ class ReservationViewController: UIViewController {
         
         pickerView.delegate = self
         pickerView.dataSource = self
+        
+        scheduleTextField.delegate = self
+        
         
         createToolBar()
     }
@@ -89,7 +106,7 @@ class ReservationViewController: UIViewController {
     
     
     // 날짜 선택 버튼
-    @IBAction private func moveSelectDateVC() {
+    func moveSelectDateVC() {
         
         // 1)
         // post data
@@ -111,9 +128,9 @@ class ReservationViewController: UIViewController {
     }
     
     func moveCalendarVC() {
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "calendar") // as! Calendar
-//        [["18","12"],[],[]]
-    
+//        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CalenderViewController") as! CalenderViewController
+//        guard let parsingSchedule = parsingSchedules else { return }
+//        nextVC.resevationDateArray = parsingSchedule
     }
     
     
@@ -126,10 +143,7 @@ class ReservationViewController: UIViewController {
         url += UrlData.standards.calendar
         let urlParam = ["people": Int(people)!]
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
-        
 
-        
-        print(url, urlParam, header)
         
         Alamofire
             .request(url, method: .get, parameters: urlParam, encoding: URLEncoding(destination: .queryString), headers: header)
@@ -139,7 +153,9 @@ class ReservationViewController: UIViewController {
                     do {
                         let json = try JSONDecoder().decode([TravelReservationInfo].self, from: value)
                         self.reservationInfo = json
+                        
                         self.schedules = self.reservationInfo![0].schedules
+                        self.shceduleParsing()
                         
                     } catch(let error) {
                         print("\n---------- [ JSON Decoder error ] -----------\n")
@@ -152,7 +168,40 @@ class ReservationViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func reserve() {
+        guard let token = UserData.user.token else { return }
+        let header = ["Authorization": "Token \(token)"]
+        let url = "https://myrealtrip.hongsj.kr/reservation/"
+        
+        guard let pk = pk,
+            let date = scheduleTextField.text,
+            let peopleStr = numberOfPeopleTextField.text,
+            let people = Int(peopleStr) else { return }
+        
+        let params: [String:Any] = ["travel_info":pk,
+                                   "start_date":date,
+                                   "people":people]
+        
+        Alamofire
+            .request(url, method: .post, parameters: params, headers: header)
+            .responseJSON(completionHandler: { (response) in
+                if let responseValue = response.result.value as! [String:Any]? {
+                    print("\n---------- [ 예약완료 ] -----------\n")
+                    print(responseValue)
+                }
+            })
+        alert()
+        }
+    
+    func alert() {
+        let alertController = UIAlertController(title: "예약 완료", message: "예약이 완료되었습니다.", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(alertAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
+
 
 // MARK: - UIPickerViewDataSource
 extension ReservationViewController: UIPickerViewDataSource {
@@ -178,4 +227,72 @@ extension ReservationViewController: UIPickerViewDelegate {
         pickerSelectRow = row
     }
     
+}
+
+
+extension ReservationViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == scheduleTextField {
+            scheduleTextField.resignFirstResponder()
+            fetchCalendarDate()
+//            moveSelectDateVC()
+//            moveCalendarVC()
+        }
+    }
+    
+    func monthParsing(_ str: String) -> String {
+//        var string: String!
+        let subStr2 = str[str.index(str.startIndex, offsetBy:5)...str.index(str.startIndex, offsetBy:6)]
+        let month: String = String(subStr2)
+        return month
+    }
+    
+    func dayParsing(_ str: String) -> String {
+//        var string: String!
+        let subStr3 = str[str.index(str.startIndex, offsetBy:8)...str.index(str.startIndex, offsetBy:9)]
+        let day: String = String(subStr3)
+        return day
+    }
+
+    func parsingString(_ list: [String]) -> [[String]] {
+        
+        var returnResult: [[String]] = [[],[],[]]
+        guard let currentList = list.first else { return returnResult}
+        let firstMonth = monthParsing(currentList)
+        
+        var monthList: [String] = []
+        var dayList: [String] = []
+        
+        
+        for str in list {
+            monthList.append(monthParsing(str))
+            dayList.append(dayParsing(str))
+        }
+        
+        
+        for idx in 0..<monthList.count {
+            switch Int(monthList[idx]) {
+            case Int(firstMonth):
+                returnResult[0].append(dayList[idx])
+                break
+            case Int(firstMonth)!+1:
+                returnResult[1].append(dayList[idx])
+                break
+            case Int(firstMonth)!+2:
+                
+                if idx == monthList.count-1 {
+                    returnResult[2].append(dayList[idx])
+                    break
+                }
+                if monthList[idx] == monthList[idx+1] {
+                    returnResult[2].append(dayList[idx])
+                    break
+                }
+            default:
+                print("done")
+            }
+        }
+        return returnResult
+    }
 }
