@@ -40,6 +40,8 @@ class UserData {
     private var _profileImgData: Data? // Profile Image Data
     private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
     
+    private var userDic: Dictionary<String, String> = [:] // To save token on UserDefault
+    
     var isLoggedIn: Bool {
         set {
             self._isLoggedIn = newValue
@@ -62,7 +64,14 @@ class UserData {
     }
     
     func setToken(token: String?) {
-        self._token = token
+        if let token = token {
+            self._token = token
+            self.userDic.updateValue(token, forKey: "token")
+            UserDefaults.standard.set(self.userDic, forKey: "emailUser")
+        } else {
+            self.userDic.updateValue("", forKey: "token")
+            UserDefaults.standard.set(self.userDic, forKey: "emailUser")
+        }
     }
     
     var token: String? {

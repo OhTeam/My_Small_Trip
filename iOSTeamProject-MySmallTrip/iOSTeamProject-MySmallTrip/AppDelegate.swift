@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
+        self.emailTokenLogIn() //
+        
         return true
     }
     
@@ -50,7 +52,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    private func emailTokenLogIn() {
+        guard let dic = UserDefaults.standard.object(forKey: "emailUser") as? Dictionary<String, String>,
+            let token = dic["token"], token != ""
+            else { return }
+        
+        let logInLink: String = "https://myrealtrip.hongsj.kr/members/info/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + token]
+        
+        importLibraries.connectionOfSeverForDataWith(logInLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+            if let userLoggedIn = try? JSONDecoder().decode(User.self, from: data) {
+                UserData.user.setToken(token: token)
+                self.setUserData(userLoggedIn: userLoggedIn)
+                print("login succeeded in AppDelegate")
+                
+                self.printDataOf(user: UserData.user)
+            }
+        }) { (error, code) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    private func setUserData(userLoggedIn: User) {
+        UserData.user.isLoggedIn = true
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.userName)
+        UserData.user.setEmail(email: userLoggedIn.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
+    }
+    
+    // MARK: - Load Wish List Primary Keys
+    private func loadWishList() {
+        guard let token = UserData.user.token else { return }
+        let header: Dictionary<String, String> = ["Authorization": "Token " + token]
+        let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
+        
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+            if let datas = json as? [[String:Any]] {
+                for data in datas {
+                    let pkInt = data["pk"] as! Int
+                    UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
+                }
+            }
+        }) { (error, code) in
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: - Print User Data
+    func printDataOf(user: UserData) {
+        print("token: " + (user.token ?? "nil"))
+        if let primaryKey = user.primaryKey {
+            print("primaryKey: \(primaryKey)")
+        } else {
+            print("primaryKey: nil")
+        }
+        print("userName: " + (user.userName ?? "nil"))
+        print("email: " + (user.email ?? "nil"))
+        print("firstName: " + (user.firstName ?? "nil"))
+        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
+        print("imgProfile: " + (user.imgProfile ?? "nil"))
+        if let isFacebookUser = user.isFacebookUser {
+            print("isFacebookUser: \(isFacebookUser)")
+        } else {
+            print("isFacebookUser: nil")
+        }
+        if let _ = user.profileImgData {
+            print("Data: OK")
+        } else {
+            print("Data: nil")
+        }
+        print("whishList: \(user.wishListPrimaryKeys)")
+    }
+    
 }
 
