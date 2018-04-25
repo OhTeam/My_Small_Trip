@@ -77,6 +77,7 @@ class ContactChangeViewController: UIViewController {
         inputTextField!.delegate = self
         inputTextField!.placeholder = "전화번호를 입력하세요."
         inputTextField!.keyboardType = .numberPad
+        inputTextField!.textContentType = UITextContentType("")
         
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(touchDone(_:)))

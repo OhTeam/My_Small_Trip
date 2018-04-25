@@ -179,6 +179,7 @@ class LogInViewController: UIViewController {
         emailTextField!.spellCheckingType = .no
         emailTextField!.autocorrectionType = .no
         emailTextField!.autocapitalizationType = .none
+        emailTextField!.textContentType = UITextContentType("")
         emailTextField!.textAlignment = .left
         emailTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         emailTextField!.font = UIFont.systemFont(ofSize: 14)
@@ -199,6 +200,7 @@ class LogInViewController: UIViewController {
         pwTextField!.placeholder = "Password"
         pwTextField!.returnKeyType = .join
         pwTextField!.textAlignment = .left
+        pwTextField!.textContentType = UITextContentType("")
         pwTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
         pwTextField!.font = UIFont.systemFont(ofSize: 14)
         pwTextField!.textInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
