@@ -1,5 +1,5 @@
 //
-//  VerifyPassword.swift
+//  Password.swift
 //  iOSTeamProject-MySmallTrip
 //
 //  Created by 최용석 on 2018. 4. 24..

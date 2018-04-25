@@ -242,6 +242,8 @@ class SMSAuthenticationViewController: UIViewController {
         
         importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
+            self.isVerified = true
+            
             let notiMsg: String = """
 입력하신 번호로 인증코드가 발송되었습니다.
 3분 내에 인증코드를 입력해 주세요.
@@ -278,6 +280,8 @@ class SMSAuthenticationViewController: UIViewController {
             
             UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
             movingHeightOfBtn.constant = 24
+            
+            self.isVerified = true
             
             let notiMsg = "비밀번호가 성공적으로 변경되었습니다."
             

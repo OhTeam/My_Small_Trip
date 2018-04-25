@@ -471,6 +471,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 1 && indexPath.row == 0 {
             // TODO: Add 고객센터 view controller push
+            let serviceCenterVC = ServiceCenterViewController()
+            self.navigationController?.pushViewController(serviceCenterVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         

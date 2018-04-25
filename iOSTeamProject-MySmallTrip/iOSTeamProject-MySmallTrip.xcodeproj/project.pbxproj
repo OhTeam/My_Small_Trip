@@ -28,6 +28,7 @@
 		CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F65207CB8ED00032251 /* LogInViewController.swift */; };
 		CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAEA9F67207CB90400032251 /* ProfileViewController.swift */; };
 		CAFFBA72208F472100937830 /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFFBA71208F472100937830 /* Password.swift */; };
+		CAFFBA74208FEDE800937830 /* ServiceCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFFBA73208FEDE800937830 /* ServiceCenterViewController.swift */; };
 		FE6B4913D11E00C78E6DF30F /* Pods_iOSTeamProject_MySmallTrip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		CAEA9F65207CB8ED00032251 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		CAEA9F67207CB90400032251 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		CAFFBA71208F472100937830 /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
+		CAFFBA73208FEDE800937830 /* ServiceCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCenterViewController.swift; sourceTree = "<group>"; };
 		D362EB2D181F81563CAEDAF5 /* Pods_iOSTeamProject_MySmallTrip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTeamProject_MySmallTrip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB15E6F548A37DBC1A163DAB /* Pods-iOSTeamProject-MySmallTrip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTeamProject-MySmallTrip.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSTeamProject-MySmallTrip/Pods-iOSTeamProject-MySmallTrip.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 				CAC3F43B2084356400AF3DCD /* ContactChangeViewController.swift */,
 				CA07B73F20866F8F0051F5B4 /* SMSAuthenticationViewController.swift */,
 				CA13835A208D2FDE006BBC03 /* PWChangeViewController.swift */,
+				CAFFBA73208FEDE800937830 /* ServiceCenterViewController.swift */,
 				CA68D40C208B65AE003E6A0F /* TextFieldWithInsets.swift */,
 				CACA9069208085DA00E3D1DD /* UserData.swift */,
 				CADA81AC2083BDB70072417F /* LogInResponse.swift */,
@@ -262,6 +265,7 @@
 				CADA81AD2083BDB70072417F /* LogInResponse.swift in Sources */,
 				CA13835B208D2FDE006BBC03 /* PWChangeViewController.swift in Sources */,
 				CA68D410208B6BEF003E6A0F /* ProfileSettingCell.swift in Sources */,
+				CAFFBA74208FEDE800937830 /* ServiceCenterViewController.swift in Sources */,
 				CA07B74020866F8F0051F5B4 /* SMSAuthenticationViewController.swift in Sources */,
 				CAFFBA72208F472100937830 /* Password.swift in Sources */,
 				CA309811208AEDA900015B70 /* importLibraries.swift in Sources */,
