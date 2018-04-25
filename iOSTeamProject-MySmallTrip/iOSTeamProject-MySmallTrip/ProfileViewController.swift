@@ -12,10 +12,13 @@ class ProfileViewController: UIViewController {
     
     private var profileView: UIView?
     private var profileImageView: UIImageView?
+    private var uploadedImage: UIImage?
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var tableView: UIView?
     private var buttonView: UIView?
+    
+    private var picker: UIImagePickerController?
     
     private var tableTitles: Dictionary<String, Array<String>> = [
         "profile" :
@@ -47,6 +50,10 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(buttonView!)
         
         setBasicLayout()
+        
+        self.picker = UIImagePickerController()
+        picker!.delegate = self
+        
     }
     
 //        override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +102,8 @@ class ProfileViewController: UIViewController {
         tableView.topAnchor.constraint(equalTo: profileView.bottomAnchor).isActive = true
         
         // Table View Layout
-        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
+        tableView.heightAnchor.constraint(equalToConstant: 108).isActive = true
+//        tableView.heightAnchor.constraint(equalToConstant: 196).isActive = true
         tableView.widthAnchor.constraint(equalTo: safeGuie.widthAnchor).isActive = true
         tableView.centerXAnchor.constraint(equalTo: safeGuie.centerXAnchor).isActive = true
         buttonView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
@@ -318,11 +326,68 @@ class ProfileViewController: UIViewController {
         return buttonView
     }
     
+    // MARK: Print User Data
+    func printDataOf(user: UserData) {
+        print("token: " + (user.token ?? "nil"))
+        if let primaryKey = user.primaryKey {
+            print("primaryKey: \(primaryKey)")
+        } else {
+            print("primaryKey: nil")
+        }
+        print("userName: " + (user.userName ?? "nil"))
+        print("email: " + (user.email ?? "nil"))
+        print("firstName: " + (user.firstName ?? "nil"))
+        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
+        print("imgProfile: " + (user.imgProfile ?? "nil"))
+        if let isFacebookUser = user.isFacebookUser {
+            print("isFacebookUser: \(isFacebookUser)")
+        } else {
+            print("isFacebookUser: nil")
+        }
+        if let _ = user.profileImgData {
+            print("Data: OK")
+        } else {
+            print("Data: nil")
+        }
+        print("whishList: \(user.wishListPrimaryKeys)")
+    }
+    
+    // MARK - Use Photo or Camera
+    private func openLibray() {
+        self.picker!.sourceType = .photoLibrary
+        present(picker!, animated: false)
+    }
+    
+    private func openCamera() {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            picker!.sourceType = .camera
+            present(picker!, animated: false)
+        } else {
+            print("Camera is not available")
+        }
+       
+    }
+    
     // MARK: - Targets
     // MARK: Function to change profile image
     @objc func changeUserProfileImage(_ sender: UIButton) {
         // needs to be modified
         print("Profile image button clicked")
+        
+        let photoAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let library = UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibray()
+        }
+        let camera = UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        photoAlert.addAction(library)
+        photoAlert.addAction(camera)
+        photoAlert.addAction(cancel)
+        
+        present(photoAlert, animated: true)
     }
     
     // MARK: Function to log out
@@ -362,32 +427,6 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: Print User Data
-    func printDataOf(user: UserData) {
-        print("token: " + (user.token ?? "nil"))
-        if let primaryKey = user.primaryKey {
-            print("primaryKey: \(primaryKey)")
-        } else {
-            print("primaryKey: nil")
-        }
-        print("userName: " + (user.userName ?? "nil"))
-        print("email: " + (user.email ?? "nil"))
-        print("firstName: " + (user.firstName ?? "nil"))
-        print("phoneNumber: " + (user.phoneNumber ?? "nil"))
-        print("imgProfile: " + (user.imgProfile ?? "nil"))
-        if let isFacebookUser = user.isFacebookUser {
-            print("isFacebookUser: \(isFacebookUser)")
-        } else {
-            print("isFacebookUser: nil")
-        }
-        if let _ = user.profileImgData {
-            print("Data: OK")
-        } else {
-            print("Data: nil")
-        }
-        print("whishList: \(user.wishListPrimaryKeys)")
-    }
 }
 
 // MARK: - Extension of ProfileVC
@@ -400,9 +439,11 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: The Number of Cell
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return tableTitles["profile"]!.count
+//            return tableTitles["profile"]!.count
+            return 1
         } else {
-            return tableTitles["service"]!.count
+//            return tableTitles["service"]!.count
+            return 1
         }
     }
     
@@ -504,5 +545,19 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return ""
         }
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.profileImageView!.image = image
+            self.uploadedImage = image
+            print(info)
+        }
+        
+        // TODO: - 확인해 볼것!
+        dismiss(animated: true, completion: nil) // Warnig double touch and have to find solution !!!
     }
 }
