@@ -12,6 +12,8 @@ class UserData {
     
     static var user: UserData = UserData()
     
+    var calendarDate: String = ""
+    
     private var _isLoggedIn: Bool = false {
         willSet {
             if newValue == false {
@@ -39,6 +41,8 @@ class UserData {
     private var _isFacebookUser: Bool? // Boolean value if user is facebook user
     private var _profileImgData: Data? // Profile Image Data
     private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
+    
+
     
     var isLoggedIn: Bool {
         set {

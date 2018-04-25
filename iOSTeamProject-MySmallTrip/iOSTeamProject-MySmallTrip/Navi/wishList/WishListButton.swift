@@ -86,7 +86,7 @@ class WishListButton: UIButton {
         if self.isWishList {
             self.isWishList = false
             heartImageView.image = UIImage(named: heartIconNoneSelect)
-//            deleteWishList(sender.tag)
+            deleteWishList(sender.tag)
             print("deleteWishList")
         } else {
         // 위시리스트에 없는 경우
@@ -151,7 +151,6 @@ extension WishListButton {
             // 싱글턴 리스트에서 삭제
             while let idx = pkList.index(of: pk) {
                 UserData.user.removeWishListPrimaryKey(of: idx)
-
             }
             
             // 서버 전달
@@ -160,10 +159,10 @@ extension WishListButton {
             
             // 500 에러 ㅜ.ㅜ
             Alamofire
-                .request(url, method: .delete, parameters: param, headers: header)
+                .request(url, method: .delete, parameters: param, encoding: URLEncoding.httpBody, headers: header)
                 .responseJSON { (response) in
                     if let responseValue = response.result.value as! [String:Any]? {
-                        print("\n---------- [ dataPost ] -----------\n")
+                        print("\n---------- [ dataDelete ] -----------\n")
                         print(responseValue)
                     }
             }

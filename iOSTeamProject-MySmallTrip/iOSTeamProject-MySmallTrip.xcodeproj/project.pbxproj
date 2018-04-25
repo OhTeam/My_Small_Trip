@@ -225,7 +225,6 @@
 				CA309810208AEDA900015B70 /* importLibraries.swift */,
 				CAFFBA71208F472100937830 /* Password.swift */,
 				6FBE2FAD207C7D7C00BEAD8F /* Main.storyboard */,
-				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
 				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				7A9DD105207DD2B9008166A0 /* SignUpViewController.swift */,
 				7A2B213B2085C5D9006683C0 /* Calendar.storyboard */,
@@ -596,7 +595,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -612,7 +614,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

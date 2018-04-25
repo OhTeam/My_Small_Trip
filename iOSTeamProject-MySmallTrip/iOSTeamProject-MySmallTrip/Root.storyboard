@@ -183,12 +183,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POPULAR TRIP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXG-pU-lCp">
-                                <rect key="frame" x="16" y="84" width="117" height="24"/>
+                                <rect key="frame" x="16.000000000000007" y="84" width="98.666666666666686" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="cf3-Yk-1TZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jRZ-ZO-dQC">
@@ -196,7 +196,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="165" id="Crr-5X-W6r" customClass="PopularCityTableViewCell" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" rowHeight="165" id="Crr-5X-W6r" customClass="PopularCityTableViewCell" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="382" height="165"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Crr-5X-W6r" id="laR-5J-XEt">
@@ -273,8 +273,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="uqQ-yZ-KYs"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dWy-Bv-iMt">
@@ -590,14 +590,34 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="날짜선택" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7YB-OS-2RS">
+                                        <rect key="frame" x="24" y="128" width="42" height="15"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="dgd" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HbU-or-OeW">
+                                        <rect key="frame" x="24" y="148" width="366" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="ef4-dG-W9U"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="fyx-jY-P3l" firstAttribute="leading" secondItem="enY-4a-PHj" secondAttribute="leading" constant="24" id="1sv-Ez-mWT"/>
                                     <constraint firstItem="fyx-jY-P3l" firstAttribute="top" secondItem="enY-4a-PHj" secondAttribute="top" constant="20" id="5me-7R-Hx4"/>
                                     <constraint firstAttribute="trailing" secondItem="26U-5q-XER" secondAttribute="trailing" constant="24" id="MjT-W0-jsv"/>
+                                    <constraint firstItem="7YB-OS-2RS" firstAttribute="top" secondItem="26U-5q-XER" secondAttribute="bottom" constant="40" id="Tfw-87-poB"/>
+                                    <constraint firstAttribute="trailing" secondItem="HbU-or-OeW" secondAttribute="trailing" constant="24" id="b8M-sI-flb"/>
                                     <constraint firstItem="26U-5q-XER" firstAttribute="top" secondItem="fyx-jY-P3l" secondAttribute="bottom" constant="5" id="bOB-KB-G6k"/>
+                                    <constraint firstItem="HbU-or-OeW" firstAttribute="leading" secondItem="enY-4a-PHj" secondAttribute="leading" constant="24" id="djT-yi-axA"/>
+                                    <constraint firstItem="HbU-or-OeW" firstAttribute="top" secondItem="7YB-OS-2RS" secondAttribute="bottom" constant="5" id="efx-z1-L1l"/>
                                     <constraint firstItem="26U-5q-XER" firstAttribute="leading" secondItem="enY-4a-PHj" secondAttribute="leading" constant="24" id="wbn-WL-ee1"/>
+                                    <constraint firstItem="7YB-OS-2RS" firstAttribute="leading" secondItem="enY-4a-PHj" secondAttribute="leading" constant="24" id="yy7-0E-ad6"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qPX-jN-le7" userLabel="price">
@@ -632,11 +652,11 @@
                                     <constraint firstAttribute="height" constant="45" id="bhE-Qz-Y8Q"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="날짜선택">
+                                <state key="normal" title="예약하기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="moveSelectDateVC" destination="E4S-3U-4lV" eventType="touchUpInside" id="nDf-Z7-Lc6"/>
+                                    <action selector="reserve" destination="E4S-3U-4lV" eventType="touchUpInside" id="eFX-iD-oqB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -670,6 +690,7 @@
                         <outlet property="imageView" destination="5WV-wE-WjN" id="3Vh-qJ-Fsr"/>
                         <outlet property="numberOfPeopleTextField" destination="26U-5q-XER" id="iM4-c4-6xh"/>
                         <outlet property="priceLabel" destination="uWO-cm-g4t" id="RDT-7i-aZN"/>
+                        <outlet property="scheduleTextField" destination="HbU-or-OeW" id="pRh-pm-bLa"/>
                         <outlet property="titleLabel" destination="gPV-qi-cGS" id="2Ty-gc-zUP"/>
                     </connections>
                 </viewController>
@@ -776,7 +797,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noneSearch" rowHeight="494" id="J2k-os-Kvq" customClass="noneSearchCell" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noneSearch" rowHeight="494" id="J2k-os-Kvq" customClass="noneSearchCell" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="382" height="494"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="J2k-os-Kvq" id="OIg-w1-abn">
@@ -855,8 +876,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Z0f-D5-VAD"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Has-ro-JfB">
