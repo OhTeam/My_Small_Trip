@@ -8,30 +8,38 @@
 
 
 // user(temp)
-class FBUser {
-    
-    static var standards = FBUser()
-    
-    var token: String?
-    var userName: String?
-    
-    var pkList: [Int] = []
-    
-}
+//class FBUser {
+//    
+//    static var standards = FBUser()
+//    
+//    var token: String?
+//    var userName: String?
+//    
+//    var pkList: [Int] = []
+//    
+//}
+
+
+
 
 // url(String)
 class UrlData {
     
     static var standards = UrlData()
     
-    let basic = "http://myrealtrip.hongsj.kr"
+    let basic = "https://myrealtrip.hongsj.kr"
     
     let signUp = "/sign-up/"
     let facebookLogin = "/facebook-login/"
     
     let travelMain = "/travel-information/"
+    let calendar = "/calender/"
+    
+    let search = "/q/?search="
+    
     let wishList = "/reservation/wishlist/"
     let wishListDelete = "delete/"
+    
 }
 
 

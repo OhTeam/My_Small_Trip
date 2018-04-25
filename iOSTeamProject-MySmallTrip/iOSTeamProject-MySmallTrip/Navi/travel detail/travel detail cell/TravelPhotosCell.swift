@@ -15,20 +15,13 @@ class TravelPhotosCell: UITableViewCell {
     
     var images: [TravelImage] = [] {
         willSet {
-//            print(newValue[0].productImg)
-//            print(newValue.count)
-            
             self.collectionView.reloadData()
-            
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        print(collectionView.frame.size.height)
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,31 +34,43 @@ class TravelPhotosCell: UITableViewCell {
 extension TravelPhotosCell: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(images.count)
         return images.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotosCollectionViewCell
-        cell.backgroundColor = UIColor.black
         
         if self.images.count != 0 {
-            print("reload")
             cell.image = images[indexPath.item].productImg
         }
-//        print("reload2")
         return cell
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let imageVC = storyBoard.instantiateViewController(withIdentifier: "DetailPhotoViewController") as! DetailPhotoViewController
+        
+        if self.images.count != 0 {
+            imageVC.image = images[indexPath.item].productImg
+        
+            // delegate 처리
+            
+        }
+        
+        
+        
+    }
+    
 }
 
-
-
-
 // MARK: - UICollectionViewDelegate
-extension TravelPhotosCell: UICollectionViewDelegate {
+extension TravelPhotosCell: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 100, height: 70)
+    }
 }
 
 
@@ -77,16 +82,17 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     var image: String? {
         willSet(imgUrl) {
-            print(imgUrl!)
+            
             Alamofire
                 .request(imgUrl!)
                 .responseData { (response) in
                     
                     switch response.result {
                     case .success(let value):
+                        
                         self.imageView.image = UIImage(data: value)
                         self.reloadInputViews()
-                        
+                     
                     case .failure(let error):
                         print("\n---------- [ cityImage load fail ] -----------\n")
                         print(error.localizedDescription)
@@ -97,5 +103,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
+        self.imageView.layer.cornerRadius = 8
+
     }
 }

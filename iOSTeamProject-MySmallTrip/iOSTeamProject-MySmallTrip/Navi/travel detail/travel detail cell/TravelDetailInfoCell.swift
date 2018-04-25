@@ -22,9 +22,14 @@ class TravelDetailInfoCell: UITableViewCell {
     }
     
     func updateUI(travel: TravelDetail) {
+        
         travelName.text = travel.name
-        cityName.text = travel.city.name.capitalized + ", " + travel.city.nationality.capitalized
-        self.price.text = "₩ " + String(travel.price)
+ 
+        let cityName = travel.city.name.capitalized
+        let nationality = travel.city.nationality.capitalized
+        self.cityName.text = cityName.removePlusCharacter(of: cityName) + ", " + nationality.removePlusCharacter(of: nationality)
+        
+        let strPrice = String(travel.price)
+        self.price.text = strPrice.stringChangePrice(strPrice)
     }
-    
 }

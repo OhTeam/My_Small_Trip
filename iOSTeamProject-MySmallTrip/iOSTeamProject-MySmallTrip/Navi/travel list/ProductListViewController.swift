@@ -50,7 +50,7 @@ class ProductListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         guard let cityName = cityName else { return }
-        cityNameLabel.text = cityName.uppercased()
+        cityNameLabel.text = cityName.removePlusCharacter(of: cityName.uppercased())
         
         // deselect selected UITableView cell
         if let index = self.productListTableView.indexPathForSelectedRow {
@@ -103,15 +103,13 @@ extension ProductListViewController: UITableViewDataSource{
         // 상품명 text 길이에 따라서 cell height 변동
         let text = self.productList[indexPath.row].name
         let textLength = text.lengthOfBytes(using: .utf8)
-        
+
         if textLength > 65 {
             return 294
         } else {
             return 274
         }
     }
-    
-    
 }
 
 extension ProductListViewController: UITableViewDelegate {

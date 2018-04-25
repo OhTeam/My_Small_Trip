@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F26BC2B208DB8C300B001BE /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F26BC2A208DB8C300B001BE /* UserData.swift */; };
 		6F3A75A32089E9F6004E2287 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3A75A22089E9F6004E2287 /* WishListViewController.swift */; };
 		6F4140E0208C3F4300C79613 /* TravelPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */; };
-		6F6E369420860E2200657F41 /* testVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E369320860E2200657F41 /* testVC.swift */; };
 		6F6E369620864E3400657F41 /* ReservationDatePickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */; };
 		6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E3697208705BF00657F41 /* WishListButton.swift */; };
 		6F775EC72083DD85006437FC /* ProductDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */; };
 		6F775EC920846252006437FC /* TravelDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775EC820846252006437FC /* TravelDetailInfoCell.swift */; };
 		6F775ECB2084627B006437FC /* TravelDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775ECA2084627A006437FC /* TravelDescriptionCell.swift */; };
 		6F775ED22085D9DA006437FC /* ReservationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775ED12085D9DA006437FC /* ReservationViewController.swift */; };
+		6F912955208E3AD10063C96A /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912954208E3AD10063C96A /* DetailPhotoViewController.swift */; };
+		6F912957208ED5D10063C96A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912956208ED5D10063C96A /* SearchViewController.swift */; };
+		6F912959208FD36A0063C96A /* ScheduleDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912958208FD36A0063C96A /* ScheduleDateModel.swift */; };
 		6F970DCB207F9CDD00827A10 /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */; };
 		6F970DD0207FAB2600827A10 /* ProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */; };
 		6F970DD1207FAB2700827A10 /* travelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F970DCF207FAB2600827A10 /* travelCell.xib */; };
@@ -33,7 +36,7 @@
 		6FBE2FCE207C9C4500BEAD8F /* CustomTabbarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCD207C9C4500BEAD8F /* CustomTabbarButton.swift */; };
 		6FBE2FD0207C9C4D00BEAD8F /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */; };
 		6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */; };
-		6FBE300A207E525700BEAD8F /* TravleDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE3009207E525700BEAD8F /* TravleDataModel.swift */; };
+		6FBE300A207E525700BEAD8F /* TravelDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE3009207E525700BEAD8F /* TravelDataModel.swift */; };
 		6FBE300C207E564300BEAD8F /* PopularCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */; };
 		7A2B213C2085C5D9006683C0 /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A2B213B2085C5D9006683C0 /* Calendar.storyboard */; };
 		7A2E9A2E2084312300F41031 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2E9A2D2084312300F41031 /* CalendarViewController.swift */; };
@@ -55,15 +58,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F26BC2A208DB8C300B001BE /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		6F3A75A22089E9F6004E2287 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPhotosCell.swift; sourceTree = "<group>"; };
-		6F6E369320860E2200657F41 /* testVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testVC.swift; sourceTree = "<group>"; };
 		6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDatePickViewController.swift; sourceTree = "<group>"; };
 		6F6E3697208705BF00657F41 /* WishListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListButton.swift; sourceTree = "<group>"; };
 		6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewController.swift; sourceTree = "<group>"; };
 		6F775EC820846252006437FC /* TravelDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailInfoCell.swift; sourceTree = "<group>"; };
 		6F775ECA2084627A006437FC /* TravelDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDescriptionCell.swift; sourceTree = "<group>"; };
 		6F775ED12085D9DA006437FC /* ReservationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewController.swift; sourceTree = "<group>"; };
+		6F912954208E3AD10063C96A /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
+		6F912956208ED5D10063C96A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		6F912958208FD36A0063C96A /* ScheduleDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDateModel.swift; sourceTree = "<group>"; };
 		6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
 		6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListTableViewCell.swift; sourceTree = "<group>"; };
 		6F970DCF207FAB2600827A10 /* travelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = travelCell.xib; sourceTree = "<group>"; };
@@ -83,7 +89,7 @@
 		6FBE2FCD207C9C4500BEAD8F /* CustomTabbarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbarButton.swift; sourceTree = "<group>"; };
 		6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		6FBE3009207E525700BEAD8F /* TravleDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravleDataModel.swift; sourceTree = "<group>"; };
+		6FBE3009207E525700BEAD8F /* TravelDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDataModel.swift; sourceTree = "<group>"; };
 		6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCityTableViewCell.swift; sourceTree = "<group>"; };
 		7A2B213B2085C5D9006683C0 /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		7A2E9A2D2084312300F41031 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +138,9 @@
 		6F3A75A62089EA09004E2287 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
-				6FBE3009207E525700BEAD8F /* TravleDataModel.swift */,
+				6FBE3009207E525700BEAD8F /* TravelDataModel.swift */,
+				6F912958208FD36A0063C96A /* ScheduleDateModel.swift */,
+				6F26BC2A208DB8C300B001BE /* UserData.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -171,6 +179,7 @@
 				6F775EC820846252006437FC /* TravelDetailInfoCell.swift */,
 				6F775ECA2084627A006437FC /* TravelDescriptionCell.swift */,
 				6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */,
+				6F912954208E3AD10063C96A /* DetailPhotoViewController.swift */,
 			);
 			path = "travel detail cell";
 			sourceTree = "<group>";
@@ -222,7 +231,6 @@
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
 				6FBE2FC9207C8EC100BEAD8F /* RootViewController.swift */,
 				6FBE2FC3207C8D7E00BEAD8F /* Extension.swift */,
-				6F6E369320860E2200657F41 /* testVC.swift */,
 				6F3A75A62089EA09004E2287 /* DataModel */,
 				6FBE2FD3207C9CF100BEAD8F /* TabBar */,
 				6FBE2FD4207C9CFC00BEAD8F /* Navi */,
@@ -249,6 +257,7 @@
 				6F775ECC2085AC13006437FC /* popular city */,
 				6F775ECD2085AC25006437FC /* travel list */,
 				6F3A75A12089E9DA004E2287 /* travel detail */,
+				6F912956208ED5D10063C96A /* SearchViewController.swift */,
 				6F3A75A72089EA2D004E2287 /* wishList */,
 			);
 			path = Navi;
@@ -400,8 +409,10 @@
 				6F3A75A32089E9F6004E2287 /* WishListViewController.swift in Sources */,
 				6F970DD0207FAB2600827A10 /* ProductListTableViewCell.swift in Sources */,
 				6F775EC920846252006437FC /* TravelDetailInfoCell.swift in Sources */,
+				6F912955208E3AD10063C96A /* DetailPhotoViewController.swift in Sources */,
 				6FBE300C207E564300BEAD8F /* PopularCityTableViewCell.swift in Sources */,
-				6FBE300A207E525700BEAD8F /* TravleDataModel.swift in Sources */,
+				6F912959208FD36A0063C96A /* ScheduleDateModel.swift in Sources */,
+				6FBE300A207E525700BEAD8F /* TravelDataModel.swift in Sources */,
 				6FBE2FC4207C8D7E00BEAD8F /* Extension.swift in Sources */,
 				7A2E9A2E2084312300F41031 /* CalendarViewController.swift in Sources */,
 				7A819F43207EED7000CC92E0 /* SignUpUserInfo.swift in Sources */,
@@ -414,9 +425,10 @@
 				CA309811208AEDA900015B70 /* importLibraries.swift in Sources */,
 				6FBE2FAC207C7D7C00BEAD8F /* ViewController.swift in Sources */,
 				6FBE2FCC207C9C4200BEAD8F /* MainTabBarController.swift in Sources */,
-				6F6E369420860E2200657F41 /* testVC.swift in Sources */,
+				6F26BC2B208DB8C300B001BE /* UserData.swift in Sources */,
 				6F4140E0208C3F4300C79613 /* TravelPhotosCell.swift in Sources */,
 				6FBE2FD0207C9C4D00BEAD8F /* MainNavigationController.swift in Sources */,
+				6F912957208ED5D10063C96A /* SearchViewController.swift in Sources */,
 				6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */,
 				6FBE2FCA207C8EC100BEAD8F /* RootViewController.swift in Sources */,
 				6FBE2FAA207C7D7C00BEAD8F /* AppDelegate.swift in Sources */,

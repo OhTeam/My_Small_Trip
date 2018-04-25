@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReservationViewController: UIViewController {
 
@@ -18,6 +19,9 @@ class ReservationViewController: UIViewController {
     var image: UIImage?
     var text: String?
     
+    var url: String?
+    
+    var reservationInfo: [TravelReservationInfo]?
     
     // 인원 수 선택
     @IBOutlet private weak var numberOfPeopleTextField: UITextField!
@@ -88,6 +92,7 @@ class ReservationViewController: UIViewController {
         
         // 1)
         // post data
+        fetchCalendarDate()
         // send possible date
         
         // 3)
@@ -102,6 +107,50 @@ class ReservationViewController: UIViewController {
         
         self.navigationController?.pushViewController(nextVC, animated: true)
 
+    }
+    
+    
+    func fetchCalendarDate() {
+        
+        guard var url = self.url,
+        let people = numberOfPeopleTextField.text,
+        let token = UserData.user.token else { return }
+        
+        url += UrlData.standards.calendar
+        let urlParam = ["people": Int(people)!]
+        let header: Dictionary<String, String> = ["Authorization": "Token " + token]
+        
+
+        
+        print(url, urlParam, header)
+        
+        Alamofire
+            .request(url, method: .get, parameters: urlParam, encoding: URLEncoding(destination: .queryString), headers: header)
+//            .responseJSON(completionHandler: { (response) in
+//                print(response.response?.statusCode)
+//                if let responseValue = response.result.value as! [String:Any]? {
+//                    print("\n---------- [ dataPost ] -----------\n")
+//                    print(responseValue)
+//                }
+//            })
+//
+            .responseData { (response) in
+                switch response.result {
+                case .success(let value):
+                    do {
+                        let json = try JSONDecoder().decode([TravelReservationInfo].self, from: value)
+                        self.reservationInfo = json
+//                        print(self.reservationInfo)
+                        print(self.reservationInfo![0].schedules)
+                    } catch(let error) {
+                        print("\n---------- [ JSON Decoder error ] -----------\n")
+                        print(error)
+                    }
+                case .failure(let error):
+                    print("\n---------- [ Alamofire request error ] -----------\n")
+                    print(error.localizedDescription)
+                }
+        }
     }
     
 }
