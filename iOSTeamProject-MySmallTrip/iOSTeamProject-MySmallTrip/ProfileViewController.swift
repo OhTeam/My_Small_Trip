@@ -39,7 +39,13 @@ class ProfileViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
-        setNaviItems()
+//        setNaviItems()
+        
+        // navi bar title - image add / back btn color change
+        self.setNaviTitle()
+        
+        // navi bar backBtn title setting
+        setNaviBackBtn()
         
         // MARK: Views Creation and Additon to Super View
         profileView = createProfileView()

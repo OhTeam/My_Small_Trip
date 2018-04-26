@@ -57,7 +57,16 @@ class MyTripViewController: UIViewController {
                 case .success(let value):
                     
                     do {
-                        self.myTrips = try JSONDecoder().decode([MyTrip].self, from: value)
+                        let myTrips = try JSONDecoder().decode([MyTrip].self, from: value)
+                        var array: [MyTrip] = []
+                        for myTrip in myTrips {
+                            if myTrip.is_canceled == false {
+                                array.append(myTrip)
+//                                self.myTrips?.append(myTrip)
+                            }
+                        }
+                        
+                        self.myTrips = array
                         self.tableView.reloadData()
                         
                     } catch(let error) {

@@ -892,10 +892,10 @@
             </objects>
             <point key="canvasLocation" x="3270" y="1849"/>
         </scene>
-        <!--My Trip View Controller-->
+        <!--나의 여행-->
         <scene sceneID="DFM-nr-yBn">
             <objects>
-                <viewController storyboardIdentifier="MyTripViewController" id="ot8-c7-kd0" customClass="MyTripViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyTripViewController" title="나의 여행" id="ot8-c7-kd0" customClass="MyTripViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z2w-7J-JMv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -959,7 +959,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ㄱㅈㄱㅁㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ep5-sT-mIf">
-                                                                        <rect key="frame" x="10" y="8" width="362" height="40.333333333333336"/>
+                                                                        <rect key="frame" x="10" y="8" width="362" height="40"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1144,7 +1144,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q5S-tE-hic">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="63.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="63"/>
                                                                         <subviews>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmq-aA-iyU">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="20"/>
