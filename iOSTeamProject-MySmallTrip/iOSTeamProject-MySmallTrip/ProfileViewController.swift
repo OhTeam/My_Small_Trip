@@ -535,6 +535,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 && indexPath.row == 1 {
             // TODO: Add 나의 여행 view controller push
+            let myTripStoryboard = UIStoryboard(name: "Root", bundle: nil)
+            let myTripVC = myTripStoryboard.instantiateViewController(withIdentifier: "MyTripViewController") as! MyTripViewController
+            self.navigationController?.pushViewController(myTripVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
@@ -546,7 +549,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         if indexPath.section == 1 && indexPath.row == 1 {
-            // TODO: Add 이용관약관 view controller push
+            // TODO: Add FAQ view controller push
+            let faqStoryboard = UIStoryboard(name: "FAQ", bundle: nil)
+            let faqVC = faqStoryboard.instantiateInitialViewController() as! FAQViewController
+            self.navigationController?.pushViewController(faqVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
