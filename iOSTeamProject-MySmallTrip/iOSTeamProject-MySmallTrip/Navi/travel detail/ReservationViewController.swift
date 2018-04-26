@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 class ReservationViewController: UIViewController {
-
+    
     // 상품 이미지, 상품명 Label
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
@@ -59,29 +59,31 @@ class ReservationViewController: UIViewController {
     // 가격
     @IBOutlet private weak var priceLabel: UILabel!
     var price: Int?
-
+    
     
     func shceduleParsing() {
         guard let schedules = schedules else { return }
         for schedule in schedules {
             isFalseSchedules.append(schedule.date)
         }
-//        print(isFalseSchedules)
+        //        print(isFalseSchedules)
         self.parsingSchedules = parsingString(isFalseSchedules)
-        print("\n---------- [ parsingSchedules ] -----------\n")
-        print(self.parsingSchedules)
+//        print("\n---------- [ parsingSchedules ] -----------\n")
+//        print(self.parsingSchedules)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         imageView.image = image
         titleLabel.text = text
         
-        priceLabel.text = "₩ " + String(price!)
+        let strPrice = String(price!)
+        self.priceLabel.text = strPrice.stringChangePrice(strPrice)
         
         fetchCalendarDate()
         
-        print("reserveViewController: viewWillappear")
+//        print("reserveViewController: viewWillappear")
         scheduleTextField.text = UserData.user.calendarDate
+        UserData.user.calendarDate = ""
         scheduleTextField.resignFirstResponder()
     }
     
@@ -93,15 +95,14 @@ class ReservationViewController: UIViewController {
         
         scheduleTextField.delegate = self
         
-        
         createToolBar()
     }
-
+    
     // close Button Click Action
     @IBAction private func cancleBtnAction() {
         self.dismiss(animated: true, completion: nil)
     }
-
+    
     
     func createToolBar() {
         let toolBar = UIToolbar()
@@ -118,12 +119,9 @@ class ReservationViewController: UIViewController {
         numberOfPeopleTextField.text = String(number[pickerSelectRow])
         
         let calculatePrice = price! * number[pickerSelectRow]
-//        priceLabel.text = "₩ " + String(calculatePrice)
-        
-//        if let price = calculatePrice {
-            let strPrice = String(calculatePrice)
-            self.priceLabel.text = strPrice.stringChangePrice(strPrice)
-//        }
+
+        let strPrice = String(calculatePrice)
+        self.priceLabel.text = strPrice.stringChangePrice(strPrice)
         
         numberOfPeopleTextField.resignFirstResponder()
     }
@@ -131,24 +129,16 @@ class ReservationViewController: UIViewController {
     
     // 날짜 선택 버튼
     func moveSelectDateVC() {
-        
-        // 1)
-        // post data
         fetchCalendarDate()
-        // send possible date
         
-        // 3)
-        // move to selectDate(Calendar VC)
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReservationDatePickViewController") as! ReservationDatePickViewController
-      
-        // 2)
-        // 인원 / 가격 정보 넘기기
-        nextVC.numberOfPeople = numberOfPeopleTextField.text
-        nextVC.price = priceLabel.text
-        nextVC.pk = self.pk
+//        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReservationDatePickViewController") as! ReservationDatePickViewController
         
-        self.navigationController?.pushViewController(nextVC, animated: true)
-
+//        nextVC.numberOfPeople = numberOfPeopleTextField.text
+//        nextVC.price = priceLabel.text
+//        nextVC.pk = self.pk
+//
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+        
     }
     
     func moveCalendarVC() {
@@ -165,13 +155,13 @@ class ReservationViewController: UIViewController {
     func fetchCalendarDate() {
         
         guard var url = self.url,
-        let people = numberOfPeopleTextField.text,
-        let token = UserData.user.token else { return }
+            let people = numberOfPeopleTextField.text,
+            let token = UserData.user.token else { return }
         
         url += UrlData.standards.calendar
         let urlParam = ["people": Int(people)!]
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
-
+        
         
         Alamofire
             .request(url, method: .get, parameters: urlParam, encoding: URLEncoding(destination: .queryString), headers: header)
@@ -208,8 +198,8 @@ class ReservationViewController: UIViewController {
             let people = Int(peopleStr) else { return }
         
         let params: [String:Any] = ["travel_info":pk,
-                                   "start_date":date,
-                                   "people":people]
+                                    "start_date":date,
+                                    "people":people]
         
         Alamofire
             .request(url, method: .post, parameters: params, headers: header)
@@ -220,7 +210,7 @@ class ReservationViewController: UIViewController {
                 }
             })
         alert()
-        }
+    }
     
     func alert() {
         let alertController = UIAlertController(title: "예약 완료", message: "예약이 완료되었습니다.", preferredStyle: .alert)
@@ -241,16 +231,16 @@ extension ReservationViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return number.count
     }
-
+    
 }
 
 // MARK: - UIPickerViewDelegate
 extension ReservationViewController: UIPickerViewDelegate {
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(number[row])
     }
-   
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerSelectRow = row
     }
@@ -264,25 +254,25 @@ extension ReservationViewController: UITextFieldDelegate {
         if textField == scheduleTextField {
             scheduleTextField.resignFirstResponder()
             
-
+            
             moveCalendarVC()
         }
     }
     
     func monthParsing(_ str: String) -> String {
-//        var string: String!
+        //        var string: String!
         let subStr2 = str[str.index(str.startIndex, offsetBy:5)...str.index(str.startIndex, offsetBy:6)]
         let month: String = String(subStr2)
         return month
     }
     
     func dayParsing(_ str: String) -> String {
-//        var string: String!
+        //        var string: String!
         let subStr3 = str[str.index(str.startIndex, offsetBy:8)...str.index(str.startIndex, offsetBy:9)]
         let day: String = String(subStr3)
         return day
     }
-
+    
     func parsingString(_ list: [String]) -> [[String]] {
         
         var returnResult: [[String]] = [[],[],[]]

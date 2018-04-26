@@ -56,8 +56,6 @@ class RootViewController: UIViewController {
                     do {
                         let userData = try JSONDecoder().decode(EmailLogIn.self, from: value)
                         self.setUserData(userLoggedIn: userData)
-                        print("this")
-                        print(userData)
                         self.moveToMainVC()
                         
                     } catch(let error) {
@@ -88,6 +86,7 @@ class RootViewController: UIViewController {
         self.loadWishList()
     }
     
+    
     // MARK: - Load Wish List Primary Keys
     // MARK:  - WishList data get & User singleton save
     private func loadWishList() {
@@ -106,8 +105,6 @@ class RootViewController: UIViewController {
                 }
         }
     }
-
-    
     
     
     func moveToMainVC() {
@@ -128,7 +125,7 @@ extension RootViewController: FBSDKLoginButtonDelegate {
         } else {
             loginButton.readPermissions = ["public_profile, email"]
             fetchProfile()
-            moveToMainVC()
+//            moveToMainVC()
         }
         
         // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
@@ -139,5 +136,12 @@ extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("\n---------- [ logout ] -----------\n")
+        
+        
     }
+    
+//    @IBAction private func logoutFunc() {
+//        let fbLoginManager = FBSDKLoginManager()
+//        fbLoginManager.logOut()
+//    }
 }

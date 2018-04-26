@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6F3A75A32089E9F6004E2287 /* WishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3A75A22089E9F6004E2287 /* WishListViewController.swift */; };
 		6F4140E0208C3F4300C79613 /* TravelPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */; };
-		6F6E369620864E3400657F41 /* ReservationDatePickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */; };
 		6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E3697208705BF00657F41 /* WishListButton.swift */; };
 		6F775EC72083DD85006437FC /* ProductDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */; };
 		6F775EC920846252006437FC /* TravelDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F775EC820846252006437FC /* TravelDetailInfoCell.swift */; };
@@ -18,6 +17,9 @@
 		6F912955208E3AD10063C96A /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912954208E3AD10063C96A /* DetailPhotoViewController.swift */; };
 		6F912957208ED5D10063C96A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912956208ED5D10063C96A /* SearchViewController.swift */; };
 		6F912959208FD36A0063C96A /* ScheduleDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912958208FD36A0063C96A /* ScheduleDateModel.swift */; };
+		6F91297D2090B2310063C96A /* MyTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F91297C2090B2310063C96A /* MyTripViewController.swift */; };
+		6F91297F2090C35B0063C96A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F91297E2090C35B0063C96A /* TableViewCell.swift */; };
+		6F9129812090DA060063C96A /* MyTripDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9129802090DA060063C96A /* MyTripDataModel.swift */; };
 		6F970DCB207F9CDD00827A10 /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */; };
 		6F970DD0207FAB2600827A10 /* ProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */; };
 		6F970DD1207FAB2700827A10 /* travelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F970DCF207FAB2600827A10 /* travelCell.xib */; };
@@ -64,7 +66,6 @@
 /* Begin PBXFileReference section */
 		6F3A75A22089E9F6004E2287 /* WishListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewController.swift; sourceTree = "<group>"; };
 		6F4140DF208C3F4300C79613 /* TravelPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPhotosCell.swift; sourceTree = "<group>"; };
-		6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationDatePickViewController.swift; sourceTree = "<group>"; };
 		6F6E3697208705BF00657F41 /* WishListButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListButton.swift; sourceTree = "<group>"; };
 		6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTableViewController.swift; sourceTree = "<group>"; };
 		6F775EC820846252006437FC /* TravelDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDetailInfoCell.swift; sourceTree = "<group>"; };
@@ -73,6 +74,9 @@
 		6F912954208E3AD10063C96A /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
 		6F912956208ED5D10063C96A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		6F912958208FD36A0063C96A /* ScheduleDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDateModel.swift; sourceTree = "<group>"; };
+		6F91297C2090B2310063C96A /* MyTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripViewController.swift; sourceTree = "<group>"; };
+		6F91297E2090C35B0063C96A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		6F9129802090DA060063C96A /* MyTripDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripDataModel.swift; sourceTree = "<group>"; };
 		6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
 		6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListTableViewCell.swift; sourceTree = "<group>"; };
 		6F970DCF207FAB2600827A10 /* travelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = travelCell.xib; sourceTree = "<group>"; };
@@ -138,7 +142,6 @@
 				6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */,
 				6F775ECE2085AC34006437FC /* travel detail cell */,
 				6F775ED12085D9DA006437FC /* ReservationViewController.swift */,
-				6F6E369520864E3400657F41 /* ReservationDatePickViewController.swift */,
 			);
 			path = "travel detail";
 			sourceTree = "<group>";
@@ -147,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6FBE3009207E525700BEAD8F /* TravelDataModel.swift */,
+				6F9129802090DA060063C96A /* MyTripDataModel.swift */,
 				6F912958208FD36A0063C96A /* ScheduleDateModel.swift */,
 			);
 			path = DataModel;
@@ -230,11 +234,13 @@
 				7A9908582090624F0097E1F1 /* FAQ.storyboard */,
 				7A99085C2090686E0097E1F1 /* FAQViewController.swift */,
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
+				6F91297E2090C35B0063C96A /* TableViewCell.swift */,
 				6FBE2FC9207C8EC100BEAD8F /* RootViewController.swift */,
 				6FBE2FC3207C8D7E00BEAD8F /* Extension.swift */,
 				6F3A75A62089EA09004E2287 /* DataModel */,
 				6FBE2FD3207C9CF100BEAD8F /* TabBar */,
 				6FBE2FD4207C9CFC00BEAD8F /* Navi */,
+				6F91297C2090B2310063C96A /* MyTripViewController.swift */,
 				6FBE2FB0207C7D7D00BEAD8F /* Assets.xcassets */,
 				6FBE2FB2207C7D7D00BEAD8F /* LaunchScreen.storyboard */,
 				6FBE2FB5207C7D7D00BEAD8F /* Info.plist */,
@@ -464,6 +470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FBE2FCE207C9C4500BEAD8F /* CustomTabbarButton.swift in Sources */,
+				6F91297D2090B2310063C96A /* MyTripViewController.swift in Sources */,
 				6F3A75A32089E9F6004E2287 /* WishListViewController.swift in Sources */,
 				6F970DD0207FAB2600827A10 /* ProductListTableViewCell.swift in Sources */,
 				6F775EC920846252006437FC /* TravelDetailInfoCell.swift in Sources */,
@@ -492,14 +499,15 @@
 				6F6E3698208705BF00657F41 /* WishListButton.swift in Sources */,
 				6FBE2FCA207C8EC100BEAD8F /* RootViewController.swift in Sources */,
 				6FBE2FAA207C7D7C00BEAD8F /* AppDelegate.swift in Sources */,
-				6F6E369620864E3400657F41 /* ReservationDatePickViewController.swift in Sources */,
 				6F775ED22085D9DA006437FC /* ReservationViewController.swift in Sources */,
+				6F91297F2090C35B0063C96A /* TableViewCell.swift in Sources */,
 				6F775ECB2084627B006437FC /* TravelDescriptionCell.swift in Sources */,
 				6F970DCB207F9CDD00827A10 /* ProductListViewController.swift in Sources */,
 				6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */,
 				CAEA9F68207CB90400032251 /* ProfileViewController.swift in Sources */,
 				CACA906A208085DA00E3D1DD /* UserData.swift in Sources */,
 				CAEA9F66207CB8ED00032251 /* LogInViewController.swift in Sources */,
+				6F9129812090DA060063C96A /* MyTripDataModel.swift in Sources */,
 				6F775EC72083DD85006437FC /* ProductDetailTableViewController.swift in Sources */,
 				CACA2ED920872D3A0022ACAA /* ProfileSettingViewController.swift in Sources */,
 				CA68D40D208B65AE003E6A0F /* TextFieldWithInsets.swift in Sources */,
@@ -651,7 +659,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -667,7 +678,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G4MM77V7NH;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ohteam.iOSTeamProject-MySmallTrip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
