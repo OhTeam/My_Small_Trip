@@ -45,17 +45,13 @@ class ProfileViewController: UIViewController {
         profileView = createProfileView()
         tableView = createTableView()
         buttonView = createButtonView()
+        setImagePicker()
         
         self.view.addSubview(profileView!)
         self.view.addSubview(tableView!)
         self.view.addSubview(buttonView!)
         
         setBasicLayout()
-        
-        self.picker = UIImagePickerController()
-        picker!.delegate = self
-        picker!.allowsEditing = true
-        
     }
     
 //        override func viewWillAppear(_ animated: Bool) {
@@ -213,7 +209,7 @@ class ProfileViewController: UIViewController {
         
         movingProfileSubview.addSubview(emailLabel!)
         
-        //MARK: Layout inside Porfile View
+        // Layout inside Porfile View
         // Profile Label
         profileLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         profileLabel.topAnchor.constraint(equalTo: profileView.topAnchor, constant: 20).isActive = true
@@ -255,6 +251,13 @@ class ProfileViewController: UIViewController {
         return profileView
     }
     
+    // MARK: - Set ImagePicker
+    private func setImagePicker() {
+        self.picker = UIImagePickerController()
+        picker!.delegate = self
+        picker!.allowsEditing = true
+    }
+    
     // MARK: Load Profile Image
 //    private func loadProfileImage() {
 //        guard let imgProfile = UserData.user.imgProfile else {
@@ -290,7 +293,7 @@ class ProfileViewController: UIViewController {
         
         tableView.addSubview(table)
         
-        //MARK: Layout inside Table View
+        //Layout inside Table View
         table.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
         table.bottomAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         table.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
@@ -318,7 +321,7 @@ class ProfileViewController: UIViewController {
         
         buttonView.addSubview(logOutButton)
         
-        //MARK: Layout inside Button View
+        // Layout inside Button View
         logOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
         logOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
         logOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
@@ -327,7 +330,7 @@ class ProfileViewController: UIViewController {
         return buttonView
     }
     
-    // MARK: Print User Data
+    // MARK: - Print User Data
     func printDataOf(user: UserData) {
         print("token: " + (user.token ?? "nil"))
         if let primaryKey = user.primaryKey {
@@ -353,7 +356,7 @@ class ProfileViewController: UIViewController {
         print("whishList: \(user.wishListPrimaryKeys)")
     }
     
-    // MARK - Use Photo or Camera
+    // MARK: - Use Photo or Camera
     private func openLibray() {
         self.picker!.sourceType = .photoLibrary
         present(picker!, animated: false)
@@ -392,7 +395,7 @@ class ProfileViewController: UIViewController {
         return newImage
     }
     
-    // Facebook Log Out
+    // MARK: - Facebook Log Out
     private func logOutFacebook() {
         let fbLoginManager = FBSDKLoginManager()
         fbLoginManager.logOut()
@@ -461,6 +464,42 @@ class ProfileViewController: UIViewController {
             }) { (error, code) in
                 // token 유효성 잃었을 때 처리 방안
                 print(error.localizedDescription)
+                UserData.user.isLoggedIn = false
+                
+                let errorAlertVC = UIAlertController(title: "로그아웃", message: "비정상적으로 로그아웃 되었습니다.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: { (_) in
+                    // YS
+                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    
+                    // dev
+//                    if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+//
+//                        // from Sign Up
+//                        self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//
+//                    } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
+//                        // from Log In
+//                        self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    } else {
+//                        // from Automatic Log In
+//                        self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    }
+
+                })
+                errorAlertVC.addAction(okAction)
+                
+                self.present(errorAlertVC, animated: true)
+                
+//                if let code = code {
+//                    switch code {
+//                    case 400..<500:
+//                        // todo
+//                    default:
+//                        // todo
+//                    }
+//                } else {
+//                    // todo
+//                }
             }
         }
     }
@@ -586,81 +625,45 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Extension of UIImagePickerController
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let profileImgChangeLing = "https://myrealtrip.hongsj.kr/members/info/img-change/"
+        let profileImgChangeLink = "https://myrealtrip.hongsj.kr/members/info/img-change/"
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         
         var tmpImage: UIImage?
         
-        if let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            tmpImage = originImage
-        } else if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             tmpImage = editedImage
         }
         
         guard let profileImageView = profileImageView, let resizedImage = self.reSizeImageWithRatio(image: tmpImage, targetSize: CGSize(width: 115, height: 115)), let data = UIImageJPEGRepresentation(resizedImage, 1)
             else {
-                self.dismiss(animated: true, completion: nil)
+                let failAlertVC = UIAlertController(title: nil, message: "프로파일 사진 변경 실패", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                failAlertVC.addAction(okAction)
+                self.present(failAlertVC, animated: true)
+                dismiss(animated: true, completion: nil)
                 return
         }
         
         print("***IMG: \(resizedImage)")
         
-        importLibraries.uploadOntoServer(multipartFormData: { (multiData) in
-            multiData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
-        }, usingThreshold: UInt64(), to: profileImgChangeLing, method: .patch, headers: header) { (encodingResult) in
-            switch encodingResult {
-            case .success(request: let upload, _, _):
-                profileImageView.image = resizedImage
-                
-                upload.responseJSON(completionHandler: { (response) in
-                    print(response)
-                })
-
-                print("Profile Photo is changed")
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+        importLibraries.uploadOntoServer(multipartFormData: { (multipartFormData) in
+            multipartFormData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
+        }, usingThreshold: UInt64(), to: profileImgChangeLink, method: .patch, headers: header, encodingFailure: { (error) in
+            print(error.localizedDescription)
+            
+        }, success: { (data, code) in
+            print(data)
+            profileImageView.image = resizedImage
+            print("Profile Photo is changed")
+            
+        }) { (error, code) in
+            print(error.localizedDescription)
+            print(error.localizedDescription)
+            let failAlertVC = UIAlertController(title: nil, message: "프로파일 사진 변경 실패", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            failAlertVC.addAction(okAction)
+            self.present(failAlertVC, animated: true)
         }
-        
-        
-//        if let selectedImage = tmpImage {
-//            self.profileImageView!.image = selectedImage
-//            self.uploadedImage = selectedImage
-//            print(info)
-        
-            
-            
-//            if let data = UIImageJPEGRepresentation(selectedImages,1) {
-//                let parameters: Parameters = [
-//                    "access_token" : "YourToken"
-//                ]
-//                // You can change your image name here, i use NSURL image and convert into string
-//                let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
-//                let fileName = imageURL.absouluteString
-//                // Start Alamofire
-//                Alamofire.upload(multipartFormData: { multipartFormData in
-//                    for (key,value) in parameters {
-//                        multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
-//                    }
-//                    multipartFormData.append(data, withName: "avatar", fileName: fileName!,mimeType: "image/jpeg")
-//                },
-//                                 usingTreshold: UInt64.init(),
-//                                 to: "YourURL",
-//                                 method: .put,
-//                                 encodingCompletion: { encodingResult in
-//                                    switch encodingResult {
-//                                    case .success(let upload, _, _):
-//                                        upload.responJSON { response in
-//                                            debugPrint(response)
-//                                        }
-//                                    case .failure(let encodingError):
-//                                        print(encodingError)
-//                                    }
-//                })
-//            }
-//        }
-        
         // TODO: - 확인해 볼것!
         dismiss(animated: true, completion: nil) // Warnig double touch and have to find solution !!!
     }
