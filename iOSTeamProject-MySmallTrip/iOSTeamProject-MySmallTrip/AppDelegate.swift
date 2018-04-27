@@ -95,6 +95,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }) { (error, code) in
             print(error.localizedDescription)
+            
+            UserData.user.isLoggedIn = false
+            
+            var tokenAlertVC = UIAlertController(title: "네트워크 오류", message: "네트워크 확인이 필요합니다.", preferredStyle: .alert)
+            
+            // to catch session expired
+            if let code = code {
+                switch code {
+                case 400..<500:
+                    tokenAlertVC = UIAlertController(title: "사용자 인증 만료", message: "사용자 인증이 만료되었습니다.", preferredStyle: .alert)
+                default:
+                    print(code)
+                }
+            }
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            tokenAlertVC.addAction(okAction)
+            
+            // init VC - rootVC
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+            let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+            
+            self.window?.rootViewController = initialVC
+            self.window?.makeKeyAndVisible()
+            self.window?.rootViewController?.present(tokenAlertVC, animated: true)
         }
     }
     
