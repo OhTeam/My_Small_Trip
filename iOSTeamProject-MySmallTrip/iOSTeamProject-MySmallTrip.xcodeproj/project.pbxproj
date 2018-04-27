@@ -142,6 +142,7 @@
 				6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */,
 				6F775ECE2085AC34006437FC /* travel detail cell */,
 				6F775ED12085D9DA006437FC /* ReservationViewController.swift */,
+				6F912956208ED5D10063C96A /* SearchViewController.swift */,
 			);
 			path = "travel detail";
 			sourceTree = "<group>";
@@ -264,7 +265,6 @@
 				6F775ECC2085AC13006437FC /* popular city */,
 				6F775ECD2085AC25006437FC /* travel list */,
 				6F3A75A12089E9DA004E2287 /* travel detail */,
-				6F912956208ED5D10063C96A /* SearchViewController.swift */,
 				6F3A75A72089EA2D004E2287 /* wishList */,
 			);
 			path = Navi;
