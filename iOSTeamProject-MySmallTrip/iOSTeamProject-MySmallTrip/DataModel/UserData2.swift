@@ -8,8 +8,9 @@
 
 import Foundation
 
-class UserData {
-    
+class UserData2 {
+//class UserData {
+
     static var user: UserData = UserData()
     
     var calendarDate: String = ""
