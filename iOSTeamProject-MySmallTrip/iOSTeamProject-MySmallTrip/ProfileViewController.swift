@@ -446,9 +446,16 @@ class ProfileViewController: UIViewController {
                 
                 // dev
 //                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+//                    
+//                    // from Sign Up
 //                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                } else {
+//                    
+//                } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
+//                    // from Log In
 //                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                } else {
+//                    // from Automatic Log In
+//                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
 //                }
                 
             }) { (error, code) in
