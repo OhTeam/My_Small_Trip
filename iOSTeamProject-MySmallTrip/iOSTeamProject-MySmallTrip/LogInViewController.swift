@@ -478,8 +478,6 @@ class LogInViewController: UIViewController {
     }
     
     @objc private func touchLogIn(_ sender: UIButton) {
-        guard let logInFailureNoti = logInFailureNoti else { return }
-//        logInFailureNoti.isHidden = true
         logIn()
     }
     
