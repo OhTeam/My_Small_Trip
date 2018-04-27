@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if let code = code {
                 switch code {
                 case 400..<500:
-                    tokenAlertVC = UIAlertController(title: "사용자 인증 완료", message: "사용자 인증이 만료되었습니다.", preferredStyle: .alert)
+                    tokenAlertVC = UIAlertController(title: "사용자 인증 만료", message: "사용자 인증이 만료되었습니다.", preferredStyle: .alert)
                 default:
                     print(code)
                 }

@@ -476,21 +476,21 @@ class ProfileViewController: UIViewController {
                 let errorAlertVC = UIAlertController(title: "로그아웃", message: "비정상적으로 로그아웃 되었습니다.", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "확인", style: .default, handler: { (_) in
                     // YS
-                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+//                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     
                     // dev
-//                    if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-//
-//                        // from Sign Up
-//                        self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//
-//                    } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
-//                        // from Log In
-//                        self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                    } else {
-//                        // from Automatic Log In
-//                        self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//                    }
+                    if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+
+                        // from Sign Up
+                        self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+
+                    } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
+                        // from Log In
+                        self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    } else {
+                        // from Automatic Log In
+                        self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    }
 
                 })
                 errorAlertVC.addAction(okAction)
