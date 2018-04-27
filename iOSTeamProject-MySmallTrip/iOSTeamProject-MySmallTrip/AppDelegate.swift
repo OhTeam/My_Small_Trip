@@ -7,27 +7,37 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        self.emailTokenLogIn()  // 이메일 로그인 상태 체크
-        
-        // init VC - rootVC로 설정
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
-        let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
-        
-        self.window?.rootViewController = initialVC
-        self.window?.makeKeyAndVisible()
+        if FBSDKAccessToken.current() != nil {
+            // If being still logged in with Facebook
+            facebookLogIn()
+            
+        } else if let dic = UserDefaults.standard.object(forKey: "emailUser") as? Dictionary<String, String>,
+            let token = dic["token"], token != "" {
+            // If being still logged in with Email
+            emailTokenLogIn()
+            
+        } else {
+            // init VC - rootVC
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+            let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+            
+            self.window?.rootViewController = initialVC
+            self.window?.makeKeyAndVisible()
+        }
         
         return true
     }
@@ -38,27 +48,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return handled
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
-       
+        
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
-       
+        
     }
     
+    // MARK: - Email LogIn
     private func emailTokenLogIn() {
         guard let dic = UserDefaults.standard.object(forKey: "emailUser") as? Dictionary<String, String>,
             let token = dic["token"], token != ""
@@ -73,13 +84,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded in AppDelegate")
                 
-                self.printDataOf(user: UserData.user)
+                // init VC - rootVC
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+                let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+                
+                self.window?.rootViewController = initialVC
+                self.window?.makeKeyAndVisible()
+                
             }
         }) { (error, code) in
             print(error.localizedDescription)
         }
     }
     
+    // MARK: Facebook LogIn
+    private func facebookLogIn() {
+        let url = UrlData.standards.basic + UrlData.standards.facebookLogin
+        
+        guard let token = FBSDKAccessToken.current().tokenString else { return }
+        let params = ["access_token":token]
+        
+        importLibraries.connectionOfSeverForDataWith(url, method: .post, parameters: params, headers: nil, success: { (data, code) in
+            do {
+                let userData = try JSONDecoder().decode(EmailLogIn.self, from: data)
+                self.setUserData(userLoggedIn: userData)
+                
+                // init VC - rootVC
+                self.window = UIWindow(frame: UIScreen.main.bounds)
+                let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+                let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
+                
+                self.window?.rootViewController = initialVC
+                self.window?.makeKeyAndVisible()
+                
+            } catch(let error) {
+                print("\n---------- [ JSON Decoder error ] -----------\n")
+                print(error)
+            }
+        }) { (error, code) in
+            print("\n---------- [ Alamofire request error ] -----------\n")
+            print(error.localizedDescription)
+        }
+    }
+    
+    // MARK: Set UserData in Logging In - Eamil
     private func setUserData(userLoggedIn: User) {
         UserData.user.isLoggedIn = true
         UserData.user.setPrimaryKey(primaryKey: userLoggedIn.primaryKey)
@@ -89,6 +138,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.phoneNumber)
         UserData.user.setImgProfile(imgProfile: userLoggedIn.imgProfile)
         UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
+    }
+    
+    // MARK: Set UserData in Logging In - Facebook
+    private func setUserData(userLoggedIn: EmailLogIn) {
+        UserData.user.isLoggedIn = true
+        UserData.user.setToken(token: userLoggedIn.token)
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.user.userName)
+        UserData.user.setEmail(email: userLoggedIn.user.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
         
         // Load Wish List
         self.loadWishList()
@@ -112,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    // MARK: - Print User Data
+    // MARK: - Print User Data - temporary code
     func printDataOf(user: UserData) {
         print("token: " + (user.token ?? "nil"))
         if let primaryKey = user.primaryKey {
@@ -136,6 +201,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Data: nil")
         }
         print("whishList: \(user.wishListPrimaryKeys)")
-    }    
+    }
 }
 

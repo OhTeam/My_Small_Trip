@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import FBSDKLoginKit
 import FBSDKCoreKit
 
@@ -24,12 +23,21 @@ class RootViewController: UIViewController {
         updateLayout()
         facebookLoginButton.delegate = self
         
-
+        
         if FBSDKAccessToken.current() != nil {
-            fetchProfile()
+            
         }
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If being still logged in
+        if FBSDKAccessToken.current() != nil || UserData.user.isLoggedIn {
+            self.moveToMainVC()
+        }
+    }
+    
     
     // Button CornerRadius & border 적용
     private func updateLayout() {
@@ -40,37 +48,13 @@ class RootViewController: UIViewController {
         signUpButton.layer.borderColor = UIColor.Custom.mainColor.cgColor
     }
     
-    
-    private func fetchProfile() {
-        let url = UrlData.standards.basic + UrlData.standards.facebookLogin
-        
-        guard let token = FBSDKAccessToken.current().tokenString else { return }
-        let params = ["access_token":token]
-        
-        Alamofire
-            .request(url, method: .post, parameters: params)
-            .responseData(completionHandler: { (response) in
-                switch response.result {
-                case .success(let value):
-                    
-                    do {
-                        let userData = try JSONDecoder().decode(EmailLogIn.self, from: value)
-                        self.setUserData(userLoggedIn: userData)
-                        self.moveToMainVC()
-                        
-                    } catch(let error) {
-                        print("\n---------- [ JSON Decoder error ] -----------\n")
-                        print(error)
-                    }
-                case .failure(let error):
-                    print("\n---------- [ Alamofire request error ] -----------\n")
-                    print(error.localizedDescription)
-                }
-            })
+    private func moveToMainVC() {
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        self.present(mainVC, animated: true, completion: nil)
     }
     
-    
-    // YH
+    // YS
     private func setUserData(userLoggedIn: EmailLogIn) {
         UserData.user.isLoggedIn = true
         UserData.user.setToken(token: userLoggedIn.token)
@@ -86,46 +70,58 @@ class RootViewController: UIViewController {
         self.loadWishList()
     }
     
-    
     // MARK: - Load Wish List Primary Keys
-    // MARK:  - WishList data get & User singleton save
     private func loadWishList() {
         guard let token = UserData.user.token else { return }
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
-        let wishListLink: String = UrlData.standards.basic + UrlData.standards.wishList
-
-        Alamofire
-        .request(wishListLink, method: .get, headers: header)
-            .responseJSON { (response) in
-                if let datas = response.result.value as! [[String:Any]]? {
-                    for data in datas {
-                        let pkInt = data["pk"] as! Int
-                        UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
-                    }
+        let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
+        
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+            if let datas = json as? [[String:Any]] {
+                for data in datas {
+                    let pkInt = data["pk"] as! Int
+                    UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
                 }
+            }
+        }) { (error, code) in
+            print(error.localizedDescription)
         }
     }
     
-    
-    func moveToMainVC() {
-        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
-        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-        self.present(mainVC, animated: true, completion: nil)
+    private func fetchProfile() {
+        let url = UrlData.standards.basic + UrlData.standards.facebookLogin
+        
+        guard let token = FBSDKAccessToken.current().tokenString else { return }
+        let params = ["access_token":token]
+        
+        importLibraries.connectionOfSeverForDataWith(url, method: .post, parameters: params, headers: nil, success: { (data, code) in
+            do {
+                let userData = try JSONDecoder().decode(EmailLogIn.self, from: data)
+                self.setUserData(userLoggedIn: userData)
+                self.moveToMainVC()
+                
+            } catch(let error) {
+                print("\n---------- [ JSON Decoder error ] -----------\n")
+                print(error)
+            }
+        }) { (error, code) in
+            print("\n---------- [ Alamofire request error ] -----------\n")
+            print(error.localizedDescription)
+        }
     }
 }
-
 
 // MARK:  - FBSDK LoginButton Delegate
 extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-
+        
         if result.isCancelled {
             print("login cancle: \(result.isCancelled)")
         } else {
-            loginButton.readPermissions = ["public_profile, email"]
+            loginButton.readPermissions = ["public_profile", "email"]
             fetchProfile()
-//            moveToMainVC()
+            //            moveToMainVC()
         }
         
         // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
@@ -140,8 +136,8 @@ extension RootViewController: FBSDKLoginButtonDelegate {
         
     }
     
-//    @IBAction private func logoutFunc() {
-//        let fbLoginManager = FBSDKLoginManager()
-//        fbLoginManager.logOut()
-//    }
+    //    @IBAction private func logoutFunc() {
+    //        let fbLoginManager = FBSDKLoginManager()
+    //        fbLoginManager.logOut()
+    //    }
 }
