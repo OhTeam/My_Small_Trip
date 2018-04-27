@@ -110,7 +110,7 @@ class LogInViewController: UIViewController {
     
     private func setLogInFailureNoti() {
         logInFailureNoti = UILabel()
-        logInFailureNoti!.text = "이메일 혹은 비밀번호가 틀립니다. 다시 시도해 주세요."
+        logInFailureNoti!.text = "네트워크 확인이 필요합니다."
         logInFailureNoti!.textColor = .white
         logInFailureNoti!.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         logInFailureNoti!.backgroundColor = .gray
@@ -314,15 +314,21 @@ class LogInViewController: UIViewController {
     
     
     // MARK: - Notify wrong login information
-    private func notifyWrongLogInInfo() {
+    private func notifyWrongLogInInfo(borderColorRed: Bool) {
         guard let emailTextField = emailTextField,
             let pwTextField = pwTextField,
             let logInFailureNoti = logInFailureNoti
             else { return }
         
-        reInitializeTextFields()
-        emailTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
-        pwTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+        if borderColorRed {
+            reInitializeTextFields()
+            emailTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+            pwTextField.layer.borderColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1).cgColor
+        } else {
+            emailTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+            pwTextField.layer.borderColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
+        }
+        
         logInFailureNoti.isHidden = false
     }
     
@@ -365,14 +371,29 @@ class LogInViewController: UIViewController {
                 
                 // dev
 //                self.reInitializeTextFields()
+//                textFieldPositionConstraint.constant = 0
 //                let rootStoryboard = UIStoryboard(name: "Root", bundle: nil)
 //                let mainTabBarVC = rootStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
 //                self.present(mainTabBarVC, animated: true)
                 
             }
         }) { (error, code) in
-            self.notifyWrongLogInInfo()
             print(error.localizedDescription)
+            
+            if let code = code {
+                switch code {
+                case 400..<500:
+                    self.logInFailureNoti!.text = "이메일 혹은 비밀번호가 틀립니다. 다시 시도해 주세요."
+                    self.notifyWrongLogInInfo(borderColorRed: true)
+                default:
+                    self.logInFailureNoti!.text = "네트워크 오류로 확인이 필요합니다. 다시 시도해 주세요."
+                    self.notifyWrongLogInInfo(borderColorRed: false)
+                }
+            } else {
+                // TODO: Check real problem later
+                self.logInFailureNoti!.text = "네트워크 오류로 확인이 필요합니다. 다시 시도해 주세요."
+                self.notifyWrongLogInInfo(borderColorRed: false)
+            }
         }
     }
     
@@ -458,7 +479,7 @@ class LogInViewController: UIViewController {
     
     @objc private func touchLogIn(_ sender: UIButton) {
         guard let logInFailureNoti = logInFailureNoti else { return }
-        logInFailureNoti.isHidden = true
+//        logInFailureNoti.isHidden = true
         logIn()
     }
     
