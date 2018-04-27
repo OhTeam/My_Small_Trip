@@ -20,11 +20,25 @@ class ViewController: UIViewController {
         // addButtonsToOpenViews() // For temporarily execution
         
         // seRootVCOpen()
+        
+        setScreen()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // for prevention of all white screen between LaunchScreen and Root view controller
+    private func setScreen() {
+        let screen: UIImageView = UIImageView(image: UIImage(named: "launchScreen"))
+        screen.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(screen)
+        
+        screen.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        screen.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        screen.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        screen.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
 
     // se
