@@ -34,8 +34,22 @@ class importLibraries {
         }
     }
     
-    static func uploadOntoServer(multipartFormData: @ escaping (MultipartFormData) -> Void, usingThreshold: UInt64, to: URLConvertible, method: HTTPMethod, headers: HTTPHeaders?, endingCompletion: ((SessionManager.MultipartFormDataEncodingResult) -> Void)?) {
+    static func uploadOntoServer(multipartFormData: @ escaping (MultipartFormData) -> Void, usingThreshold: UInt64, to: URLConvertible, method: HTTPMethod, headers: HTTPHeaders?, encodingFailure: @escaping (_ error: Error) -> (), success: @escaping (_ data: Data, _ code: Int?) -> Void, failure: @escaping (_ error: Error, _ code: Int?) -> Void) {
         
-        Alamofire.upload(multipartFormData: multipartFormData, usingThreshold: usingThreshold, to: to, method: method, headers: headers, encodingCompletion: endingCompletion)
+        Alamofire.upload(multipartFormData: multipartFormData, usingThreshold: usingThreshold, to: to, method: method, headers: headers, encodingCompletion: { (result) in
+            switch result {
+            case .success(let request, _, _):
+                request.responseData(completionHandler: { (response) in
+                    switch response.result {
+                    case .success(let data):
+                        success(data, response.response?.statusCode)
+                    case.failure(let error):
+                        failure(error, response.response?.statusCode)
+                    }
+                })
+            case .failure(let error):
+                encodingFailure(error)
+            }
+        })
     }
 }
