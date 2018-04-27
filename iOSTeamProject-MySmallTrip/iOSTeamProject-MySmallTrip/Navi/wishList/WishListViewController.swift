@@ -29,7 +29,7 @@ class WishListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        fetchWishListData()
+        tableView.backgroundColor = UIColor.Custom.backgroundColor
         self.tableView.register(UINib(nibName: text.travelCell, bundle: nil), forCellReuseIdentifier: text.travelCell)
         
         setNaviBackBtn()
@@ -37,11 +37,12 @@ class WishListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         fetchWishListData()
+        
     }
     
     
     func fetchWishListData() {
-        guard let token = FBUser.standards.token else { return }
+        guard let token = UserData.user.token else { return }
         let header = ["Authorization": "Token \(token)"]
         let url = UrlData.standards.basic + UrlData.standards.wishList
         
@@ -75,30 +76,40 @@ extension WishListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: text.travelCell, for: indexPath) as! ProductListTableViewCell
-        cell.productInfo = self.productList[indexPath.row]
-        cell.selectionStyle = .none
-        return cell
+        if productList.count == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noneSearch", for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: text.travelCell, for: indexPath) as! ProductListTableViewCell
+            cell.productInfo = self.productList[indexPath.row]
+            cell.selectionStyle = .none
+            return cell
+        }
     }
     
     
     // tableView Cell Height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        // 상품명 text 길이에 따라서 cell height 변동
-        let text = self.productList[indexPath.row].name
-        let textLength = text.lengthOfBytes(using: .utf8)
-        
-        if textLength > 65 {
-            return 294
+        if productList.count == 0 {
+            return 567
         } else {
-            return 274
+            // 상품명 text 길이에 따라서 cell height 변동
+            let text = self.productList[indexPath.row].name
+            let textLength = text.lengthOfBytes(using: .utf8)
+            
+            if textLength > 65 {
+                return 294
+            } else {
+                return 274
+            }
         }
     }
 }
 
 
 extension WishListViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // cell 선택했을 때, ProductDetailTableViewController로 이동
         let storyBoard = UIStoryboard(name: text.storyBoard, bundle: nil)

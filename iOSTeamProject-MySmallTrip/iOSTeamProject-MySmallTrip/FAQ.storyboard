@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Qqs-lc-5ya">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="k26-WK-Qw1">
+            <objects>
+                <viewController storyboardIdentifier="FAQViewController" id="Qqs-lc-5ya" customClass="FAQViewController" customModule="iOSTeamProject_MySmallTrip" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j6E-zr-Eov">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   자주묻는질문" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUO-s6-fKX">
+                                <rect key="frame" x="0.0" y="64" width="375" height="37"/>
+                                <color key="backgroundColor" red="0.9137254901960784" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="Rv4-Ah-zRR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   예약관련 - 1. 예약방법" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozv-4l-1Ji">
+                                <rect key="frame" x="0.0" y="281" width="375" height="37"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="qcc-tP-m7d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   예약관련 - 2. 예약취소 방법" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psQ-2G-pac">
+                                <rect key="frame" x="0.0" y="588" width="375" height="37"/>
+                                <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="rBC-IV-6tH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="  Q  1. 마이스몰트립은 어떤 앱인가요?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7A5-4u-7Pv">
+                                <rect key="frame" x="0.0" y="101" width="375" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="L9t-T1-db2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Tg7-TI-14g">
+                                <rect key="frame" x="0.0" y="139" width="375" height="88"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="j3F-gF-kSN"/>
+                                </constraints>
+                                <string key="text">  A  마이스몰트립은 여행지에서 즐길 수 있는 투어, 관광지 입장권,        교통패스, 액티비티는 물론 현지 문화 체험까지 내가 원하는 여       행을 쉽고 빠르게 검색하고 예약할 수 있는 여행 플래폿 서비스        입니다.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="  Q  2. 마이리얼트립을 통해 여행을 가고 싶어요, 예약은 어떻게      해야 하나요?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PH5-UR-K1R">
+                                <rect key="frame" x="0.0" y="227" width="375" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="QFy-xa-oz6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RSS-pU-9iR">
+                                <rect key="frame" x="0.0" y="318" width="375" height="270"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="270" id="3D4-bv-iwT"/>
+                                    <constraint firstAttribute="width" constant="375" id="XFV-Tp-eJr"/>
+                                </constraints>
+                                <mutableString key="text">   1. 가고싶은 여행지를 마음속에서 먼저 정하세요.     2. 가고싶은 날짜를 정하세요.     3. 검색에서 여행지를 검색하세요.     4. 해당 여행지의 서비스를 잘 읽어보시고 충분히 마음에 드시면         주저하지 마시고 선택하세요.      5. 여행 인원을 가시는 만큼 선택하세요. 그렇다고 다갈 수는 없        어요, 왜냐면 여행마다 여행 가능 인원이 한정되어 있습니다.      6. 가고 싶은 날짜를 선택하고 적용을 누르세요. 회색인 날짜는        이미 예약이 다 찬 날이기 때문에 다른날을 선택하세요.     7. 준비되셨나요, 가즈아.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dUO-s6-fKX" firstAttribute="top" secondItem="wNR-ZF-1PI" secondAttribute="top" id="2CQ-4M-ntS"/>
+                            <constraint firstItem="dUO-s6-fKX" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="3ne-be-K5j"/>
+                            <constraint firstItem="ozv-4l-1Ji" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="5tt-Ct-y48"/>
+                            <constraint firstItem="ozv-4l-1Ji" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="9Ny-Hv-HDg"/>
+                            <constraint firstItem="psQ-2G-pac" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="Fda-aZ-wX2"/>
+                            <constraint firstItem="Tg7-TI-14g" firstAttribute="top" secondItem="7A5-4u-7Pv" secondAttribute="bottom" constant="8" id="MHg-o9-XO5"/>
+                            <constraint firstAttribute="bottom" secondItem="psQ-2G-pac" secondAttribute="bottom" constant="42" id="OBf-zj-Gwr"/>
+                            <constraint firstItem="RSS-pU-9iR" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="PRt-KV-RgY"/>
+                            <constraint firstItem="Tg7-TI-14g" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="RKd-Vs-x3A"/>
+                            <constraint firstItem="PH5-UR-K1R" firstAttribute="top" secondItem="Tg7-TI-14g" secondAttribute="bottom" id="UWk-BH-AgN"/>
+                            <constraint firstItem="RSS-pU-9iR" firstAttribute="top" secondItem="ozv-4l-1Ji" secondAttribute="bottom" id="V5w-wR-A66"/>
+                            <constraint firstItem="ozv-4l-1Ji" firstAttribute="top" secondItem="PH5-UR-K1R" secondAttribute="bottom" id="WoQ-EQ-fGM"/>
+                            <constraint firstItem="PH5-UR-K1R" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="Zkd-mx-Iuv"/>
+                            <constraint firstItem="7A5-4u-7Pv" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="e1t-7S-GHv"/>
+                            <constraint firstItem="dUO-s6-fKX" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="e2a-6l-G5W"/>
+                            <constraint firstItem="Tg7-TI-14g" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="hDp-bQ-x1T"/>
+                            <constraint firstItem="psQ-2G-pac" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="iOi-eK-eRU"/>
+                            <constraint firstItem="psQ-2G-pac" firstAttribute="top" secondItem="RSS-pU-9iR" secondAttribute="bottom" id="lV0-L0-gZa"/>
+                            <constraint firstItem="7A5-4u-7Pv" firstAttribute="trailing" secondItem="wNR-ZF-1PI" secondAttribute="trailing" id="ql4-LU-NV7"/>
+                            <constraint firstItem="PH5-UR-K1R" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="tte-Vl-voi"/>
+                            <constraint firstItem="7A5-4u-7Pv" firstAttribute="top" secondItem="dUO-s6-fKX" secondAttribute="bottom" id="weh-9Y-Yjv"/>
+                            <constraint firstItem="RSS-pU-9iR" firstAttribute="leading" secondItem="wNR-ZF-1PI" secondAttribute="leading" id="xdh-Pz-eqR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wNR-ZF-1PI"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cge-tz-nEm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-447.19999999999999" y="148.87556221889056"/>
+        </scene>
+    </scenes>
+</document>

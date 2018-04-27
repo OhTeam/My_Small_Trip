@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
     private var profileView: UIView?
     private var profileImageView: UIImageView?
+    private var uploadedImage: UIImage?
     private var nameLabel: UILabel?
     private var emailLabel: UILabel?
     private var tableView: UIView?
     private var buttonView: UIView?
+    
+    private var picker: UIImagePickerController?
     
     private var tableTitles: Dictionary<String, Array<String>> = [
         "profile" :
@@ -26,7 +30,7 @@ class ProfileViewController: UIViewController {
         "service" :
             [
                 "고객센터",
-                "이용 약관"
+                "FAQ"
         ]
     ]
     
@@ -35,7 +39,13 @@ class ProfileViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(displayP3Red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
         
-        setNaviItems()
+//        setNaviItems()
+        
+        // navi bar title - image add / back btn color change
+        self.setNaviTitle()
+        
+        // navi bar backBtn title setting
+        setNaviBackBtn()
         
         // MARK: Views Creation and Additon to Super View
         profileView = createProfileView()
@@ -47,6 +57,11 @@ class ProfileViewController: UIViewController {
         self.view.addSubview(buttonView!)
         
         setBasicLayout()
+        
+        self.picker = UIImagePickerController()
+        picker!.delegate = self
+        picker!.allowsEditing = true
+        
     }
     
 //        override func viewWillAppear(_ animated: Bool) {
@@ -297,69 +312,25 @@ class ProfileViewController: UIViewController {
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         
         // Button Creation
-        let signOutButton = UIButton()
-        signOutButton.setTitle("SIGN OUT", for: .normal)
-        signOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
-        signOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        signOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
-        signOutButton.layer.cornerRadius = 10
-        signOutButton.clipsToBounds = true
-        signOutButton.addTarget(self, action: #selector(signOut(_:)), for: .touchUpInside)
-        signOutButton.translatesAutoresizingMaskIntoConstraints = false
+        let logOutButton = UIButton()
+        logOutButton.setTitle("LOG OUT", for: .normal)
+        logOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
+        logOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        logOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logOutButton.layer.cornerRadius = 10
+        logOutButton.clipsToBounds = true
+        logOutButton.addTarget(self, action: #selector(logOut(_:)), for: .touchUpInside)
+        logOutButton.translatesAutoresizingMaskIntoConstraints = false
         
-        buttonView.addSubview(signOutButton)
+        buttonView.addSubview(logOutButton)
         
         //MARK: Layout inside Button View
-        signOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        signOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
-        signOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: signOutButton.trailingAnchor, constant: 24).isActive = true
+        logOutButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        logOutButton.topAnchor.constraint(equalTo: buttonView.topAnchor, constant: 20).isActive = true
+        logOutButton.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor, constant: 24).isActive = true
+        buttonView.trailingAnchor.constraint(equalTo: logOutButton.trailingAnchor, constant: 24).isActive = true
         
         return buttonView
-    }
-    
-    // MARK: - Targets
-    // MARK: Function to change profile image
-    @objc func changeUserProfileImage(_ sender: UIButton) {
-        // needs to be modified
-        print("Profile image button clicked")
-    }
-    
-    // MARK: Function to sign out
-    @objc func signOut (_ sender: UIButton) {
-        guard UserData.user.isLoggedIn else { return }
-        if UserData.user.isFacebookUser! {
-            // TODO: Needs a function to sign out from Facebook
-            
-            // if signing out from Facebook is succeeded...
-            UserData.user.isLoggedIn = false
-            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-        } else {
-            let signOutLink: String = "http://myrealtrip.hongsj.kr/logout/"
-            let header = ["Authorization" : "Token " + UserData.user.token!]
-            
-            importLibraries.connectionOfSeverForDataWith(signOutLink, method: .get, parameters: nil, headers: header, success: { (data) in
-                UserData.user.isLoggedIn = false // user data signed out
-                
-                print("signed out")
-                
-                // to see logged user data
-                // self.printDataOf(user: UserData.user)
-                
-                // YS
-//                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                
-                // dev
-                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                } else {
-                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-                }
-                
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
     }
     
     // MARK: Print User Data
@@ -387,9 +358,122 @@ class ProfileViewController: UIViewController {
         }
         print("whishList: \(user.wishListPrimaryKeys)")
     }
+    
+    // MARK - Use Photo or Camera
+    private func openLibray() {
+        self.picker!.sourceType = .photoLibrary
+        present(picker!, animated: false)
+    }
+    
+    private func openCamera() {
+        if(UIImagePickerController.isSourceTypeAvailable(.camera)) {
+            picker!.sourceType = .camera
+            present(picker!, animated: false)
+        } else {
+            print("Camera is not available")
+        }
+    }
+    
+    // MARK: - Resize Image in the rectangle of 115 * 115
+    private func reSizeImageWithRatio(image: UIImage?, targetSize: CGSize) -> UIImage? {
+        guard let image = image else { return nil }
+        let heightRatio = targetSize.height / image.size.height
+        let widthRatio = targetSize.width / image.size.width
+        
+        var newSize: CGSize
+        
+        if heightRatio > widthRatio {
+            newSize = CGSize(width: image.size.width * widthRatio, height: image.size.height * widthRatio)
+        } else {
+            newSize = CGSize(width: image.size.width * heightRatio, height: image.size.height * heightRatio)
+        }
+        
+        let newRect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: newRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
+    // Facebook Log Out
+    private func logOutFacebook() {
+        let fbLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
+    }
+    
+    // MARK: - Targets
+    // MARK: Function to change profile image
+    @objc func changeUserProfileImage(_ sender: UIButton) {
+        // needs to be modified
+        print("Profile image button clicked")
+        
+        let photoAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let library = UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibray()
+        }
+        let camera = UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        photoAlert.addAction(library)
+        photoAlert.addAction(camera)
+        photoAlert.addAction(cancel)
+        
+        present(photoAlert, animated: true)
+    }
+    
+    // MARK: Function to log out
+    @objc func logOut (_ sender: UIButton) {
+        guard UserData.user.isLoggedIn else { return }
+        if UserData.user.isFacebookUser! {
+            // TODO: Needs a function to log out from Facebook
+            logOutFacebook()
+            // if logging out from Facebook is succeeded...
+            UserData.user.isLoggedIn = false
+            self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
+            let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
+            print(UserData.user.token ?? "Token is nil on Log Out")
+            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+                UserData.user.isLoggedIn = false // user data logged out
+                
+                print("logged out")
+                
+                // to see logged user data
+                // self.printDataOf(user: UserData.user)
+                
+                // YS
+//                self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                
+                 // dev
+
+                if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
+                    
+                    // from Sign Up
+                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                    
+                } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
+                    // from Log In
+                    self.tabBarController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                } else {
+                    // from Automatic Log In
+                    self.tabBarController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                }
+                
+            }) { (error, code) in
+                // token 유효성 잃었을 때 처리 방안
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
-// MARK: - Extension of ProfileVC
+// MARK: - Extension for UITableView of ProfileVC
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: The Number of Section
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -465,16 +549,24 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 && indexPath.row == 1 {
             // TODO: Add 나의 여행 view controller push
+            let myTripStoryboard = UIStoryboard(name: "Root", bundle: nil)
+            let myTripVC = myTripStoryboard.instantiateViewController(withIdentifier: "MyTripViewController") as! MyTripViewController
+            self.navigationController?.pushViewController(myTripVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 1 && indexPath.row == 0 {
             // TODO: Add 고객센터 view controller push
+            let serviceCenterVC = ServiceCenterViewController()
+            self.navigationController?.pushViewController(serviceCenterVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
         
         if indexPath.section == 1 && indexPath.row == 1 {
-            // TODO: Add 이용관약관 view controller push
+            // TODO: Add FAQ view controller push
+            let faqStoryboard = UIStoryboard(name: "FAQ", bundle: nil)
+            let faqVC = faqStoryboard.instantiateInitialViewController() as! FAQViewController
+            self.navigationController?.pushViewController(faqVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
@@ -501,5 +593,92 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return ""
         }
+    }
+}
+
+// MARK: - Extension of UIImagePickerController
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let profileImgChangeLing = "https://myrealtrip.hongsj.kr/members/info/img-change/"
+        let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
+        
+        var tmpImage: UIImage?
+        
+        if let originImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            tmpImage = originImage
+        } else if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            tmpImage = editedImage
+        }
+        
+        guard let profileImageView = profileImageView, let resizedImage = self.reSizeImageWithRatio(image: tmpImage, targetSize: CGSize(width: 115, height: 115)), let data = UIImageJPEGRepresentation(resizedImage, 1)
+            else {
+                self.dismiss(animated: true, completion: nil)
+                return
+        }
+        
+        print("***IMG: \(resizedImage)")
+        
+        importLibraries.uploadOntoServer(multipartFormData: { (multiData) in
+            multiData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
+        }, usingThreshold: UInt64(), to: profileImgChangeLing, method: .patch, headers: header) { (encodingResult) in
+            switch encodingResult {
+            case .success(request: let upload, _, _):
+                profileImageView.image = resizedImage
+                
+                upload.responseJSON(completionHandler: { (response) in
+                    print(response)
+                })
+
+                print("Profile Photo is changed")
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+        
+//        if let selectedImage = tmpImage {
+//            self.profileImageView!.image = selectedImage
+//            self.uploadedImage = selectedImage
+//            print(info)
+        
+            
+            
+//            if let data = UIImageJPEGRepresentation(selectedImages,1) {
+//                let parameters: Parameters = [
+//                    "access_token" : "YourToken"
+//                ]
+//                // You can change your image name here, i use NSURL image and convert into string
+//                let imageURL = info[UIImagePickerControllerReferenceURL] as! NSURL
+//                let fileName = imageURL.absouluteString
+//                // Start Alamofire
+//                Alamofire.upload(multipartFormData: { multipartFormData in
+//                    for (key,value) in parameters {
+//                        multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
+//                    }
+//                    multipartFormData.append(data, withName: "avatar", fileName: fileName!,mimeType: "image/jpeg")
+//                },
+//                                 usingTreshold: UInt64.init(),
+//                                 to: "YourURL",
+//                                 method: .put,
+//                                 encodingCompletion: { encodingResult in
+//                                    switch encodingResult {
+//                                    case .success(let upload, _, _):
+//                                        upload.responJSON { response in
+//                                            debugPrint(response)
+//                                        }
+//                                    case .failure(let encodingError):
+//                                        print(encodingError)
+//                                    }
+//                })
+//            }
+//        }
+        
+        // TODO: - 확인해 볼것!
+        dismiss(animated: true, completion: nil) // Warnig double touch and have to find solution !!!
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

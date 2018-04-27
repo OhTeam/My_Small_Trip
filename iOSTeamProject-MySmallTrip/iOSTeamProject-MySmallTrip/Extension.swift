@@ -46,3 +46,31 @@ extension UIViewController {
         self.navigationItem.backBarButtonItem = backBtnString
     }
 }
+
+
+extension String {
+    func stringChangePrice(_ price: String) -> String {
+        var returnResult = price
+        var comma = price.count - 3
+        while comma > 0 {
+            let commaIndex = returnResult.index(returnResult.startIndex, offsetBy: comma)
+            returnResult.insert(",", at: commaIndex)
+            comma -= 3
+        }
+
+        return "₩ " + returnResult
+    }
+    
+    func removePlusCharacter(of str: String) -> String{
+        if str.contains("+") {
+            let plusIndex = str.index(of: "+")
+            var returnResult = str
+            
+            returnResult.remove(at: plusIndex!)
+            returnResult.insert(" ", at: plusIndex!)
+            return removePlusCharacter(of: returnResult)
+        } else {
+            return str
+        }
+    }
+}

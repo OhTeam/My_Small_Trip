@@ -7,18 +7,15 @@
 //
 
 import UIKit
-import Alamofire
 import FBSDKLoginKit
 import FBSDKCoreKit
 
 class RootViewController: UIViewController {
-
     
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var signUpButton: UIButton!
     
     @IBOutlet private weak var facebookLoginButton: FBSDKLoginButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +23,21 @@ class RootViewController: UIViewController {
         updateLayout()
         facebookLoginButton.delegate = self
         
+        
         if FBSDKAccessToken.current() != nil {
-            fetchProfile()
+            
         }
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // If being still logged in
+        if FBSDKAccessToken.current() != nil || UserData.user.isLoggedIn {
+            self.moveToMainVC()
+        }
+    }
+    
     
     // Button CornerRadius & border 적용
     private func updateLayout() {
@@ -41,6 +48,45 @@ class RootViewController: UIViewController {
         signUpButton.layer.borderColor = UIColor.Custom.mainColor.cgColor
     }
     
+    private func moveToMainVC() {
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        self.present(mainVC, animated: true, completion: nil)
+    }
+    
+    // YS
+    private func setUserData(userLoggedIn: EmailLogIn) {
+        UserData.user.isLoggedIn = true
+        UserData.user.setToken(token: userLoggedIn.token)
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.user.userName)
+        UserData.user.setEmail(email: userLoggedIn.user.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
+    }
+    
+    // MARK: - Load Wish List Primary Keys
+    private func loadWishList() {
+        guard let token = UserData.user.token else { return }
+        let header: Dictionary<String, String> = ["Authorization": "Token " + token]
+        let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
+        
+        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+            if let datas = json as? [[String:Any]] {
+                for data in datas {
+                    let pkInt = data["pk"] as! Int
+                    UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pkInt)
+                }
+            }
+        }) { (error, code) in
+            print(error.localizedDescription)
+        }
+    }
     
     private func fetchProfile() {
         let url = UrlData.standards.basic + UrlData.standards.facebookLogin
@@ -48,71 +94,34 @@ class RootViewController: UIViewController {
         guard let token = FBSDKAccessToken.current().tokenString else { return }
         let params = ["access_token":token]
         
-        Alamofire
-            .request(url, method: .post, parameters: params)
-            .responseJSON(completionHandler: { (response) in
-                if response.response!.statusCode == 200 {
-                    if let responseValue = response.result.value as! [String:Any]? {
-                        
-                        // 로그인 성공하면 fbuser singleton에 토큰값 / user name 저장
-                        FBUser.standards.token = responseValue["token"] as? String
-                        
-                        guard let user = responseValue["user"] as! [String:Any]? else { return }
-                        FBUser.standards.userName = user["first_name"] as? String
-                        
-                        self.fetchWishList()
-                        self.moveToMainVC()
-                    }
-
-                } else {
-                    print("FB Login Fail")
-                    if let responseValue = response.result.value as! [String:Any]? {
-                        print(responseValue)
-                    }
-                }
-            })
-        }
-    
-    
-    func moveToMainVC() {
-        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
-        let mainVC = storyBoard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
-        self.present(mainVC, animated: true, completion: nil)
-    }
-
-    
-    // MARK:  - WishList data get & User singleton save
-    func fetchWishList() {
-        
-        guard let token = FBUser.standards.token else { return }
-        let header = ["Authorization": "Token \(token)"]
-        let url = UrlData.standards.basic + UrlData.standards.wishList
-        
-        Alamofire
-            .request(url, method: .get, headers: header)
-            .responseJSON { (response) in
-                if let datas = response.result.value as! [[String:Any]]? {
-                    for data in datas {
-                        let pkInt = data["pk"] as! Int
-                        FBUser.standards.pkList.append(pkInt)
-                    }
-                }
+        importLibraries.connectionOfSeverForDataWith(url, method: .post, parameters: params, headers: nil, success: { (data, code) in
+            do {
+                let userData = try JSONDecoder().decode(EmailLogIn.self, from: data)
+                self.setUserData(userLoggedIn: userData)
+                self.moveToMainVC()
+                
+            } catch(let error) {
+                print("\n---------- [ JSON Decoder error ] -----------\n")
+                print(error)
+            }
+        }) { (error, code) in
+            print("\n---------- [ Alamofire request error ] -----------\n")
+            print(error.localizedDescription)
         }
     }
 }
-
 
 // MARK:  - FBSDK LoginButton Delegate
 extension RootViewController: FBSDKLoginButtonDelegate {
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-
+        
         if result.isCancelled {
             print("login cancle: \(result.isCancelled)")
         } else {
-            loginButton.readPermissions = ["public_profile, email"]
+            loginButton.readPermissions = ["public_profile", "email"]
             fetchProfile()
-            moveToMainVC()
+            //            moveToMainVC()
         }
         
         // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
@@ -124,8 +133,11 @@ extension RootViewController: FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("\n---------- [ logout ] -----------\n")
         
-        // fbuser singleton value값 삭제
-        FBUser.standards.token = nil
-        FBUser.standards.userName = nil
+        
     }
+    
+    //    @IBAction private func logoutFunc() {
+    //        let fbLoginManager = FBSDKLoginManager()
+    //        fbLoginManager.logOut()
+    //    }
 }

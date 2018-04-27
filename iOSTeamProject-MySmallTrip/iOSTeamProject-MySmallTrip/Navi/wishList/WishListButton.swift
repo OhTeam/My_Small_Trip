@@ -31,7 +31,7 @@ class WishListButton: UIButton {
     private let heartIconNoneSelect = "ic_favorites_white"
     private let heartIconImage = "ic_favorites_full"
     
-    private let header = ["Authorization": "Token \(FBUser.standards.token ?? "error")"]
+    let header: Dictionary<String, String> = ["Authorization": "Token " + (UserData.user.token ?? "nope")]
     private let url = UrlData.standards.basic + UrlData.standards.wishList
     
     
@@ -59,7 +59,7 @@ class WishListButton: UIButton {
     }
     
     func checkWishList(_ sender: WishListButton) {
-        let wishList = FBUser.standards.pkList
+        let wishList = UserData.user.wishListPrimaryKeys
         for pk in wishList {
             if pk == sender.tag {
                 self.isWishList = true
@@ -86,8 +86,10 @@ class WishListButton: UIButton {
         if self.isWishList {
             self.isWishList = false
             heartImageView.image = UIImage(named: heartIconNoneSelect)
-//            deleteWishList(sender.tag)
-            print("deleteWishList")
+            
+//            print("del--eteWishList")
+            deleteWishList(sender.tag)
+            
         } else {
         // 위시리스트에 없는 경우
             self.isWishList = true
@@ -114,18 +116,18 @@ extension WishListButton {
     
     // 위시리스트 목록 가져오기
     func fetchWishList() -> [Int] {
-        return FBUser.standards.pkList
+        return UserData.user.wishListPrimaryKeys
     }
     
     
     // wishList에 추가
     private func addWishList(_ pk: Int) {
-        let pkList = FBUser.standards.pkList
+        let pkList = UserData.user.wishListPrimaryKeys
         
         // 중복 Pk 아닌지 체크
         if !pkList.contains(pk) {
             // 싱글턴 리스트에 추가
-            FBUser.standards.pkList.append(pk)
+            UserData.user.setWishListPrimaryKeys(wishListPrimaryKey: pk)
             
             // data post to server
             let param = ["travel_info": pk]
@@ -144,13 +146,14 @@ extension WishListButton {
     // 위시리스트 삭제
     func deleteWishList(_ pk: Int) {
         
-        let pkList = FBUser.standards.pkList
+        let pkList = UserData.user.wishListPrimaryKeys
         
         // 리스트에 pk있는지 체크
         if pkList.contains(pk) {
+            
             // 싱글턴 리스트에서 삭제
-            while let idx = pkList.index(of: pk) {
-                FBUser.standards.pkList.remove(at: idx)
+            if let idx = pkList.index(of: pk) {
+                UserData.user.removeWishListPrimaryKey(of: idx)
             }
             
             // 서버 전달
@@ -159,10 +162,10 @@ extension WishListButton {
             
             // 500 에러 ㅜ.ㅜ
             Alamofire
-                .request(url, method: .delete, parameters: param, headers: header)
+                .request(url, method: .delete, parameters: param, encoding: URLEncoding.httpBody, headers: header)
                 .responseJSON { (response) in
                     if let responseValue = response.result.value as! [String:Any]? {
-                        print("\n---------- [ dataPost ] -----------\n")
+                        print("\n---------- [ dataDelete ] -----------\n")
                         print(responseValue)
                     }
             }
