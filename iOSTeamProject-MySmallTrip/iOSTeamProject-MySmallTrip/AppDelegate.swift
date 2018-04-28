@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ImportedLibraries.FacebookAppDelegateShareInstance(application, didFinishLaunchingWithOptions: launchOptions)
         
+        emailTokenLogIn()
+        
         return true
     }
     
