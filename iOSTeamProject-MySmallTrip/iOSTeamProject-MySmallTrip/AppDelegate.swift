@@ -7,33 +7,22 @@
 //
 
 import UIKit
-import FBSDKLoginKit
-import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        // init VC - rootVC
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
-        let initialVC = storyBoard.instantiateViewController(withIdentifier: "RootViewController") as! RootViewController
-        
-        self.window?.rootViewController = initialVC
-        self.window?.makeKeyAndVisible()
+        ImportedLibraries.FacebookAppDelegateShareInstance(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        let handled = ImportedLibraries.FacebookAppDelegateShareInstance(app, open: url, options: options)
         
         return handled
     }
@@ -47,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

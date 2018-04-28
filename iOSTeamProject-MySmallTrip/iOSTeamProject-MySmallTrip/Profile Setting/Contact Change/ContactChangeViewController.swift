@@ -158,7 +158,7 @@ class ContactChangeViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":inputTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             inputTextField.resignFirstResponder()
             

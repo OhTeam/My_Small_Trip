@@ -61,7 +61,7 @@ class RootViewController: UIViewController {
         let logInLink: String = "https://myrealtrip.hongsj.kr/members/info/"
         let header: Dictionary<String, String> = ["Authorization":"Token " + token]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(logInLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(User.self, from: data) {
                 UserData.user.setToken(token: token)
                 self.setUserData(userLoggedIn: userLoggedIn)
@@ -100,7 +100,7 @@ class RootViewController: UIViewController {
         guard let token = FBSDKAccessToken.current().tokenString else { return }
         let params = ["access_token":token]
         
-        importLibraries.connectionOfSeverForDataWith(url, method: .post, parameters: params, headers: nil, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(url, method: .post, parameters: params, headers: nil, success: { (data, code) in
             do {
                 let userData = try JSONDecoder().decode(EmailLogIn.self, from: data)
                 self.setUserData(userLoggedIn: userData)
@@ -155,7 +155,7 @@ class RootViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+        ImportedLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int
