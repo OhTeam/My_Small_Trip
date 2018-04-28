@@ -243,7 +243,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber]
         
-        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             inputTextField.resignFirstResponder()
             
@@ -282,7 +282,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber, "certification_number":inputTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
             
             UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
             

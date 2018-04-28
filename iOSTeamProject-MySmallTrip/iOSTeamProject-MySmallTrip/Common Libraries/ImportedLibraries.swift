@@ -8,10 +8,14 @@
 
 import Foundation
 import Alamofire
+import FBSDKCoreKit
+import FBSDKLoginKit
 
-class importLibraries {
+// MARK: - Classes
+class ImportedLibraries {
+    // -----------------------------> Alamofire
     static func connectionOfSeverForDataWith(_ url: URLConvertible, method: HTTPMethod, parameters: Parameters?, headers: HTTPHeaders?, success: @escaping (_ data: Data, _ code: Int?) -> Void, failure: @escaping (_ error: Error, _ code: Int?) -> ()) {
-    
+        
         Alamofire.request(url, method: method, parameters: parameters, headers: headers).validate().responseData { (response) in
             switch response.result {
             case .success(let data):
@@ -52,4 +56,42 @@ class importLibraries {
             }
         })
     }
+    
+    // -----------------------------> Facebook
+    
+    static func FacebookAppDelegateShareInstance(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+    
+    static func FacebookAppDelegateShareInstance(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return handled
+    }
+    
+    class FacebookLogInButton: FBSDKLoginButton {
+        
+    }
+    
+    class FacebookLogInManager: FBSDKLoginManager {
+        
+    }
+    
+    class FacebooLogInManagerResult: FBSDKLoginManagerLoginResult {
+        
+    }
+    
+    static func FacebookAccessTokenString() -> String! {
+        return FBSDKAccessToken.current().tokenString
+    }
+    
+    static func FacebookAccessToken() -> FBSDKAccessToken! {
+        return FBSDKAccessToken.current()
+    }
+}
+
+// MARK: - Protocols
+// -----------------------------> Facebook
+protocol FacebookLogInBtnDelegate: FBSDKLoginButtonDelegate {
+    
 }
