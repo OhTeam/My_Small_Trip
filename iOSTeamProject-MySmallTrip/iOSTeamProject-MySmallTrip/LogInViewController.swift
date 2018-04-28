@@ -198,7 +198,7 @@ class LogInViewController: UIViewController {
         pwTextField!.delegate = self
         pwTextField!.tag = 2
         pwTextField!.placeholder = "Password"
-        pwTextField!.returnKeyType = .join
+        pwTextField!.returnKeyType = .continue
         pwTextField!.textAlignment = .left
         pwTextField!.textContentType = UITextContentType("")
         pwTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
@@ -351,7 +351,7 @@ class LogInViewController: UIViewController {
         // temporary parameters for login process
         // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
@@ -419,7 +419,7 @@ class LogInViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+        ImportedLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int

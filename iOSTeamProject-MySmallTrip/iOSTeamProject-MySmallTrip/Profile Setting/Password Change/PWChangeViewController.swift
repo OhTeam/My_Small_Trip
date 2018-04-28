@@ -290,7 +290,7 @@ class PWChangeViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["password":firstPWTextField.text!, "password2":secondPWTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(pwChangeLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(pwChangeLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
             firstPWTextField.text = ""
             secondPWTextField.text = ""
             movingHeightOfLowerFailureNotiLabel.constant = -24

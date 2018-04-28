@@ -7,26 +7,22 @@
 //
 
 import UIKit
-import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        self.emailTokenLogIn()
+        ImportedLibraries.FacebookAppDelegateShareInstance(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        let handled = ImportedLibraries.FacebookAppDelegateShareInstance(app, open: url, options: options)
         
         return handled
     }
@@ -59,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let logInLink: String = "https://myrealtrip.hongsj.kr/members/info/"
         let header: Dictionary<String, String> = ["Authorization":"Token " + token]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(logInLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(User.self, from: data) {
                 UserData.user.setToken(token: token)
                 self.setUserData(userLoggedIn: userLoggedIn)
@@ -92,7 +88,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+        ImportedLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int

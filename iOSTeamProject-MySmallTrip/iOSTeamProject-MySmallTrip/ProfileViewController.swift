@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
@@ -397,7 +396,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Facebook Log Out
     private func logOutFacebook() {
-        let fbLoginManager = FBSDKLoginManager()
+        let fbLoginManager = ImportedLibraries.FacebookLogInManager()
         fbLoginManager.logOut()
     }
     
@@ -436,7 +435,7 @@ class ProfileViewController: UIViewController {
             let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
             print(UserData.user.token ?? "Token is nil on Log Out")
-            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+            ImportedLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
                 UserData.user.isLoggedIn = false // user data logged out
                 
                 print("logged out")
@@ -646,7 +645,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         print("***IMG: \(resizedImage)")
         
-        importLibraries.uploadOntoServer(multipartFormData: { (multipartFormData) in
+        ImportedLibraries.uploadOntoServer(multipartFormData: { (multipartFormData) in
             multipartFormData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
         }, usingThreshold: UInt64(), to: profileImgChangeLink, method: .patch, headers: header, encodingFailure: { (error) in
             print(error.localizedDescription)
