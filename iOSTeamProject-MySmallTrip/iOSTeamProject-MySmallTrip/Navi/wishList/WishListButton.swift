@@ -86,8 +86,6 @@ class WishListButton: UIButton {
         if self.isWishList {
             self.isWishList = false
             heartImageView.image = UIImage(named: heartIconNoneSelect)
-            
-//            print("del--eteWishList")
             deleteWishList(sender.tag)
             
         } else {
