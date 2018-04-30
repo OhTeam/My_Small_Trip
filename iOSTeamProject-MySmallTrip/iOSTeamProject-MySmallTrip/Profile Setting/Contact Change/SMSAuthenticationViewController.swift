@@ -136,6 +136,7 @@ class SMSAuthenticationViewController: UIViewController {
         self.verifyButton = UIButton()
         self.verifyButton!.setTitle("인증하기", for: .normal)
         self.verifyButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        self.verifyButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         self.verifyButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
         self.verifyButton!.titleLabel!.textAlignment = .center
         self.verifyButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)

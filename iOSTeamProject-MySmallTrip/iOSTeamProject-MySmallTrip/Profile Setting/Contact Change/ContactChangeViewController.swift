@@ -103,6 +103,7 @@ class ContactChangeViewController: UIViewController {
         getAuthButton = UIButton()
         getAuthButton!.setTitle("문자로 인증코드 보내기", for: .normal)
         getAuthButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        getAuthButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         getAuthButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
         getAuthButton!.titleLabel!.textAlignment = .center
         getAuthButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
