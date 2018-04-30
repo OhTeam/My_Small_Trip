@@ -60,6 +60,12 @@ class WishListButton: UIButton {
     
     func checkWishList(_ sender: WishListButton) {
         let wishList = UserData.user.wishListPrimaryKeys
+        
+        // wishlist 개수가 0개일때 예외 처리
+        if wishList.count == 0 {
+            sender.isWishList = false
+        }
+        
         for pk in wishList {
             if pk == sender.tag {
                 self.isWishList = true
@@ -86,8 +92,6 @@ class WishListButton: UIButton {
         if self.isWishList {
             self.isWishList = false
             heartImageView.image = UIImage(named: heartIconNoneSelect)
-            
-//            print("del--eteWishList")
             deleteWishList(sender.tag)
             
         } else {
