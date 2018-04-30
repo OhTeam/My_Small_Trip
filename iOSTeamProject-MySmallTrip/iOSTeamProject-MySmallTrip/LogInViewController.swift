@@ -130,8 +130,10 @@ class LogInViewController: UIViewController {
         dismissImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let dismissButton = UIButton()
-        dismissButton.backgroundColor = .clear
         dismissButton.addTarget(self, action: #selector(dismissLogInVC(_:)), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDown)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOff(_:)), for: .touchDragExit)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDragEnter)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         
         dismissImgBtnView!.addSubview(dismissImageView)
@@ -216,6 +218,7 @@ class LogInViewController: UIViewController {
     private func setLogInButton() {
         logInButton = UIButton()
         logInButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logInButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         logInButton!.setTitle("LOG IN", for: .normal)
         logInButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         logInButton!.setTitleColor(.white, for: .normal)
@@ -459,6 +462,8 @@ class LogInViewController: UIViewController {
     
     // MARK: - Targets
     @objc private func dismissLogInVC(_ sender: UIButton) {
+        sender.tintColor = .clear
+        
         // to reduce time for keyboard to disappear
         if emailTextField?.isFirstResponder == true {
             emailTextField?.resignFirstResponder()
@@ -475,6 +480,16 @@ class LogInViewController: UIViewController {
 //        } else {
 //            self.presentingViewController?.dismiss(animated: true, completion: nil)
 //        }
+    }
+    
+    // MARK: Set highlighted button color white on with alpha 0.7
+    @objc func setHighlightedButtonOn(_ sender: UIButton) {
+        sender.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
+    }
+    
+    // MARK: Set highlighted button color off
+    @objc func setHighlightedButtonOff(_ sender: UIButton) {
+        sender.backgroundColor = .clear
     }
     
     @objc private func touchLogIn(_ sender: UIButton) {
