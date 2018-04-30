@@ -111,9 +111,12 @@ extension WishListViewController: UITableViewDataSource {
 extension WishListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("\n---------- [ wishList VC didSelect ] -----------\n")
+        
         // cell 선택했을 때, ProductDetailTableViewController로 이동
-        let storyBoard = UIStoryboard(name: text.storyBoard, bundle: nil)
-        let nextVC = storyBoard.instantiateViewController(withIdentifier: text.productDetailVC) as! ProductDetailTableViewController
+        let storyBoard = UIStoryboard(name: "Root", bundle: nil)
+        let nextVC = storyBoard.instantiateViewController(withIdentifier: "ProductDetailTableViewController") as! ProductDetailTableViewController
         
         let cityName = productList[indexPath.row].city.name
         let productPk = String(productList[indexPath.row].pk)
