@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FBSDKLoginKit
 
 class ProfileViewController: UIViewController {
     
@@ -191,6 +190,10 @@ class ProfileViewController: UIViewController {
         pfImgButton.layer.cornerRadius = 115/2
         pfImgButton.clipsToBounds = true
         pfImgButton.addTarget(self, action: #selector(changeUserProfileImage(_:)), for: .touchUpInside)
+        pfImgButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDown)
+        pfImgButton.addTarget(self, action: #selector(setHighlightedButtonOff(_:)), for: .touchDragExit)
+        pfImgButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDragEnter)
+        
         pfImgButton.translatesAutoresizingMaskIntoConstraints = false
         
         movingProfileSubview.addSubview(pfImgButton)
@@ -320,6 +323,7 @@ class ProfileViewController: UIViewController {
         logOutButton.setTitleColor(UIColor(displayP3Red: 255/255, green: 255/255, blue: 255/255, alpha: 1), for: .normal)
         logOutButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         logOutButton.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logOutButton.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         logOutButton.layer.cornerRadius = 10
         logOutButton.clipsToBounds = true
         logOutButton.addTarget(self, action: #selector(logOut(_:)), for: .touchUpInside)
@@ -403,15 +407,28 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Facebook Log Out
     private func logOutFacebook() {
-        let fbLoginManager = FBSDKLoginManager()
+        let fbLoginManager = ImportedLibraries.FacebookLogInManager()
         fbLoginManager.logOut()
     }
     
     // MARK: - Targets
+    
+    // MARK: Set highlighted button color white on with alpha 0.7
+    @objc func setHighlightedButtonOn(_ sender: UIButton) {
+        sender.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
+    }
+    
+    // MARK: Set highlighted button color off
+    @objc func setHighlightedButtonOff(_ sender: UIButton) {
+        sender.backgroundColor = .clear
+    }
+    
     // MARK: Function to change profile image
     @objc func changeUserProfileImage(_ sender: UIButton) {
         // needs to be modified
         print("Profile image button clicked")
+        
+        sender.backgroundColor = .clear
         
         let photoAlert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -442,7 +459,7 @@ class ProfileViewController: UIViewController {
             let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
             print(UserData.user.token ?? "Token is nil on Log Out")
-            importLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
+            ImportedLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
                 UserData.user.isLoggedIn = false // user data logged out
                 
                 print("logged out")
@@ -659,7 +676,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         print("***IMG: \(resizedImage)")
         
-        importLibraries.uploadOntoServer(multipartFormData: { (multipartFormData) in
+        ImportedLibraries.uploadOntoServer(multipartFormData: { (multipartFormData) in
             multipartFormData.append(data, withName: "img_profile", fileName: "profile.jpg", mimeType: "image/jpeg")
         }, usingThreshold: UInt64(), to: profileImgChangeLink, method: .patch, headers: header, encodingFailure: { (error) in
             print(error.localizedDescription)

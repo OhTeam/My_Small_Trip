@@ -130,8 +130,10 @@ class LogInViewController: UIViewController {
         dismissImageView.translatesAutoresizingMaskIntoConstraints = false
         
         let dismissButton = UIButton()
-        dismissButton.backgroundColor = .clear
         dismissButton.addTarget(self, action: #selector(dismissLogInVC(_:)), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDown)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOff(_:)), for: .touchDragExit)
+        dismissButton.addTarget(self, action: #selector(setHighlightedButtonOn(_:)), for: .touchDragEnter)
         dismissButton.translatesAutoresizingMaskIntoConstraints = false
         
         dismissImgBtnView!.addSubview(dismissImageView)
@@ -198,7 +200,7 @@ class LogInViewController: UIViewController {
         pwTextField!.delegate = self
         pwTextField!.tag = 2
         pwTextField!.placeholder = "Password"
-        pwTextField!.returnKeyType = .join
+        pwTextField!.returnKeyType = .continue
         pwTextField!.textAlignment = .left
         pwTextField!.textContentType = UITextContentType("")
         pwTextField!.textColor = UIColor(displayP3Red: 48/255, green: 48/255, blue: 48/255, alpha: 1)
@@ -216,6 +218,7 @@ class LogInViewController: UIViewController {
     private func setLogInButton() {
         logInButton = UIButton()
         logInButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
+        logInButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         logInButton!.setTitle("LOG IN", for: .normal)
         logInButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         logInButton!.setTitleColor(.white, for: .normal)
@@ -351,7 +354,7 @@ class LogInViewController: UIViewController {
         // temporary parameters for login process
         // let param: Parameters = ["username":"tmpUser@tmp.com", "password":"tmp12345"]
         
-        importLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(logInLink, method: .post, parameters: param, headers: nil, success: { (data, code) in
             if let userLoggedIn = try? JSONDecoder().decode(EmailLogIn.self, from: data) {
                 self.setUserData(userLoggedIn: userLoggedIn)
                 print("login succeeded")
@@ -418,7 +421,7 @@ class LogInViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization": "Token " + token]
         let wishListLink: String = "http://myrealtrip.hongsj.kr/reservation/wishlist/"
         
-        importLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
+        ImportedLibraries.connectionOfServerForJSONWith(wishListLink, method: .get, parameters: nil, headers: header, success: { (json, code) in
             if let datas = json as? [[String:Any]] {
                 for data in datas {
                     let pkInt = data["pk"] as! Int
@@ -458,6 +461,8 @@ class LogInViewController: UIViewController {
     
     // MARK: - Targets
     @objc private func dismissLogInVC(_ sender: UIButton) {
+        sender.tintColor = .clear
+        
         // to reduce time for keyboard to disappear
         if emailTextField?.isFirstResponder == true {
             emailTextField?.resignFirstResponder()
@@ -474,6 +479,16 @@ class LogInViewController: UIViewController {
         } else {
             self.presentingViewController?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    // MARK: Set highlighted button color white on with alpha 0.7
+    @objc func setHighlightedButtonOn(_ sender: UIButton) {
+        sender.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.7)
+    }
+    
+    // MARK: Set highlighted button color off
+    @objc func setHighlightedButtonOff(_ sender: UIButton) {
+        sender.backgroundColor = .clear
     }
     
     @objc private func touchLogIn(_ sender: UIButton) {

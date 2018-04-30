@@ -136,6 +136,7 @@ class SMSAuthenticationViewController: UIViewController {
         self.verifyButton = UIButton()
         self.verifyButton!.setTitle("인증하기", for: .normal)
         self.verifyButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        self.verifyButton!.setTitleColor(UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 0.3), for: .highlighted)
         self.verifyButton!.titleLabel!.font = UIFont.systemFont(ofSize: 16)
         self.verifyButton!.titleLabel!.textAlignment = .center
         self.verifyButton!.backgroundColor = UIColor(displayP3Red: 242/255, green: 92/255, blue: 98/255, alpha: 1)
@@ -243,7 +244,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber]
         
-        importLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(requestAuthNumLink, method: .post, parameters: param, headers: header, success: { (data, code) in
             
             inputTextField.resignFirstResponder()
             
@@ -282,7 +283,7 @@ class SMSAuthenticationViewController: UIViewController {
         let header: Dictionary<String, String> = ["Authorization":"Token " + (UserData.user.token ?? "")]
         let param: Dictionary<String, Any> = ["phone_number":phoneNumber, "certification_number":inputTextField.text!]
         
-        importLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
+        ImportedLibraries.connectionOfSeverForDataWith(changePhoneNumLink, method: .patch, parameters: param, headers: header, success: { (data, code) in
             
             UserData.user.setPhoneNumber(phoneNumber: phoneNumber)
             
