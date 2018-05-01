@@ -48,6 +48,7 @@ class ProductListViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        self.productListTableView.reloadData()
         
         guard let cityName = cityName else { return }
         cityNameLabel.text = cityName.removePlusCharacter(of: cityName.uppercased())
@@ -59,6 +60,7 @@ class ProductListViewController: UIViewController {
         
         
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

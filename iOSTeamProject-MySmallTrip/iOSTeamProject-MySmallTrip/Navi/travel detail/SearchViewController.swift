@@ -144,13 +144,16 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    
     // tableView didSelect - cell 선택했을 때, ProductDetailTableViewController로 이동
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("\n---------- [ SearchVC didSelect Row ] -----------\n")
         
         if productList == nil || productList?.count == 0 {
             print("do not select")
         } else {
-            
+            print("\n---------- [ else productList == nil || productList?.count == 0 ] -----------\n")
             let storyBoard = UIStoryboard(name: "Root", bundle: nil)
             let nextVC = storyBoard.instantiateViewController(withIdentifier: "ProductDetailTableViewController") as! ProductDetailTableViewController
             

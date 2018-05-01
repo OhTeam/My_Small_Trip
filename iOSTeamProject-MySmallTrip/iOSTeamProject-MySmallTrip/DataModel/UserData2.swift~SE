@@ -8,8 +8,8 @@
 
 import Foundation
 
-class UserData2 {
-//class UserData {
+//class UserData2 {
+class UserData {
 
     static var user: UserData = UserData()
     
