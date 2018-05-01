@@ -82,8 +82,9 @@ class ReservationViewController: UIViewController {
         fetchCalendarDate()
         
 //        print("reserveViewController: viewWillappear")
+        print(UserData.user.calendarDate)
         scheduleTextField.text = UserData.user.calendarDate
-        UserData.user.calendarDate = ""
+//        UserData.user.calendarDate = ""
         scheduleTextField.resignFirstResponder()
     }
     

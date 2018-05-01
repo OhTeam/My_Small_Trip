@@ -250,7 +250,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
             var day: String = cell.dateLabel.text!
             var year = String(currentYear)
             var reservationDateSelected: String = ""
-            if indexPath.item - Int(cell.dateLabel.text!)! == -1 {
+            if indexPath.item - Int(cell.dateLabel.text!)! == 1 {
                 reservationDateSelected += year
                 reservationDateSelected += "-04-"
                 if day.count == 1 {
@@ -269,7 +269,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
             var day: String = cell.dateLabel.text!
             var year = String(currentYear)
             var reservationDateSelected: String = ""
-            if indexPath.item - Int(cell.dateLabel.text!)! == 1 {
+            if indexPath.item - Int(cell.dateLabel.text!)! == 4 {
                 reservationDateSelected += year
                 reservationDateSelected += "-05-"
                 if day.count == 1 {
@@ -287,7 +287,7 @@ class CalendarViewController: UIViewController, UICollectionViewDataSource, UICo
             var day: String = cell.dateLabel.text!
             var year = String(currentYear)
             var reservationDateSelected: String = ""
-            if indexPath.item - Int(cell.dateLabel.text!)! == 4 {
+            if indexPath.item - Int(cell.dateLabel.text!)! == -1 {
                 reservationDateSelected += year
                 reservationDateSelected += "-06-"
                 if day.count == 1 {
