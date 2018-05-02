@@ -102,6 +102,8 @@ class ProductDetailTableViewController: UITableViewController {
         // 예약하기 버튼
         makeReserveBtn()
         wishListButtonLayout()
+        imageView.isUserInteractionEnabled = true
+//        imageView.isMultipleTouchEnabled = true
 
     }
     
