@@ -458,7 +458,7 @@ class ProfileViewController: UIViewController {
         } else {
             let logOutLink: String = "https://myrealtrip.hongsj.kr/logout/"
             let header = ["Authorization" : "Token " + (UserData.user.token ?? "")]
-            print(UserData.user.token ?? "Token is nil on Log Out")
+            
             ImportedLibraries.connectionOfSeverForDataWith(logOutLink, method: .get, parameters: nil, headers: header, success: { (data, code) in
                 UserData.user.isLoggedIn = false // user data logged out
                 
@@ -473,9 +473,8 @@ class ProfileViewController: UIViewController {
                  // dev
 
                 if self.tabBarController?.presentingViewController?.presentingViewController is SignUpViewController {
-                    
-                    // from Sign Up
-                    self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+                // from Sign Up
+                self.tabBarController?.presentingViewController?.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
                     
                 } else if self.tabBarController?.presentingViewController?.presentingViewController is RootViewController {
                     // from Log In
