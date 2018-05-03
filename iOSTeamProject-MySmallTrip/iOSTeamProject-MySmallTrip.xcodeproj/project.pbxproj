@@ -97,9 +97,9 @@
 		6F1130C8209AAEDC0069351A /* MainTab (Travel) */ = {
 			isa = PBXGroup;
 			children = (
-				6F775ECC2085AC13006437FC /* popular city */,
-				6F775ECD2085AC25006437FC /* travel list */,
-				6F3A75A12089E9DA004E2287 /* travel detail */,
+				6F775ECC2085AC13006437FC /* depth1. popular city */,
+				6F775ECD2085AC25006437FC /* depth2. travel list */,
+				6F3A75A12089E9DA004E2287 /* depth3. travel detail */,
 				6F775ED12085D9DA006437FC /* ReservationViewController.swift */,
 			);
 			path = "MainTab (Travel)";
@@ -113,13 +113,13 @@
 			path = SearchTab;
 			sourceTree = "<group>";
 		};
-		6F3A75A12089E9DA004E2287 /* travel detail */ = {
+		6F3A75A12089E9DA004E2287 /* depth3. travel detail */ = {
 			isa = PBXGroup;
 			children = (
 				6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */,
 				6F775ECE2085AC34006437FC /* travel detail cell */,
 			);
-			path = "travel detail";
+			path = "depth3. travel detail";
 			sourceTree = "<group>";
 		};
 		6F3A75A62089EA09004E2287 /* DataModel */ = {
@@ -142,23 +142,23 @@
 			path = WishListTab;
 			sourceTree = "<group>";
 		};
-		6F775ECC2085AC13006437FC /* popular city */ = {
+		6F775ECC2085AC13006437FC /* depth1. popular city */ = {
 			isa = PBXGroup;
 			children = (
 				6FBE2FD1207C9C4F00BEAD8F /* MainViewController.swift */,
 				6FBE300B207E564300BEAD8F /* PopularCityTableViewCell.swift */,
 			);
-			path = "popular city";
+			path = "depth1. popular city";
 			sourceTree = "<group>";
 		};
-		6F775ECD2085AC25006437FC /* travel list */ = {
+		6F775ECD2085AC25006437FC /* depth2. travel list */ = {
 			isa = PBXGroup;
 			children = (
 				6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */,
 				6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */,
 				6F970DCF207FAB2600827A10 /* travelCell.xib */,
 			);
-			path = "travel list";
+			path = "depth2. travel list";
 			sourceTree = "<group>";
 		};
 		6F775ECE2085AC34006437FC /* travel detail cell */ = {

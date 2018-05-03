@@ -8,6 +8,7 @@
 
 import Foundation
 
+// 나의 여행 (예약한 여행 / 취소한 여행)
 struct MyTrip: Codable {
     let pk: Int
     let travel_schedule: MyTripSchedule

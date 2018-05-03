@@ -70,7 +70,7 @@ class RootViewController: UIViewController {
     }
     
     
-    // YH
+    // YS
     private func setUserData(userLoggedIn: EmailLogIn) {
         UserData.user.isLoggedIn = true
         UserData.user.setToken(token: userLoggedIn.token)
@@ -125,19 +125,11 @@ extension RootViewController: FBSDKLoginButtonDelegate {
         } else {
             loginButton.readPermissions = ["public_profile, email"]
             fetchProfile()
-//            moveToMainVC()
         }
-        
-        // 읽기 권한 불러오기. 이게 제대로 안되는 것 같은..느낌인데..t.t..
-        // 읽기 권한 취소 / 거부하면 fail 되야함.
-        
-        // + 다른 아이디로 로그인하기가 있어야 할 것 같은데.......
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("\n---------- [ logout ] -----------\n")
-        
-        
     }
     
 //    @IBAction private func logoutFunc() {
