@@ -19,7 +19,6 @@
 		6F912959208FD36A0063C96A /* ScheduleDateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F912958208FD36A0063C96A /* ScheduleDateModel.swift */; };
 		6F9129792090AC320063C96A /* UserData2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9129782090AC320063C96A /* UserData2.swift */; };
 		6F91297D2090B2310063C96A /* MyTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F91297C2090B2310063C96A /* MyTripViewController.swift */; };
-		6F91297F2090C35B0063C96A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F91297E2090C35B0063C96A /* TableViewCell.swift */; };
 		6F9129812090DA060063C96A /* MyTripDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9129802090DA060063C96A /* MyTripDataModel.swift */; };
 		6F970DCB207F9CDD00827A10 /* ProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */; };
 		6F970DD0207FAB2600827A10 /* ProductListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */; };
@@ -56,7 +55,6 @@
 		6F912958208FD36A0063C96A /* ScheduleDateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDateModel.swift; sourceTree = "<group>"; };
 		6F9129782090AC320063C96A /* UserData2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData2.swift; sourceTree = "<group>"; };
 		6F91297C2090B2310063C96A /* MyTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripViewController.swift; sourceTree = "<group>"; };
-		6F91297E2090C35B0063C96A /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		6F9129802090DA060063C96A /* MyTripDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripDataModel.swift; sourceTree = "<group>"; };
 		6F970DCA207F9CDD00827A10 /* ProductListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewController.swift; sourceTree = "<group>"; };
 		6F970DCE207FAB2600827A10 /* ProductListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,13 +94,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F1130C8209AAEDC0069351A /* MainTab (Travel) */ = {
+			isa = PBXGroup;
+			children = (
+				6F775ECC2085AC13006437FC /* popular city */,
+				6F775ECD2085AC25006437FC /* travel list */,
+				6F3A75A12089E9DA004E2287 /* travel detail */,
+				6F775ED12085D9DA006437FC /* ReservationViewController.swift */,
+			);
+			path = "MainTab (Travel)";
+			sourceTree = "<group>";
+		};
+		6F1130C9209AAF090069351A /* SearchTab */ = {
+			isa = PBXGroup;
+			children = (
+				6F912956208ED5D10063C96A /* SearchViewController.swift */,
+			);
+			path = SearchTab;
+			sourceTree = "<group>";
+		};
 		6F3A75A12089E9DA004E2287 /* travel detail */ = {
 			isa = PBXGroup;
 			children = (
 				6F775EC62083DD85006437FC /* ProductDetailTableViewController.swift */,
 				6F775ECE2085AC34006437FC /* travel detail cell */,
-				6F775ED12085D9DA006437FC /* ReservationViewController.swift */,
-				6F912956208ED5D10063C96A /* SearchViewController.swift */,
 			);
 			path = "travel detail";
 			sourceTree = "<group>";
@@ -118,13 +133,13 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
-		6F3A75A72089EA2D004E2287 /* wishList */ = {
+		6F3A75A72089EA2D004E2287 /* WishListTab */ = {
 			isa = PBXGroup;
 			children = (
 				6F6E3697208705BF00657F41 /* WishListButton.swift */,
 				6F3A75A22089E9F6004E2287 /* WishListViewController.swift */,
 			);
-			path = wishList;
+			path = WishListTab;
 			sourceTree = "<group>";
 		};
 		6F775ECC2085AC13006437FC /* popular city */ = {
@@ -184,12 +199,14 @@
 				6FBE2FBB207C7DBB00BEAD8F /* SignUp.storyboard */,
 				6FBE2FBD207C7DC200BEAD8F /* Login.storyboard */,
 				6FBE2FBF207C7DD800BEAD8F /* Root.storyboard */,
-				6F91297E2090C35B0063C96A /* TableViewCell.swift */,
 				6FBE2FC9207C8EC100BEAD8F /* RootViewController.swift */,
 				6FBE2FC3207C8D7E00BEAD8F /* Extension.swift */,
 				6F3A75A62089EA09004E2287 /* DataModel */,
 				6FBE2FD3207C9CF100BEAD8F /* TabBar */,
 				6FBE2FD4207C9CFC00BEAD8F /* Navi */,
+				6F1130C8209AAEDC0069351A /* MainTab (Travel) */,
+				6F1130C9209AAF090069351A /* SearchTab */,
+				6F3A75A72089EA2D004E2287 /* WishListTab */,
 				6F91297C2090B2310063C96A /* MyTripViewController.swift */,
 				6FBE2FB0207C7D7D00BEAD8F /* Assets.xcassets */,
 				6FBE2FB2207C7D7D00BEAD8F /* LaunchScreen.storyboard */,
@@ -211,10 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				6FBE2FCF207C9C4D00BEAD8F /* MainNavigationController.swift */,
-				6F775ECC2085AC13006437FC /* popular city */,
-				6F775ECD2085AC25006437FC /* travel list */,
-				6F3A75A12089E9DA004E2287 /* travel detail */,
-				6F3A75A72089EA2D004E2287 /* wishList */,
 			);
 			path = Navi;
 			sourceTree = "<group>";
@@ -378,7 +391,6 @@
 				6FBE2FCA207C8EC100BEAD8F /* RootViewController.swift in Sources */,
 				6FBE2FAA207C7D7C00BEAD8F /* AppDelegate.swift in Sources */,
 				6F775ED22085D9DA006437FC /* ReservationViewController.swift in Sources */,
-				6F91297F2090C35B0063C96A /* TableViewCell.swift in Sources */,
 				6F775ECB2084627B006437FC /* TravelDescriptionCell.swift in Sources */,
 				6F970DCB207F9CDD00827A10 /* ProductListViewController.swift in Sources */,
 				6FBE2FD2207C9C5000BEAD8F /* MainViewController.swift in Sources */,
