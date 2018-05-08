@@ -282,7 +282,7 @@ class PWChangeViewController: UIViewController {
         guard verifyPW(),
             let firstPWTextField = firstPWTextField,
             let secondPWTextField = secondPWTextField,
-            let lowerFailureNotiLabel = lowerFailureNotiLabel,
+            let upperFailureNotiLabel = upperFailureNotiLabel,
             let movingHeightOfLowerFailureNotiLabel = movingHeightOfLowerFailureNotiLabel
             else { return }
         
@@ -313,7 +313,7 @@ class PWChangeViewController: UIViewController {
         }) { (error, code) in
             // token 유효성 잃었을 때 처리 방안
             self.notiString = "네트워크 오류입니다. 다시 시행해 주세요."
-            lowerFailureNotiLabel.isHidden = true
+            upperFailureNotiLabel.isHidden = false
             
             print(error.localizedDescription)
         }
