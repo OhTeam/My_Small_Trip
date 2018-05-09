@@ -42,7 +42,7 @@ class UserData {
     private var _profileImgData: Data? // Profile Image Data
     private var _wishListPrimaryKeys: Array<Int> = Array<Int>() // Wish List Primary Keys
     
-    private var userDic: Dictionary<String, String> = [:] // To save token on UserDefault
+    private var userDic: Dictionary<String, String?> = [:] // To save token on UserDefault
     
     var isLoggedIn: Bool {
         set {
