@@ -1,4 +1,5 @@
 # 마이스몰트립 (MySmallTrip)
+![scrennshot](https://github.com/OhTeam/My_Small_Trip/blob/master/Screenshot/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202018-05-09%20%EC%98%A4%ED%9B%84%207.15.33.png)
 - 사진 찍고 오는 여행 No! 발자국만 찍고 돌고 오는 여행 No! 진정한 여행이란? 현지를 느끼고 오는 것! 현지 여행의 모든 것을 담은 마이리얼트립의 작은 버전. My Small Trip 입니다.
 
 <br>
@@ -7,7 +8,6 @@
 1. About MySmallTrip
 2. About Team
 3. Tools
-4. Details
 
 <br>
 
@@ -39,8 +39,3 @@
 - 공통 : Git, Postman, Slack, Zeplin
 - 디자인 : Sketch 3
 - iOS : Xcode, Swift, CoCoaPod, Alamofire, Facebook SDK
-
-<br>
-
-## 4. Details
-![scrennshot](https://github.com/OhTeam/My_Small_Trip/blob/master/Screenshot/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202018-05-09%20%EC%98%A4%ED%9B%84%207.15.33.png)
