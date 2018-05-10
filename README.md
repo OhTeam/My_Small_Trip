@@ -33,7 +33,7 @@
 - iOS (3명)
     - 김용호 [(GitHub)](https://github.com/OhTeam/My_Small_Trip/tree/YH)
     - 박성은 [(GitHub)](https://github.com/OhTeam/My_Small_Trip/tree/SE)
-    - 최용석 [(GitHub)](https://github.com/OhTeam/My_Small_Trip/tree/YS)
+    - 최용석 [(GitHub)](./iOSTeamProject-MySmallTrip/readme/README_YS.md)
 
 <br>
 
