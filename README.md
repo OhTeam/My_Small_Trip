@@ -1,6 +1,8 @@
 # 마이스몰트립 (MySmallTrip)
 ![scrennshot](https://github.com/OhTeam/My_Small_Trip/blob/master/Screenshot/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202018-05-09%20%EC%98%A4%ED%9B%84%207.15.33.png)
-- 사진 찍고 오는 여행 No! 발자국만 찍고 돌고 오는 여행 No! 진정한 여행이란? 현지를 느끼고 오는 것! 현지 여행의 모든 것을 담은 마이리얼트립의 작은 버전. My Small Trip 입니다.
+> 사진 찍고 오는 여행 No!! 발자국만 찍고 돌고 오는 여행 No!!  
+> 진정한 여행이란? 현지를 느끼고 오는 것!!!  
+> 현지 여행의 모든 것을 담은 마이리얼트립의 작은 버전. My Small Trip 입니다.
 
 <br>
 
@@ -18,7 +20,7 @@
     - 2배속 : https://www.youtube.com/watch?v=bwWaEQzDF90
 
 - 마이리얼트립(현재 여행 중개 서비스)의 Small Version
-- 서비스의 핵심인 **"여행 상품 보여주기" + "예약"**에 집중. **UI/UX ReDesign**
+- 서비스의 핵심인 **여행 상품 보여주기 + 예약**에 집중. **UI/UX ReDesign**
 
 <br>
 
