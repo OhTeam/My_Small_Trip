@@ -4,27 +4,27 @@
 A part of OhTeam's project that has been done by Yongseok Choi 
 
 ## Contents
-1. [Launch and Root](#Launch\ and\ Root)  
-2. [Log In](#Log\ In)  
+1. [Launch and Root](#Launch-and-Root)  
+2. [Log In](#Log-In)  
 3. [Profile](#Profile)
-    - [Photo Change](#Profile\ Photo\ Change)
-    - [Contact Change](#Phone\ Number\ Change)
-    - [Password Change](#Password\ Change)
-    - [Log Out](#Log\ Out)
-4. [Service Center](#Service\ Center)  
+    - [Photo Change](#Profile-Photo-Change)
+    - [Contact Change](#Phone-Number-Change)
+    - [Password Change](#Password-Change)
+    - [Log Out](#Log-Out)
+4. [Service Center](#Service-Center)  
 
 ### Launch and Root
 <div align="center">
 <img src="./contents/LaunchScreen.png" alt="launch" "display:inline-block">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Root.png" alt="root" style="display:inline-block;border:1px solid">
+<img src="./contents/Root.png" alt="root" border="1" style="display:inline-block">
 </div>
 
 > Launch and Root
 
 ### Log In
 <div align="center">
-<img src="./contents/LogIn_Main.png" alt="login_main" style="display:inline-block;border:1px solid">
+<img src="./contents/LogIn_Main.png" alt="login_main" border="1" style="display:inline-block">
 </div>
 
 > Login Main
@@ -35,9 +35,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <br>
 
 <div align="center">
-<img src="./contents/LogIn_Wrong.png" alt="login_wrong" style="display:inline-block;border:1px solid">
+<img src="./contents/LogIn_Wrong.png" alt="login_wrong" border="1" style="display:inline-block">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/LogIn_Network_Error.png" alt="login_network_error" style="display:inline-block;border:1px solid">
+<img src="./contents/LogIn_Network_Error.png" alt="login_network_error" border="1" style="display:inline-block">
 </div>
 
 > Login Error
@@ -49,9 +49,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Profile
 <div align="center">
-<img src="./contents/Profile_Main.png" alt="profile_main" style="display:inline-block;border:1px solid">
+<img src="./contents/Profile_Main.png" alt="profile_main" border="1" style="display:inline-block">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Profile_Setting_Before.png" alt="profile_setting_before" style="display:inline-block;border:1px solid">
+<img src="./contents/Profile_Setting_Before.png" alt="profile_setting_before" border="1" style="display:inline-block">
 </div>
 
 > Profile
