@@ -8,6 +8,7 @@
 
 import Foundation
 
+// 예약하기 관련 - 스케쥴 정보
 struct TravelReservationInfo: Codable {
     let pk: Int
     let travelName: String

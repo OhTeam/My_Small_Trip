@@ -23,8 +23,10 @@ class ProductListTableViewCell: UITableViewCell {
     var productInfo: Travel? {
         didSet {
             travelName.text = productInfo!.name
+            
             let cityName = productInfo!.city.name.capitalized
             let nationality = productInfo!.city.nationality.capitalized
+            
             self.cityName.text = cityName.removePlusCharacter(of: cityName) + ", " + nationality.removePlusCharacter(of: nationality)
             
             if let price = productInfo?.price {
