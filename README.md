@@ -32,7 +32,7 @@
 - BackEnd (3명) : 유가희, 홍석재 [(GitHub)](https://github.com/OhTeam/Backend)
 - iOS (3명)
     - 김용호 [(GitHub)](https://github.com/OhTeam/My_Small_Trip/tree/YH)
-    - 박성은 [(GitHub)](https://github.com/OhTeam/My_Small_Trip/tree/SE)
+    - 박성은 [(GitHub)](./readme/README_SE.md)
     - 최용석 [(GitHub)](./iOSTeamProject-MySmallTrip/readme/README_YS.md)
 
 <br>
