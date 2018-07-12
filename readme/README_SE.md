@@ -68,3 +68,8 @@
 
 ![Calendar2](https://github.com/OhTeam/My_Small_Trip/blob/SE/Screenshot/SE/calendar2.png)
 
+
+## 2. Review
+### a.
+### b.
+### c.
