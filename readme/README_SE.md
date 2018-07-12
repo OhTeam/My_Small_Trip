@@ -4,16 +4,17 @@
 <br>
 
 ## Contents
-1. [My Rule](my-rule)   
+1. [My Rule](#my-rule)   
     a. 기획  
     b. 디자인   
     c. 개발  
     d. 일정관리  
 
-2. [Review](review)  
+2. [Review](#review)  
     a. 배운점  
     b. 아쉬웠던 점  
     c. 보완할 점  
+3. [Contact](#contact)
 
 <br>
 
@@ -87,6 +88,17 @@
 <br>
 
 ## Review
-### a.
-### b.
-### c.
+### a. 배운점
+
+
+### b. 아쉬웠던점
+
+
+### c. 보완할점
+
+
+<br>
+
+## Contact
+- phone: +82 10.5835.0602
+- mail: p.ssungnni@gmail.com
