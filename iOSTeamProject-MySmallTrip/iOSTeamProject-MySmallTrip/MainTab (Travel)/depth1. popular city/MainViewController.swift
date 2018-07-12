@@ -20,7 +20,10 @@ class MainViewController: UIViewController {
         popularCityTableView.delegate = self
         popularCityTableView.dataSource = self
         
+        // 코드로 변경해 줘야 스크롤 바운스 할 때도 지정한 배경컬러로 나옴.
+        // 스토리보드로 변경하면 소용 무. 로드되는 시점차이 때문인 것 같긴한데 정확한 이유는 모르겠음..
         popularCityTableView.backgroundColor = UIColor.Custom.backgroundColor
+        
         fetchCityData()
     }
     
@@ -89,7 +92,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let storyBoard = UIStoryboard(name: "Root", bundle: nil)
         let nextVC = storyBoard.instantiateViewController(withIdentifier: "ProductListViewController") as! ProductListViewController
         
-        // 선택한 도시 이름 next VC에 전달
+        // 선택한 도시 이름 next VC에 전달 (url 용도)
         nextVC.cityName = cities[indexPath.row].name
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

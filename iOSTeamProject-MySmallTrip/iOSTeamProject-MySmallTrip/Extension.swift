@@ -57,7 +57,6 @@ extension String {
             returnResult.insert(",", at: commaIndex)
             comma -= 3
         }
-
         return "₩ " + returnResult
     }
     
