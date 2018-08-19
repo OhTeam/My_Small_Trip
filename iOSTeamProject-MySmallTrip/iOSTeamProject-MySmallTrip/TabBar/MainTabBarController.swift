@@ -53,7 +53,6 @@ class MainTabBarController: UITabBarController {
         barView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(barView)
         
-        
         // autoLayout
         safeGuide = self.view.safeAreaLayoutGuide
         barView.heightAnchor.constraint(equalToConstant: 49).isActive = true
@@ -61,7 +60,6 @@ class MainTabBarController: UITabBarController {
         barView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor).isActive = true
         barView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor).isActive = true
         barView.trailingAnchor.constraint(equalTo: safeGuide!.trailingAnchor).isActive = true
-    
     }
     
     
