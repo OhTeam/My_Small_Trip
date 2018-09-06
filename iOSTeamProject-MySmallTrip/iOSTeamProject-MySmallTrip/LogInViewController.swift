@@ -380,7 +380,8 @@ class LogInViewController: UIViewController {
                 self.present(mainTabBarVC, animated: true)
             }
         }) { (error, code) in
-            print(error.localizedDescription)
+            print("ERROR :: \(error.localizedDescription)")
+            print(code)
             
             if let code = code {
                 switch code {
@@ -393,7 +394,7 @@ class LogInViewController: UIViewController {
                 }
             } else {
                 // TODO: Check real problem later
-                self.logInFailureNoti!.text = "네트워크 오류로 확인이 필요합니다. 다시 시도해 주세요."
+                self.logInFailureNoti!.text = "네트워크 혹은 서버 오류로 의심됩니다. 확인해 주세요."
                 self.notifyWrongLogInInfo(borderColorRed: false)
             }
         }
