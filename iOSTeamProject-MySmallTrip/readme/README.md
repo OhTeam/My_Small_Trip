@@ -20,7 +20,7 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <kbd><img src="./content/Root.png" alt="root"></kbd>
 </div>
 
-> ```Launch and Root```  
+> Launch and Root  
 > On root view user can log into app with 2 ways. The first one is using an email address and the another one is facebook account.  
 
 ```swift
@@ -250,7 +250,7 @@ func setToken(token: String?) {
 </div>
 
 > Login Error  
-> If user types a wrong information on the email or pw box, this app notifies it.
+> If user types a wrong information on the email or pw box, this app notifies it. And some errors related to network will also show users error notifications.
 
 <br>
 <br>
@@ -535,7 +535,7 @@ class Password {
 <kbd><img src="./content/Logout_Network_Error.png" alt="logout_network_error"></kbd>
 </div>
 
-> Log Out 
+> Log Out   
 > If some problem happens like network error, user can see this notification. Whatever the app must be logged out.
 
 <br>
