@@ -58,9 +58,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Profile Photo Change
 <div align="center">
-<img src="./contents/Profile_Photo_Alert.png" alt="profile_photo_alert" style="border: 1 solid black; display:inline-block">
+<img src="./contents/Profile_Photo_Alert.png" alt="profile_photo_alert">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Profile_Photo_After.png" alt="profile_photo_after" style="border: 1 solid black; display:inline-block">
+<img src="./contents/Profile_Photo_After.png" alt="profile_photo_after">
 </div>
 
 > Profile Photo Change  
