@@ -20,7 +20,14 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <kbd><img src="./content/Root.png" alt="root"></kbd>
 </div>
 
-> Launch and Root
+> ```Launch and Root```  
+> On root view user can log into app with 2 ways. The first one is using an email address and the another one is facebook account.  
+> In AppDelegate.swit 
+
+<br>
+<br>
+<br>
+<br>
 
 ### Log In
 <div align="center">
