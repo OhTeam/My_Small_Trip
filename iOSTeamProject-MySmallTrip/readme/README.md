@@ -15,16 +15,16 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Launch and Root
 <div align="center">
-<img src="./content/LaunchScreen.png" alt="launch">
+<kbd><img src="./content/LaunchScreen.png" alt="launch"></kbd>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./content/Root.png" alt="root" style="border: 1px solid black">
+<kbd><img src="./content/Root.png" alt="root"></kbd>
 </div>
 
 > Launch and Root
 
 ### Log In
 <div align="center">
-<img src="./content/LogIn_Main.png" alt="login_main">
+<kbd><img src="./content/LogIn_Main.png" alt="login_main"></kbd>
 </div>
 
 > Login Main
@@ -35,9 +35,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <br>
 
 <div align="center">
-<img src="./content/LogIn_Wrong.png" alt="login_wrong">
+<kbd><img src="./content/LogIn_Wrong.png" alt="login_wrong"></kbd>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./content/LogIn_Network_Error.png" alt="login_network_error">
+<kbd><img src="./content/LogIn_Network_Error.png" alt="login_network_error"></kbd>
 </div>
 
 > Login Error
@@ -49,18 +49,18 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Profile
 <div align="center">
-<img src="./content/Profile_Main.png" alt="profile_main">
+<kbd><img src="./content/Profile_Main.png" alt="profile_main"></kbd>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./content/Profile_Setting_Before.png" alt="profile_setting_before">
+<kbd><img src="./content/Profile_Setting_Before.png" alt="profile_setting_before"></kbd>
 </div>
 
 > Profile  
 
 ### Profile Photo Change
 <div align="center">
-<img src="./content/Profile_Photo_Alert.png" alt="profile_photo_alert">
+<kbd><img src="./content/Profile_Photo_Alert.png" alt="profile_photo_alert"></kbd>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./content/Profile_Photo_After.png" alt="profile_photo_after">
+<kbd><img src="./content/Profile_Photo_After.png" alt="profile_photo_after"></kbd>
 </div>
 
 > Profile Photo Change  
