@@ -56,6 +56,11 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 > Profile  
 
+<br>
+<br>
+<br>
+<br>
+
 ### Profile Photo Change
 <div align="center">
 <kbd><img src="./content/Profile_Photo_Alert.png" alt="profile_photo_alert"></kbd>
@@ -63,13 +68,86 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <kbd><img src="./content/Profile_Photo_After.png" alt="profile_photo_after"></kbd>
 </div>
 
+<div align="center">
+<kbd><img src="./content/Profile_Photo_Network_Error.png" alt="profile_photo_network_error"></kbd>
+</div>
+
 > Profile Photo Change  
+> test  
+
+<br>
+<br>
+<br>
+<br>
 
 ### Phone Number Change
+<div align="center">
+<kbd><img src="./content/Contact_Main.png" alt="profile_photo_network_error"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Contact_Send_Auth1.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Contact_AuthNum1.png" alt="profile_photo_after"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Contact_Send_Auth2.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Contact_AuthNum2.png" alt="profile_photo_after"></kbd>
+</div>
+
+> Phone Number Change  
+
+<br>
+<br>
+<br>
+<br>
 
 ### Password Change
+<div align="center">
+<kbd><img src="./content/Password_Main.png" alt="profile_photo_network_error"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Password_Verify_AllBlank.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Password_Verify_NotSame.png" alt="profile_photo_after"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Password_Verify_8Char.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Password_Verify_Blank.png" alt="profile_photo_after"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Password_Verify_OnlyNumber.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Password_Verify_UpperCase.png" alt="profile_photo_after"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Password_Verify_LowerCase.png" alt="profile_photo_alert"></kbd>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<kbd><img src="./content/Password_Verify_NoSpecial.png" alt="profile_photo_after"></kbd>
+</div>
+<div align="center">
+<kbd><img src="./content/Password_Verify_NoNumber.png" alt="profile_photo_network_error"></kbd>
+</div>
+
+> Password Change  
+
+<br>
+<br>
+<br>
+<br>
 
 ### Log Out
+<div align="center">
+<kbd><img src="./content/Logout_Network_Error.png" alt="profile_photo_network_error"></kbd>
+</div>
+
+> Log Out  
+
+<br>
+<br>
+<br>
+<br>
 
 ## Source Files
 > [Yongseok Choi Part](https://github.com/OhTeam/My_Small_Trip/tree/YS)  
