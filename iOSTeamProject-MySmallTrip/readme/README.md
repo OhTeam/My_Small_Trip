@@ -15,16 +15,16 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Launch and Root
 <div align="center">
-<img src="./contents/LaunchScreen.png" alt="launch" "display:inline-block">
+<img src="./content/LaunchScreen.png" alt="launch">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Root.png" alt="root" border="1" style="display:inline-block">
+<img src="./content/Root.png" alt="root">
 </div>
 
 > Launch and Root
 
 ### Log In
 <div align="center">
-<img src="./contents/LogIn_Main.png" alt="login_main" border="1" style="display:inline-block">
+<img src="./content/LogIn_Main.png" alt="login_main">
 </div>
 
 > Login Main
@@ -35,9 +35,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <br>
 
 <div align="center">
-<img src="./contents/LogIn_Wrong.png" alt="login_wrong" border="1" style="display:inline-block">
+<img src="./content/LogIn_Wrong.png" alt="login_wrong">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/LogIn_Network_Error.png" alt="login_network_error" border="1" style="display:inline-block">
+<img src="./content/LogIn_Network_Error.png" alt="login_network_error">
 </div>
 
 > Login Error
@@ -49,18 +49,18 @@ A part of OhTeam's project that has been done by Yongseok Choi
 
 ### Profile
 <div align="center">
-<img src="./contents/Profile_Main.png" alt="profile_main" border="1" style="display:inline-block">
+<img src="./content/Profile_Main.png" alt="profile_main">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Profile_Setting_Before.png" alt="profile_setting_before" border="1" style="display:inline-block">
+<img src="./content/Profile_Setting_Before.png" alt="profile_setting_before">
 </div>
 
 > Profile  
 
 ### Profile Photo Change
 <div align="center">
-<img src="./contents/Profile_Photo_Alert.png" alt="profile_photo_alert">
+<img src="./content/Profile_Photo_Alert.png" alt="profile_photo_alert">
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./contents/Profile_Photo_After.png" alt="profile_photo_after">
+<img src="./content/Profile_Photo_After.png" alt="profile_photo_after">
 </div>
 
 > Profile Photo Change  
