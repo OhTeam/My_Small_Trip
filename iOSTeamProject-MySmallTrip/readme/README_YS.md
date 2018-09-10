@@ -4,14 +4,14 @@
 A part of OhTeam's project that has been done by Yongseok Choi 
 
 ## Contents
-1. [Launch and Root](#Launch-and-Root)  
-2. [Log In](#Log-In)  
-3. [Profile](#Profile)
-    - [Photo Change](#Profile-Photo-Change)
-    - [Contact Change](#Phone-Number-Change)
-    - [Password Change](#Password-Change)
-    - [Log Out](#Log-Out)
-4. [Service Center](#Service-Center)  
+1. [Launch and Root](#launch-and-root)  
+2. [Log In](#log-in)  
+3. [Profile](#profile)
+    - [Photo Change](#profile-photo-change)
+    - [Contact Change](#phone-number-change)
+    - [Password Change](#password-change)
+    - [Log Out](#log-out)
+4. [Service Center](#service-center)  
 
 ### Launch and Root
 <div align="center">
