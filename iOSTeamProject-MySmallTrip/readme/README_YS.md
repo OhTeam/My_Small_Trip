@@ -54,9 +54,16 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <img src="./contents/Profile_Setting_Before.png" alt="profile_setting_before" border="1" style="display:inline-block">
 </div>
 
-> Profile
+> Profile  
 
 ### Profile Photo Change
+<div align="center">
+<img src="./contents/Profile_Photo_Alert.png" alt="profile_photo_alert" style="border 1 solid black;display:inline-block">
+&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="./contents/Profile_Photo_After.png" alt="profile_photo_after" style="border 1 solid black;display:inline-block">
+</div>
+
+> Profile Photo Change  
 
 ### Phone Number Change
 
