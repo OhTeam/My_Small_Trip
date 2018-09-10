@@ -17,7 +17,7 @@ A part of OhTeam's project that has been done by Yongseok Choi
 <div align="center">
 <img src="./content/LaunchScreen.png" alt="launch">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./content/Root.png" alt="root">
+<img src="./content/Root.png" alt="root" style="border: 1px solid black">
 </div>
 
 > Launch and Root
