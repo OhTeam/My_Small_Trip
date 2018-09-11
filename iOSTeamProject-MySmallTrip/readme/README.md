@@ -90,8 +90,8 @@ A part of OhTeam's project that has been done by Yongseok Choi
         }
     }
 ```
-> Needs to import external libraries like Facebook and Alamofire in every file if the code which is in the libraries are used. It is very simple to use the code, just import the libraries in every source file where necessary but if then the speed to read code when app is run must get slow. So the libraries needed to gather in the same file as a internal libraries in order to make speed up.  
-> In this project Facebook and Alamofire libraries is imported so these external libraries have been gathered in the one file.  
+> Needs to import external libraries like Facebook and Alamofire in every file if the code which is in the libraries are used. It is very simple to use the code, just import the libraries in every source file where necessary but if then the speed to read code when app launches must get slow. So the libraries needed to gather in the same file as a internal libraries in order to make speed up.  
+> In this project Facebook and Alamofire libraries are imported so these external libraries have been gathered in the one file.  
 ```swift
 import Foundation
 import Alamofire
@@ -184,7 +184,7 @@ protocol FacebookLogInBtnDelegate: FBSDKLoginButtonDelegate {
 }
 ```
 
-> If the app was successfully logged in before, automatically the app will be logged in when users touch the app even though app is terminated due to this code.
+> If the app was successfully logged in before, automatically the app will be logged in when users touch the app due to this following code even though app is terminated.
 
 ```swift
 // in UserData
@@ -284,7 +284,7 @@ func setToken(token: String?) {
 
 > Profile Photo Change  
 > User can change their profile with any photo which they want using camera and album in iPhone as well.  
-> If the network is in error (server or network error), the profile photo cannot be changed.  
+> If the network has a problem (such as server or network error), the profile photo cannot be changed.  
 
 <br>
 <br>
@@ -343,7 +343,7 @@ func setToken(token: String?) {
 </div>
 
 > Password Change  
-> If users want to change the pw after login to app, they should pass 8 conditions as follows.  
+> If users want to change the password after login to app, they should pass 9 conditions as follows.  
 
 ```swift
 // MARK: - Verify Password
