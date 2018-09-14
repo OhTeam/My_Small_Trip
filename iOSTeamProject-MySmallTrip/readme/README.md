@@ -197,35 +197,35 @@ if FBSDKAccessToken.current() != nil {
 }
 
 // MARK: Set UserData at Logging In - Eamil
-    private func setUserData(userLoggedIn: User) {
-        UserData.user.isLoggedIn = true
-        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.primaryKey)
-        UserData.user.setUserName(userName: userLoggedIn.userName)
-        UserData.user.setEmail(email: userLoggedIn.email)
-        UserData.user.setFirstName(firstName: userLoggedIn.firstName)
-        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.phoneNumber)
-        UserData.user.setImgProfile(imgProfile: userLoggedIn.imgProfile)
-        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.isFacebookUser)
-        
-        // Load Wish List
-        self.loadWishList()
-    }
+private func setUserData(userLoggedIn: User) {
+    UserData.user.isLoggedIn = true
+    UserData.user.setPrimaryKey(primaryKey: userLoggedIn.primaryKey)
+    UserData.user.setUserName(userName: userLoggedIn.userName)
+    UserData.user.setEmail(email: userLoggedIn.email)
+    UserData.user.setFirstName(firstName: userLoggedIn.firstName)
+    UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.phoneNumber)
+    UserData.user.setImgProfile(imgProfile: userLoggedIn.imgProfile)
+    UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.isFacebookUser)
     
-    // MARK: Set UserData at Logging In - Facebook
-    private func setUserData(userLoggedIn: EmailLogIn) {
-        UserData.user.isLoggedIn = true
-        UserData.user.setToken(token: userLoggedIn.token)
-        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
-        UserData.user.setUserName(userName: userLoggedIn.user.userName)
-        UserData.user.setEmail(email: userLoggedIn.user.email)
-        UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
-        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
-        UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
-        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
-        
-        // Load Wish List
-        self.loadWishList()
-    }
+    // Load Wish List
+    self.loadWishList()
+}
+    
+// MARK: Set UserData at Logging In - Facebook
+private func setUserData(userLoggedIn: EmailLogIn) {
+    UserData.user.isLoggedIn = true
+    UserData.user.setToken(token: userLoggedIn.token)
+    UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
+    UserData.user.setUserName(userName: userLoggedIn.user.userName)
+    UserData.user.setEmail(email: userLoggedIn.user.email)
+    UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
+    UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
+    UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
+    UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+    
+    // Load Wish List
+    self.loadWishList()
+}
 
 /* in UserData */
 var isLoggedIn: Bool {
@@ -370,7 +370,7 @@ private func setLayout() {
 </div>
 
 > Login Error  
-> If user types a wrong information on the email or pw box, this app notifies it. And some errors related to network will also show users error notifications.
+> If user types a wrong information on the email or password box, this app notifies it. And some errors related to network will also show users error notifications.
 
 <br>
 <br>
