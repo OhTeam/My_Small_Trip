@@ -276,7 +276,87 @@ func setToken(token: String?) {
 <kbd><img src="./content/LogIn_Main.png" alt="login_main"></kbd>
 </div>
 
-> Login Main
+> Login Main  
+> This view is made based on Auto Layout and all views by Yongseok Choi in this app are also made in the same way. See the layout code of this view below.
+
+```swift
+// Set layout components
+private func setLayout() {
+    guard let basicView = basicView,
+        let logInFailureNoti = logInFailureNoti,
+        let dismissImgBtnView = dismissImgBtnView,
+        let titleLabel = self.titleLabel,
+        let upperDesLabel = self.upperDesLabel,
+        let emailTextField = self.emailTextField,
+        let pwTextField = self.pwTextField,
+        let logInButton = self.logInButton,
+        let lowerDesLabel = self.lowerDesLabel
+        else { return }
+    
+    safeGuide = self.view.safeAreaLayoutGuide
+    
+    // Basic View
+    // basicView.heightAnchor.constraint(equalTo: safeGuide!.heightAnchor).isActive = true
+    basicView.widthAnchor.constraint(equalTo: safeGuide!.widthAnchor).isActive = true
+    
+    // textFieldPositionConstraint = basicView.centerYAnchor.constraint(equalTo: safeGuide!.centerYAnchor)
+    // textFieldPositionConstraint!.isActive = true
+    
+    basicView.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+    basicView.topAnchor.constraint(equalTo: upperDesLabel.bottomAnchor).isActive = true
+    
+    textFieldPositionConstraint = basicView.bottomAnchor.constraint(equalTo: safeGuide!.bottomAnchor)
+    textFieldPositionConstraint?.isActive = true
+    
+    // LogIn Failure Notification Label
+    logInFailureNoti.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    logInFailureNoti.widthAnchor.constraint(equalToConstant: 312).isActive = true
+    logInFailureNoti.centerXAnchor.constraint(equalTo: safeGuide!.centerXAnchor).isActive = true
+    logInFailureNoti.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 156).isActive = true
+    
+    // Dismiss Image-Button View
+    dismissImgBtnView.heightAnchor.constraint(equalToConstant: 16).isActive = true
+    dismissImgBtnView.widthAnchor.constraint(equalToConstant: 18).isActive = true
+    dismissImgBtnView.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 16).isActive = true
+    dismissImgBtnView.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 15).isActive = true
+    
+    // Title Label
+    titleLabel.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    titleLabel.topAnchor.constraint(equalTo: safeGuide!.topAnchor, constant: 80).isActive = true
+    titleLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
+    safeGuide!.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 31).isActive = true
+    
+    // Uppder Description Label
+    upperDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    upperDesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+    upperDesLabel.leadingAnchor.constraint(equalTo: safeGuide!.leadingAnchor, constant: 32).isActive = true
+    safeGuide!.trailingAnchor.constraint(equalTo: upperDesLabel.trailingAnchor, constant: 31).isActive = true
+    
+    // Email TextField
+    emailTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    pwTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 16).isActive = true
+    emailTextField.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+    basicView.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor, constant: 24).isActive = true
+    
+    // Password TextField
+    pwTextField.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    logInButton.topAnchor.constraint(equalTo: pwTextField.bottomAnchor, constant: 24).isActive = true
+    pwTextField.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+    basicView.trailingAnchor.constraint(equalTo: pwTextField.trailingAnchor, constant: 24).isActive = true
+    
+    // Log In Button
+    logInButton.heightAnchor.constraint(equalToConstant: 48).isActive = true
+    lowerDesLabel.topAnchor.constraint(equalTo: logInButton.bottomAnchor, constant: 24).isActive = true
+    logInButton.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 24).isActive = true
+    basicView.trailingAnchor.constraint(equalTo: logInButton.trailingAnchor, constant: 24).isActive = true
+    
+    // Lower Description Label
+    lowerDesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+    basicView.bottomAnchor.constraint(equalTo: lowerDesLabel.bottomAnchor, constant: 99).isActive = true
+    lowerDesLabel.leadingAnchor.constraint(equalTo: basicView.leadingAnchor, constant: 16).isActive = true
+    basicView.trailingAnchor.constraint(equalTo: lowerDesLabel.trailingAnchor, constant: 15).isActive = true
+}
+```
 
 <br>
 <br>
