@@ -90,8 +90,9 @@ A part of OhTeam's project that has been done by Yongseok Choi
         }
     }
 ```
-> Needs to import external libraries like Facebook and Alamofire in every file if the code which is in the libraries are used. It is very simple to use the code, just import the libraries in every source file where necessary but if then the speed to read code when app launches must get slow. So the libraries needed to gather in the same file as a internal libraries in order to make speed up.  
+> Needs to import external libraries like Facebook and Alamofire in every file if the code in the libraries are used. It is very simple to use the code, just import the libraries in every source file where necessary but if then the speed to read code when an app launches must get slow. So the libraries needed to gather in the same file as a internal libraries in order to make speed up.  
 > In this project Facebook and Alamofire libraries are imported so these external libraries have been gathered in the one file.  
+
 ```swift
 import Foundation
 import Alamofire
@@ -187,7 +188,46 @@ protocol FacebookLogInBtnDelegate: FBSDKLoginButtonDelegate {
 > If the app was successfully logged in before, automatically the app will be logged in when users touch the app due to this following code even though app is terminated.
 
 ```swift
-// in UserData
+/* in RootViewController */
+if FBSDKAccessToken.current() != nil {
+    facebookLogIn()
+} else if let dic = UserDefaults.standard.object(forKey: "emailUser") as? Dictionary<String, String>,
+    let token = dic["token"], token != "" {
+    emailTokenLogIn()
+}
+
+// MARK: Set UserData at Logging In - Eamil
+    private func setUserData(userLoggedIn: User) {
+        UserData.user.isLoggedIn = true
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.userName)
+        UserData.user.setEmail(email: userLoggedIn.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
+    }
+    
+    // MARK: Set UserData at Logging In - Facebook
+    private func setUserData(userLoggedIn: EmailLogIn) {
+        UserData.user.isLoggedIn = true
+        UserData.user.setToken(token: userLoggedIn.token)
+        UserData.user.setPrimaryKey(primaryKey: userLoggedIn.user.primaryKey)
+        UserData.user.setUserName(userName: userLoggedIn.user.userName)
+        UserData.user.setEmail(email: userLoggedIn.user.email)
+        UserData.user.setFirstName(firstName: userLoggedIn.user.firstName)
+        UserData.user.setPhoneNumber(phoneNumber: userLoggedIn.user.phoneNumber)
+        UserData.user.setImgProfile(imgProfile: userLoggedIn.user.imgProfile)
+        UserData.user.setIsFacebookUser(isFacebookUser: userLoggedIn.user.isFacebookUser)
+        
+        // Load Wish List
+        self.loadWishList()
+    }
+
+/* in UserData */
 var isLoggedIn: Bool {
         set {
             self._isLoggedIn = newValue
