@@ -669,7 +669,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WXH5CKM9TX;
+				DEVELOPMENT_TEAM = X947N5A32A;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -688,7 +688,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WXH5CKM9TX;
+				DEVELOPMENT_TEAM = X947N5A32A;
 				INFOPLIST_FILE = "iOSTeamProject-MySmallTrip/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

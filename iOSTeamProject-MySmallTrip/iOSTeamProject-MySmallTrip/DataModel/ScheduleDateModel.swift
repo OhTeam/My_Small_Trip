@@ -17,7 +17,7 @@ struct TravelReservationInfo: Codable {
     let schedules: [Schedule]
     let user: User
     
-    enum CodingKeys: CodingKey, String {
+    enum CodingKeys: String, CodingKey {
         case pk
         case travelName = "name"
         case maxPeople = "max_people"
@@ -32,7 +32,7 @@ struct Schedule: Codable {
     let isPossible: Bool
     let reservedPeople: Int
     
-    enum CodingKeys: CodingKey, String {
+    enum CodingKeys: String, CodingKey {
         case date = "start_date"
         case isPossible = "is_possible"
         case reservedPeople = "reserved_people"
